@@ -14,6 +14,7 @@ import de from './locale/de'
 
 import App from './App'
 import router from './router'
+import store from './store'
 
 Vue.use(Vuetify, {
   lang: {
@@ -38,6 +39,7 @@ Vue.router = router
 
 Vue.use(VueAuth, {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
+  tokenDefaultName: 'auth_token',
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   loginData: {url: 'http://localhost/api/rpc/login', method: 'POST', redirect: '/', fetchUser: true},
@@ -52,6 +54,7 @@ Vue.use(VueAuth, {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
   head: {

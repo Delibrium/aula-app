@@ -165,8 +165,9 @@ export default {
     'termsOfUse': 'Nutzungsbedingungen ändern'
   },
   AdminPhaseTime: {
-    'phase.working': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
-    'phase.voting': 'Wie viele Tage soll die Abstimmungphase dauren?'
+    'phaseWorking': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
+    'phaseVoting': 'Wie viele Tage soll die Abstimmungphase dauren?',
+    'days': 'Tage'
   },
   AdminQuorum: {
     'school.quorum': 'Wie hoch soll das Quorum schulweit sein?',
