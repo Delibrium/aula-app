@@ -4,27 +4,33 @@
       <v-layout row wrap align-center>
         <v-flex d-flex xs12 sm12 pa-2>
 
-          <!-- Phase duration -->
           <v-expansion-panel>
-            <v-expansion-panel-content>
+
+            <v-expansion-panel-content v-if="$auth.user().role.indexOf('admin') >= 0">
+              <div slot="header">School<span v-if="hasSelectedSchool">: {{ $store.getters.schoolName }}</span></div>
+              <School></School>
+            </v-expansion-panel-content>
+
+          <!-- Phase duration -->
+            <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.phaseDuration')}}</div>
               <Phase></Phase>
             </v-expansion-panel-content>
 
           <!-- Quorum -->
-            <v-expansion-panel-content>
+            <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.quorum')}}</div>
               <Quorum></Quorum>
             </v-expansion-panel-content>
 
           <!-- Vacation mode -->
-            <v-expansion-panel-content>
+            <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.holidays')}}</div>
               <Vacation></Vacation>
             </v-expansion-panel-content>
 
           <!-- User and Groups -->
-            <v-expansion-panel-content>
+            <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.users')}}</div>
               <GroupsUsers></GroupsUsers>
             </v-expansion-panel-content>
@@ -41,6 +47,7 @@
 import Phase from '@/components/Phase'
 import Quorum from '@/components/Quorum'
 import Vacation from '@/components/Vacation'
+import School from '@/components/School'
 import GroupsUsers from '@/components/GroupsUsers'
 
 export default {
@@ -49,10 +56,15 @@ export default {
     Phase,
     Quorum,
     Vacation,
-    GroupsUsers
+    GroupsUsers,
+    School
   },
   data: () => ({
   }),
+
+  computed: {
+    hasSelectedSchool: function () { return this.$store.getters.selected_school >= 0 }
+  },
 
   props: {
   },

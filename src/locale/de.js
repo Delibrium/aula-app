@@ -170,9 +170,10 @@ export default {
     'days': 'Tage'
   },
   AdminQuorum: {
-    'school.quorum': 'Wie hoch soll das Quorum schulweit sein?',
-    'class.quorum': 'Wie hoch soll das Quorum klassenweit sein?',
-    'quorum.percent': '% aller Schülerinnen der Schule'
+    'school': 'Wie hoch soll das Quorum schulweit sein?',
+    'class': 'Wie hoch soll das Quorum klassenweit sein?',
+    'schoolPercent': '% aller Schülerinnen der Schule',
+    'classPercent': '% aller Schülerinnen der Klasse'
   },
   AdminHolidays: {
     'description': 'Im Ferienbetrieb sind die folgenden Änderungen zu beachten:',

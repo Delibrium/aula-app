@@ -1,7 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import axios from 'axios'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueAxios from 'vue-axios'
@@ -15,6 +14,7 @@ import de from './locale/de'
 import App from './App'
 import router from './router'
 import store from './store'
+import api from './api'
 
 Vue.use(Vuetify, {
   lang: {
@@ -22,7 +22,7 @@ Vue.use(Vuetify, {
     current: 'de'
   }
 })
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, api.service)
 Vue.config.productionTip = false
 Vue.use(VueCordova)
 Vue.use(VueHead)
@@ -46,7 +46,7 @@ Vue.use(VueAuth, {
   refreshData: {url: 'refresh', method: 'GET', enabled: false, interval: 0},
   fetchData: { url: 'http://localhost/api/rpc/me', enabled: true },
   parseUserData: function (data) {
-    return data[0].me
+    return data
   }
 })
 

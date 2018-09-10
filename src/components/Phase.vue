@@ -34,19 +34,36 @@
 
 <script>
 
+import { updateSchoolConfig } from '@/api/school'
+
 export default {
   name: 'Phase',
-  data: () => ({
-    phaseVoting: 1,
-    phaseWorking: 1
-  }),
+  data: function () {
+    return {
+    }
+  },
+
+  computed: {
+    phaseVoting: {
+      get () { return (this.$store.getters.schoolConfig.phaseVoting) ? this.$store.getters.schoolConfig.phaseVoting : 1 },
+      set (value) { this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: 'phaseVoting', value: value}) }
+    },
+    phaseWorking: {
+      get () { return (this.$store.getters.schoolConfig.phaseWorking) ? this.$store.getters.schoolConfig.phaseWorking : 1 },
+      set (value) { this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: 'phaseWorking', value: value}) }
+    }
+  },
 
   props: {
   },
 
   methods: {
     submit: function () {
-      console.log(this.phaseWorking, this.phaseVoting)
+      // this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: phase})
+      updateSchoolConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
+        .then(() => {
+          updateSchoolConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
+        })
     }
   }
 }

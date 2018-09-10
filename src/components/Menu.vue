@@ -1,6 +1,6 @@
 <template>
    <v-menu bottom right>
-     <v-btn
+     <v-btn v-if="$auth.check()"
        slot="activator"
        class="light-green"
      >
@@ -8,16 +8,23 @@
        User
      </v-btn>
 
-     <v-list>
+     <v-btn v-else
+       slot="activator"
+       class="light-green"
+     >
+     <v-icon>perm_identity</v-icon>
+       Login
+     </v-btn>
+
+
+     <v-list v-if="$auth.check()">
        <v-list-tile>
          Profile anzeigen
        </v-list-tile>
        <v-list-tile>
          Einstellungen
        </v-list-tile>
-       <v-list-tile v-if="$auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0">
-         <router-link to="/admin">Prozessverwaltung</router-link>
-       </v-list-tile>
+        <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">Prozessverwaltung</router-link>
         <v-list-tile @click="logout">
           Logout
        </v-list-tile>
@@ -35,7 +42,7 @@
     },
 
     mounted: function () {
-      console.log(this.$auth.user().role)
+      console.log(this.$auth.user())
     },
 
     methods: {
