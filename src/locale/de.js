@@ -11,7 +11,7 @@ export default {
     'impressum': 'Impressum'
   },
   Menu: {
-    'profile.view': 'Profil anzeigen',
+    'profileView': 'Profil anzeigen',
     'settings': 'Einstellungen',
     'administration': 'Prozessverwaltung',
     'logout': 'Logout'

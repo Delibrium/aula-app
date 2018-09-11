@@ -46,6 +46,7 @@ Vue.use(VueAuth, {
   refreshData: {url: 'refresh', method: 'GET', enabled: false, interval: 0},
   fetchData: { url: 'http://localhost/api/rpc/me', enabled: true },
   parseUserData: function (data) {
+    store.commit('SET_USER', data)
     return data
   }
 })

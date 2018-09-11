@@ -18,9 +18,7 @@
 
 
      <v-list v-if="$auth.check()">
-       <v-list-tile>
-         Profile anzeigen
-       </v-list-tile>
+       <router-link  tag="v-list-tile" :to="`/user/${$store.getters.userId}`">{{ $vuetify.t('$vuetify.Menu.profileView') }}</router-link>
        <v-list-tile>
          Einstellungen
        </v-list-tile>

@@ -49,12 +49,13 @@
 
     methods: {
       login: function () {
-        var redirect = this.$auth.redirect()
+        // var redirect = this.$auth.redirect()
         this.$auth.login({
           data: this.data.body,
-          redirect: { name: redirect ? redirect.from.name : '/' },
+          redirect: { name: 'IdeaSpaces' },
           fetchUser: true
         }).then((res) => {
+          this.$store.commit('SET_USER', res.data.data)
           this.$auth.user(res.data.data)
         }, (res) => {
           console.log('Error on Login')
