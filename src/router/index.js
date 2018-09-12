@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import IdeaSpaces from '@/components/IdeaSpaces'
+import IdeasSpaces from '@/components/IdeasSpaces'
 import Admin from '@/components/Admin'
 import Login from '@/components/Login'
 import Ideas from '@/components/Ideas'
 import Profile from '@/components/Profile'
+import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'IdeaSpaces',
-      component: IdeaSpaces,
+      name: 'IdeasSpaces',
+      component: IdeasSpaces,
       meta: { auth: true }
     },
     {
@@ -43,3 +44,18 @@ export default new Router({
 
   ]
 })
+
+router.beforeResolve((to, from, next) => {
+  var selectedSchool = store.getters.selected_school
+  if (to.path === '/admin') {
+    next()
+  }
+  console.log('FROM', from)
+  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.user.role.indexOf('admin') >= 0)) {
+    next({path: '/admin'})
+  } else {
+    next()
+  }
+})
+
+export default router
