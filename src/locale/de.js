@@ -92,9 +92,10 @@ export default {
   },
   UserProfile: {
     'delegate.your.vote': 'Für {0} Schule beauftragen',
+    'delegates': 'Deine Beauftragung für Schule',
     'remove.delegation': 'Beauftragung für {0} entziehen',
     'report': 'Melden',
-    'edit.profile': 'Profil bearbeiten',
+    'edit': 'Profil bearbeiten',
     'tab.supported.ideas': 'Erstellte Ideen',
     'tab.delegate.for': 'Für wen stimme ich ab?',
     'tab.my.delegate': 'Wer stimmt für mich ab?',
