@@ -35,13 +35,15 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
 
 <script>
 
+import { getIdeas } from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
 
 export default {
   name: 'Ideas',
   components: { Filters },
   data: () => ({
-    tab: 0
+    tab: 0,
+    ideas: []
   }),
 
   props: {
@@ -49,6 +51,10 @@ export default {
   },
 
   beforeMount: function () {
+    getIdeas(this.$store.getters.selected_school, this.$route.params['spaceId']).then((res) => {
+      console.log(res.data)
+      this.ideas = res.data
+    })
   },
 
   methods: {

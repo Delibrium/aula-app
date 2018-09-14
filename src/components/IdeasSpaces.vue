@@ -27,7 +27,7 @@
             </div>
             <v-card-title primary-title>
               <div>
-                <router-link :to="`/space/${space.title}/ideas`"><h3 class="headline mb-0">{{ space.title }}</h3></router-link>
+                <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }"><h3 class="headline mb-0">{{ space.title }}</h3></router-link>
               </div>
             </v-card-title>
           </v-card>
@@ -40,7 +40,7 @@
 
 <script>
 
-import { getIdeas } from '@/api/ideaSpace'
+import { getIdeasSpaces } from '@/api/ideaSpace'
 
 export default {
   name: 'IdeaSpaces',
@@ -53,7 +53,7 @@ export default {
   },
 
   beforeMount: function () {
-    getIdeas(this.$store.getters.selected_school).then((res) => {
+    getIdeasSpaces(this.$store.getters.selected_school).then((res) => {
       this.idea_space = res.data
     })
   },
