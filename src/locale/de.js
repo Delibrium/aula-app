@@ -28,12 +28,12 @@ export default {
     'user.search': 'Nutzer suchen'
   },
   Space: {
-    'wild.ideas': 'Wilde Ideen der',
-    'idea.topics': 'Themen auf dem Tisch der',
+    'wildIdeas': 'Wilde Ideen der',
+    'ideaTopics': 'Themen auf dem Tisch der',
     'wild.ideas.title': 'Wilde Ideen',
     'ask.ideas': 'Was soll sich verändern?',
     'ask.ideas.description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
-    'new.idea': 'Neue Idee',
+    'newIdea': 'Neue Idee',
     'idea.filters': 'Filtere nach Kategorie',
     'all.ideas': 'Alle Kategorien',
     'search.idea': 'Suchen',

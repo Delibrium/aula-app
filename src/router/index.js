@@ -4,6 +4,7 @@ import IdeasSpaces from '@/components/IdeasSpaces'
 import Admin from '@/components/Admin'
 import Login from '@/components/Login'
 import Ideas from '@/components/Ideas'
+import IdeaEdit from '@/components/IdeaEdit'
 import Profile from '@/components/Profile'
 import store from '@/store'
 
@@ -21,6 +22,12 @@ const router = new Router({
       path: '/space/:spaceSlug/ideas',
       name: 'Ideas',
       component: Ideas,
+      meta: { auth: true }
+    },
+    {
+      path: '/space/:spaceSlug/idea/create',
+      name: 'IdeaCreate',
+      component: IdeaEdit,
       meta: { auth: true }
     },
     {
