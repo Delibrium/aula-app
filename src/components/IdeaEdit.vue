@@ -10,13 +10,18 @@
             label="Wie soll deine Idee heißen?"
             hint="z.B. bessere Ausstattung im Computerraum"
             required
+            v-model="title"
             ></v-text-field>
         </v-flex>
         <v-flex md8 offset-md2 xs12>
         <v-textarea
           label="Was möchtest du vorschlagen?"
           hint="Hier kanst du deine Idee so ausführlich wie möglich beschreiben..."
+          v-model="description"
           ></v-textarea>
+        </v-flex>
+        <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+            <v-btn @click="submitIdea" round color="green" dark>{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -25,12 +30,15 @@
 
 <script>
 
+import { createIdea } from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
 
 export default {
   name: 'IdeaEdit',
   components: { Filters },
   data: () => ({
+    title: '',
+    description: '',
     tab: 0
   }),
 
@@ -42,6 +50,20 @@ export default {
   },
 
   methods: {
+    submitIdea: function () {
+      var newIdea = {
+        title: this.title,
+        description: this.description,
+        school_id: this.$store.getters.selected_school,
+        created_by: this.$store.getters.userId,
+        changed_by: this.$store.getters.userId,
+        idea_space: this.$route.params['spaceId']
+      }
+      console.log(newIdea)
+      createIdea(newIdea).then((res) => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>

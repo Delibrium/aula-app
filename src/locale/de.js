@@ -80,15 +80,15 @@ export default {
     'topic.description.empty': 'Thema: darf nicht leer sein'
   },
   IdeaCreation: {
-    'your.idea': 'Deine Idee',
-    'idea.name': 'Wie soll deine Idee heißen?',
-    'idea.name.example': 'z.B. bessere Ausstatung im Computerraum',
-    'idea.suggestion': 'Was möchtest du vorschlagen?',
-    'idea.suggestion.description': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben...',
-    'idea.preview.show': 'Vorschau einblenden',
-    'idea.select.category': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
-    'idea.publish': 'Idee veröffentlichen',
-    'idea.your.delegates': 'Derzeit Stimmt für dich ab:'
+    'yourIdea': 'Deine Idee',
+    'name': 'Wie soll deine Idee heißen?',
+    'nameExample': 'z.B. bessere Ausstatung im Computerraum',
+    'suggestion': 'Was möchtest du vorschlagen?',
+    'suggestion.description': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben...',
+    'previewShow': 'Vorschau einblenden',
+    'selectCategory': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
+    'publish': 'Idee veröffentlichen',
+    'yourDelegates': 'Derzeit Stimmt für dich ab:'
   },
   UserProfile: {
     'delegate.your.vote': 'Für {0} Schule beauftragen',

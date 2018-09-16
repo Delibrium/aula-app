@@ -23,10 +23,25 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
             </p>
           </v-flex>
           <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <router-link :to="`/space/${$route.params['spaceSlug']}/idea/create`"><v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn></router-link>
+            <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"><v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn></router-link>
           </v-flex>
           <v-flex md8 offset-md2>
             <Filters></Filters>
+          </v-flex>
+          <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+            <v-list two-line>
+              <template v-for="(idea, index) in ideas">
+                <v-list-tile
+                  :key="idea.id"
+                  ripple
+                  @click="openIdea(idea)"
+                        >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ idea.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
+            </v-list>
           </v-flex>
       </v-layout>
     </v-container>
@@ -35,29 +50,48 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
 
 <script>
 
-import { getIdeas } from '@/api/ideaSpace'
+import { getSpace, getIdeas } from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
 
 export default {
   name: 'Ideas',
   components: { Filters },
-  data: () => ({
-    tab: 0,
-    ideas: []
-  }),
+  data: function () {
+    return {
+      tab: 0,
+      ideas: [],
+      spaceId: this.$route.params['spaceId']
+    }
+  },
 
   props: {
     spaceSlug: ''
   },
 
   beforeMount: function () {
-    getIdeas(this.$store.getters.selected_school, this.$route.params['spaceId']).then((res) => {
-      console.log(res.data)
-      this.ideas = res.data
-    })
+    if (!this.spaceId) {
+      getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+        .then((res) => {
+          console.log(res)
+          this.spaceId = res.data[0].id
+          this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+        })
+    } else {
+      this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+    }
   },
 
   methods: {
+    openIdea: function (idea) {
+      this.$router.push({name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id }})
+    },
+
+    getIdeas: function (schoolId, spaceId) {
+      getIdeas(schoolId, spaceId).then((res) => {
+        console.log(res)
+        this.ideas = res.data
+      })
+    }
   }
 }
 </script>
