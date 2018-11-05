@@ -44,7 +44,7 @@
 
 <script>
 
-import { updateSchoolConfig } from '@/api/school'
+import * as api from '@/api/school'
 
 export default {
   name: 'Quorum',
@@ -70,9 +70,9 @@ export default {
 
   methods: {
     submit: function () {
-      updateSchoolConfig(this.$store.getters.selected_school, 'schoolQuorum', this.schoolQuorum)
+      api.updateSchoolConfig(this.$store.getters.selected_school, 'schoolQuorum', this.schoolQuorum)
         .then(() => {
-          updateSchoolConfig(this.$store.getters.selected_school, 'classQuorum', this.classQuorum)
+          api.updateSchoolConfig(this.$store.getters.selected_school, 'classQuorum', this.classQuorum)
         })
     }
   }

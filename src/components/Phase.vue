@@ -34,7 +34,7 @@
 
 <script>
 
-import { updateSchoolConfig } from '@/api/school'
+import * as api from '@/api/school'
 
 export default {
   name: 'Phase',
@@ -60,9 +60,9 @@ export default {
   methods: {
     submit: function () {
       // this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: phase})
-      updateSchoolConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
+      api.updateSchoolConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
         .then(() => {
-          updateSchoolConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
+          api.updateSchoolConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
         })
     }
   }

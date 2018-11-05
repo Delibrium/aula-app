@@ -49,7 +49,7 @@
 
 <script>
 
-import { getSpace, getTopics } from '@/api/ideaSpace'
+import * as api from '@/api/ideaSpace'
 
 export default {
   name: 'Topics',
@@ -67,7 +67,7 @@ export default {
 
   beforeMount: function () {
     if (!this.spaceId) {
-      getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
         .then((res) => {
           console.log(res)
           this.spaceId = res.data[0].id
@@ -80,7 +80,7 @@ export default {
 
   methods: {
     getTopics: function (schoolId, spaceId) {
-      getTopics(schoolId, spaceId)
+      api.getTopics(schoolId, spaceId)
         .then(res => {
           this.topics = res.data
         })

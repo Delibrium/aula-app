@@ -21,7 +21,7 @@
 
 <script>
 
-import { getSchools, getSchoolConfig } from '@/api/school'
+import * as api from '@/api/school'
 
 export default {
   name: 'School',
@@ -39,7 +39,7 @@ export default {
     selectSchool: function (school) {
       this.$store.commit('SET_SELECTED_SCHOOL', school.id)
       this.$store.commit('SET_SCHOOL_NAME', school.name)
-      getSchoolConfig(school.id).then((res) => {
+      api.getSchoolConfig(school.id).then((res) => {
         this.$store.commit('SET_SCHOOL_CONFIG', res.data)
         this.$emit('selectedSchool')
       })
@@ -47,7 +47,7 @@ export default {
   },
 
   beforeMount: function () {
-    getSchools().then((res) => {
+    api.getSchools().then((res) => {
       this.schools = res.data
       console.log(this.schools)
     })

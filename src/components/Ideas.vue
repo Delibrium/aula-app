@@ -52,7 +52,7 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
 
 <script>
 
-import { getSpace, getIdeas } from '@/api/ideaSpace'
+import * as api from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
 
 export default {
@@ -72,7 +72,7 @@ export default {
 
   beforeMount: function () {
     if (!this.spaceId) {
-      getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
         .then((res) => {
           console.log(res)
           this.spaceId = res.data[0].id
@@ -89,7 +89,7 @@ export default {
     },
 
     getIdeas: function (schoolId, spaceId) {
-      getIdeas(schoolId, spaceId).then((res) => {
+      api.getIdeas(schoolId, spaceId).then((res) => {
         this.ideas = res.data
       })
     }

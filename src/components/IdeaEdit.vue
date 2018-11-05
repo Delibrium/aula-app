@@ -30,7 +30,7 @@
 
 <script>
 
-import { createIdea } from '@/api/ideaSpace'
+import * as api from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
 
 export default {
@@ -60,7 +60,7 @@ export default {
         idea_space: this.$route.params['spaceId']
       }
       console.log(newIdea)
-      createIdea(newIdea).then((res) => {
+      api.createIdea(newIdea).then((res) => {
         console.log(res)
       })
     }
