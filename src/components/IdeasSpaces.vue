@@ -40,7 +40,7 @@
 
 <script>
 
-import { getIdeasSpaces } from '@/api/ideaSpace'
+import * as api from '@/api/ideaSpace'
 
 export default {
   name: 'IdeaSpaces',
@@ -53,7 +53,7 @@ export default {
   },
 
   beforeMount: function () {
-    getIdeasSpaces(this.$store.getters.selected_school).then((res) => {
+    api.getIdeasSpaces(this.$store.getters.selected_school).then((res) => {
       this.idea_space = res.data
     })
   },

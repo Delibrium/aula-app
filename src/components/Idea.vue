@@ -12,7 +12,7 @@
 
 <script>
 
-import { getIdea } from '@/api/ideaSpace'
+import * as api from '@/api/ideaSpace'
 
 export default {
   name: 'Idea',
@@ -24,7 +24,7 @@ export default {
   },
 
   beforeMount: function () {
-    getIdea(this.$route.params['ideaId']).then((res) => {
+    api.getIdea(this.$route.params['ideaId']).then((res) => {
       console.log(res)
       this.idea = res.data[0]
     })
