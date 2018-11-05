@@ -28,8 +28,8 @@ export default {
     'user.search': 'Nutzer suchen'
   },
   Space: {
-    'wildIdeas': 'Wilde Ideen der',
-    'ideaTopics': 'Themen auf dem Tisch der',
+    'wildIdeas': 'Wilde Ideen',
+    'ideaTopics': 'Themen auf dem Tisch',
     'wild.ideas.title': 'Wilde Ideen',
     'ask.ideas': 'Was soll sich verändern?',
     'ask.ideas.description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
@@ -44,6 +44,8 @@ export default {
     'ask.on.no.ideas.search.results': 'Erstelle Deine eigene Idee!'
   },
   Topic: {
+    'introTitle': 'Diese Themen sind in der Diskussion',
+    'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
     'new.topic': 'Neues Thema',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
@@ -62,10 +64,10 @@ export default {
     'your.delegate': 'Derzeit stimmt für dich ab: {0}'
   },
   TopicPhase: {
-    'discussion': 'Ausarbeitungphase',
-    'approval': 'Prüfungsphase',
-    'voting': 'Abstimmungsphase',
-    'results': 'Ergebnisphase'
+    'edit_topics': 'Ausarbeitungphase',
+    'feasibility': 'Prüfungsphase',
+    'vote': 'Abstimmungsphase',
+    'finished': 'Ergebnisphase'
   },
   TopicCreation: {
     'topic.creation': 'Thema erstellen',

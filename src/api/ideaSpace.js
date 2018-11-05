@@ -23,3 +23,7 @@ export function getSpace (schoolId, spaceSlug) {
 export function createIdea (idea) {
   return service.post('/idea', idea)
 }
+
+export function getTopics (schoolId, ideaSpaceId) {
+  return service.get(`topic?school_id=eq.${schoolId}&idea_space=eq.${ideaSpaceId}`)
+}
