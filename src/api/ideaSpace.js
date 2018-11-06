@@ -1,23 +1,31 @@
 import service from '@/api/service'
 
 export function getIdeasSpaces (schoolId) {
-  return service.get(`/idea_space?school_id=eq.${schoolId}`)
+  return service.get('/idea_space', {params: {school_id: `eq.${schoolId}`}})
 }
 
 export function getIdeas (schoolId, ideaSpaceId, topic) {
-  var ideaQuery = `/idea?school_id=eq.${schoolId}&idea_space=eq.${ideaSpaceId}`
-  if (!topic) {
-    ideaQuery += '&topic=is.null'
+  var queryParams = {
+    school_id: `eq.${schoolId}`,
+    idea_space: `eq.${ideaSpaceId}`
   }
-  return service.get(ideaQuery)
+  if (!topic) {
+    queryParams['topic'] = 'is.null'
+  }
+  return service.get('/idea', {params: queryParams})
 }
 
 export function getIdea (ideaId) {
-  return service.get(`/idea?id=eq.${ideaId}`)
+  var queryParams = {id: `eq.${ideaId}`}
+  return service.get('/idea', {params: queryParams})
 }
 
 export function getSpace (schoolId, spaceSlug) {
-  return service.get(`idea_space?school_id=eq.${schoolId}&slug=eq.${spaceSlug}`)
+  var queryParams = {
+    school_id: `eq.${schoolId}`,
+    slug: `eq.${spaceSlug}`
+  }
+  return service.get('/idea_space', {params: queryParams})
 }
 
 export function createIdea (idea) {
@@ -25,5 +33,9 @@ export function createIdea (idea) {
 }
 
 export function getTopics (schoolId, ideaSpaceId) {
-  return service.get(`topic?school_id=eq.${schoolId}&idea_space=eq.${ideaSpaceId}`)
+  var queryParams = {
+    school_id: `eq.${schoolId}`,
+    idea_space: `eq.${ideaSpaceId}`
+  }
+  return service.get('/topic', {params: queryParams})
 }

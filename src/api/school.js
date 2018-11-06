@@ -9,7 +9,6 @@ export function getSchoolConfig (schoolId) {
 }
 
 export function updateSchoolConfig (schoolId, configKey, configValue) {
-  console.log(schoolId)
   return service.post('/rpc/config_update',
     {
       space_id: schoolId,
