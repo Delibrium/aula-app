@@ -1,7 +1,7 @@
 const school = {
   state: {
     selectedSchool: -1,
-    schoolConfig: [],
+    schoolConfig: {},
     name: ''
   },
 
