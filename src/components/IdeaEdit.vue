@@ -60,10 +60,21 @@ export default {
         idea_space: this.$route.params['spaceId']
       }
 
-      console.log(newIdea)
-      api.createIdea(newIdea).then((res) => {
-        console.log(res)
-      })
+      api.createIdea(newIdea)
+        .then((res) => {
+          if (res.status < 400 && res.data.length > 0) {
+            const spaceSlug = this.$route.params['spaceSlug']
+            const ideaId = res.data[0].id
+            this.$router.push(
+              { name: 'IdeaView', params: { spaceSlug, ideaId } }
+            )
+          } else {
+            console.log(res)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

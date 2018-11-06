@@ -29,10 +29,12 @@ export function getSpace (schoolId, spaceSlug) {
 }
 
 export function createIdea (idea) {
-  const params = Object.assign({}, idea, {
-    return: 'representation'
-  })
-  return service.post('/idea', params)
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+  return service.post('/idea', idea, config)
 }
 
 export function getTopics (schoolId, ideaSpaceId) {
