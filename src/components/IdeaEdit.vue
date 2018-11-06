@@ -51,7 +51,7 @@ export default {
 
   methods: {
     submitIdea: function () {
-      var newIdea = {
+      const newIdea = {
         title: this.title,
         description: this.description,
         school_id: this.$store.getters.selected_school,
@@ -59,6 +59,7 @@ export default {
         changed_by: this.$store.getters.userId,
         idea_space: this.$route.params['spaceId']
       }
+
       console.log(newIdea)
       api.createIdea(newIdea).then((res) => {
         console.log(res)

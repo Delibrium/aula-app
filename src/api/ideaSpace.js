@@ -29,7 +29,10 @@ export function getSpace (schoolId, spaceSlug) {
 }
 
 export function createIdea (idea) {
-  return service.post('/idea', idea)
+  const params = Object.assign({}, idea, {
+    return: 'representation'
+  })
+  return service.post('/idea', params)
 }
 
 export function getTopics (schoolId, ideaSpaceId) {
