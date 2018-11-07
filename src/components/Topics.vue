@@ -76,7 +76,6 @@ export default {
     if (!this.spaceId) {
       api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
         .then((res) => {
-          console.log(res)
           this.spaceId = res.data[0].id
           this.getTopics(this.$store.getters.selected_school, this.spaceId)
         })
@@ -87,7 +86,6 @@ export default {
 
   methods: {
     userMayCreateTopics: function () {
-      console.log(isUserMemberOf(['admin', 'school_admin', 'principal']))
       return isUserMemberOf(['admin', 'school_admin', 'principal'])
     },
     getTopics: function (schoolId, spaceId) {

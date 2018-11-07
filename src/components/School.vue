@@ -49,7 +49,6 @@ export default {
   beforeMount: function () {
     api.getSchools().then((res) => {
       this.schools = res.data
-      console.log(this.schools)
     })
   }
 }
