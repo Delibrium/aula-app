@@ -1,7 +1,12 @@
 import service from '@/api/service'
 
 export function createTopic (topic) {
-  return service.post('/topic', topic)
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+  return service.post('/topic', topic, config)
 }
 
 export function getTopics (schoolId, ideaSpaceId) {
