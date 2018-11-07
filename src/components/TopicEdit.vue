@@ -166,6 +166,10 @@ export default {
 
 <style scoped lang="scss">
   .select-ideas h2 {
-    margin: 1em auto 2em;
+    margin: 2em auto 1em;
+  }
+
+  .select-ideas .v-list {
+    background-color: inherit;
   }
 </style>
