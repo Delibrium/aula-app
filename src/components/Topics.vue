@@ -87,7 +87,8 @@ export default {
 
   methods: {
     userMayCreateTopics: function () {
-      return isUserMemberOf(['admn', 'school_admin', 'principal'])
+      console.log(isUserMemberOf(['admin', 'school_admin', 'principal']))
+      return isUserMemberOf(['admin', 'school_admin', 'principal'])
     },
     getTopics: function (schoolId, spaceId) {
       api.getTopics(schoolId, spaceId)

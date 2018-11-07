@@ -79,7 +79,7 @@ router.beforeResolve((to, from, next) => {
     next()
   }
   console.log('FROM', from)
-  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.user.role.indexOf('admin') >= 0)) {
+  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.profile.role.indexOf('admin') >= 0)) {
     next({path: '/admin'})
   } else {
     next()

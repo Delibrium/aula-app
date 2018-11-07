@@ -6,7 +6,7 @@
           <v-img src="/static/img/profile_default.png" max-width="100"/>
         </v-flex>
         <v-flex d-flex xs12 sm12 pa-2 align-content-center justify-center>
-           <h1 class="text-xs-center">{{ $store.getters.user.user.username }}</h1>
+           <h1 class="text-xs-center">{{ $store.getters.user.profile.username }}</h1>
         </v-flex>
         <v-flex d-flex xs12 sm12>
           <v-layout row wrap align-center justify-center>
