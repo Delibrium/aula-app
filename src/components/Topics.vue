@@ -25,7 +25,7 @@
             </p>
           </v-flex>
 
-          <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+          <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
             <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
               <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
             </router-link>
@@ -56,6 +56,7 @@
 <script>
 
 import * as api from '@/api/ideaSpace'
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Topics',
@@ -85,6 +86,9 @@ export default {
   },
 
   methods: {
+    userMayCreateTopics: function () {
+      return isUserMemberOf(['admn', 'school_admin', 'principal'])
+    },
     getTopics: function (schoolId, spaceId) {
       api.getTopics(schoolId, spaceId)
         .then(res => {

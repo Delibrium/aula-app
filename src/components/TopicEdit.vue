@@ -7,16 +7,23 @@
         </v-flex>
         <v-flex md8 offset-md2 xs12>
           <v-text-field
+            name= 'title'
             :label="$vuetify.t('$vuetify.TopicCreation.title')"
             :hint="$vuetify.t('$vuetify.TopicCreation.titleHint')"
+            v-validate="'required|max:160'"
+            :error-messages="errors.collect('title')"
             required
             v-model="title"
             ></v-text-field>
         </v-flex>
         <v-flex md8 offset-md2 xs12>
         <v-textarea
+          name='description'
           :label="$vuetify.t('$vuetify.TopicCreation.description')"
           :hint="$vuetify.t('$vuetify.TopicCreation.descriptionHint')"
+          v-validate="'required'"
+          required
+          :error-messages="errors.collect('description')"
           v-model="description"
           ></v-textarea>
         </v-flex>
@@ -44,14 +51,14 @@
         </v-flex>
       </v-layout>
       <v-snackbar
-        :value="snackbar !== null"
+        v-model="showSnackbar"
         :bottom="true"
       >
-        {{ snackbar }}
+        {{ snackbarMsg }}
         <v-btn
           color="pink"
           flat
-          @click="snackbar = null"
+          @click="showSnackbar = false"
         >
           {{ $vuetify.t('$vuetify.Snackbar.close') }}
         </v-btn>
@@ -80,12 +87,16 @@ export default {
     tab: 0,
     selected: [],
     ideas: [],
-    snackbar: null,
+    showSnackbar: false,
+    snackbarMsg: '',
     dictionary: {
       custom: {
         title: {
           required: 'Bitte gib dem Thema einen Namen',
           max: 'Das ist zu lang! Bitte gib dem Thema einen kurzen, eingängigen Namen.'
+        },
+        description: {
+          required: 'Bitte gib eine Beschreibung für dieses Thema ein'
         }
       }
     }
@@ -117,10 +128,15 @@ export default {
       this.$validator.validate()
         .then(isFormValid => {
           // Do nothing if validation fails -  errors are displayed in UI
-          if (!isFormValid) return
+          if (!isFormValid) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.formError')
+            return
+          }
 
-          if (!isUserMemberOf(['school_admin', 'principal'])) {
-            this.snackbar = this.$vuetify.t('snackbar.rightsError')
+          if (!isUserMemberOf(['school_admin', 'principal', 'admin'])) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.rightsError')
             return
           }
 

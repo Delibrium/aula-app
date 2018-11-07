@@ -25,7 +25,7 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
             </p>
           </v-flex>
 
-          <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+          <v-flex v-if="this.userMayCreateIdeas()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
             <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
               <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
             </router-link>
@@ -87,8 +87,8 @@ export default {
   },
 
   methods: {
-    userMayCreateTopics: function () {
-      return isUserMemberOf(['school_admin', 'principal'])
+    userMayCreateIdeas: function () {
+      return !isUserMemberOf(['school_admin', 'principal'])
     },
     openIdea: function (idea) {
       this.$router.push({name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id }})

@@ -73,9 +73,9 @@ export default {
     'pageTitle': 'Thema erstellen',
     'title': 'Wie soll der Titel des Themas lauten?',
     'titleHint': 'z.B. Computerraum',
-    'description': 'Beschreiben Sie das Thema',
+    'description': 'Beschreibung des Themas',
     'descriptionHint': 'Was haben die Ideen dieses Themas gemeinsam?',
-    'selectIdeas': 'Fügen Sie dem Thema wilde Ideen hinzu',
+    'selectIdeas': 'Wähle wilde Ideen für dieses Thema',
     'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
@@ -214,6 +214,7 @@ export default {
     'networkError': 'Keine Verbindung zum Aula-Server',
     'serverError': 'Das hat leider nicht geklappt',
     'clientError': 'Das hat leider nicht geklappt',
-    'rightsError': 'Das ist leider nicht erlaubt'
+    'rightsError': 'Das ist leider nicht erlaubt',
+    'formError': 'Bitte überprüfe deine Eingaben noch einmal'
   }
 }
