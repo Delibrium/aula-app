@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
+import VeeValidate from 'vee-validate'
 import 'vuetify/dist/vuetify.css'
 import VueCordova from 'vue-cordova'
 import VueHead from 'vue-head'
@@ -50,6 +51,8 @@ Vue.use(VueAuth, {
     return data
   }
 })
+
+Vue.use(VeeValidate)
 
 /* eslint-disable no-new */
 new Vue({

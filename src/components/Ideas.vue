@@ -33,7 +33,7 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
           </v-flex>
           <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
             <v-list two-line>
-              <template v-for="(idea, index) in ideas">
+              <template v-for="idea in ideas">
                 <v-list-tile
                   :key="idea.id"
                   ripple
