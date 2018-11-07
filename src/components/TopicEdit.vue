@@ -164,22 +164,27 @@ export default {
                         { name: 'Topics', params: { spaceSlug } }
                       )
                     } else {
-                      this.snackbar = this.$vuetify.t('$vuetify.Snackbar.serverError')
+                      this.showSnackbar = true
+                      this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
                     }
                   })
                   .catch(() => {
-                    this.snackbar = this.$vuetify.t('$vuetify.Snackbar.networkError')
+                    this.showSnackbar = true
+                    this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
                   })
               } else {
-                this.snackbar = this.$vuetify.t('$vuetify.Snackbar.serverError')
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
               }
             })
             .catch(() => {
-              this.snackbar = this.$vuetify.t('$vuetify.Snackbar.networkError')
+              this.showSnackbar = true
+              this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
             })
         })
         .catch(() => {
-          this.snackbar = this.$vuetify.t('$vuetify.Snackbar.clientError')
+          this.showSnackbar = true
+          this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.clientError')
         })
     }
   }
