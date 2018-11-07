@@ -1,15 +1,11 @@
 const user = {
   state: {
-    user: {},
-    roles: []
+    profile: {}
   },
 
   mutations: {
     SET_USER: (state, user) => {
-      state.user = user
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
+      state.profile = user
     }
   },
 

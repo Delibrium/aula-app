@@ -1,10 +1,10 @@
 import Store from '../store'
 
 export function isUserMemberOf (allowedRoles) {
-  if (Store.getters.user.role == null) return false
+  if (Store.getters.user.profile.role == null) return false
 
-  Store.getters.user.role.forEach(role => {
-    if (allowedRoles.indexOf(role) > 0) return true
+  let existingRoles = Store.getters.user.profile.role.filter(role => {
+    if (allowedRoles.indexOf(role) >= 0) return true
   })
-  return false
+  return (existingRoles.length > 0)
 }
