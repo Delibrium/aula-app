@@ -82,11 +82,11 @@ export default {
     'topic.description.empty': 'Thema: darf nicht leer sein'
   },
   IdeaCreation: {
-    'yourIdea': 'Deine Idee',
+    'title': 'Deine Idee',
     'name': 'Wie soll deine Idee heißen?',
     'nameExample': 'z.B. bessere Ausstatung im Computerraum',
     'suggestion': 'Was möchtest du vorschlagen?',
-    'suggestion.description': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben...',
+    'suggestionDescription': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben',
     'previewShow': 'Vorschau einblenden',
     'selectCategory': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
     'publish': 'Idee veröffentlichen',
@@ -208,5 +208,11 @@ export default {
   },
   AdminTermsOfUse: {
     'description': 'Bitte passen Sie hier die Nutzungsbedingungen an'
+  },
+  Snackbar: {
+    'close': 'Schließen',
+    'networkError': 'Keine Verbindung zum Aula-Server',
+    'serverError': 'Das hat leider nicht geklappt',
+    'clientError': 'Das hat leider nicht geklappt'
   }
 }
