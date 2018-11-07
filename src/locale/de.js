@@ -213,6 +213,7 @@ export default {
     'close': 'Schließen',
     'networkError': 'Keine Verbindung zum Aula-Server',
     'serverError': 'Das hat leider nicht geklappt',
-    'clientError': 'Das hat leider nicht geklappt'
+    'clientError': 'Das hat leider nicht geklappt',
+    'rightsError': 'Das ist leider nicht erlaubt'
   }
 }

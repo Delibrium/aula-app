@@ -64,6 +64,7 @@
 
 import * as spaceApi from '@/api/ideaSpace'
 import * as topicApi from '@/api/topic'
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -117,6 +118,11 @@ export default {
         .then(isFormValid => {
           // Do nothing if validation fails -  errors are displayed in UI
           if (!isFormValid) return
+
+          if (!isUserMemberOf(['school_admin', 'principal'])) {
+            this.snackbar = this.$vuetify.t('snackbar.rightsError')
+            return
+          }
 
           const topic = {
             title: this.title,
