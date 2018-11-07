@@ -25,6 +25,12 @@
             </p>
           </v-flex>
 
+          <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+            <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
+              <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+            </router-link>
+          </v-flex>
+
           <v-flex  xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
             <v-layout row wrap>
               <v-flex v-for="topic in topics" :key="topic.id">

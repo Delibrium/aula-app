@@ -7,6 +7,7 @@ import Ideas from '@/components/Ideas'
 import Idea from '@/components/Idea'
 import IdeaEdit from '@/components/IdeaEdit'
 import Topics from '@/components/Topics'
+import TopicEdit from '@/components/TopicEdit'
 import Profile from '@/components/Profile'
 import store from '@/store'
 
@@ -42,6 +43,12 @@ const router = new Router({
       path: '/space/:spaceSlug/topics',
       name: 'Topics',
       component: Topics,
+      meta: { auth: true }
+    },
+    {
+      path: '/space/:spaceSlug/topics/create',
+      name: 'TopicCreate',
+      component: TopicEdit,
       meta: { auth: true }
     },
     {

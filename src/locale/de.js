@@ -46,7 +46,7 @@ export default {
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
-    'new.topic': 'Neues Thema',
+    'newTopic': 'Neues Thema',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',
@@ -70,13 +70,13 @@ export default {
     'finished': 'Ergebnisphase'
   },
   TopicCreation: {
-    'topic.creation': 'Thema erstellen',
-    'topic.name': 'Wie soll der Titel des Themas lauten?',
-    'topic.name.example': 'z.B. Computerraum',
-    'topic.description': 'Beschreiben Sie das Thema',
-    'topic.description.details': 'Was haben die Ideen dieses Themas gemeinsam?',
+    'pageTitle': 'Thema erstellen',
+    'title': 'Wie soll der Titel des Themas lauten?',
+    'titleHint': 'z.B. Computerraum',
+    'description': 'Beschreiben Sie das Thema',
+    'descriptionHint': 'Was haben die Ideen dieses Themas gemeinsam?',
     'topic.select.ideas': 'Fügen Sie weitere wilde Ideen dem neuen Thema hinzu',
-    'topic.publish': 'Veröffentlichen',
+    'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
     'topic.description.empty': 'Thema: darf nicht leer sein'
