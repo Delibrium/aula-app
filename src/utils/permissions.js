@@ -3,8 +3,8 @@ import Store from '../store'
 export function isUserMemberOf (allowedRoles) {
   if (Store.getters.user.profile.role == null) return false
 
-  let existingRoles = Store.getters.user.profile.role.filter(role => {
+  for (var role of Store.getters.user.profile.role) {
     if (allowedRoles.indexOf(role) >= 0) return true
-  })
-  return (existingRoles.length > 0)
+  }
+  return false
 }
