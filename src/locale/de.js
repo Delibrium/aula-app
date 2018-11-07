@@ -75,7 +75,7 @@ export default {
     'titleHint': 'z.B. Computerraum',
     'description': 'Beschreiben Sie das Thema',
     'descriptionHint': 'Was haben die Ideen dieses Themas gemeinsam?',
-    'topic.select.ideas': 'Fügen Sie weitere wilde Ideen dem neuen Thema hinzu',
+    'selectIdeas': 'Fügen Sie dem Thema wilde Ideen hinzu',
     'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',

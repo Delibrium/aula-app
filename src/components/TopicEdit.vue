@@ -20,17 +20,50 @@
           v-model="description"
           ></v-textarea>
         </v-flex>
+      <v-flex class='select-ideas' md8 offset-md2 xs12>
+        <h2>{{ $vuetify.t('$vuetify.TopicCreation.selectIdeas') }}</h2>
+        <v-list two-line dense>
+          <template v-for="(idea, index) in ideas">
+            <v-list-tile :key="idea.id">
+              <v-list-tile-avatar>
+                <v-checkbox v-model="selected" :value='idea.id'></v-checkbox>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+              <v-list-tile-title>
+
+                {{ idea.title }}
+              </v-list-tile-title>
+              <v-list-tile-sub-title>{{ idea.description }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+        </v-list>
+      </v-flex>
         <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
             <v-btn @click="submit" round color="green" dark>{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
         </v-flex>
       </v-layout>
+      <v-snackbar
+        :value="snackbar !== null"
+        :bottom="true"
+      >
+        {{ snackbar }}
+        <v-btn
+          color="pink"
+          flat
+          @click="snackbar = null"
+        >
+          {{ $vuetify.t('$vuetify.Snackbar.close') }}
+        </v-btn>
+      </v-snackbar>
     </v-container>
   </v-slide-y-transition>
 </template>
 
 <script>
 
-import * as api from '@/api/topic'
+import * as spaceApi from '@/api/ideaSpace'
+import * as topicApi from '@/api/topic'
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -44,6 +77,9 @@ export default {
     title: '',
     description: '',
     tab: 0,
+    selected: [],
+    ideas: [],
+    snackbar: null,
     dictionary: {
       custom: {
         title: {
@@ -55,6 +91,15 @@ export default {
   }),
 
   beforeMount: function () {
+    if (!this.spaceId) {
+      spaceApi.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+        .then((res) => {
+          this.spaceId = res.data[0].id
+          this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+        })
+    } else {
+      this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+    }
   },
 
   mounted () {
@@ -62,6 +107,11 @@ export default {
   },
 
   methods: {
+    getIdeas: function (schoolId, spaceId) {
+      spaceApi.getIdeas(schoolId, spaceId).then((res) => {
+        this.ideas = res.data
+      })
+    },
     submit: function () {
       this.$validator.validate()
         .then(isFormValid => {
@@ -79,15 +129,25 @@ export default {
             phase: 'edit_topics'
           }
 
-          api.createTopic(topic)
+          topicApi.create(topic)
             .then((res) => {
               if (res.status < 400 && res.data.length > 0) {
                 const spaceSlug = this.$route.params['spaceSlug']
-                // TODO: Redirect to topic's view
-                // const topicId = res.data[0].id
-                this.$router.push(
-                  { name: 'Topics', params: { spaceSlug } }
-                )
+                const topicId = res.data[0].id
+
+                topicApi.assignIdeas(topicId, this.selected)
+                  .then(res => {
+                    if (res == null || res.status < 400) {
+                      this.$router.push(
+                        { name: 'Topics', params: { spaceSlug } }
+                      )
+                    } else {
+                      this.snackbar = this.$vuetify.t('$vuetify.Snackbar.serverError')
+                    }
+                  })
+                  .catch(() => {
+                    this.snackbar = this.$vuetify.t('$vuetify.Snackbar.networkError')
+                  })
               } else {
                 this.snackbar = this.$vuetify.t('$vuetify.Snackbar.serverError')
               }
@@ -103,3 +163,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .select-ideas h2 {
+    margin: 1em auto 2em;
+  }
+</style>
