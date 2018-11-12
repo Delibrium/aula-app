@@ -14,7 +14,7 @@ export function assignIdeas (topicId, ideaIds) {
 
   // Makes a selector like `id.eq1,id.eq2,id.eq3` for horizontal filtering
   const ideaSelector = ideaIds.reduce(
-    (acc, cur, i) => acc + `${i === 0 ? '' : ','}id.eq.` + cur,
+    (acc, cur, i) => acc + `${i === 0 ? '' : ','}${cur}`,
     ''
   )
 
@@ -23,7 +23,7 @@ export function assignIdeas (topicId, ideaIds) {
     url: '/idea',
     data: { topic: topicId },
     params: {
-      or: '(' + ideaSelector + ')'
+      id: 'in.(' + ideaSelector + ')'
     }
   })
 }
