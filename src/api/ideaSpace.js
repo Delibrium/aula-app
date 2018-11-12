@@ -12,10 +12,6 @@ export function getIdeas (schoolId, ideaSpaceId, topic) {
   return service.get(ideaQuery)
 }
 
-export function getIdea (ideaId) {
-  return service.get(`/idea?id=eq.${ideaId}`)
-}
-
 export function getSpace (schoolId, spaceSlug) {
   return service.get(`idea_space?school_id=eq.${schoolId}&slug=eq.${spaceSlug}`)
 }
