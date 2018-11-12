@@ -29,15 +29,20 @@
         </v-flex>
       <v-flex class='select-ideas' md8 offset-md2 xs12>
         <h2>{{ $vuetify.t('$vuetify.TopicCreation.selectIdeas') }}</h2>
+        <v-alert
+          :value="errors.has('selectIdeas')"
+          type="warning"
+        >
+          {{ errors.first('selectIdeas')}}
+        </v-alert>
         <v-list two-line dense>
           <template v-for="(idea, index) in ideas">
             <v-list-tile :key="idea.id">
               <v-list-tile-avatar>
-                <v-checkbox v-model="selected" :value='idea.id'></v-checkbox>
+                <v-checkbox name='selectIdeas' v-model="selected" :value='idea.id' v-validate='"required"'></v-checkbox>
               </v-list-tile-avatar>
               <v-list-tile-content>
               <v-list-tile-title>
-
                 {{ idea.title }}
               </v-list-tile-title>
               <v-list-tile-sub-title>{{ idea.description }}</v-list-tile-sub-title>
@@ -97,6 +102,9 @@ export default {
         },
         description: {
           required: 'Bitte gib eine Beschreibung für dieses Thema ein'
+        },
+        selectIdeas: {
+          required: 'Bitte wähle mindestens eine Idee für das neue Thema'
         }
       }
     }
@@ -192,11 +200,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .select-ideas h2 {
-    margin: 2em auto 1em;
-  }
+.select-ideas h2 {
+  margin: 2em auto 1em;
+}
 
-  .select-ideas .v-list {
-    background-color: inherit;
-  }
+.select-ideas .v-list {
+  background-color: inherit;
+}
 </style>
