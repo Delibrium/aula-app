@@ -25,10 +25,10 @@
               }}
             </p>
 
-            <p v-if='quorumCount != null'>
+            <p v-if='quorum != null && votes != null'>
               {{ $vuetify.t('$vuetify.Idea.supporterCount',
-                  quorumCount.toString(),
-                  quorumTotal
+                  votes.length,
+                  quorum.requiredVoteCount
               ) }}
             </p>
 
@@ -37,6 +37,7 @@
             <p v-if="idea.category != null">
               {{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}
             </p>
+            <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
             <div>
               <h3 v-if="comments != null">
@@ -67,9 +68,9 @@ export default {
   data: () => ({
     idea: {},
     created: null,
-    quorumCount: null,
-    quorumTotal: 10,
-    comments: null
+    quorum: null,
+    comments: null,
+    votes: null
   }),
 
   props: {
@@ -80,7 +81,8 @@ export default {
     ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
       this.idea = res.data[0]
       this.created = new Date(res.data[0].created_at)
-      this.getQuorumCount()
+      this.getQuorumInfo()
+      this.getVotes()
       this.getComments()
     })
   },
@@ -93,14 +95,22 @@ export default {
         return this.$vuetify.t('$vuetify.TopicPhase.' + this.idea.topic.phase)
       }
     },
-    getQuorumCount: function () {
-      ideaApi.getVotes(this.idea.id).then(resp => {
-        this.quorumCount = resp.data.length
+    getQuorumInfo: function () {
+      ideaApi.getQuorumInfo(
+        this.$store.getters.selected_school,
+        this.idea.idea_space
+      ).then(resp => {
+        this.quorum = resp.data
       })
     },
     getComments: function () {
       ideaApi.getComments(this.idea.id).then(resp => {
         this.comments = resp.data
+      })
+    },
+    getVotes: function () {
+      ideaApi.getVotes(this.idea.id).then(resp => {
+        this.votes = resp.data
       })
     }
   }
