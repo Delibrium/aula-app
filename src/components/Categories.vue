@@ -17,7 +17,9 @@
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
-    <CreateCategoryForm />
+    <CreateCategoryForm
+      :handleCategorySaved="this.getCategories()"
+    />
   </v-container>
 </template>
 

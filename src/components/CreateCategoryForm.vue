@@ -60,9 +60,7 @@ export default {
     }
   },
 
-  props: {
-
-  },
+  props: ['handleSuccess'],
 
   methods: {
     cancel: function () {
@@ -97,7 +95,7 @@ export default {
               if (res.status < 400) {
                 this.showSnackbar = true
                 this.snackbarMsg = 'Kategorie wurde erstellt'
-                this.getCategories()
+                this.handleSuccess(res.data)
               } else {
                 this.showSnackbar = true
                 this.snackbarMsg = this.$vuetify.t(
