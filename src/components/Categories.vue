@@ -1,7 +1,15 @@
 <template>
   <v-container fluid grid-list-md>
+    <v-alert
+      :value="true"
+      type="info"
+      icon="create"
+      dismissible
+      outline
+    >
+      Klicke auf bestehende Kategorien, um deren Namen und Beschreibung zu ändern.
+    </v-alert>
     <v-list v-if="categories != null" two-line>
-      <v-subheader>Bestehende Kategorien</v-subheader>
       <v-list-tile
         v-for="(category, index) in categories"
         :key="category.id"
@@ -17,17 +25,34 @@
         </v-list-tile-content>
 
         <v-list-tile-action>
-          <v-btn icon ripple @click.stop="deleteCategory(index)">
+          <v-btn icon ripple @click.stop="toDelete = index">
             <v-icon color="grey">delete</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
+
+    <v-card v-if="toDelete != null">
+      <v-card-title><h3>Kategorie löschen</h3></v-card-title>
+      <v-card-text>
+        <p>
+          Kategorie "{{ categories[toDelete].name }}" wirklich löschen?
+          Alle darin enthaltenen Ideen haben dann keine Kategorie mehr.
+        </p>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="deleteCategory" color="error">Unwiederrufbar löschen</v-btn>
+        <v-btn @click="toDelete = null">Zurück</v-btn>
+      </v-card-actions>
+    </v-card>
+
     <CategoryEdit
+      v-else
       :category="selectedCategory != null && categories[selectedCategory]"
       :handleCancel="this.selected = null"
       :handleSuccess="this.reset"
     />
+
     <v-snackbar
       v-model="showSnackbar"
       :bottom="true"
@@ -58,6 +83,7 @@ export default {
     return {
       categories: null,
       selectedCategory: null,
+      toDelete: null,
       showSnackbar: false,
       snackbarMsg: ''
     }
@@ -71,8 +97,9 @@ export default {
 
   methods: {
     reset: function () {
-      this.getCategories()
       this.selectedCategory = null
+      this.toDelete = null
+      this.getCategories()
     },
     getCategories: function () {
       const schoolId = this.$store.getters.selected_school
@@ -80,8 +107,8 @@ export default {
         this.categories = res.data
       })
     },
-    deleteCategory: function (index) {
-      api.category.remove(this.categories[index].id)
+    deleteCategory: function () {
+      api.category.remove(this.categories[this.toDelete].id)
         .then(res => {
           if (res.status < 400) {
             this.reset()
