@@ -160,6 +160,7 @@ export default {
   AdminMenu: {
     'title': 'Prozessverwaltung',
     'phaseDuration': 'Dauer der Phasen',
+    'categories': 'Kategorien',
     'quorum': 'Quorum',
     'holidays': 'Ferienmodus',
     'users': 'Gruppen & Nutzer',

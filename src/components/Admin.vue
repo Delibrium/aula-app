@@ -17,6 +17,11 @@
               <Phase></Phase>
             </v-expansion-panel-content>
 
+            <v-expansion-panel-content :disabled="!hasSelectedSchool" value="1">
+              <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.categories')}}</div>
+              <Categories></Categories>
+            </v-expansion-panel-content>
+
           <!-- Quorum -->
             <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.quorum')}}</div>
@@ -46,6 +51,7 @@
 <script>
 import Phase from '@/components/Phase'
 import Quorum from '@/components/Quorum'
+import Categories from '@/components/Categories'
 import Vacation from '@/components/Vacation'
 import School from '@/components/School'
 import GroupsUsers from '@/components/GroupsUsers'
@@ -55,6 +61,7 @@ export default {
   components: {
     Phase,
     Quorum,
+    Categories,
     Vacation,
     GroupsUsers,
     School
