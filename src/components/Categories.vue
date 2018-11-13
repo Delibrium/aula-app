@@ -3,9 +3,9 @@
     <v-list v-if="categories != null" two-line>
       <v-subheader>Bestehende Kategorien</v-subheader>
       <v-list-tile
-        v-for="category in categories"
+        v-for="(category, index) in categories"
         :key="category.id"
-        @click=""
+        @click="selectedCategory = index"
       >
         <v-list-tile-content>
           <v-list-tile-title>
@@ -15,43 +15,84 @@
             {{ category.description }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
+
+        <v-list-tile-action>
+          <v-btn icon ripple @click.stop="deleteCategory(index)">
+            <v-icon color="grey">delete</v-icon>
+          </v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
-    <CreateCategoryForm
-      :handleCategorySaved="this.getCategories()"
+    <CategoryEdit
+      :category="selectedCategory != null && categories[selectedCategory]"
+      :handleCancel="this.selected = null"
+      :handleSuccess="this.reset"
     />
+    <v-snackbar
+      v-model="showSnackbar"
+      :bottom="true"
+    >
+      {{ snackbarMsg }}
+      <v-btn
+        color="pink"
+        flat
+        @click="showSnackbar = false"
+      >
+        {{ $vuetify.t('$vuetify.Snackbar.close') }}
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
 
 import api from '@/api'
-import CreateCategoryForm from '@/components/CreateCategoryForm'
+import CategoryEdit from '@/components/CategoryEdit'
 
 export default {
   name: 'Categories',
   components: {
-    CreateCategoryForm
+    CategoryEdit
   },
   data: function () {
     return {
-      categories: null
+      categories: null,
+      selectedCategory: null,
+      showSnackbar: false,
+      snackbarMsg: ''
     }
   },
 
-  props: {
-  },
+  props: {},
 
   beforeMount: function () {
     this.getCategories()
   },
 
   methods: {
+    reset: function () {
+      this.getCategories()
+      this.selectedCategory = null
+    },
     getCategories: function () {
       const schoolId = this.$store.getters.selected_school
       api.category.get(schoolId).then((res) => {
         this.categories = res.data
       })
+    },
+    deleteCategory: function (index) {
+      api.category.remove(this.categories[index].id)
+        .then(res => {
+          if (res.status < 400) {
+            this.reset()
+            this.showSnackbar = true
+            this.snackbarMsg = 'Die Kategorie wurde gelöscht.'
+          } else {
+            this.reset()
+            this.showSnackbar = true
+            this.snackbarMsg = 'Die Kategorie konnte nicht gelöscht werden'
+          }
+        })
     }
   }
 }

@@ -2,12 +2,13 @@ import service from '@/api/service'
 
 function get (schoolId) {
   const params = {
-    school_id: `eq.${schoolId}`
+    school_id: `eq.${schoolId}`,
+    order: 'name,id'
   }
-  return service.get('/category', params)
+  return service.get('/category', { params })
 }
 
-export function create (category) {
+function create (category) {
   const config = {
     headers: {
       PREFER: 'return=representation'
@@ -16,7 +17,31 @@ export function create (category) {
   return service.post('/category', category, config)
 }
 
+function update (category) {
+  const { name, description, id } = category
+  return service({
+    method: 'patch',
+    url: '/category',
+    data: { name, description, id },
+    params: {
+      id: `eq.${id}`
+    },
+    headers: {
+      PREFER: 'return=representation'
+    }
+  })
+}
+
+function remove (categoryId) {
+  const params = {
+    id: `eq.${categoryId}`
+  }
+  return service.delete('/category', { params })
+}
+
 export default {
   get,
-  create
+  create,
+  update,
+  remove
 }
