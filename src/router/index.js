@@ -7,6 +7,7 @@ import Ideas from '@/components/Ideas'
 import Idea from '@/components/Idea'
 import IdeaEdit from '@/components/IdeaEdit'
 import Topics from '@/components/Topics'
+import TopicEdit from '@/components/TopicEdit'
 import Profile from '@/components/Profile'
 import store from '@/store'
 
@@ -45,6 +46,12 @@ const router = new Router({
       meta: { auth: true }
     },
     {
+      path: '/space/:spaceSlug/topics/create',
+      name: 'TopicCreate',
+      component: TopicEdit,
+      meta: { auth: true }
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login,
@@ -71,8 +78,7 @@ router.beforeResolve((to, from, next) => {
   if (to.path === '/admin') {
     next()
   }
-  console.log('FROM', from)
-  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.user.role.indexOf('admin') >= 0)) {
+  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.profile.role.indexOf('admin') >= 0)) {
     next({path: '/admin'})
   } else {
     next()

@@ -29,14 +29,14 @@
         </v-flex>
       </v-layout>
       <v-snackbar
-        :value="snackbar !== null"
+        v-model="showSnackbar"
         :bottom="true"
       >
-        {{ snackbar }}
+        {{ snackbarMsg }}
         <v-btn
           color="pink"
           flat
-          @click="snackbar = null"
+          @click="showSnackbar = false"
         >
           {{ $vuetify.t('$vuetify.Snackbar.close') }}
         </v-btn>
@@ -49,6 +49,7 @@
 
 import * as api from '@/api/ideaSpace'
 import Filters from '@/components/Filters'
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -59,7 +60,8 @@ export default {
     title: '',
     description: '',
     tab: 0,
-    snackbar: null,
+    showSnackbar: false,
+    snackbarMsg: '',
     dictionary: {
       custom: {
         title: {
@@ -79,11 +81,24 @@ export default {
   },
 
   methods: {
+    userMayCreateIdeas: function () {
+      return !isUserMemberOf(['school_admin', 'principal'])
+    },
     submitIdea: function () {
       this.$validator.validate()
         .then(isFormValid => {
           // Do nothing if validation fails -  errors are displayed in UI
-          if (!isFormValid) return
+          if (!isFormValid) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.formError')
+            return
+          }
+
+          if (!this.userMayCreateIdeas()) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vueetify.Snackbar.rightsError')
+            return
+          }
 
           const newIdea = {
             title: this.title,
@@ -103,15 +118,18 @@ export default {
                   { name: 'IdeaView', params: { spaceSlug, ideaId } }
                 )
               } else {
-                this.snackbar = this.$vuetify.t('$vuetify.Snackbar.serverError')
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
               }
             })
             .catch(() => {
-              this.snackbar = this.$vuetify.t('$vuetify.Snackbar.networkError')
+              this.showSnackbar = true
+              this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
             })
         })
         .catch(() => {
-          this.snackbar = this.$vuetify.t('$vuetify.Snackbar.clientError')
+          this.showSnackbar = true
+          this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.clientError')
         })
     }
   }
