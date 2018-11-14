@@ -4,13 +4,20 @@
       {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
     </h3>
 
-    <Comment :comments="comments" />
+    <Comment
+      class='commentTopLevel'
+      :comments="comments"
+      :setReplyId="this.setReplyId"
+    />
 
     <v-card class='newCommentForm'>
-      <v-form>
-        <v-card-title v-if="editingId == null"><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
-        <v-card-title v-else><h3>Verbesserungsvorschlag "{{ text }}" bearbeiten</h3></v-card-title>
+      <v-form v-on:setReplyEvent="setReplyId">
+        <v-card-title v-if="editingId != null"><h3>Verbesserungsvorschlag "{{ text }}" bearbeiten</h3></v-card-title>
+        <v-card-title v-else><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
         <v-card-text>
+          <p v-if="parentCommentId != null">
+            Antwort auf {{ parentCommentId }}
+          </p>
           <v-text-field
             name='text'
             v-model='text'
@@ -48,30 +55,8 @@
 
 <script>
 import api from '@/api'
-import Vue from 'vue'
+import Comment from '@/components/Comment'
 // import { isUserMemberOf } from '../utils/permissions'
-
-const Comment = Vue.component('Comment', {
-  props: ['comments', 'commentId'],
-  computed: {
-    comment: function () {
-      return this.comments == null
-        ? []
-        : this.comments.filter(c => c.id === this.commentId).shift()
-    },
-    directChildren: function () {
-      return this.comments == null
-        ? []
-        : this.comments.filter(c => c.parent_comment == this.commentId) // eslint-disable-line eqeqeq
-    }
-  },
-  template: `<li>
-    <p v-if="commentId != null">{{ comment.text }}</p>
-    <ul v-if="directChildren.length > 0">
-      <Comment :comments="comments" :commentId="child.id" v-for="child in directChildren" :key="child.id"/>
-    </ul>
-  </li>`
-})
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -111,6 +96,9 @@ export default {
       api.comment.get(this.ideaId).then(resp => {
         this.comments = resp.data
       })
+    },
+    setReplyId: function (commentId) {
+      this.parentCommentId = commentId
     },
     submit: function () {
       this.$validator.validate()
@@ -171,5 +159,8 @@ export default {
 <style scoped lang="scss">
   .card {
     padding: 10px;
+  }
+  .commentTopLevel {
+    list-style: none;
   }
 </style>
