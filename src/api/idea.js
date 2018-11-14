@@ -17,14 +17,6 @@ function getVotes (ideaId) {
   return service.get('/idea_vote', { params })
 }
 
-function getComments (ideaId) {
-  const params = {
-    parent_idea: 'eq.' + ideaId,
-    select: 'id,created_by(id,first_name),created_at,text,parent_comment(id)'
-  }
-  return service.get('/comment', { params })
-}
-
 function getQuorumInfo (schoolId, ideaSpaceId) {
   // Return quorum info for a space (or the school if param ideaSpaceId is not set)
   // Returns a dict with fields classQuorum, schoolQuorum, voteCount, totalVoters
@@ -38,6 +30,5 @@ function getQuorumInfo (schoolId, ideaSpaceId) {
 export default {
   getIdea,
   getVotes,
-  getComments,
   getQuorumInfo
 }

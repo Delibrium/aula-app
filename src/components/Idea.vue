@@ -39,20 +39,7 @@
             </p>
             <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
-            <div>
-              <h3 v-if="comments != null">
-                {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
-              </h3>
-
-              <ul>
-                <li v-for="comment in comments">
-                  <p>
-                    <strong>{{ comment.created_by.first_name }}</strong>
-                    {{ comment.text }}
-                  </p>
-                </li>
-              </ul>
-            </div>
+            <Comments />
           </v-flex>
       </v-layout>
     </v-container>
@@ -62,14 +49,15 @@
 <script>
 
 import ideaApi from '@/api/idea'
+import Comments from '@/components/Comments'
 
 export default {
   name: 'Idea',
+  components: { Comments },
   data: () => ({
     idea: {},
     created: null,
     quorum: null,
-    comments: null,
     votes: null
   }),
 
@@ -83,7 +71,6 @@ export default {
       this.created = new Date(res.data[0].created_at)
       this.getQuorumInfo()
       this.getVotes()
-      this.getComments()
     })
   },
 
@@ -101,11 +88,6 @@ export default {
         this.idea.idea_space
       ).then(resp => {
         this.quorum = resp.data
-      })
-    },
-    getComments: function () {
-      ideaApi.getComments(this.idea.id).then(resp => {
-        this.comments = resp.data
       })
     },
     getVotes: function () {

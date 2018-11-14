@@ -1,0 +1,157 @@
+<template>
+  <div>
+    <h3 v-if="comments != null">
+      {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
+    </h3>
+
+    <ul>
+      <li v-for="comment in comments">
+        <p>
+          <strong>{{ comment.created_by.first_name }}</strong>
+          {{ comment.text }}
+        </p>
+      </li>
+    </ul>
+
+    <v-card class='newCommentForm'>
+      <v-form>
+        <v-card-title v-if="editingId == null"><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
+        <v-card-title v-else><h3>Verbesserungsvorschlag "{{ text }}" bearbeiten</h3></v-card-title>
+        <v-card-text>
+          <v-text-field
+            name='text'
+            v-model='text'
+            v-validate="'required'"
+            :error-messages="errors.collect('text')"
+            label='Dein Verbesserungsvorschlag'
+            required
+            >
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn flat @click="this.submit">Veröffentlichen</v-btn>
+          <v-btn flat @click="this.cancel" v-if="this.editingId == null">Zurücksetzen</v-btn>
+          <v-btn flat @click="this.cancel" v-else>Abbrechen</v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+
+    <v-snackbar
+      v-model="showSnackbar"
+      :bottom="true"
+    >
+      {{ snackbarMsg }}
+      <v-btn
+        color="pink"
+        flat
+        @click="showSnackbar = false"
+      >
+        {{ $vuetify.t('$vuetify.Snackbar.close') }}
+      </v-btn>
+    </v-snackbar>
+
+  </div>
+</template>
+
+<script>
+import api from '@/api'
+// import { isUserMemberOf } from '../utils/permissions'
+
+export default {
+  $_veeValidate: { validator: 'new' },
+
+  name: 'Comments',
+  props: [],
+  data: function () {
+    return {
+      comments: null,
+      editingId: null,
+      text: null,
+      parentCommentIid: null,
+      showSnackbar: null,
+      snackbarMsg: null
+    }
+  },
+
+  beforeMount: function () {
+    this.getComments()
+  },
+
+  computed: {
+    ideaId: function () {
+      return this.$route.params.ideaId
+    }
+  },
+
+  methods: {
+    cancel: function () {
+      this.editingId = null
+      this.text = ''
+      this.$nextTick(() => this.$validator.reset())
+    },
+    getComments: function () {
+      api.comment.get(this.ideaId).then(resp => {
+        this.comments = resp.data
+      })
+    },
+    submit: function () {
+      this.$validator.validate()
+        .then(isFormValid => {
+          if (!isFormValid) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.formError')
+            return
+          }
+
+          // if (!isUserMemberOf(['admin'])) {
+          //   this.showSnackbar = true
+          //   this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.rightsError')
+          //   return
+          // }
+
+          const currentUserId = this.$store.getters.userId
+
+          const comment = {
+            created_by: currentUserId,
+            changed_by: currentUserId,
+            school_id: this.$store.getters.selected_school,
+            text: this.text,
+            parent_idea: this.ideaId,
+            parent_comment: this.parentCommentId
+          }
+
+          // Select the appripriate api depending on whether
+          // a comment is being added or edited. Also fill
+          // in the comment id when editing.
+          let fn
+          if (this.editingId == null) {
+            fn = api.comment.create
+          } else {
+            comment.id = this.editingId
+            fn = api.comment.update
+          }
+
+          fn(comment)
+            .then((res) => {
+              if (res.status < 400) {
+                this.showSnackbar = true
+                this.snackbarMsg = 'Verbesserungsvorschlag veröffentlicht'
+                this.getComments()
+                this.cancel()
+              } else {
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t(
+                  '$vuetify.Snackbar.serverError')
+              }
+            })
+        })
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+  .card {
+    padding: 10px;
+  }
+</style>
