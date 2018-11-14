@@ -4,14 +4,7 @@
       {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
     </h3>
 
-    <ul>
-      <li v-for="comment in comments">
-        <p>
-          <strong>{{ comment.created_by.first_name }}</strong>
-          {{ comment.text }}
-        </p>
-      </li>
-    </ul>
+    <Comment :comments="comments" />
 
     <v-card class='newCommentForm'>
       <v-form>
@@ -55,7 +48,30 @@
 
 <script>
 import api from '@/api'
+import Vue from 'vue'
 // import { isUserMemberOf } from '../utils/permissions'
+
+const Comment = Vue.component('Comment', {
+  props: ['comments', 'commentId'],
+  computed: {
+    comment: function () {
+      return this.comments == null
+        ? []
+        : this.comments.filter(c => c.id === this.commentId).shift()
+    },
+    directChildren: function () {
+      return this.comments == null
+        ? []
+        : this.comments.filter(c => c.parent_comment == this.commentId) // eslint-disable-line eqeqeq
+    }
+  },
+  template: `<li>
+    <p v-if="commentId != null">{{ comment.text }}</p>
+    <ul v-if="directChildren.length > 0">
+      <Comment :comments="comments" :commentId="child.id" v-for="child in directChildren" :key="child.id"/>
+    </ul>
+  </li>`
+})
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -67,11 +83,13 @@ export default {
       comments: null,
       editingId: null,
       text: null,
-      parentCommentIid: null,
+      parentCommentId: null,
       showSnackbar: null,
       snackbarMsg: null
     }
   },
+
+  components: { Comment },
 
   beforeMount: function () {
     this.getComments()
