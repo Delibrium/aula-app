@@ -17,7 +17,7 @@
               <Phase></Phase>
             </v-expansion-panel-content>
 
-            <v-expansion-panel-content :disabled="!hasSelectedSchool" value="1">
+            <v-expansion-panel-content :disabled="!hasSelectedSchool">
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.categories')}}</div>
               <Categories></Categories>
             </v-expansion-panel-content>
