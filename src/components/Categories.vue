@@ -15,6 +15,11 @@
         :key="category.id"
         @click="selectedCategory = index"
       >
+
+        <v-list-tile-avatar>
+          <img :src="category.icon">
+        </v-list-tile-avatar>
+
         <v-list-tile-content>
           <v-list-tile-title>
             {{ category.name }}
@@ -23,10 +28,6 @@
             {{ category.description }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
-
-        <v-list-tile-avatar>
-          <img :src="category.icon">
-        </v-list-tile-avatar>
 
         <v-list-tile-action>
           <v-btn icon ripple @click.stop="toDelete = index">
