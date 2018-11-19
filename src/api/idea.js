@@ -9,12 +9,21 @@ function getIdea (ideaId) {
 }
 
 function getVotes (ideaId) {
-  // Return all yes-votes
   const params = {
-    idea: 'eq.' + ideaId,
-    val: 'eq.yes'
+    idea: 'eq.' + ideaId
   }
   return service.get('/idea_vote', { params })
+}
+
+function postVote (vote) {
+  return service.post('/idea_vote', vote)
+}
+
+function patchVote (vote) {
+  const params = {
+    idea: `eq.${vote.idea}`
+  }
+  return service.patch('/idea_vote', vote, { params })
 }
 
 function getComments (ideaId) {
@@ -38,6 +47,8 @@ function getQuorumInfo (schoolId, ideaSpaceId) {
 export default {
   getIdea,
   getVotes,
+  postVote,
+  patchVote,
   getComments,
   getQuorumInfo
 }

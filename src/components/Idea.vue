@@ -27,7 +27,7 @@
 
             <p v-if='quorum != null && votes != null'>
               {{ $vuetify.t('$vuetify.Idea.supporterCount',
-                  votes.length,
+                  proVotes.length,
                   quorum.requiredVoteCount
               ) }}
             </p>
@@ -38,6 +38,17 @@
               {{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}
             </p>
             <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
+
+            <div>
+              <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                <v-btn flat>
+                  <v-icon>thumb_down</v-icon>
+                </v-btn>
+                <v-btn flat>
+                  <v-icon>thumb_up</v-icon>
+                </v-btn>
+              </v-btn-toggle>
+            </div>
 
             <div>
               <h3 v-if="comments != null">
@@ -70,7 +81,8 @@ export default {
     created: null,
     quorum: null,
     comments: null,
-    votes: null
+    votes: null,
+    voteValue: null
   }),
 
   props: {
@@ -78,16 +90,34 @@ export default {
   },
 
   beforeMount: function () {
-    ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
-      this.idea = res.data[0]
-      this.created = new Date(res.data[0].created_at)
-      this.getQuorumInfo()
-      this.getVotes()
-      this.getComments()
-    })
+    this.getIdea()
+  },
+
+  computed: {
+    currentVote: function () {
+      const currentId = this.$store.getters.userId
+      const vote = this.votes.filter(v => v.created_by === currentId).shift()
+      return vote == null
+        ? null
+        : vote.val === 'yes'
+          ? 1
+          : 0
+    },
+    proVotes: function () {
+      return this.votes.filter(v => v.val === 'yes')
+    }
   },
 
   methods: {
+    getIdea: function () {
+      ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
+        this.idea = res.data[0]
+        this.created = new Date(res.data[0].created_at)
+        this.getQuorumInfo()
+        this.getVotes()
+        this.getComments()
+      })
+    },
     getPhaseName: function () {
       if (this.idea.topic == null) {
         return this.$vuetify.t('$vuetify.TopicPhase.wildIdeas')
@@ -111,7 +141,40 @@ export default {
     getVotes: function () {
       ideaApi.getVotes(this.idea.id).then(resp => {
         this.votes = resp.data
+        this.voteValue = this.currentVote
       })
+    },
+    voteChanged: function (clicked) {
+      if (clicked !== this.currentVote) {
+        const value = clicked === 1
+          ? 'yes'
+          : clicked === 0
+            ? 'no'
+            : null
+        this.setVote(value)
+      }
+    },
+    setVote: function (val) {
+      const vote = {
+        school_id: this.$store.getters.schoolId,
+        idea: this.$route.params['ideaId'],
+        created_by: this.$store.getters.userId,
+        changed_by: this.$store.getters.userId,
+        val
+      }
+      ideaApi.postVote(vote)
+        .then(res => {
+          this.getVotes()
+        })
+        .catch((err) => {
+          if (err.request != null && err.request.status === 409) {
+            // User has already voted
+            ideaApi.patchVote(vote)
+              .then(res => {
+                this.getVotes()
+              })
+          }
+        })
     }
   }
 }
