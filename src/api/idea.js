@@ -15,6 +15,14 @@ function getVotes (ideaId) {
   return service.get('/idea_vote', { params })
 }
 
+function deleteVote (userId, ideaId) {
+  const params = {
+    created_by: `eq.${userId}`,
+    idea: `eq.${ideaId}`
+  }
+  return service.delete('/idea_vote', { params })
+}
+
 function postVote (vote) {
   return service.post('/idea_vote', vote)
 }
@@ -49,6 +57,7 @@ export default {
   getVotes,
   postVote,
   patchVote,
+  deleteVote,
   getComments,
   getQuorumInfo
 }

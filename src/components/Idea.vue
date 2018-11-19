@@ -155,26 +155,43 @@ export default {
       }
     },
     setVote: function (val) {
-      const vote = {
-        school_id: this.$store.getters.schoolId,
-        idea: this.$route.params['ideaId'],
-        created_by: this.$store.getters.userId,
-        changed_by: this.$store.getters.userId,
-        val
-      }
-      ideaApi.postVote(vote)
-        .then(res => {
+      if (val == null) {
+        // Vote was reset => delete vote
+        ideaApi.deleteVote(
+          this.$store.getters.userId,
+          this.$route.params['ideaId']
+        ).then(res => {
           this.getVotes()
         })
-        .catch((err) => {
-          if (err.request != null && err.request.status === 409) {
-            // User has already voted
-            ideaApi.patchVote(vote)
-              .then(res => {
-                this.getVotes()
-              })
-          }
-        })
+          .catch(() => {
+            this.getVotes()
+          })
+      } else {
+        const vote = {
+          school_id: this.$store.getters.schoolId,
+          idea: this.$route.params['ideaId'],
+          created_by: this.$store.getters.userId,
+          changed_by: this.$store.getters.userId,
+          val
+        }
+        ideaApi.postVote(vote)
+          .then(res => {
+            this.getVotes()
+          })
+          .catch((err) => {
+            if (err.request != null && err.request.status === 409) {
+              // User has already voted
+              ideaApi.patchVote(vote)
+                .then(res => {
+                  this.getVotes()
+                })
+                .catch(() => {
+                  this.getVotes()
+                })
+            }
+            this.getVotes()
+          })
+      }
     }
   }
 }
