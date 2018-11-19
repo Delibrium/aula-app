@@ -24,6 +24,10 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
 
+        <v-list-tile-avatar>
+          <img :src="category.icon">
+        </v-list-tile-avatar>
+
         <v-list-tile-action>
           <v-btn icon ripple @click.stop="toDelete = index">
             <v-icon color="grey">delete</v-icon>
@@ -74,6 +78,17 @@
 import api from '@/api'
 import CategoryEdit from '@/components/CategoryEdit'
 
+// PostgREST retuns binary columns in hex encoded format
+// this function can be used to return them back to an ascii representation
+function hex2a (hexx) {
+  var hex = hexx.toString() // force conversion
+  var str = ''
+  for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2) {
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16))
+  }
+  return str
+}
+
 export default {
   name: 'Categories',
   components: {
@@ -104,7 +119,14 @@ export default {
     getCategories: function () {
       const schoolId = this.$store.getters.selected_school
       api.category.get(schoolId).then((res) => {
-        this.categories = res.data
+        const categories = res.data
+        // Decode icon file from hex
+        for (let i = 0; i < res.data.length; i++) {
+          if (categories[i].icon != null) {
+            categories[i].icon = hex2a(categories[i].icon)
+          }
+        }
+        this.categories = categories
       })
     },
     deleteCategory: function () {

@@ -22,6 +22,13 @@
           required
           >
         </v-text-field>
+        <v-avatar class='inlineinput' size='36'><img :src="formIconUrl" /></v-avatar>
+        <upload-btn
+          class='inlineinput'
+          title='Kategorie-Bild auswählen'
+          accept="image/*"
+          :fileChangedCallback="handleIconSelected">
+        </upload-btn>
       </v-card-text>
       <v-card-actions>
         <v-btn flat @click="this.submit" v-if="this.editingId == null">Erstellen</v-btn>
@@ -49,6 +56,7 @@
 <script>
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
+import UploadButton from 'vuetify-upload-button'
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -60,8 +68,22 @@ export default {
       description: '',
       editingId: null,
       showSnackbar: false,
-      snackbarMsg: ''
+      snackbarMsg: '',
+      iconFile: '',
+      iconUrl: ''
     }
+  },
+
+  computed: {
+    formIconUrl: function () {
+      return (this.iconUrl == null || this.iconUrl.length === 0)
+        ? '/static/img/placeholder_icon.png'
+        : this.iconUrl
+    }
+  },
+
+  components: {
+    'upload-btn': UploadButton
   },
 
   props: ['handleSuccess', 'handleCancel', 'category'],
@@ -76,6 +98,7 @@ export default {
         this.name = next.name
         this.description = next.description
         this.editingId = next.id
+        this.iconUrl = next.icon
       }
     }
   },
@@ -85,7 +108,22 @@ export default {
       this.editingId = null
       this.name = ''
       this.description = ''
+      this.iconFile = ''
+      this.iconUrl = ''
       this.$nextTick(() => this.$validator.reset())
+    },
+    handleIconSelected: function (icon) {
+      if (icon !== undefined) {
+        const fr = new FileReader()
+        fr.readAsDataURL(icon)
+        fr.addEventListener('load', () => {
+          this.iconUrl = fr.result
+          this.iconFile = icon
+        })
+      } else {
+        this.iconFile = ''
+        this.iconUrl = ''
+      }
     },
     submit: function () {
       this.$validator.validate()
@@ -106,7 +144,8 @@ export default {
           const category = {
             school_id: this.$store.getters.selected_school,
             name: this.name,
-            description: this.description
+            description: this.description,
+            icon: this.iconUrl
           }
 
           // Select the appripriate api depending on whether
@@ -142,5 +181,8 @@ export default {
 <style scoped lang="scss">
   .card {
     padding: 10px;
+  }
+  .inlineinput {
+    display: inline-block;
   }
 </style>

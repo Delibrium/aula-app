@@ -18,11 +18,11 @@ function create (category) {
 }
 
 function update (category) {
-  const { name, description, id } = category
+  const { name, description, id, icon } = category
   return service({
     method: 'patch',
     url: '/category',
-    data: { name, description, id },
+    data: { name, description, id, icon },
     params: {
       id: `eq.${id}`
     },
