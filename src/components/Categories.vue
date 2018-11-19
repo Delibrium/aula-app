@@ -7,7 +7,7 @@
       dismissible
       outline
     >
-      Klicke auf bestehende Kategorien, um deren Namen und Beschreibung zu ändern.
+      {{ $vuetify.t('$vuetify.AdminCategories.usageNote') }}
     </v-alert>
     <v-list v-if="categories != null" two-line>
       <v-list-tile
@@ -37,16 +37,19 @@
     </v-list>
 
     <v-card v-if="toDelete != null">
-      <v-card-title><h3>Kategorie löschen</h3></v-card-title>
+      <v-card-title><h3>{{ $vuetify.t('$vuetify.AdminCategories.deleteHeader') }}</h3></v-card-title>
       <v-card-text>
         <p>
-          Kategorie "{{ categories[toDelete].name }}" wirklich löschen?
-          Alle darin enthaltenen Ideen haben dann keine Kategorie mehr.
+          {{ $vuetify.t('$vuetify.AdminCategories.deleteText', categories[toDelete].name) }}
         </p>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="deleteCategory" color="error">Unwiederrufbar löschen</v-btn>
-        <v-btn @click="toDelete = null">Zurück</v-btn>
+        <v-btn @click="deleteCategory" color="error">
+          {{ $vuetify.t('$vuetify.AdminCategories.deleteConfirm') }}
+        </v-btn>
+        <v-btn @click="toDelete = null">
+          {{ $vuetify.t('$vuetify.AdminCategories.deleteCancel') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -135,11 +138,11 @@ export default {
           if (res.status < 400) {
             this.reset()
             this.showSnackbar = true
-            this.snackbarMsg = 'Die Kategorie wurde gelöscht.'
+            this.snackbarMsg = this.$vuetify.t('$vuetify.AdminCategories.snackbarDeleted')
           } else {
             this.reset()
             this.showSnackbar = true
-            this.snackbarMsg = 'Die Kategorie konnte nicht gelöscht werden'
+            this.snackbarMsg = this.$vuetify.t('$vuetify.AdminCategories.snackbarDeleteFailed')
           }
         })
     }

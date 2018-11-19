@@ -1,15 +1,19 @@
 <template>
   <v-card class='card'>
     <form>
-      <v-card-title v-if="editingId == null"><h3>Neue Kategorie hinzufügen</h3></v-card-title>
-      <v-card-title v-else><h3>Kategorie "{{ name }}" bearbeiten</h3></v-card-title>
+      <v-card-title v-if="editingId == null">
+        <h3>{{ $vuetify.t('$vuetify.AdminCategories.titleAdd') }}</h3>
+      </v-card-title>
+      <v-card-title v-else>
+        <h3>{{ $vuetify.t('$vuetify.AdminCategories.titleEdit', name) }}</h3>
+      </v-card-title>
       <v-card-text>
         <v-text-field
           name='name'
           v-model='name'
           v-validate="'required'"
           :error-messages="errors.collect('name')"
-          label='Name'
+          :label="this.$vuetify.t('$vuetify.AdminCategories.formName')"
           required
           >
         </v-text-field>
@@ -18,23 +22,31 @@
           v-model='description'
           v-validate="'required'"
           :error-messages="errors.collect('description')"
-          label='Beschreibung'
+          :label="this.$vuetify.t('$vuetify.AdminCategories.formDescription')"
           required
           >
         </v-text-field>
         <v-avatar class='inlineinput' size='36'><img :src="formIconUrl" /></v-avatar>
         <upload-btn
           class='inlineinput'
-          title='Kategorie-Bild auswählen'
+          :title="this.$vuetify.t('$vuetify.AdminCategories.formPickIcon')"
           accept="image/*"
           :fileChangedCallback="handleIconSelected">
         </upload-btn>
       </v-card-text>
       <v-card-actions>
-        <v-btn flat @click="this.submit" v-if="this.editingId == null">Erstellen</v-btn>
-        <v-btn flat @click="this.submit" v-else>Sichern</v-btn>
-        <v-btn flat @click="this.cancel" v-if="this.editingId == null">Zurücksetzen</v-btn>
-        <v-btn flat @click="this.cancel" v-else>Abbrechen</v-btn>
+        <v-btn flat @click="this.submit" v-if="this.editingId == null">
+          {{ $vuetify.t('$vuetify.AdminCategories.formCreate', name) }}
+        </v-btn>
+        <v-btn flat @click="this.submit" v-else>
+          {{ $vuetify.t('$vuetify.AdminCategories.formSave', name) }}
+        </v-btn>
+        <v-btn flat @click="this.cancel" v-if="this.editingId == null">
+          {{ $vuetify.t('$vuetify.AdminCategories.formReset', name) }}
+        </v-btn>
+        <v-btn flat @click="this.cancel" v-else>
+          {{ $vuetify.t('$vuetify.AdminCategories.formCancel', name) }}
+        </v-btn>
       </v-card-actions>
     </form>
     <v-snackbar
@@ -70,7 +82,8 @@ export default {
       showSnackbar: false,
       snackbarMsg: '',
       iconFile: '',
-      iconUrl: ''
+      iconUrl: '',
+      iconChanged: false
     }
   },
 
@@ -110,6 +123,7 @@ export default {
       this.description = ''
       this.iconFile = ''
       this.iconUrl = ''
+      this.iconChanged = false
       this.$nextTick(() => this.$validator.reset())
     },
     handleIconSelected: function (icon) {
@@ -119,6 +133,7 @@ export default {
         fr.addEventListener('load', () => {
           this.iconUrl = fr.result
           this.iconFile = icon
+          this.iconChanged = true
         })
       } else {
         this.iconFile = ''
@@ -144,8 +159,11 @@ export default {
           const category = {
             school_id: this.$store.getters.selected_school,
             name: this.name,
-            description: this.description,
-            icon: this.iconUrl
+            description: this.description
+          }
+
+          if (this.iconChanged === true) {
+            category.icon = this.iconUrl
           }
 
           // Select the appripriate api depending on whether
@@ -164,7 +182,8 @@ export default {
               if (res.status < 400) {
                 this.showSnackbar = true
                 this.snackbarMsg = this.editingId == null
-                  ? 'Kategorie erstellt' : 'Kategorie gespeichert'
+                  ? this.$vuetify.t('$vuetify.AdminCategories.snackbarCreated')
+                  : this.$vuetify.t('$vuetify.AdminCategories.snackbarSaved')
                 this.handleSuccess(res.data)
               } else {
                 this.showSnackbar = true

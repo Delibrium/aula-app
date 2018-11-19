@@ -18,13 +18,12 @@ function create (category) {
 }
 
 function update (category) {
-  const { name, description, id, icon } = category
   return service({
     method: 'patch',
     url: '/category',
-    data: { name, description, id, icon },
+    data: category,
     params: {
-      id: `eq.${id}`
+      id: `eq.${category.id}`
     },
     headers: {
       PREFER: 'return=representation'
