@@ -3,21 +3,28 @@
     <div v-if="commentId != null">
       {{ comment.text }}
 
-      <v-btn
-        small icon
-        v-if="isOwnComment"
-        @click="setEditingId"
-      >
-        <v-icon>edit</v-icon>
-      </v-btn>
+      <div>
+        <em>von {{ comment.created_by.first_name }}</em>
+        <em v-if="comment.changed_by != null">
+          bearbeitet von {{ comment.changed_by.first_name }}
+        </em>
 
-      <v-btn
-        small icon
-        v-if="commentId != null"
-        @click="setReplyId"
-      >
-        <v-icon>reply</v-icon>
-      </v-btn>
+        <v-btn
+          small icon
+          v-if="isOwnComment"
+          @click="setEditingId"
+        >
+          <v-icon>edit</v-icon>
+        </v-btn>
+
+        <v-btn
+          small icon
+          v-if="commentId != null"
+          @click="setReplyId"
+        >
+          <v-icon>reply</v-icon>
+        </v-btn>
+      </div>
     </div>
 
     <ul v-if="directChildren.length > 0">

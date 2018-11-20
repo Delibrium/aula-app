@@ -131,8 +131,6 @@ export default {
           const currentUserId = this.$store.getters.userId
 
           const comment = {
-            created_by: currentUserId,
-            changed_by: currentUserId,
             school_id: this.$store.getters.selected_school,
             text: this.text,
             parent_idea: this.ideaId,
@@ -144,9 +142,11 @@ export default {
           // in the comment id when editing.
           let fn
           if (this.editingId == null) {
+            comment.created_by = currentUserId
             fn = api.comment.create
           } else {
             comment.id = this.editingId
+            comment.changed_by = currentUserId
             fn = api.comment.patch
           }
 
@@ -165,7 +165,7 @@ export default {
             })
             .catch(() => {
               this.showSnackbar = true
-              this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
+              this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
             })
         })
     }
