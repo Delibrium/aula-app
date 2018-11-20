@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='comments'>
     <h3 v-if="comments != null">
       {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
     </h3>
@@ -72,6 +72,14 @@ import api from '@/api'
 import Comment from '@/components/Comment'
 // import { isUserMemberOf } from '../utils/permissions'
 
+const tally = comment => {
+  // Tally up the votes on a comment and return an absolute result
+  if (comment == null) return 0
+  const up = comment.votes.filter(v => v.val === 'up').length
+  const down = comment.votes.filter(v => v.val === 'down').length
+  return up - down
+}
+
 export default {
   $_veeValidate: { validator: 'new' },
 
@@ -85,7 +93,7 @@ export default {
       parentCommentId: null,
       showSnackbar: null,
       snackbarMsg: null,
-      sortBy: 'new'
+      sortBy: 'votes'
     }
   },
 
@@ -100,6 +108,7 @@ export default {
     this.$root.$on('set-reply', this.setReply)
     this.$root.$on('set-edit', this.setEditing)
     this.$root.$on('set-deleted', this.setDeleted)
+    this.$root.$on('reload', this.getComments)
   },
 
   computed: {
@@ -145,8 +154,11 @@ export default {
       const sortByNew = (a, b) => {
         return a.created_by > b.created_by ? 1 : -1
       }
-      const fn = this.sortBy === 'new'
-        ? sortByNew
+      const sortByVotes = (a, b) => {
+        return tally(a) < tally(b) ? 1 : -1
+      }
+      const fn = this.sortBy === 'votes'
+        ? sortByVotes
         : sortByNew
       this.comments = this.comments.sort(fn)
     },
@@ -216,5 +228,11 @@ export default {
   }
   .commentTopLevel {
     list-style: none;
+  }
+  .comments {
+    margin: 2em auto;
+  }
+  .newCommentForm {
+    margin-top: 2em;
   }
 </style>

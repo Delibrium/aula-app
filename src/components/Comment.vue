@@ -9,6 +9,14 @@
       </span>
 
       <div>
+        <v-btn-toggle v-model="voteValue" @change="voteChanged">
+          <v-btn flat small>
+            <v-icon>thumb_up</v-icon>
+          </v-btn>
+          <v-btn flat small>
+            <v-icon>thumb_down</v-icon>
+          </v-btn>
+        </v-btn-toggle>
         <em>
           {{
             $vuetify.t('$vuetify.Comment.authorCreated',
@@ -61,9 +69,19 @@
 </template>
 
 <script>
+  import api from '@/api'
+
   export default {
     name: 'Comment',
     props: ['comments', 'commentId'],
+    data: function () {
+      return {
+        voteValue: null // record the current state of the button
+      }
+    },
+    beforeMount: function () {
+      this.voteValue = this.currentVote
+    },
     computed: {
       comment: function () {
         // Return data for current comment
@@ -89,6 +107,19 @@
       isOwnComment: function () {
         return this.comment &&
           this.comment.created_by.id === this.$store.getters.userId
+      },
+      currentVote: function () {
+        // Retrieve the current vote value from data (instead of the button)
+        const currentId = this.$store.getters.userId
+        const vote = this.comment.votes
+          .filter(v => v.created_by === currentId)
+          .shift()
+
+        return vote == null
+          ? null
+          : vote.val === 'up'
+            ? 0
+            : 1
       }
     },
     methods: {
@@ -100,6 +131,50 @@
       },
       setDeleted: function () {
         this.$root.$emit('set-deleted', this.commentId)
+      },
+      reload: function () {
+        this.$root.$emit('reload')
+      },
+      setVote: function (val) {
+        if (val == null) {
+          // Vote was reset => delete vote
+          api.comment.deleteVote(
+            this.$store.getters.userId,
+            this.commentId
+          ).catch(() => {
+            this.reload()
+          })
+        } else {
+          const vote = {
+            school_id: this.$store.getters.schoolId,
+            comment: this.commentId,
+            created_by: this.$store.getters.userId,
+            changed_by: this.$store.getters.userId,
+            val
+          }
+          api.comment.postVote(vote)
+            .catch((err) => {
+              if (err.request != null && err.request.status === 409) {
+                // User has already voted
+                api.comment.patchVote(vote)
+                  .catch(() => {
+                    this.reload()
+                  })
+              } else {
+                this.reload()
+              }
+            })
+        }
+      },
+      voteChanged: function (clicked) {
+        // The clicked param contains the index of the clicked vote button
+        // or null if the vote was reset
+        const value = clicked === 0
+          ? 'up'
+          : clicked === 1
+            ? 'down'
+            : null
+        this.setVote(value)
       }
     }
   }

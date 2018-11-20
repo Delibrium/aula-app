@@ -39,18 +39,18 @@
             </p>
             <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
-            <Comments />
-
             <div>
               <v-btn-toggle v-model="voteValue" @change="voteChanged">
                 <v-btn flat>
-                  <v-icon>thumb_down</v-icon>
+                  <v-icon>thumb_up</v-icon>
                 </v-btn>
                 <v-btn flat>
-                  <v-icon>thumb_up</v-icon>
+                  <v-icon>thumb_down</v-icon>
                 </v-btn>
               </v-btn-toggle>
             </div>
+
+            <Comments />
 
             <div>
               <h3 v-if="comments != null">
@@ -106,8 +106,8 @@ export default {
       return vote == null
         ? null
         : vote.val === 'yes'
-          ? 1
-          : 0
+          ? 0
+          : 1
     },
     proVotes: function () {
       return this.votes.filter(v => v.val === 'yes')
@@ -147,9 +147,9 @@ export default {
     },
     voteChanged: function (clicked) {
       if (clicked !== this.currentVote) {
-        const value = clicked === 1
+        const value = clicked === 0
           ? 'yes'
-          : clicked === 0
+          : clicked === 1
             ? 'no'
             : null
         this.setVote(value)
