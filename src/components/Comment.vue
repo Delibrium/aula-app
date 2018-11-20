@@ -1,7 +1,12 @@
 <template>
   <li>
     <div v-if="commentId != null">
-      {{ comment.text }}
+      <span v-if="comment.is_deleted">
+        [ Kommentar gelöscht ]
+      </span>
+      <span v-else>
+        {{ comment.text }}
+      </span>
 
       <div>
         <em>von {{ comment.created_by.first_name }}</em>
@@ -12,9 +17,19 @@
         <v-btn
           small icon
           v-if="isOwnComment"
+          :disabled="comment.is_deleted"
           @click="setEditingId"
         >
           <v-icon>edit</v-icon>
+        </v-btn>
+
+        <v-btn
+          small icon
+          v-if="isOwnComment"
+          :disabled="comment.is_deleted"
+          @click="setDeleted"
+        >
+          <v-icon>delete</v-icon>
         </v-btn>
 
         <v-btn
@@ -68,6 +83,9 @@
       },
       setEditingId: function () {
         this.$root.$emit('set-edit', this.commentId)
+      },
+      setDeleted: function () {
+        this.$root.$emit('set-deleted', this.commentId)
       }
     }
   }

@@ -11,8 +11,17 @@
 
     <v-card class='newCommentForm'>
       <v-form>
-        <v-card-title v-if="editingId != null"><h3>Verbesserungsvorschlag bearbeiten</h3></v-card-title>
-        <v-card-title v-else><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
+        <v-card-title v-if="editingId != null">
+          <h3>
+            Verbesserungsvorschlag bearbeiten
+          </h3>
+        </v-card-title>
+        <v-card-title v-else>
+          <h3>
+            Neuer Verbesserungsvorschlag
+          </h3>
+        </v-card-title>
+
         <v-card-text>
           <p v-if="parentCommentId != null">
             Antwort auf {{ parentCommentId }}
@@ -28,9 +37,15 @@
           </v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn flat @click="this.submit">Veröffentlichen</v-btn>
-          <v-btn flat @click="this.cancel" v-if="this.editingId == null">Zurücksetzen</v-btn>
-          <v-btn flat @click="this.cancel" v-else>Abbrechen</v-btn>
+          <v-btn flat @click="this.submit">
+            Veröffentlichen
+          </v-btn>
+          <v-btn flat @click="this.cancel" v-if="this.editingId == null">
+            Zurücksetzen
+          </v-btn>
+          <v-btn flat @click="this.cancel" v-else>
+            Abbrechen
+          </v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -80,9 +95,10 @@ export default {
 
     // As comments can be nested deeply, the root element
     // is used as an event bus. Recursively inserted <Comment /> elements
-    // send a 'set-reply' event there to be received here.
+    // send events for various events, which are received here.
     this.$root.$on('set-reply', this.setReply)
     this.$root.$on('set-edit', this.setEditing)
+    this.$root.$on('set-deleted', this.setDeleted)
   },
 
   computed: {
@@ -112,6 +128,16 @@ export default {
         this.text = comment.text
         this.editingId = commentId
       }
+    },
+    setDeleted: function (commentId) {
+      api.comment.remove(commentId)
+        .then(res => {
+          this.getComments()
+        })
+        .catch(() => {
+          this.showSnackbar = true
+          this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
+        })
     },
     submit: function () {
       this.$validator.validate()
