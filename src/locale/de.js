@@ -1,4 +1,5 @@
 export default {
+  noDataText: 'Leider wurde hier nichts geladen',
   Login: {
     'welcome': 'Willkommen bei Aula',
     'login': 'Benutzername',

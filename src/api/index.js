@@ -1,4 +1,4 @@
 import service from './service'
-import { getSchools } from './school'
+import school from './school'
 
-export default { service, getSchools }
+export default { service, school }

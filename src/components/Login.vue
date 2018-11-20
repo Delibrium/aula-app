@@ -11,13 +11,38 @@
               </v-toolbar>
               <v-card-text>
                 <v-form id="check-login-form">
-                  <v-text-field prepend-icon="person" v-model="data.body.username" :label="$vuetify.t('$vuetify.Login.login')" type="text"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" v-model="data.body.password" :label="$vuetify.t('$vuetify.Login.password')" type="password"></v-text-field>
+                  <v-select
+                    autocomplete
+                    prepend-icon="school"
+                    :items="schools"
+                    label="Schule"
+                    @change="handleChangeSchool"
+                  ></v-select>
+                  <v-text-field
+                    prepend-icon="person"
+                    v-model="username"
+                    :label="$vuetify.t('$vuetify.Login.login')"
+                    type="text">
+                  </v-text-field>
+                  <v-text-field
+                    id="password"
+                    prepend-icon="lock"
+                    v-model="password"
+                    :label="$vuetify.t('$vuetify.Login.password')"
+                    type="password">
+                  </v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn type="submit" color="green darken-1" form="check-login-form" @click="login">Login</v-btn>
+                <v-btn
+                  dark
+                  type="submit"
+                  color="green darken-1"
+                  form="check-login-form"
+                  @click="login">
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -28,41 +53,56 @@
 </template>
 
 <script>
-  export default {
-    name: 'Login',
-    data: () => ({
-      drawer: null,
-      data: {
-        body: {
-          username: '',
-          password: ''
-        }
+import api from '@/api'
+
+export default {
+  name: 'Login',
+  data: () => ({
+    username: '',
+    password: '',
+    schools: [],
+    selectedSchoolId: null
+  }),
+
+  beforeMount: function () {
+    this.loadSchools()
+  },
+
+  props: {
+    source: String
+  },
+
+  methods: {
+    login: function () {
+      const params = {
+        data: {
+          username: this.username,
+          password: this.password,
+          school_id: this.selectedSchoolId
+        },
+        redirect: { name: 'IdeaSpaces' },
+        fetchUser: true
       }
-    }),
-
-    mounted: function () {
-    },
-
-    props: {
-      source: String
-    },
-
-    methods: {
-      login: function () {
-        // var redirect = this.$auth.redirect()
-        this.$auth.login({
-          data: this.data.body,
-          redirect: { name: 'IdeaSpaces' },
-          fetchUser: true
-        }).then((res) => {
+      this.$auth.login(params)
+        .then((res) => {
           this.$store.commit('SET_USER', res.data.data)
           this.$auth.user(res.data.data)
-        }, (res) => {
-          console.log('Error on Login')
-          this.error = res.data
         })
-      }
+        .catch((error) => {
+          console.log('Error on Login')
+          this.error = error.data
+        })
+    },
+    loadSchools: function () {
+      api.school.getPublic()
+        .then(res => {
+          this.schools = res.data
+        })
+    },
+    handleChangeSchool: function (value) {
+      this.selectedSchoolId = value
     }
   }
+}
 </script>
 
