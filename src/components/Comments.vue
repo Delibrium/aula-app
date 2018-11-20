@@ -3,7 +3,7 @@
     <h3 v-if="comments != null">
       {{ $vuetify.t('$vuetify.Comment.title', comments.length) }}
 
-      <v-btn-toggle v-model="sortBy" @change="this.sortComments">
+      <v-btn-toggle v-model="sortBy" @change="this.sortComments" mandatory>
         <v-btn small>
           {{ $vuetify.t('$vuetify.Comment.sortByNew') }}
         </v-btn>
@@ -102,7 +102,7 @@ export default {
       parentCommentId: null,
       showSnackbar: null,
       snackbarMsg: null,
-      sortBy: 0
+      sortBy: 1
     }
   },
 
@@ -131,6 +131,8 @@ export default {
       this.editingId = null
       this.text = ''
       this.parentCommentId = null
+      // Reset the validator on the next tick to avoid triggering
+      // validation errors because of the empty fields
       this.$nextTick(() => this.$validator.reset())
     },
     getComments: function () {
@@ -161,10 +163,16 @@ export default {
     },
     sortComments: function () {
       const sortByNew = (a, b) => {
-        return a.created_by > b.created_by ? 1 : -1
+        return a.created_at < b.created_at ? 1 : -1
       }
       const sortByVotes = (a, b) => {
-        return tally(a) < tally(b) ? 1 : -1
+        const ta = tally(a)
+        const tb = tally(b)
+        return ta === tb
+          ? sortByNew(a, b) // Sort by date if two comments have same vote count
+          : ta < tb
+            ? 1
+            : -1
       }
       // Select sorting function depending on index of selection button group
       const fn = [sortByNew, sortByVotes][this.sortBy]

@@ -129,7 +129,7 @@
             : 1
       },
       tally: function () {
-        // Tally up the votes on a comment and return an absolute result
+        // Tally up the votes on a comment and return a numerical result
         if (this.comment == null) return 0
         const up = this.comment.votes.filter(v => v.val === 'up').length
         const down = this.comment.votes.filter(v => v.val === 'down').length
