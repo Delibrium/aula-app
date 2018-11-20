@@ -17,7 +17,15 @@ function create (comment) {
   return service.post('/comment', comment, config)
 }
 
+function patch (comment) {
+  const params = {
+    id: `eq.${comment.id}`
+  }
+  return service.patch('/comment', comment, { params })
+}
+
 export default {
   get,
-  create
+  create,
+  patch
 }

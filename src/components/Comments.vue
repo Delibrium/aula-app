@@ -11,7 +11,7 @@
 
     <v-card class='newCommentForm'>
       <v-form>
-        <v-card-title v-if="editingId != null"><h3>Verbesserungsvorschlag "{{ text }}" bearbeiten</h3></v-card-title>
+        <v-card-title v-if="editingId != null"><h3>Verbesserungsvorschlag bearbeiten</h3></v-card-title>
         <v-card-title v-else><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
         <v-card-text>
           <p v-if="parentCommentId != null">
@@ -81,9 +81,8 @@ export default {
     // As comments can be nested deeply, the root element
     // is used as an event bus. Recursively inserted <Comment /> elements
     // send a 'set-reply' event there to be received here.
-    this.$root.$on('set-reply', (replyId) => {
-      this.parentCommentId = replyId
-    })
+    this.$root.$on('set-reply', this.setReply)
+    this.$root.$on('set-edit', this.setEditing)
   },
 
   computed: {
@@ -103,6 +102,16 @@ export default {
       api.comment.get(this.ideaId).then(resp => {
         this.comments = resp.data
       })
+    },
+    setReply: function (commentId) {
+      this.parentCommentId = commentId
+    },
+    setEditing: function (commentId) {
+      const comment = this.comments.filter(c => c.id === commentId).shift()
+      if (comment != null) {
+        this.text = comment.text
+        this.editingId = commentId
+      }
     },
     submit: function () {
       this.$validator.validate()
@@ -138,7 +147,7 @@ export default {
             fn = api.comment.create
           } else {
             comment.id = this.editingId
-            fn = api.comment.update
+            fn = api.comment.patch
           }
 
           fn(comment)
@@ -153,6 +162,10 @@ export default {
                 this.snackbarMsg = this.$vuetify.t(
                   '$vuetify.Snackbar.serverError')
               }
+            })
+            .catch(() => {
+              this.showSnackbar = true
+              this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
             })
         })
     }

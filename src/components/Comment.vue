@@ -5,6 +5,14 @@
 
       <v-btn
         small icon
+        v-if="isOwnComment"
+        @click="setEditingId"
+      >
+        <v-icon>edit</v-icon>
+      </v-btn>
+
+      <v-btn
+        small icon
         v-if="commentId != null"
         @click="setReplyId"
       >
@@ -32,7 +40,7 @@
       comment: function () {
         // Return data for current comment
         return this.comments == null
-          ? []
+          ? null
           : this.comments.filter(c => c.id === this.commentId).shift()
       },
       directChildren: function () {
@@ -41,11 +49,18 @@
           : this.comments.filter(
             c => c.parent_comment == this.commentId // eslint-disable-line eqeqeq
           )
+      },
+      isOwnComment: function () {
+        return this.comment &&
+          this.comment.created_by.id === this.$store.getters.userId
       }
     },
     methods: {
       setReplyId: function () {
         this.$root.$emit('set-reply', this.commentId)
+      },
+      setEditingId: function () {
+        this.$root.$emit('set-edit', this.commentId)
       }
     }
   }
