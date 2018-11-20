@@ -3,7 +3,7 @@ import service from '@/api/service'
 function get (ideaId) {
   const params = {
     parent_idea: 'eq.' + ideaId,
-    select: 'id,created_by(id,first_name),changed_by(id,first_name),created_at,text,parent_comment,is_deleted'
+    select: 'id,created_by(id,first_name),changed_by(id,first_name),created_at,text,parent_comment,is_deleted,votes:comment_vote(val)'
   }
   return service.get('/comment', { params })
 }
