@@ -27,7 +27,7 @@
 
             <p v-if='quorum != null && votes != null'>
               {{ $vuetify.t('$vuetify.Idea.supporterCount',
-                  votes.length,
+                  proVotes.length,
                   quorum.requiredVoteCount
               ) }}
             </p>
@@ -40,6 +40,32 @@
             <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
             <Comments />
+
+            <div>
+              <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                <v-btn flat>
+                  <v-icon>thumb_down</v-icon>
+                </v-btn>
+                <v-btn flat>
+                  <v-icon>thumb_up</v-icon>
+                </v-btn>
+              </v-btn-toggle>
+            </div>
+
+            <div>
+              <h3 v-if="comments != null">
+                {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
+              </h3>
+
+              <ul>
+                <li v-for="comment in comments">
+                  <p>
+                    <strong>{{ comment.created_by.first_name }}</strong>
+                    {{ comment.text }}
+                  </p>
+                </li>
+              </ul>
+            </div>
           </v-flex>
       </v-layout>
     </v-container>
@@ -57,28 +83,47 @@ export default {
   data: () => ({
     idea: {},
     quorum: null,
-    votes: null
+    comments: null,
+    votes: null,
+    voteValue: null
   }),
 
   props: {
 
   },
 
+  beforeMount: function () {
+    this.getIdea()
+  },
+
   computed: {
     created: function () {
       return this.idea && this.idea.created_at && new Date(this.idea.created_at)
+    },
+    currentVote: function () {
+      const currentId = this.$store.getters.userId
+      const vote = this.votes.filter(v => v.created_by === currentId).shift()
+      return vote == null
+        ? null
+        : vote.val === 'yes'
+          ? 1
+          : 0
+    },
+    proVotes: function () {
+      return this.votes.filter(v => v.val === 'yes')
     }
   },
 
-  beforeMount: function () {
-    ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
-      this.idea = res.data[0]
-      this.getQuorumInfo()
-      this.getVotes()
-    })
-  },
-
   methods: {
+    getIdea: function () {
+      ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
+        this.idea = res.data[0]
+        this.created = new Date(res.data[0].created_at)
+        this.getQuorumInfo()
+        this.getVotes()
+        this.getComments()
+      })
+    },
     getPhaseName: function () {
       if (this.idea.topic == null) {
         return this.$vuetify.t('$vuetify.TopicPhase.wildIdeas')
@@ -97,7 +142,57 @@ export default {
     getVotes: function () {
       ideaApi.getVotes(this.idea.id).then(resp => {
         this.votes = resp.data
+        this.voteValue = this.currentVote
       })
+    },
+    voteChanged: function (clicked) {
+      if (clicked !== this.currentVote) {
+        const value = clicked === 1
+          ? 'yes'
+          : clicked === 0
+            ? 'no'
+            : null
+        this.setVote(value)
+      }
+    },
+    setVote: function (val) {
+      if (val == null) {
+        // Vote was reset => delete vote
+        ideaApi.deleteVote(
+          this.$store.getters.userId,
+          this.$route.params['ideaId']
+        ).then(res => {
+          this.getVotes()
+        })
+          .catch(() => {
+            this.getVotes()
+          })
+      } else {
+        const vote = {
+          school_id: this.$store.getters.schoolId,
+          idea: this.$route.params['ideaId'],
+          created_by: this.$store.getters.userId,
+          changed_by: this.$store.getters.userId,
+          val
+        }
+        ideaApi.postVote(vote)
+          .then(res => {
+            this.getVotes()
+          })
+          .catch((err) => {
+            if (err.request != null && err.request.status === 409) {
+              // User has already voted
+              ideaApi.patchVote(vote)
+                .then(res => {
+                  this.getVotes()
+                })
+                .catch(() => {
+                  this.getVotes()
+                })
+            }
+            this.getVotes()
+          })
+      }
     }
   }
 }
