@@ -1,14 +1,14 @@
 <template>
   <div class='comments'>
     <h3 v-if="comments != null">
-      {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
+      {{ $vuetify.t('$vuetify.Comment.title', comments.length) }}
 
       <v-btn-toggle v-model="sortBy" @change="this.sortComments">
         <v-btn small>
-          Neu
+          {{ $vuetify.t('$vuetify.Comment.sortByNew') }}
         </v-btn>
         <v-btn small>
-          Stimmen
+          {{ $vuetify.t('$vuetify.Comment.sortByVotes') }}
         </v-btn>
       </v-btn-toggle>
     </h3>
@@ -22,38 +22,38 @@
       <v-form>
         <v-card-title v-if="editingId != null">
           <h3>
-            Verbesserungsvorschlag bearbeiten
+            {{ $vuetify.t('$vuetify.Comment.formTitleEdit') }}
           </h3>
         </v-card-title>
         <v-card-title v-else>
           <h3>
-            Neuer Verbesserungsvorschlag
+            {{ $vuetify.t('$vuetify.Comment.formTitleCreate') }}
           </h3>
         </v-card-title>
 
         <v-card-text>
           <p v-if="parentCommentId != null">
-            Antwort auf {{ parentCommentId }}
+            {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentCommentId) }}
           </p>
           <v-text-field
             name='text'
             v-model='text'
             v-validate="'required'"
             :error-messages="errors.collect('text')"
-            label='Dein Verbesserungsvorschlag'
+            :label="this.$vuetify.t('$vuetify.Comment.formLabelTitle')"
             required
             >
           </v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-btn flat @click="this.submit">
-            Veröffentlichen
+            {{ $vuetify.t('$vuetify.Comment.submit') }}
           </v-btn>
           <v-btn flat @click="this.cancel" v-if="this.editingId == null">
-            Zurücksetzen
+            {{ $vuetify.t('$vuetify.Comment.reset') }}
           </v-btn>
           <v-btn flat @click="this.cancel" v-else>
-            Abbrechen
+            {{ $vuetify.t('$vuetify.Comment.cancel') }}
           </v-btn>
         </v-card-actions>
       </v-form>
@@ -211,7 +211,7 @@ export default {
             .then((res) => {
               if (res.status < 400) {
                 this.showSnackbar = true
-                this.snackbarMsg = 'Verbesserungsvorschlag veröffentlicht'
+                this.snackbarMsg = this.$vuetify.t('$vuetify.Comment.snackbarCreated')
                 this.getComments()
                 this.cancel()
               } else {

@@ -2,7 +2,7 @@
   <li>
     <div v-if="commentId != null">
       <span v-if="comment.is_deleted">
-        [ Kommentar gelöscht ]
+        {{ $vuetify.t('$vuetify.Comment.isDeleted') }}
       </span>
       <span v-else>
         {{ comment.text }}
@@ -31,7 +31,8 @@
           }}
         </em>
         <em v-if="comment.changed_by != null">
-          bearbeitet von {{ comment.changed_by.first_name }}
+          {{ $vuetify.t('$vuetify.Comment.editedBy',
+            this.comment.changed_by.first_name) }}
         </em>
 
         <v-btn
