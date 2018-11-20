@@ -9,7 +9,13 @@
       </span>
 
       <div>
-        <em>von {{ comment.created_by.first_name }}</em>
+        <em>
+          {{
+            $vuetify.t('$vuetify.Comment.authorCreated',
+              comment.created_by.first_name,
+              created.toLocaleString())
+          }}
+        </em>
         <em v-if="comment.changed_by != null">
           bearbeitet von {{ comment.changed_by.first_name }}
         </em>
@@ -64,6 +70,14 @@
         return this.comments == null
           ? null
           : this.comments.filter(c => c.id === this.commentId).shift()
+      },
+      created: function () {
+        return this.comment && this.comment.created_at &&
+          new Date(this.comment.created_at)
+      },
+      changed: function () {
+        return this.comment && this.comment.changed_at &&
+          new Date(this.comment.changed_at)
       },
       directChildren: function () {
         return this.comments == null

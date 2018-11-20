@@ -126,6 +126,9 @@ export default {
     'time': 'Zeit',
     'environment': 'Umgebung'
   },
+  Comment: {
+    'authorCreated': 'von {0} am {1}'
+  },
   Idea: {
     'authorCreated': 'von {0} am {1}',
     'votes.pro': '{0} Quorum-Stimmen',

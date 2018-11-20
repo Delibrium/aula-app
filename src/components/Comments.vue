@@ -84,7 +84,8 @@ export default {
       text: null,
       parentCommentId: null,
       showSnackbar: null,
-      snackbarMsg: null
+      snackbarMsg: null,
+      sortBy: 'new'
     }
   },
 
@@ -117,6 +118,7 @@ export default {
     getComments: function () {
       api.comment.get(this.ideaId).then(resp => {
         this.comments = resp.data
+        this.sortComments()
       })
     },
     setReply: function (commentId) {
@@ -138,6 +140,15 @@ export default {
           this.showSnackbar = true
           this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.serverError')
         })
+    },
+    sortComments: function () {
+      const sortByNew = (a, b) => {
+        return a.created_by > b.created_by ? 1 : -1
+      }
+      const fn = this.sortBy === 'new'
+        ? sortByNew
+        : sortByNew
+      this.comments = this.comments.sort(fn)
     },
     submit: function () {
       this.$validator.validate()

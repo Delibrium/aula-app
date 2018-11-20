@@ -56,7 +56,6 @@ export default {
   components: { Comments },
   data: () => ({
     idea: {},
-    created: null,
     quorum: null,
     votes: null
   }),
@@ -65,10 +64,15 @@ export default {
 
   },
 
+  computed: {
+    created: function () {
+      return this.idea && this.idea.created_at && new Date(this.idea.created_at)
+    }
+  },
+
   beforeMount: function () {
     ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
       this.idea = res.data[0]
-      this.created = new Date(res.data[0].created_at)
       this.getQuorumInfo()
       this.getVotes()
     })
