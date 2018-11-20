@@ -2,6 +2,15 @@
   <div class='comments'>
     <h3 v-if="comments != null">
       {{ $vuetify.t('$vuetify.Idea.suggestions', comments.length) }}
+
+      <v-btn-toggle v-model="sortBy" @change="this.sortComments">
+        <v-btn small>
+          Neu
+        </v-btn>
+        <v-btn small>
+          Stimmen
+        </v-btn>
+      </v-btn-toggle>
     </h3>
 
     <Comment
@@ -93,7 +102,7 @@ export default {
       parentCommentId: null,
       showSnackbar: null,
       snackbarMsg: null,
-      sortBy: 'votes'
+      sortBy: 0
     }
   },
 
@@ -157,9 +166,8 @@ export default {
       const sortByVotes = (a, b) => {
         return tally(a) < tally(b) ? 1 : -1
       }
-      const fn = this.sortBy === 'votes'
-        ? sortByVotes
-        : sortByNew
+      // Select sorting function depending on index of selection button group
+      const fn = [sortByNew, sortByVotes][this.sortBy]
       this.comments = this.comments.sort(fn)
     },
     submit: function () {
@@ -231,6 +239,9 @@ export default {
   }
   .comments {
     margin: 2em auto;
+  }
+  .comments > h3 {
+    margin-bottom: 1em;
   }
   .newCommentForm {
     margin-top: 2em;

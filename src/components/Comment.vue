@@ -9,14 +9,20 @@
       </span>
 
       <div>
-        <v-btn-toggle v-model="voteValue" @change="voteChanged">
-          <v-btn flat small>
-            <v-icon>thumb_up</v-icon>
-          </v-btn>
-          <v-btn flat small>
-            <v-icon>thumb_down</v-icon>
-          </v-btn>
-        </v-btn-toggle>
+        <v-tooltip bottom>
+          <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
+            <v-btn flat small>
+              <v-icon>thumb_up</v-icon>
+            </v-btn>
+            <v-btn flat small>
+              <v-icon>thumb_down</v-icon>
+            </v-btn>
+          </v-btn-toggle>
+          <span>
+            {{ $vuetify.t('$vuetify.Comment.tally', this.tally) }}
+          </span>
+        </v-tooltip>
+
         <em>
           {{
             $vuetify.t('$vuetify.Comment.authorCreated',
@@ -111,7 +117,7 @@
       currentVote: function () {
         // Retrieve the current vote value from data (instead of the button)
         const currentId = this.$store.getters.userId
-        const vote = this.comment.votes
+        const vote = this.comment && this.comment.votes
           .filter(v => v.created_by === currentId)
           .shift()
 
@@ -120,6 +126,13 @@
           : vote.val === 'up'
             ? 0
             : 1
+      },
+      tally: function () {
+        // Tally up the votes on a comment and return an absolute result
+        if (this.comment == null) return 0
+        const up = this.comment.votes.filter(v => v.val === 'up').length
+        const down = this.comment.votes.filter(v => v.val === 'down').length
+        return up - down
       }
     },
     methods: {

@@ -127,12 +127,13 @@ export default {
     'environment': 'Umgebung'
   },
   Comment: {
-    'authorCreated': 'von {0} am {1}'
+    'authorCreated': 'von {0} am {1}',
+    'tally': '{0} Stimmen'
   },
   Idea: {
     'authorCreated': 'von {0} am {1}',
     'votes.pro': '{0} Quorum-Stimmen',
-    'suggestions': '{0} Verbesserungsvorschläge',
+    'suggestions': '{0} Verbesserungsvorschläge, sortiert nach',
     'suggestion': 'Verbesserungsvorschlag',
     'supporterCount': '{0} von {1} Unterstützern',
     'create.topic': 'Thema anlegen',

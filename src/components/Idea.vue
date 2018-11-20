@@ -102,7 +102,8 @@ export default {
     },
     currentVote: function () {
       const currentId = this.$store.getters.userId
-      const vote = this.votes.filter(v => v.created_by === currentId).shift()
+      const vote = this.votes && this.votes
+        .filter(v => v.created_by === currentId).shift()
       return vote == null
         ? null
         : vote.val === 'yes'
@@ -110,7 +111,7 @@ export default {
           : 1
     },
     proVotes: function () {
-      return this.votes.filter(v => v.val === 'yes')
+      return this.votes && this.votes.filter(v => v.val === 'yes')
     }
   },
 
@@ -118,10 +119,8 @@ export default {
     getIdea: function () {
       ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
         this.idea = res.data[0]
-        this.created = new Date(res.data[0].created_at)
         this.getQuorumInfo()
         this.getVotes()
-        this.getComments()
       })
     },
     getPhaseName: function () {
