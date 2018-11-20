@@ -18,7 +18,7 @@
       :comments="comments"
     />
 
-    <v-card class='newCommentForm'>
+    <v-card class='newCommentForm' v-if="!disabled">
       <v-form>
         <v-card-title v-if="editingId != null">
           <h3>
@@ -58,6 +58,9 @@
         </v-card-actions>
       </v-form>
     </v-card>
+    <p v-else>
+      {{ $vuetify.t('$vuetify.Comment.disabled') }}
+    </p>
 
     <v-snackbar
       v-model="showSnackbar"
@@ -93,7 +96,7 @@ export default {
   $_veeValidate: { validator: 'new' },
 
   name: 'Comments',
-  props: [],
+  props: ['disabled'],
   data: function () {
     return {
       comments: null,

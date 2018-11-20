@@ -50,7 +50,7 @@
               </v-btn-toggle>
             </div>
 
-            <Comments />
+            <Comments :disabled="!allowCommenting"/>
 
             <div>
               <h3 v-if="comments != null">
@@ -99,6 +99,12 @@ export default {
   computed: {
     created: function () {
       return this.idea && this.idea.created_at && new Date(this.idea.created_at)
+    },
+    allowCommenting: function () {
+      const allowedPhases = ['wildIdeas', 'edit_topics']
+      return this.idea && this.idea.topic == null
+        ? true
+        : allowedPhases.indexOf(this.idea.topic.phase) >= 0
     },
     currentVote: function () {
       const currentId = this.$store.getters.userId

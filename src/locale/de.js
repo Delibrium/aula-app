@@ -141,7 +141,8 @@ export default {
     'submit': 'Veröffentlichen',
     'reset': 'Zurücksetzen',
     'cancel': 'Abbrechen',
-    'snackbarCreated': 'Verbesserungsvorschlag veröffentlicht'
+    'snackbarCreated': 'Verbesserungsvorschlag veröffentlicht',
+    'disabled': 'In dieser Phase können keine Verbesserungsvorschläge mehr eingereicht werden.'
   },
   Idea: {
     'authorCreated': 'von {0} am {1}',
