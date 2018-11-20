@@ -4,14 +4,16 @@
       {{ comment.text }}
 
       <v-btn
+        small icon
         v-if="commentId != null"
-        @click="$emit('setReplyEvent', commentId)"
+        @click="setReplyId"
       >
-        Antworten
+        <v-icon>reply</v-icon>
       </v-btn>
     </div>
 
     <ul v-if="directChildren.length > 0">
+      <!-- Recursive insertion of child comments -->
       <Comment
         v-for="child in directChildren"
         :key="child.id"
@@ -25,9 +27,10 @@
 <script>
   export default {
     name: 'Comment',
-    props: ['comments', 'commentId', 'setReplyId'],
+    props: ['comments', 'commentId'],
     computed: {
       comment: function () {
+        // Return data for current comment
         return this.comments == null
           ? []
           : this.comments.filter(c => c.id === this.commentId).shift()
@@ -35,7 +38,14 @@
       directChildren: function () {
         return this.comments == null
           ? []
-          : this.comments.filter(c => c.parent_comment == this.commentId) // eslint-disable-line eqeqeq
+          : this.comments.filter(
+            c => c.parent_comment == this.commentId // eslint-disable-line eqeqeq
+          )
+      }
+    },
+    methods: {
+      setReplyId: function () {
+        this.$root.$emit('set-reply', this.commentId)
       }
     }
   }

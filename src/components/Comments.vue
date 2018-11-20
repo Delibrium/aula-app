@@ -7,11 +7,10 @@
     <Comment
       class='commentTopLevel'
       :comments="comments"
-      :setReplyId="this.setReplyId"
     />
 
     <v-card class='newCommentForm'>
-      <v-form v-on:setReplyEvent="setReplyId">
+      <v-form>
         <v-card-title v-if="editingId != null"><h3>Verbesserungsvorschlag "{{ text }}" bearbeiten</h3></v-card-title>
         <v-card-title v-else><h3>Neuer Verbesserungsvorschlag</h3></v-card-title>
         <v-card-text>
@@ -78,6 +77,13 @@ export default {
 
   beforeMount: function () {
     this.getComments()
+
+    // As comments can be nested deeply, the root element
+    // is used as an event bus. Recursively inserted <Comment /> elements
+    // send a 'set-reply' event there to be received here.
+    this.$root.$on('set-reply', (replyId) => {
+      this.parentCommentId = replyId
+    })
   },
 
   computed: {
@@ -90,15 +96,13 @@ export default {
     cancel: function () {
       this.editingId = null
       this.text = ''
+      this.parentCommentId = null
       this.$nextTick(() => this.$validator.reset())
     },
     getComments: function () {
       api.comment.get(this.ideaId).then(resp => {
         this.comments = resp.data
       })
-    },
-    setReplyId: function (commentId) {
-      this.parentCommentId = commentId
     },
     submit: function () {
       this.$validator.validate()
