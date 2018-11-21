@@ -1,5 +1,5 @@
 import service from './service'
 import { getSchools } from './school'
-import category from './category'
+import * as user from './user'
 
-export default { service, getSchools, category }
+export default { service, getSchools, user }

@@ -64,6 +64,7 @@ export default {
     'your.delegate': 'Derzeit stimmt für dich ab: {0}'
   },
   TopicPhase: {
+    'wildIdeas': 'Wilde-Ideen-Phase',
     'edit_topics': 'Ausarbeitungphase',
     'feasibility': 'Prüfungsphase',
     'vote': 'Abstimmungsphase',
@@ -126,19 +127,19 @@ export default {
     'environment': 'Umgebung'
   },
   Idea: {
-    'from': 'von {0}',
+    'authorCreated': 'von {0} am {1}',
     'votes.pro': '{0} Quorum-Stimmen',
     'suggestions': '{0} Verbesserungsvorschläge',
     'suggestion': 'Verbesserungsvorschlag',
-    'supporters.numbers': '{0} von {1} Quorum-Stimmen',
+    'supporterCount': '{0} von {1} Unterstützern',
     'create.topic': 'Thema anlegen',
     'on.table': 'Auf den Tisch!',
     'not.on.table': 'Docht nicht auf den Tisch?',
     'is.possible': 'Durchführbar',
     'not.possible': 'Nicht durchführbar',
     'statement': 'Statement abgeben',
-    'categories': 'Diese Idee gehört zur Kategorie',
-    'without.category': 'Diese Idee gehört zu keiner Kategorie',
+    'category': 'Diese Idee gehört zur Kategorie {0}',
+    'noCategory': 'Diese Idee gehört zu keiner Kategorie',
     'new.suggestion': 'Neuer Verbesserungsvorschlag',
     'suggestion.author': '{0} am {1}',
     'suggestion.answer': 'Antworten',
