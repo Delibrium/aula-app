@@ -161,6 +161,7 @@ export default {
   AdminMenu: {
     'title': 'Prozessverwaltung',
     'phaseDuration': 'Dauer der Phasen',
+    'categories': 'Kategorien',
     'quorum': 'Quorum',
     'holidays': 'Ferienmodus',
     'users': 'Gruppen & Nutzer',
@@ -172,6 +173,26 @@ export default {
     'phaseWorking': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
     'phaseVoting': 'Wie viele Tage soll die Abstimmungphase dauren?',
     'days': 'Tage'
+  },
+  AdminCategories: {
+    'usageNote': 'Klicke auf bestehende Kategorien, um deren Namen und Beschreibung zu ändern.',
+    'deleteHeader': 'Kategorie Löschen',
+    'deleteText': 'Kategorie "{0}" wirklich löschen? Alle darin enthaltenen Ideen haben dann keine Kategorie mehr.',
+    'deleteConfirm': 'Unwiderrufbar löschen',
+    'deleteCancel': 'Zurück',
+    'snackbarDeleted': 'Die Kategorie wurde gelöscht',
+    'snackbarDeleteFailed': 'Die Kategorie konnte nicht gelöscht werden',
+    'titleAdd': 'Neue Kategorie hinzufügen',
+    'titleEdit': 'Kategorie "{0}" bearbeiten',
+    'formName': 'Name',
+    'formDescription': 'Beschreibung',
+    'formPickIcon': 'Kategorie-Bild auswählen',
+    'formCreate': 'Erstellen',
+    'formSave': 'Sichern',
+    'formReset': 'Zurücksetzen',
+    'formCancel': 'Abbrechen',
+    'snackbarCreated': 'Erstellt',
+    'snackbarSaved': 'Gesichert'
   },
   AdminQuorum: {
     'school': 'Wie hoch soll das Quorum schulweit sein?',

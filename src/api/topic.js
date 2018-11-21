@@ -33,5 +33,5 @@ export function getTopics (schoolId, ideaSpaceId) {
     school_id: `eq.${schoolId}`,
     idea_space: `eq.${ideaSpaceId}`
   }
-  return service.get('/topic', {params: queryParams})
+  return service.get('/topic', { params: queryParams })
 }
