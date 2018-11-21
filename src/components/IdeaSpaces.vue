@@ -53,7 +53,7 @@ export default {
   },
 
   beforeMount: function () {
-    api.getIdeasSpaces(this.$store.getters.selected_school).then((res) => {
+    api.getIdeaSpaces(this.$store.getters.selected_school).then((res) => {
       this.idea_space = res.data
     })
   },

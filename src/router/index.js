@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import IdeasSpaces from '@/components/IdeasSpaces'
+import IdeaSpaces from '@/components/IdeaSpaces'
 import Admin from '@/components/Admin'
 import Login from '@/components/Login'
 import Ideas from '@/components/Ideas'
@@ -17,8 +17,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'IdeasSpaces',
-      component: IdeasSpaces,
+      name: 'IdeaSpaces',
+      component: IdeaSpaces,
       meta: { auth: true }
     },
     {
