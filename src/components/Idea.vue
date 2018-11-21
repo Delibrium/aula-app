@@ -42,13 +42,15 @@
             <div>
               <v-btn-toggle v-model="voteValue" @change="voteChanged">
                 <v-btn flat>
-                  <v-icon>thumb_down</v-icon>
+                  <v-icon>thumb_up</v-icon>
                 </v-btn>
                 <v-btn flat>
-                  <v-icon>thumb_up</v-icon>
+                  <v-icon>thumb_down</v-icon>
                 </v-btn>
               </v-btn-toggle>
             </div>
+
+            <Comments :disabled="!allowCommenting"/>
 
             <div>
               <h3 v-if="comments != null">
@@ -73,12 +75,13 @@
 <script>
 
 import ideaApi from '@/api/idea'
+import Comments from '@/components/Comments'
 
 export default {
   name: 'Idea',
+  components: { Comments },
   data: () => ({
     idea: {},
-    created: null,
     quorum: null,
     comments: null,
     votes: null,
@@ -94,17 +97,27 @@ export default {
   },
 
   computed: {
+    created: function () {
+      return this.idea && this.idea.created_at && new Date(this.idea.created_at)
+    },
+    allowCommenting: function () {
+      const allowedPhases = ['wildIdeas', 'edit_topics']
+      return this.idea && this.idea.topic == null
+        ? true
+        : allowedPhases.indexOf(this.idea.topic.phase) >= 0
+    },
     currentVote: function () {
       const currentId = this.$store.getters.userId
-      const vote = this.votes.filter(v => v.created_by === currentId).shift()
+      const vote = this.votes && this.votes
+        .filter(v => v.created_by === currentId).shift()
       return vote == null
         ? null
         : vote.val === 'yes'
-          ? 1
-          : 0
+          ? 0
+          : 1
     },
     proVotes: function () {
-      return this.votes.filter(v => v.val === 'yes')
+      return this.votes && this.votes.filter(v => v.val === 'yes')
     }
   },
 
@@ -112,10 +125,8 @@ export default {
     getIdea: function () {
       ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
         this.idea = res.data[0]
-        this.created = new Date(res.data[0].created_at)
         this.getQuorumInfo()
         this.getVotes()
-        this.getComments()
       })
     },
     getPhaseName: function () {
@@ -133,11 +144,6 @@ export default {
         this.quorum = resp.data
       })
     },
-    getComments: function () {
-      ideaApi.getComments(this.idea.id).then(resp => {
-        this.comments = resp.data
-      })
-    },
     getVotes: function () {
       ideaApi.getVotes(this.idea.id).then(resp => {
         this.votes = resp.data
@@ -146,9 +152,9 @@ export default {
     },
     voteChanged: function (clicked) {
       if (clicked !== this.currentVote) {
-        const value = clicked === 1
+        const value = clicked === 0
           ? 'yes'
-          : clicked === 0
+          : clicked === 1
             ? 'no'
             : null
         this.setVote(value)

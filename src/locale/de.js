@@ -126,10 +126,27 @@ export default {
     'time': 'Zeit',
     'environment': 'Umgebung'
   },
+  Comment: {
+    'title': '{0} Verbesserungsvorschläge, sortiert nach',
+    'authorCreated': 'von {0} am {1}',
+    'tally': '{0} Stimmen',
+    'isDeleted': '[ Kommentar gelöscht ]',
+    'editedBy': 'bearbeitet von {0}',
+    'sortByNew': 'Neu',
+    'sortByVotes': 'Stimmen',
+    'formTitleEdit': 'Verbesserungsvorschlag bearbeiten',
+    'formTitleCreate': 'Neuer Verbesserungsvorschlag',
+    'formReplyTo': 'Antwort auf {0}',
+    'formLabelTitle': 'Dein Verbesserungsvorschlag',
+    'submit': 'Veröffentlichen',
+    'reset': 'Zurücksetzen',
+    'cancel': 'Abbrechen',
+    'snackbarCreated': 'Verbesserungsvorschlag veröffentlicht',
+    'disabled': 'In dieser Phase können keine Verbesserungsvorschläge mehr eingereicht werden.'
+  },
   Idea: {
     'authorCreated': 'von {0} am {1}',
     'votes.pro': '{0} Quorum-Stimmen',
-    'suggestions': '{0} Verbesserungsvorschläge',
     'suggestion': 'Verbesserungsvorschlag',
     'supporterCount': '{0} von {1} Unterstützern',
     'create.topic': 'Thema anlegen',
