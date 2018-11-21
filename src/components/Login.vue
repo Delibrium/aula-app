@@ -10,14 +10,14 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form id="check-login-form">
                   <v-text-field prepend-icon="person" v-model="data.body.username" :label="$vuetify.t('$vuetify.Login.login')" type="text"></v-text-field>
                   <v-text-field id="password" prepend-icon="lock" v-model="data.body.password" :label="$vuetify.t('$vuetify.Login.password')" type="password"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="green darken-1" @click="login">Login</v-btn>
+                <v-btn type="submit" color="green darken-1" form="check-login-form" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

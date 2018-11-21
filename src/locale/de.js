@@ -46,7 +46,7 @@ export default {
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
-    'new.topic': 'Neues Thema',
+    'newTopic': 'Neues Thema',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',
@@ -71,23 +71,23 @@ export default {
     'finished': 'Ergebnisphase'
   },
   TopicCreation: {
-    'topic.creation': 'Thema erstellen',
-    'topic.name': 'Wie soll der Titel des Themas lauten?',
-    'topic.name.example': 'z.B. Computerraum',
-    'topic.description': 'Beschreiben Sie das Thema',
-    'topic.description.details': 'Was haben die Ideen dieses Themas gemeinsam?',
-    'topic.select.ideas': 'Fügen Sie weitere wilde Ideen dem neuen Thema hinzu',
-    'topic.publish': 'Veröffentlichen',
+    'pageTitle': 'Thema erstellen',
+    'title': 'Wie soll der Titel des Themas lauten?',
+    'titleHint': 'z.B. Computerraum',
+    'description': 'Beschreibung des Themas',
+    'descriptionHint': 'Was haben die Ideen dieses Themas gemeinsam?',
+    'selectIdeas': 'Wähle wilde Ideen für dieses Thema',
+    'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
     'topic.description.empty': 'Thema: darf nicht leer sein'
   },
   IdeaCreation: {
-    'yourIdea': 'Deine Idee',
+    'title': 'Deine Idee',
     'name': 'Wie soll deine Idee heißen?',
     'nameExample': 'z.B. bessere Ausstatung im Computerraum',
     'suggestion': 'Was möchtest du vorschlagen?',
-    'suggestion.description': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben...',
+    'suggestionDescription': 'Hier kannst du deine Idee so ausführlich wie möglich beschreiben',
     'previewShow': 'Vorschau einblenden',
     'selectCategory': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
     'publish': 'Idee veröffentlichen',
@@ -209,5 +209,13 @@ export default {
   },
   AdminTermsOfUse: {
     'description': 'Bitte passen Sie hier die Nutzungsbedingungen an'
+  },
+  Snackbar: {
+    'close': 'Schließen',
+    'networkError': 'Keine Verbindung zum Aula-Server',
+    'serverError': 'Das hat leider nicht geklappt',
+    'clientError': 'Das hat leider nicht geklappt',
+    'rightsError': 'Das ist leider nicht erlaubt',
+    'formError': 'Bitte überprüfe deine Eingaben noch einmal'
   }
 }

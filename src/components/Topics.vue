@@ -25,6 +25,12 @@
             </p>
           </v-flex>
 
+          <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+            <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
+              <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+            </router-link>
+          </v-flex>
+
           <v-flex  xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
             <v-layout row wrap>
               <v-flex v-for="topic in topics" :key="topic.id">
@@ -50,6 +56,7 @@
 <script>
 
 import * as api from '@/api/ideaSpace'
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Topics',
@@ -69,7 +76,6 @@ export default {
     if (!this.spaceId) {
       api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
         .then((res) => {
-          console.log(res)
           this.spaceId = res.data[0].id
           this.getTopics(this.$store.getters.selected_school, this.spaceId)
         })
@@ -79,6 +85,9 @@ export default {
   },
 
   methods: {
+    userMayCreateTopics: function () {
+      return isUserMemberOf(['admin', 'school_admin', 'principal'])
+    },
     getTopics: function (schoolId, spaceId) {
       api.getTopics(schoolId, spaceId)
         .then(res => {
