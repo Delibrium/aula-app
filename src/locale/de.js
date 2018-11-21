@@ -5,7 +5,8 @@ export default {
     'login': 'Benutzername',
     'password': 'Passwort',
     'password.reminder': 'Wenn Du eine email-Adresse eingegeben hast, kannst du dein Passwort hier neu setzen.',
-    'password.reminder.noemail': 'Solltest du dein Passwort nicht mehr kennen und keine email-Adresse haben, melde dich bitte bei den Admins euer Schule.'
+    'password.reminder.noemail': 'Solltest du dein Passwort nicht mehr kennen und keine email-Adresse haben, melde dich bitte bei den Admins euer Schule.',
+    'passwordError': 'Leider stimmt entweder Benutzername oder Passwort nicht.'
   },
   Footer: {
     'user.terms': 'Nutzungsbedingungen',
