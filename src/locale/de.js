@@ -1,7 +1,21 @@
 export default {
   noDataText: 'Leider wurde hier nichts geladen',
+  dataIterator: {
+    prevPage: 'Vorige Seite',
+    nextPage: 'Nächste Seite',
+    rowsPerPageAll: 'Alle'
+  },
   dataTable: {
     rowsPerPageText: 'pro Seite'
+  },
+  roles: {
+    student: 'Schüler',
+    class_guest: 'Gast',
+    school_guest: 'Gast der Schule',
+    moderator: 'Moderator',
+    principal: 'Schulleitung',
+    school_admin: 'Admin',
+    admin: 'Aula-Admin'
   },
   Login: {
     'welcome': 'Willkommen bei Aula',
@@ -234,14 +248,34 @@ export default {
     'change.status': 'Status setzen!'
   },
   AdminUsers: {
-    'table.name': 'Name',
-    'table.class': 'Klass',
-    'table.role': 'Role',
-    'table.deleted': 'gelöscht',
-    'load.users': 'Nutzer anlegen',
-    'search.user': 'Nutzersuche',
-    'load.class': 'Klasse anlegen',
-    'search.class': 'Klassensuche'
+    'titleAdd': 'Neuen Benutzer hinzufügen',
+    'titleEdit': 'Benutzer "{0}" ändern',
+    'columnHasSetPassword': 'Passwort zurückgesetzt',
+    'columnHasSetPassword-true': 'Ja',
+    'columnHasSetPassword-false': 'Nein',
+    'columnActions': '',
+    'searchLabel': 'Suche',
+    'searchNoResults': 'Für deine Suche nach {0} wurden leider keine Benutzer gefunden',
+    'formFirstName': 'Vorname',
+    'formLastName': 'Nachname',
+    'formLogin': 'Benutzername',
+    'formLoginSuggestion': 'Benutzername: {0}',
+    'formEmail': 'Email (optional)',
+    'formGroup': 'Rolle',
+    'formIdeaSpace': 'Klasse',
+    'formNoSpaceSelected': 'Nicht zugewiesen',
+    'formCreate': 'Erstellen',
+    'formSave': 'Sichern',
+    'formReset': 'Zurücksetzen',
+    'formCancel': 'Abbrechen',
+    'deleteHeader': 'Benutzer Löschen',
+    'deleteText': 'Benutzer "{0}" wirklich löschen?',
+    'deleteConfirm': 'Unwiderrufbar löschen',
+    'deleteCancel': 'Zurück',
+    'snackbarCreated': 'Nutzer erstellt',
+    'snackbarSaved': 'Nutzerdaten gesichert',
+    'snackbarDeleted': 'Nutzer wurde gelöscht',
+    'snackbarDeleteFailed': 'Nutzer konnte nicht gelöscht werden'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',
