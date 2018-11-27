@@ -1,5 +1,8 @@
 export default {
   noDataText: 'Leider wurde hier nichts geladen',
+  dataTable: {
+    rowsPerPageText: 'pro Seite'
+  },
   Login: {
     'welcome': 'Willkommen bei Aula',
     'login': 'Benutzername',

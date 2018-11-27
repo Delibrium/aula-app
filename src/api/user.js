@@ -14,6 +14,11 @@ function get (userId) {
   return service.get('/users', { params }, config)
 }
 
+function getListing (schoolId) {
+  return service.post('/rpc/user_listing')
+}
+
 export default {
-  get
+  get,
+  getListing
 }

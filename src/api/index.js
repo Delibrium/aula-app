@@ -1,11 +1,13 @@
 import service from './service'
 import school from './school'
-import * as user from './user'
+import user from './user'
 import comment from './comment'
+import category from './category'
 
 export default {
-  service,
+  category,
+  comment,
   school,
-  user,
-  comment
+  service,
+  user
 }
