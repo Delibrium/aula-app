@@ -183,7 +183,9 @@ export default {
               }
             })
             .catch((err) => {
-              if (err.response.data.code === '23505') {
+              // 23505 is the Postgrest error code for violations of
+              // unique constraints
+              if (err.response && err.response.data.code === '23505') {
                 this.showSnackbar = true
                 this.snackbarMsg = this.$vuetify.t(
                   '$vuetify.AdminUsers.snackbarDuplicateGroup')

@@ -133,6 +133,8 @@ export default {
       defaultUser: defaultUser
     }
 
+    // The defaultUser value is applied to the data object
+    // to set initial values for the form fields
     defaultData = Object.assign(defaultData, defaultUser)
     return defaultData
   },
@@ -143,6 +145,9 @@ export default {
 
   computed: {
     generatedUsername: function () {
+      // Suggested usernames are a lower case string with two parts:
+      // - the first character of the user's first name - if any
+      // - their last name
       return (
         (this.firstName && this.firstName.length > 0 ? this.firstName[0] : '') +
         this.lastName
@@ -196,6 +201,8 @@ export default {
     getIdeaSpaces: function () {
       const schoolId = this.$store.getters.selected_school
       api.ideaSpace.getIdeaSpaces(schoolId).then((res) => {
+        // Return value is transformed so that it is suitable for
+        // vuetify's select component
         this.ideaSpaces = res.data.map(sp => ({
           text: sp.title,
           value: sp.id
@@ -238,7 +245,8 @@ export default {
 
           // Select the appripriate api depending on whether
           // a user is being added or edited. Also fill
-          // in the user id when editing.
+          // in the user id and remove fields only used for new users
+          // when editing.
           let fn
           if (this.editingId == null) {
             fn = api.user.create
@@ -264,15 +272,18 @@ export default {
               }
             })
             .catch((err) => {
-              if (err.response.data.code === '23505') {
+              // 23505 is the Postgrest error code for violations of
+              // unique constraints
+              if (err.response && err.response.data.code === '23505') {
                 this.errors.add({
                   field: 'username',
                   msg: this.$vuetify.t(
                     '$vuetify.AdminUsers.formLoginUniqueError', user.username)
                 })
-                console.log(err)
               } else {
-                console.log(err)
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t(
+                  '$vuetify.Snackbar.clientError')
               }
             })
         })
