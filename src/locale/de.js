@@ -3,7 +3,10 @@ export default {
   dataIterator: {
     prevPage: 'Vorige Seite',
     nextPage: 'Nächste Seite',
-    rowsPerPageAll: 'Alle'
+    rowsPerPageAll: 'Alle',
+    rowsPerPageText: 'Einträge pro Seite:',
+    pageText: '{0}-{1} von {2}',
+    noResultsText: 'Keine passenden Einträge gefunden'
   },
   dataTable: {
     rowsPerPageText: 'pro Seite'
