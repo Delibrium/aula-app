@@ -18,6 +18,7 @@
             :headers="headers"
             :items="users"
             :search="search"
+            :loading="isLoading"
             class="elevation-1"
           >
             <template slot="items" slot-scope="props">
@@ -28,19 +29,18 @@
                 <ul v-if="props.item.groups.length > 1">
                   <li v-for="group in props.item.groups">
                     {{ $vuetify.t(
-                      '$vuetify.roles.' + group[0],
+                      '$vuetify.rolesCompound.' + group[0],
                       group[2])
                     }}
                   </li>
                 </ul>
                 <span v-else>
                   {{ $vuetify.t(
-                    '$vuetify.roles.' + props.item.groups[0][0],
+                    '$vuetify.rolesCompound.' + props.item.groups[0][0],
                     props.item.groups[0][2])
                   }}
                 </span>
               </td>
-              <td>{{ props.item.idea_space_title }}</td>
               <td>{{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' + props.item.hasSetPassword) }}</td>
               <td>
                 <v-icon
@@ -84,15 +84,24 @@
               </v-card-actions>
             </v-card>
           </v-data-table>
+
+          <v-layout row wrap>
+            <v-flex xs12 sm6>
+              <GroupsUsersEdit
+                :user="toEdit"
+                :handleCancel="reset"
+                :handleSuccess="handleNewUser"
+              />
+            </v-flex>
+            <v-flex xs12 sm6>
+              <GroupEditor
+                v-if="toEdit != null"
+                :user="toEdit"
+                :handleSuccess="handleGroupsUpdated"
+              />
+            </v-flex>
+          </v-layout>
         </v-card-text>
-        <v-card-actions>
-          <GroupsUsersEdit
-            :user="toEdit"
-            :handleCancel="reset"
-            :handleSuccess="handleNewUser"
-            slot="footer"
-          />
-        </v-card-actions>
       </v-card>
     </v-slide-y-transition>
 
@@ -115,11 +124,13 @@
 <script>
 import api from '@/api'
 import GroupsUsersEdit from '@/components/GroupsUsersEdit'
+import GroupEditor from '@/components/GroupEditor'
 
 export default {
   name: 'GroupsUsers',
   components: {
-    GroupsUsersEdit
+    GroupsUsersEdit,
+    GroupEditor
   },
   data: function () {
     return {
@@ -149,12 +160,6 @@ export default {
           value: 'group_id'
         },
         {
-          text: this.$vuetify.t('$vuetify.AdminUsers.formIdeaSpace'),
-          align: 'left',
-          sortable: true,
-          value: 'idea_space'
-        },
-        {
           text: this.$vuetify.t('$vuetify.AdminUsers.columnHasSetPassword'),
           sortable: true,
           value: 'hasSetPassword'
@@ -166,6 +171,7 @@ export default {
           sortable: false
         }
       ],
+      isLoading: true,
       users: [],
       toEdit: null,
       toDelete: null,
@@ -194,6 +200,8 @@ export default {
       return this.users.filter(u => u.id === id).shift()
     },
     getUsers: function () {
+      this.isLoading = true
+
       const parseConfig = entry => Object.assign({}, entry, {
         config: JSON.parse(entry.config)
       })
@@ -225,10 +233,14 @@ export default {
           .map(parseConfig)
           .map(parseGroups)
           .map(checkTempPassword)
+        this.isLoading = false
       })
     },
     handleNewUser: function (data) {
       this.reset()
+      this.getUsers()
+    },
+    handleGroupsUpdated: function (data) {
       this.getUsers()
     },
     deleteUser: function () {

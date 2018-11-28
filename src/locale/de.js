@@ -12,6 +12,15 @@ export default {
     rowsPerPageText: 'pro Seite'
   },
   roles: {
+    student: 'Schüler',
+    class_guest: 'Gast',
+    school_guest: 'Gast der Schule',
+    moderator: 'Moderator',
+    principal: 'Schulleitung',
+    school_admin: 'Admin',
+    admin: 'Aula-Admin'
+  },
+  rolesCompound: {
     student: 'Schüler in {0}',
     class_guest: 'Gast in {0}',
     school_guest: 'Gast der Schule',
@@ -268,6 +277,7 @@ export default {
     'formGroup': 'Rolle',
     'formIdeaSpace': 'Klasse',
     'formNoSpaceSelected': 'Nicht zugewiesen',
+    'formRoleRequiresSpace': 'Bitte wähle für diese Rolle eine dazugehörige Klasse',
     'formCreate': 'Erstellen',
     'formSave': 'Sichern',
     'formReset': 'Zurücksetzen',
@@ -279,7 +289,9 @@ export default {
     'snackbarCreated': 'Nutzer erstellt',
     'snackbarSaved': 'Nutzerdaten gesichert',
     'snackbarDeleted': 'Nutzer wurde gelöscht',
-    'snackbarDeleteFailed': 'Nutzer konnte nicht gelöscht werden'
+    'snackbarRoleAdded': 'Rolle wurde hinzugefügt',
+    'snackbarDeleteFailed': 'Nutzer konnte nicht gelöscht werden',
+    'snackbarDuplicateGroup': 'Der Benutzer hat diese Rolle bereits'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',

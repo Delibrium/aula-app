@@ -14,6 +14,26 @@ function get (userId) {
   return service.get('/users', { params }, config)
 }
 
+function getGroups (userId) {
+  const params = {
+    user_id: `eq.${userId}`
+  }
+  const url = '/user_group?select=group_id,idea_space(id,title,description)'
+  return service.get(url, { params })
+}
+
+function addGroup (group) {
+  return service.post('/user_group', group)
+}
+
+function removeGroup (userId, groupName) {
+  const params = {
+    user_id: `eq.${userId}`,
+    group_id: `eq.${groupName}`
+  }
+  return service.delete('/user_group', { params })
+}
+
 function create (user) {
   const config = {
     headers: {
@@ -45,6 +65,9 @@ function getListing (schoolId) {
 
 export default {
   get,
+  addGroup,
+  removeGroup,
+  getGroups,
   create,
   update,
   remove,
