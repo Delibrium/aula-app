@@ -9,10 +9,10 @@ export default {
     rowsPerPageText: 'pro Seite'
   },
   roles: {
-    student: 'Schüler',
-    class_guest: 'Gast',
+    student: 'Schüler in {0}',
+    class_guest: 'Gast in {0}',
     school_guest: 'Gast der Schule',
-    moderator: 'Moderator',
+    moderator: 'Moderator in {0}',
     principal: 'Schulleitung',
     school_admin: 'Admin',
     admin: 'Aula-Admin'

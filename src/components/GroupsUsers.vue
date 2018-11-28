@@ -24,7 +24,22 @@
               <td>{{ props.item.login }}</td>
               <td>{{ props.item.first_name }}</td>
               <td>{{ props.item.last_name }}</td>
-              <td>{{ $vuetify.t('$vuetify.roles.' + props.item.group_id) }}</td>
+              <td>
+                <ul v-if="props.item.groups.length > 1">
+                  <li v-for="group in props.item.groups">
+                    {{ $vuetify.t(
+                      '$vuetify.roles.' + group[0],
+                      group[2])
+                    }}
+                  </li>
+                </ul>
+                <span v-else>
+                  {{ $vuetify.t(
+                    '$vuetify.roles.' + props.item.groups[0][0],
+                    props.item.groups[0][2])
+                  }}
+                </span>
+              </td>
               <td>{{ props.item.idea_space_title }}</td>
               <td>{{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' + props.item.hasSetPassword) }}</td>
               <td>
@@ -182,6 +197,25 @@ export default {
       const parseConfig = entry => Object.assign({}, entry, {
         config: JSON.parse(entry.config)
       })
+
+      // Groups are returned as a composite value, which means they're strings
+      // that need to be unpacked
+      const parseGroups = entry => Object.assign({}, entry, {
+        groups: entry.groups.map(val => {
+          // Remove outer parantheses and split into
+          // group_name, space_id, space_name
+          let rv = val.slice(1, -1).split(',')
+
+          // If space name exists, remove quotes
+          if (rv.length === 3) {
+            rv[2] = rv[2].slice(1, -1)
+          }
+          return rv
+        })
+      })
+
+      // Insert a boolean field that indicates whether the config field
+      // contains a temporary password
       const checkTempPassword = entry => Object.assign({}, entry, {
         hasSetPassword: entry.config.temp_password == null
       })
@@ -189,6 +223,7 @@ export default {
       api.user.getListing().then((res) => {
         this.users = res.data
           .map(parseConfig)
+          .map(parseGroups)
           .map(checkTempPassword)
       })
     },
