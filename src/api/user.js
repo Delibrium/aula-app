@@ -24,17 +24,12 @@ function create (user) {
 }
 
 function update (user) {
-  return service({
-    method: 'patch',
-    url: '/users',
-    data: user,
-    params: {
-      id: `eq.${user.id}`
-    },
+  const config = {
     headers: {
       PREFER: 'return=representation'
     }
-  })
+  }
+  return service.post('/rpc/update_user', user, config)
 }
 
 function remove (userId) {

@@ -45,6 +45,7 @@
         </v-text-field>
         <v-select
           name='usergroup'
+          v-if="editingId == null"
           v-model="usergroup"
           v-validate="'required'"
           :error-messages="errors.collect('usergroup')"
@@ -54,6 +55,7 @@
         ></v-select>
         <v-select
           name='ideaSpace'
+          v-if="editingId == null"
           v-model="ideaSpace"
           v-validate=""
           :error-messages="errors.collect('ideaSpace')"
@@ -242,6 +244,8 @@ export default {
             fn = api.user.create
           } else {
             user.id = this.editingId
+            delete user.user_group
+            delete user.idea_space
             fn = api.user.update
           }
 
