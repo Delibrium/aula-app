@@ -12,6 +12,7 @@ export default {
     rowsPerPageText: 'pro Seite'
   },
   roles: {
+    noRoles: 'Keine Rolle zugewiesen',
     student: 'Schüler',
     class_guest: 'Gast',
     school_guest: 'Gast der Schule',
@@ -21,6 +22,7 @@ export default {
     admin: 'Aula-Admin'
   },
   rolesCompound: {
+    noRoles: 'Keine Rolle zugewiesen',
     student: 'Schüler in {0}',
     class_guest: 'Gast in {0}',
     school_guest: 'Gast der Schule',

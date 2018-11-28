@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-list two-line>
-        <v-list-tile v-for="group in usergroups">
+        <v-list-tile v-for="group in usergroups" :key="group.group_id + (group.idea_space && group.idea_space.id)">
           <v-list-tile-content>
             <v-list-tile-title>
               {{ $vuetify.t('$vuetify.roles.' + group.group_id) }}
@@ -144,12 +144,17 @@ export default {
           this.snackbarMsg = this.$vuetify.t(
             '$vuetify.AdminUsers.snackbarRoleAdded')
           this.getGroups()
+          this.handleSuccess()
         })
     },
     addGroup: function () {
       this.$validator.validate()
         .then(isFormValid => {
-          if (rolesRequiringIdeaSpace.indexOf(this.form.usergroup) >= 0) {
+          const hasMissingSpaceSelection =
+            (rolesRequiringIdeaSpace.indexOf(this.form.usergroup) >= 0) &&
+            this.form.ideaSpace == null
+
+          if (hasMissingSpaceSelection) {
             this.errors.add({
               field: 'ideaSpace',
               msg: this.$vuetify.t(

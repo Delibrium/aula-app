@@ -34,11 +34,14 @@
                     }}
                   </li>
                 </ul>
-                <span v-else>
+                <span v-else-if="props.item.groups.length === 1">
                   {{ $vuetify.t(
                     '$vuetify.rolesCompound.' + props.item.groups[0][0],
                     props.item.groups[0][2])
                   }}
+                </span>
+                <span v-else>
+                  {{ $vuetify.t('$vuetify.rolesCompound.noRoles') }}
                 </span>
               </td>
               <td>{{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' + props.item.hasSetPassword) }}</td>
@@ -209,17 +212,19 @@ export default {
       // Groups are returned as a composite value, which means they're strings
       // that need to be unpacked
       const parseGroups = entry => Object.assign({}, entry, {
-        groups: entry.groups.map(val => {
-          // Remove outer parantheses and split into
-          // group_name, space_id, space_name
-          let rv = val.slice(1, -1).split(',')
+        groups: entry.groups[0] === '(,,)' // Postgres return value for 'no groups'
+          ? []
+          : entry.groups.map(val => {
+            // Remove outer parantheses and split into
+            // group_name, space_id, space_name
+            let rv = val.slice(1, -1).split(',')
 
-          // If space name exists, remove quotes
-          if (rv.length === 3) {
-            rv[2] = rv[2].slice(1, -1)
-          }
-          return rv
-        })
+            // If space name exists, remove quotes
+            if (rv.length === 3) {
+              rv[2] = rv[2].slice(1, -1)
+            }
+            return rv
+          })
       })
 
       // Insert a boolean field that indicates whether the config field
