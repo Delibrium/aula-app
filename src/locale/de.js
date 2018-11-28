@@ -260,6 +260,7 @@ export default {
     'formLastName': 'Nachname',
     'formLogin': 'Benutzername',
     'formLoginSuggestion': 'Benutzername: {0}',
+    'formLoginUniqueError': 'Es gibt schon einen Benutzer \'{0}\' an dieser Schule. Bitte gib einen anderen Namen ein.',
     'formEmail': 'Email (optional)',
     'formGroup': 'Rolle',
     'formIdeaSpace': 'Klasse',

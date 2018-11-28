@@ -259,6 +259,18 @@ export default {
                   '$vuetify.Snackbar.serverError')
               }
             })
+            .catch((err) => {
+              if (err.response.data.code === '23505') {
+                this.errors.add({
+                  field: 'username',
+                  msg: this.$vuetify.t(
+                    '$vuetify.AdminUsers.formLoginUniqueError', user.username)
+                })
+                console.log(err)
+              } else {
+                console.log(err)
+              }
+            })
         })
     }
   }
