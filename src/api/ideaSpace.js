@@ -44,7 +44,8 @@ export function createIdea (idea) {
 export function getTopics (schoolId, ideaSpaceId) {
   var queryParams = {
     school_id: `eq.${schoolId}`,
-    idea_space: `eq.${ideaSpaceId}`
+    idea_space: `eq.${ideaSpaceId}`,
+    select: '*,idea(count)'
   }
   return service.get('/topic', {params: queryParams})
 }

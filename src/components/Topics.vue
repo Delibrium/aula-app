@@ -1,56 +1,63 @@
 <template>
-    <v-container fluid grid-list-md>
-        <v-layout row wrap align-center>
-          <v-flex md10 xs12 offset-md1 color="green" class='tab-nav'>
-            <v-card dark color="gray" width="50%" style="float: left" height="100%">
-              <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-                <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
-              </router-link>
-            </v-card>
-            <v-card dark color="green" width="50%" style="float: left" height="100%">
-              <router-link :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-                <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.ideaTopics') }}</v-card-text>
-              </router-link>
-            </v-card>
-          </v-flex>
-
-          <v-flex md8 offset-md2 xs12 align-center justify-center>
-              <h1 class="text-md-left text-xs-left">
-                {{ $vuetify.t('$vuetify.Topic.introTitle') }}
-              </h1>
-          </v-flex>
-          <v-flex md8 offset-md2 xs12 align-center justify-center>
-            <p class="text-md-left text-xs-left">
-              {{ $vuetify.t('$vuetify.Topic.introDescription') }}
-            </p>
-          </v-flex>
-
-          <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+  <v-container fluid grid-list-md>
+      <v-layout row wrap align-space-around>
+        <v-flex md10 xs12 offset-md1 color="green" class='tab-nav'>
+          <v-card dark color="gray" width="50%" style="float: left" height="100%">
+            <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
+              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
             </router-link>
-          </v-flex>
+          </v-card>
+          <v-card dark color="green" width="50%" style="float: left" height="100%">
+            <router-link :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
+              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.ideaTopics') }}</v-card-text>
+            </router-link>
+          </v-card>
+        </v-flex>
 
-          <v-flex  xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
-            <v-layout row wrap>
-              <v-flex v-for="topic in topics" :key="topic.id">
-                <v-card class="topic-card">
-                  <v-img :src="topic.image"></v-img>
-                  <v-card-title primary-title>
-                    <div>
-                      <span class='topic-phase'>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</span>
-                      <h3 class="headline mb-0">{{topic.title}}</h3>
-                    </div>
-                  </v-card-title>
-                  <v-card-text>
-                    {{ topic.description }}
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-      </v-layout>
-    </v-container>
+        <v-flex md8 offset-md2 xs12 align-center justify-center>
+            <h1 class="text-md-left text-xs-left">
+              {{ $vuetify.t('$vuetify.Topic.introTitle') }}
+            </h1>
+        </v-flex>
+        <v-flex md8 offset-md2 xs12 align-center justify-center>
+          <p class="text-md-left text-xs-left">
+            {{ $vuetify.t('$vuetify.Topic.introDescription') }}
+          </p>
+        </v-flex>
+
+        <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+          <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
+            <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+          </router-link>
+        </v-flex>
+
+        <v-flex  xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
+          <v-layout row wrap>
+            <v-flex v-for="topic in topics" :key="topic.id" sm12 md6>
+              <v-card
+                class="topic-card"
+                hover
+                @click.native="openTopic(topic)">
+                <v-img :src="topic.image"></v-img>
+                <v-card-title primary-title>
+                  <div>
+                    <span class='topic-phase'>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</span>
+                    <h3 class="headline mb-0">{{topic.title}}</h3>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <p>{{ topic.description }}</p>
+                  <div>
+                    <v-icon>chat_bubble</v-icon>
+                    {{ getIdeaCount(topic) }} Ideen
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -96,12 +103,33 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    getIdeaCount (topic) {
+      if (topic.idea && topic.idea.count != null) {
+        return topic.idea.count
+      } else {
+        return null
+      }
+    },
+    openTopic: function (topic) {
+      console.log(topic.id)
+      this.$router.push({
+        name: 'Topic',
+        params: {
+          spaceSlug: this.$route.params['spaceSlug'],
+          topicId: topic.id
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  .v-card {
+    cursor: pointer;
+  }
+
   .v-card__title {
     padding-bottom: 0
   }
