@@ -21,6 +21,9 @@ Vue.use(Vuetify, {
   lang: {
     locales: { de, en },
     current: 'de'
+  },
+  options: {
+    customProperties: true
   }
 })
 Vue.use(VueAxios, api.service)
