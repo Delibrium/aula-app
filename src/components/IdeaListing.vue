@@ -3,9 +3,7 @@
     <v-flex
       v-for="idea in ideas"
       :key="idea.id"
-      sm12
-      md6
-      >
+      sm12 md6>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>
@@ -29,9 +27,12 @@
               </span>
             </v-list-tile>
 
-            <v-divider></v-divider>
+            <v-divider v-if="topic == null || topic.phase != 'edit_topics'">
+            </v-divider>
 
-            <v-list-tile class="suppporters" v-if="isTopic === false">
+            <v-list-tile
+              v-if="topic == null"
+              class="suppporters">
               <span
                 v-if="getSupporterCount(idea) === 0"
                 class="no-supporters">
@@ -46,8 +47,24 @@
               </span>
             </v-list-tile>
 
-            <v-list-tile v-else :class="idea.feasible ? 'feasible' : ''">
-              <v-icon>check</v-icon> Umsetzbarkeit
+            <v-list-tile v-else-if="topic.phase === 'feasibility'">
+              <span v-if="isIdeaFeasible(idea) === true" class='feasible'>
+                <v-icon>check</v-icon> Umsetzbar
+              </span>
+              <span v-else-if="isIdeaFeasible(idea) === false">
+                <v-icon>cancel</v-icon> Nicht umsetzbar
+              </span>
+              <span v-else>
+                <v-icon>access_time</v-icon> Idee wird geprüft
+              </span>
+            </v-list-tile>
+
+            <v-list-tile v-else-if="topic.phase === 'vote'">
+              <v-icon>schedule</v-icon> Abstimmung läuft
+            </v-list-tile>
+
+            <v-list-tile v-else-if="topic.phase === 'results'">
+              <v-icon>check</v-icon> Ergebnis
             </v-list-tile>
           </v-list>
 
@@ -71,15 +88,10 @@ export default {
       return this.$route.params['spaceSlug']
     }
   },
-  data: function () {
-    return {
 
-    }
-  },
-
-  // Ideas list should have created_by(first_name, last_name), comment(count) and
-  // idea_vote(created_by) embedded
-  props: ['ideas', 'isTopic'],
+  // Ideas list should have created_by(first_name, last_name), comment(count),
+  // idea_vote(created_by) and feasible(val) embedded
+  props: ['ideas', 'topic'],
 
   methods: {
     openIdea: function (idea) {
@@ -115,6 +127,11 @@ export default {
       return idea.idea_vote
         .filter(vote => vote.created_by === this.userId)
         .length > 0
+    },
+    isIdeaFeasible (idea) {
+      return idea.feasible == null
+        ? null
+        : idea.feasible.val
     }
   }
 }
@@ -172,7 +189,7 @@ export default {
       color: grey;
     }
 
-    .idea-supported, .idea-supported .v-icon {
+    .idea-supported, .idea-supported .v-icon, .feasible, .feasible .v-icon {
       color:#00c853;
     }
   }

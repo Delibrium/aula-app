@@ -34,7 +34,7 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
           <Filters></Filters>
         </v-flex>
         <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-          <IdeaListing :ideas="ideas" :isTopic="false" />
+          <IdeaListing :ideas="ideas" />
         </v-flex>
     </v-layout>
   </v-container>

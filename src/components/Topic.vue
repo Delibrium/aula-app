@@ -35,7 +35,7 @@
           <Filters></Filters>
         </v-flex>
         <v-flex  xs12 md8 offset-md2 pa-2>
-          <IdeaListing :ideas="ideas" :isTopic="true" />
+          <IdeaListing :ideas="ideas" :topic="topic" />
         </v-flex>
     </v-layout>
   </v-container>

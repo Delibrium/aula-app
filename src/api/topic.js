@@ -15,7 +15,8 @@ export function getIdeas (topicId) {
     select: '*,' +
       'created_by(id,first_name,last_name),' +
       'comment(count),' +
-      'idea_vote(created_by)'
+      'idea_vote(created_by),' +
+      'feasible(val)'
   }
   return service.get('/idea', { params })
 }
