@@ -1,5 +1,25 @@
 import service from '@/api/service'
 
+export function get (topicId) {
+  const params = {
+    id: `eq.${topicId}`,
+    select: '*,' +
+     'created_by(id,first_name,last_name)'
+  }
+  return service.get('/topic', { params })
+}
+
+export function getIdeas (topicId) {
+  const params = {
+    topic: `eq.${topicId}`,
+    select: '*,' +
+      'created_by(id,first_name,last_name),' +
+      'comment(count),' +
+      'idea_vote(created_by)'
+  }
+  return service.get('/idea', { params })
+}
+
 export function create (topic, ideaIds) {
   const config = {
     headers: {

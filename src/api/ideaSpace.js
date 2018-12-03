@@ -9,9 +9,9 @@ export function getIdeas (schoolId, ideaSpaceId, topic) {
     school_id: `eq.${schoolId}`,
     idea_space: `eq.${ideaSpaceId}`,
     select: '*,' +
-    'created_by(id,first_name,last_name),' +
-    'comment(count),' +
-    'idea_vote(created_by)'
+      'created_by(id,first_name,last_name),' +
+      'comment(count),' +
+      'idea_vote(created_by)'
   }
   if (!topic) {
     queryParams['topic'] = 'is.null'
