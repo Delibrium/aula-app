@@ -5,18 +5,25 @@
         <v-tab ripple disabled>
           <v-icon>swap_vert</v-icon>
         </v-tab>
-        <v-tab ripple >Alter</v-tab>
-        <v-tab ripple >Unterstützung</v-tab>
+        <v-tab ripple >
+          {{ $vuetify.t('$vuetify.IdeaListing.sortByAge') }}
+        </v-tab>
+        <v-tab ripple >
+          {{ $vuetify.t('$vuetify.IdeaListing.sortBySupporters') }}
+        </v-tab>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="query"
           dark
           flat
-          label="Search"
+          :label="$vuetify.t('$vuetify.IdeaListing.search')"
           prepend-inner-icon="search"
           solo-inverted
         ></v-text-field>
       </v-tabs>
+    </v-flex>
+    <v-flex v-if="ideas.length === 0" pt-3>
+      <h2>{{ $vuetify.t('$vuetify.IdeaListing.noIdeas') }}</h2>
     </v-flex>
     <v-flex
       v-for="idea in sortedIdeas"
@@ -26,10 +33,9 @@
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>
           <div class="card-meta">
-            Von
-            {{ getAuthorName(idea) }}
-            am
-            {{ getCreatedDate(idea) }}
+            {{ $vuetify.t('$vuetify.IdeaListing.ideaSubtitle',
+              getAuthorName(idea),
+              getCreatedDate(idea)) }}
           </div>
         </v-card-title>
 
@@ -38,10 +44,13 @@
             <v-list-tile class="suggestions">
               <v-icon>comment</v-icon>
               <span v-if="getCommentCount(idea) === 0" class="no-suggestions">
-                Keine Verbesserungsvorschläge
+                {{ $vuetify.t('$vuetify.IdeaListing.noComments') }}
               </span>
               <span v-else>
-                {{ getCommentCount(idea) }} Verbesserungsvorschläge
+                {{ $vuetify.t(
+                    '$vuetify.IdeaListing.numComments',
+                    getCommentCount(idea))
+                }}
               </span>
             </v-list-tile>
 
@@ -55,34 +64,42 @@
                 v-if="getSupporterCount(idea) === 0"
                 class="no-supporters">
                 <v-icon>thumb_up</v-icon>
-                Keine Unterstützer
+                {{ $vuetify.t('$vuetify.IdeaListing.noSupporters') }}
               </span>
               <span
                 v-else
                 :class="isSupportedByUser(idea) ? 'idea-supported' : ''">
                 <v-icon>thumb_up</v-icon>
-                {{ getSupporterCount(idea) }} Unterstützer
+                {{ $vuetify.t(
+                    '$vuetify.IdeaListing.numSupporters',
+                    getSupporterCount(idea))
+                }}
               </span>
             </v-list-tile>
 
             <v-list-tile v-else-if="topic.phase === 'feasibility'">
               <span v-if="isIdeaFeasible(idea) === true" class='feasible'>
-                <v-icon>check</v-icon> Umsetzbar
+                <v-icon>check</v-icon>
+                {{ $vuetify.t('$vuetify.IdeaListing.isFeasible') }}
               </span>
               <span v-else-if="isIdeaFeasible(idea) === false">
-                <v-icon>cancel</v-icon> Nicht umsetzbar
+                <v-icon>cancel</v-icon>
+                {{ $vuetify.t('$vuetify.IdeaListing.isNotFeasible') }}
               </span>
               <span v-else>
-                <v-icon>access_time</v-icon> Idee wird geprüft
+                <v-icon>access_time</v-icon>
+                {{ $vuetify.t('$vuetify.IdeaListing.waitingForFeasibility') }}
               </span>
             </v-list-tile>
 
             <v-list-tile v-else-if="topic.phase === 'vote'">
-              <v-icon>schedule</v-icon> Abstimmung läuft
+              <v-icon>schedule</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.waitingForVoting') }}
             </v-list-tile>
 
             <v-list-tile v-else-if="topic.phase === 'results'">
-              <v-icon>check</v-icon> Ergebnis
+              <v-icon>check</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.resultsPhase') }}
             </v-list-tile>
           </v-list>
 

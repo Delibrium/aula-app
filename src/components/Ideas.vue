@@ -16,12 +16,11 @@
 
 
         <v-flex md8 offset-md2 xs12 align-center justify-center>
-          <h1 class="text-md-left text-xs-left">Was soll sich verändern?</h1>
+          <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
         </v-flex>
         <v-flex md8 offset-md2 xs12 align-center justify-center>
           <p class="text-md-left text-xs-left">
-            Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und
-ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
+            {{ $vuetify.t('$vuetify.Space.description') }}
           </p>
         </v-flex>
 
