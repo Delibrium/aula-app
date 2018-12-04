@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex sm12 mb-2>
+    <v-flex sm12 mb-2 mt-3>
       <v-tabs v-model="orderBy" dark>
         <v-tab ripple disabled>
           <v-icon>swap_vert</v-icon>

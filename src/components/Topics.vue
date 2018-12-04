@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
       <v-layout row wrap align-space-around>
-        <v-flex md10 xs12 offset-md1 color="green" class='tab-nav'>
+        <v-flex md10 xs12 offset-md1 mb-5 color="green" class='tab-nav'>
           <v-card dark color="gray" width="50%" style="float: left" height="100%">
             <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
               <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
@@ -15,17 +15,12 @@
         </v-flex>
 
         <v-flex md8 offset-md2 xs12 align-center justify-center>
-            <h1 class="text-md-left text-xs-left">
-              {{ $vuetify.t('$vuetify.Topic.introTitle') }}
-            </h1>
-        </v-flex>
-        <v-flex md8 offset-md2 xs12 align-center justify-center>
+          <h1 class="text-md-left text-xs-left">
+            {{ $vuetify.t('$vuetify.Topic.introTitle') }}
+          </h1>
           <p class="text-md-left text-xs-left">
             {{ $vuetify.t('$vuetify.Topic.introDescription') }}
           </p>
-        </v-flex>
-
-        <v-flex v-if="this.userMayCreateTopics()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
           <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
             <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
           </router-link>

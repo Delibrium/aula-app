@@ -48,14 +48,12 @@
 <script>
 
 import * as api from '@/api/ideaSpace'
-import Filters from '@/components/Filters'
 import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   $_veeValidate: { validator: 'new' },
 
   name: 'IdeaEdit',
-  components: { Filters },
   data: () => ({
     title: '',
     description: '',

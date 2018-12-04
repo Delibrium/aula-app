@@ -41,11 +41,9 @@
 
             <div>
               <v-btn-toggle v-model="voteValue" @change="voteChanged">
-                <v-btn flat>
-                  <v-icon>thumb_up</v-icon>
-                </v-btn>
-                <v-btn flat>
-                  <v-icon>thumb_down</v-icon>
+                <v-btn fab primary>
+                  <v-icon left>thumb_up</v-icon>
+                  Unterstützen
                 </v-btn>
               </v-btn-toggle>
             </div>

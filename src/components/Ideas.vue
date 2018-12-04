@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
-        <v-flex md10 xs12 offset-md1 color="green" class='tab-nav'>
+        <v-flex md10 xs12 offset-md1 mb-5 color="green" class='tab-nav'>
           <v-card dark color="green" width="50%" style="float: left" height="100%">
             <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
               <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
@@ -30,10 +30,8 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
             <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
           </router-link>
         </v-flex>
-        <v-flex md8 offset-md2>
-          <Filters></Filters>
-        </v-flex>
-        <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+
+        <v-flex xs12 md8 offset-md2 pa-2 mt-5>
           <IdeaListing :ideas="ideas" />
         </v-flex>
     </v-layout>
@@ -43,13 +41,12 @@ ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
 <script>
 
 import * as api from '@/api/ideaSpace'
-import Filters from '@/components/Filters'
 import IdeaListing from '@/components/IdeaListing'
 import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Ideas',
-  components: { Filters, IdeaListing },
+  components: { IdeaListing },
   data: function () {
     return {
       tab: 0,
