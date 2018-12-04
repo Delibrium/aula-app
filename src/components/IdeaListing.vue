@@ -1,7 +1,25 @@
 <template>
   <v-layout row wrap>
+    <v-flex sm12 mb-2>
+      <v-tabs v-model="orderBy" dark>
+        <v-tab ripple disabled>
+          <v-icon>swap_vert</v-icon>
+        </v-tab>
+        <v-tab ripple >Alter</v-tab>
+        <v-tab ripple >Unterstützung</v-tab>
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="query"
+          dark
+          flat
+          label="Search"
+          prepend-inner-icon="search"
+          solo-inverted
+        ></v-text-field>
+      </v-tabs>
+    </v-flex>
     <v-flex
-      v-for="idea in ideas"
+      v-for="idea in sortedIdeas"
       :key="idea.id"
       sm12 md6>
       <v-card class="idea-card" flat>
@@ -86,6 +104,32 @@ export default {
     },
     spaceName: function () {
       return this.$route.params['spaceSlug']
+    },
+    sortedIdeas: function () {
+      // Apply search query before sorting
+      const ideaSet = this.query === ''
+        ? this.ideas
+        : this.ideas.filter(idea =>
+          idea.title.toLowerCase().indexOf(this.query) >= 0 ||
+          idea.description.toLowerCase().indexOf(this.query) >= 0
+        )
+
+      const byAge = (a, b) => a.created_at < b.created_at ? -1 : 1
+      const bySupporters = (a, b) =>
+        this.getSupporterCount(a) > this.getSupporterCount(b) ? -1 : 1
+
+      const fn = this.orderBy === 1
+        ? byAge
+        : bySupporters
+
+      return ideaSet.sort(fn)
+    }
+  },
+
+  data: function () {
+    return {
+      orderBy: 1,
+      query: ''
     }
   },
 
