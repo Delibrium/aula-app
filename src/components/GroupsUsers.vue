@@ -45,7 +45,10 @@
                   {{ $vuetify.t('$vuetify.rolesCompound.noRoles') }}
                 </span>
               </td>
-              <td>{{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' + props.item.hasSetPassword) }}</td>
+              <td>
+                {{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' +
+                  props.item.hasSetPassword) }}
+              </td>
               <td>
                 <v-icon
                   small

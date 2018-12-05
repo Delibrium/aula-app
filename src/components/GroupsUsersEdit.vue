@@ -10,17 +10,16 @@
         </v-btn>
         <v-card>
           <v-card-title>
-            <span class="headline">Aus CSV laden</span>
+            <span class="headline">
+              {{ $vuetify.t('$vuetify.AdminUsers.csvTitle') }}
+            </span>
           </v-card-title>
 
           <v-card-text>
             <v-layout row wrap>
               <v-flex sm12 md6>
                 <p>
-                  Hier können neue Benutzer aus einer Tabellen-Datei erstellt werden.
-                  Die Tabelle sollte im Format CSV (mit Kopfzeile) gespeichert werden und
-                  die Spalten "Vorname" und "Nachname" enthalten. Optional kann
-                  eine Spalte "Email" angegeben werden.
+                  {{ $vuetify.t('$vuetify.AdminUsers.csvInstructions') }}
                 </p>
               </v-flex>
               <v-flex sm12 md6>
@@ -33,7 +32,9 @@
                   accept="text/csv*"
                   :fileChangedCallback="handleFileSelected"
                 ></upload-btn>
-                <v-btn :disabled="csvUsers == null" @click="resetCSVForm">Zurücksetzen</v-btn>
+                <v-btn :disabled="csvUsers == null" @click="resetCSVForm">
+                  {{ $vuetify.t('$vuetify.AdminUsers.csvReset') }}
+                </v-btn>
               </v-flex>
 
               <v-flex v-if="csvErrors.length > 0">
@@ -43,9 +44,15 @@
               </v-flex>
 
               <v-flex sm12 mb-3 v-if="csvUsers != null">
-                <v-data-table item-key="username" :headers="csvPreviewHeaders" :items="csvUsers">
+                <v-data-table
+                  item-key="username"
+                  :headers="csvPreviewHeaders"
+                  :items="csvUsers">
                   <v-toolbar slot="header" class="mb-2" flat>
-                    <v-toolbar-title>Vorschau der {{ this.csvUsers.length }} Nutzer</v-toolbar-title>
+                    <v-toolbar-title>
+                      {{ $vuetify.t('$vuetify.AdminUsers.csvTableHeader',
+                        this.csvUsers.length) }}
+                    </v-toolbar-title>
                   </v-toolbar>
 
                   <template slot="items" slot-scope="props">
@@ -89,13 +96,13 @@
               @click="saveCSV"
               :loading="isLoading"
               :disabled="csvUsers == null">
-              Alle sichern
+              {{ $vuetify.t('$vuetify.AdminUsers.csvSave') }}
             </v-btn>
             <v-btn
               flat
               :disabled="isLoading"
               @click="closeCSVDialog">
-              Schließen
+              {{ $vuetify.t('$vuetify.AdminUsers.csvClose') }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -170,8 +177,12 @@
         flat
         @click="cancel"
         v-if="editingId == null"
-      >{{ $vuetify.t('$vuetify.AdminUsers.formReset') }}</v-btn>
-      <v-btn flat @click="cancel" v-else>{{ $vuetify.t('$vuetify.AdminUsers.formCancel') }}</v-btn>
+      >
+        {{ $vuetify.t('$vuetify.AdminUsers.formReset') }}
+      </v-btn>
+      <v-btn flat @click="cancel" v-else>
+        {{ $vuetify.t('$vuetify.AdminUsers.formCancel') }}
+      </v-btn>
     </v-card-actions>
     <v-snackbar v-model="showSnackbar" :bottom="true">
       {{ snackbarMsg }}

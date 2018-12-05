@@ -6,7 +6,9 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="green">
-                <v-toolbar-title>{{ $vuetify.t('$vuetify.Login.welcome') }}</v-toolbar-title>
+                <v-toolbar-title>
+                  {{ $vuetify.t('$vuetify.Login.welcome') }}
+                </v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
@@ -50,7 +52,7 @@
                   color="green darken-1"
                   form="check-login-form"
                   @click.stop="login">
-                  Login
+                  {{ $vuetify.t('$vuetify.Login.button') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
