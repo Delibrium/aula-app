@@ -25,7 +25,7 @@
           ></v-textarea>
         </v-flex>
         <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <v-btn @click="submitIdea" round color="green" dark>{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
+            <v-btn @click="submitIdea" round color="primary" dark>{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
         </v-flex>
       </v-layout>
       <v-snackbar
@@ -34,7 +34,7 @@
       >
         {{ snackbarMsg }}
         <v-btn
-          color="pink"
+          color="accent"
           flat
           @click="showSnackbar = false"
         >

@@ -2,7 +2,7 @@
    <v-menu bottom right>
      <v-btn v-if="$auth.check()"
        slot="activator"
-       class="light-green"
+       color="primary"
      >
      <v-icon>more_vert</v-icon>
        User
@@ -10,7 +10,7 @@
 
      <v-btn v-else
        slot="activator"
-       class="light-green"
+       color="primary"
      >
      <v-icon>perm_identity</v-icon>
        Login

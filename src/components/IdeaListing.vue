@@ -28,7 +28,7 @@
     <v-flex
       v-for="idea in sortedIdeas"
       :key="idea.id"
-      sm12 md6>
+      sm12 md6 lg4>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>
@@ -40,7 +40,7 @@
         </v-card-title>
 
         <v-card-text>
-          <v-list class="col">
+          <v-list>
             <v-list-tile class="suggestions">
               <v-icon>comment</v-icon>
               <span v-if="getCommentCount(idea) === 0" class="no-suggestions">
@@ -103,7 +103,7 @@
             </v-list-tile>
           </v-list>
 
-          <div class="categories col">
+          <div class="categories">
             <img class="header_logo" src="/static/img/aula_old_logo.svg" />
           </div>
         </v-card-text>
@@ -211,12 +211,12 @@ export default {
       border-bottom: 5px solid #fafafa !important;
 
       h3 {
-        font-size: 1.8em;
+        font-size: 1.6em;
         line-height: 1.4em;
       }
 
       .card-meta {
-        font-size: 16px;
+        font-size: 14px;
       }
     }
 
@@ -226,7 +226,7 @@ export default {
     }
 
     .v-list__tile span {
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .categories {
@@ -251,7 +251,7 @@ export default {
     }
 
     .idea-supported, .idea-supported .v-icon, .feasible, .feasible .v-icon {
-      color:#00c853;
+      color: var(--v-primary-base);
     }
   }
 </style>

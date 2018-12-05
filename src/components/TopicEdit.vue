@@ -52,7 +52,7 @@
         </v-list>
       </v-flex>
         <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <v-btn @click="submit" round color="green" dark>{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
+            <v-btn @click="submit" round color="primary" dark>{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
         </v-flex>
       </v-layout>
       <v-snackbar
@@ -61,7 +61,7 @@
       >
         {{ snackbarMsg }}
         <v-btn
-          color="pink"
+          color="accent"
           flat
           @click="showSnackbar = false"
         >

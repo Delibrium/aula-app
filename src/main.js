@@ -24,6 +24,15 @@ Vue.use(Vuetify, {
   },
   options: {
     customProperties: true
+  },
+  theme: {
+    primary: '#00C853',
+    secondary: '#2962FF',
+    accent: '#00E676',
+    error: '#FFFDE',
+    warning: '#212121',
+    info: '#8C9EFF',
+    success: '#00C853'
   }
 })
 Vue.use(VueAxios, api.service)
@@ -46,8 +55,13 @@ Vue.use(VueAuth, {
   tokenDefaultName: 'auth_token',
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
-  loginData: {url: process.env.BASE_API + 'rpc/login', method: 'POST', redirect: '/', fetchUser: true},
-  refreshData: {url: 'refresh', method: 'GET', enabled: false, interval: 0},
+  loginData: {
+    url: process.env.BASE_API + 'rpc/login',
+    method: 'POST',
+    redirect: '/',
+    fetchUser: true
+  },
+  refreshData: { url: 'refresh', method: 'GET', enabled: false, interval: 0 },
   fetchData: { url: process.env.BASE_API + 'rpc/me', enabled: true },
   parseUserData: function (data) {
     store.commit('SET_USER', data)
@@ -68,7 +82,8 @@ new Vue({
     meta: [
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
+        content:
+          'width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
       }
     ]
   }

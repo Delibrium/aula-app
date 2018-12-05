@@ -2,7 +2,7 @@
   <v-slide-y-transition mode="out-in">
     <v-container fluid grid-list-md>
         <v-layout row wrap align-center>
-          <v-flex md8 xs12 offset-md2 color="green">
+          <v-flex md8 xs12 offset-md2 color="primary">
             <span>
               In
               <span v-if="this.idea.topic != null">
@@ -41,7 +41,7 @@
 
             <div>
               <v-btn-toggle v-model="voteValue" @change="voteChanged">
-                <v-btn fab primary>
+                <v-btn primary>
                   <v-icon left>thumb_up</v-icon>
                   Unterstützen
                 </v-btn>

@@ -68,7 +68,7 @@
     >
       {{ snackbarMsg }}
       <v-btn
-        color="pink"
+        color="accent"
         flat
         @click="showSnackbar = false"
       >

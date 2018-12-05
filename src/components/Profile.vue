@@ -11,16 +11,16 @@
         <v-flex d-flex xs12 sm12>
           <v-layout row wrap align-center justify-center>
             <v-flex d-flex sm1 align-content-center justify-center>
-              <v-chip justify-center class="text-xs-center text-sm-center" label outline color="green">Admin</v-chip>
+              <v-chip justify-center class="text-xs-center text-sm-center" label outline color="primary">Admin</v-chip>
             </v-flex>
           </v-layout>
         </v-flex>
         <v-layout wrap align-center justify-center>
           <v-flex row d-flex xs12 lg3 pa-2 align-content-center justify-center>
-           <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.UserProfile.delegates') }}</v-btn>
+           <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.UserProfile.delegates') }}</v-btn>
           </v-flex>
           <v-flex row d-flex xs12 lg3 pa-2 align-content-center justify-center>
-            <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.UserProfile.edit') }}</v-btn>
+            <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.UserProfile.edit') }}</v-btn>
           </v-flex>
         </v-layout>
         </v-flex>

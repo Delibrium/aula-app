@@ -10,7 +10,7 @@
               </div>
             </v-card-title>
             <v-card-actions>
-              <v-btn color="green" @click="selectSchool(school)">Select</v-btn>
+              <v-btn color="primary" @click="selectSchool(school)">Select</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

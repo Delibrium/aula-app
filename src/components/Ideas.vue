@@ -1,8 +1,8 @@
 <template>
   <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
-        <v-flex md10 xs12 offset-md1 mb-5 color="green" class='tab-nav'>
-          <v-card dark color="green" width="50%" style="float: left" height="100%">
+        <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
+          <v-card dark color="primary" width="50%" style="float: left" height="100%">
             <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
               <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
             </router-link>
@@ -15,10 +15,10 @@
         </v-flex>
 
 
-        <v-flex md8 offset-md2 xs12 align-center justify-center>
+        <v-flex md10 offset-md1 xs12 align-center justify-center>
           <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
         </v-flex>
-        <v-flex md8 offset-md2 xs12 align-center justify-center>
+        <v-flex md10 offset-md1 xs12 align-center justify-center>
           <p class="text-md-left text-xs-left">
             {{ $vuetify.t('$vuetify.Space.description') }}
           </p>
@@ -26,11 +26,11 @@
 
         <v-flex v-if="this.userMayCreateIdeas()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
           <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-            <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+            <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
           </router-link>
         </v-flex>
 
-        <v-flex xs12 md8 offset-md2 pa-2 mt-5>
+        <v-flex xs12 md10 offset-md1 pa-2 mt-5>
           <IdeaListing :ideas="ideas" />
         </v-flex>
     </v-layout>
