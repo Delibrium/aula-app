@@ -201,7 +201,7 @@ export default {
 <style scoped lang="scss">
   .idea-card {
     border-radius: 10px;
-    margin: auto 10px 10px auto;
+    margin: auto 5px;
     text-align: left;
 
     .v-card__title {
