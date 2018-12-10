@@ -5,6 +5,9 @@
         <v-card-text>
           <v-toolbar>
             <v-toolbar-title>{{ users.length }} Benutzer</v-toolbar-title>
+            <v-btn to="/admin/password-printout">
+              <v-icon left>print</v-icon> Passwortliste
+            </v-btn>
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
@@ -30,64 +33,55 @@
                 <ul v-if="props.item.groups.length > 1">
                   <li v-for="group in props.item.groups">
                     {{ $vuetify.t(
-                      '$vuetify.rolesCompound.' + group[0],
-                      group[2])
+                    '$vuetify.rolesCompound.' + group[0],
+                    group[2])
                     }}
                   </li>
                 </ul>
                 <span v-else-if="props.item.groups.length === 1">
                   {{ $vuetify.t(
-                    '$vuetify.rolesCompound.' + props.item.groups[0][0],
-                    props.item.groups[0][2])
+                  '$vuetify.rolesCompound.' + props.item.groups[0][0],
+                  props.item.groups[0][2])
                   }}
                 </span>
-                <span v-else>
-                  {{ $vuetify.t('$vuetify.rolesCompound.noRoles') }}
-                </span>
+                <span v-else>{{ $vuetify.t('$vuetify.rolesCompound.noRoles') }}</span>
               </td>
               <td>
                 {{ $vuetify.t('$vuetify.AdminUsers.columnHasSetPassword-' +
-                  props.item.hasSetPassword) }}
+                props.item.hasSetPassword) }}
               </td>
               <td>
-                <v-icon
-                  small
-                  class="mr-2"
-                  @click="() => edit(props.item.id)"
-                >
-                  edit
-                </v-icon>
-                <v-icon
-                  small
-                  @click="() => remove(props.item.id)"
-                >
-                  delete
-                </v-icon>
+                <v-icon small class="mr-2" @click="() => edit(props.item.id)">edit</v-icon>
+                <v-icon small @click="() => remove(props.item.id)">delete</v-icon>
               </td>
             </template>
-            <v-alert slot="no-results" :value="true" color="info" icon="warning">
-              {{ $vuetify.t('$vuetify.AdminUsers.searchNoResults', search) }}
-            </v-alert>
+            <v-alert
+              slot="no-results"
+              :value="true"
+              color="info"
+              icon="warning"
+            >{{ $vuetify.t('$vuetify.AdminUsers.searchNoResults', search) }}</v-alert>
 
             <v-card v-if="toDelete != null" slot="footer">
               <v-card-title>
                 <h3>{{ $vuetify.t('$vuetify.AdminUsers.deleteHeader') }}</h3>
               </v-card-title>
               <v-card-text>
-                <p>{{
+                <p>
+                  {{
                   $vuetify.t(
-                    '$vuetify.AdminUsers.deleteText',
-                    getUserById(this.toDelete).login
+                  '$vuetify.AdminUsers.deleteText',
+                  getUserById(this.toDelete).login
                   )
-                }}</p>
+                  }}
+                </p>
               </v-card-text>
               <v-card-actions>
-                <v-btn @click="deleteUser" color="error">
-                  {{ $vuetify.t('$vuetify.AdminUsers.deleteConfirm') }}
-                </v-btn>
-                <v-btn @click="reset">
-                  {{ $vuetify.t('$vuetify.AdminUsers.deleteCancel') }}
-                </v-btn>
+                <v-btn
+                  @click="deleteUser"
+                  color="error"
+                >{{ $vuetify.t('$vuetify.AdminUsers.deleteConfirm') }}</v-btn>
+                <v-btn @click="reset">{{ $vuetify.t('$vuetify.AdminUsers.deleteCancel') }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-data-table>
@@ -113,18 +107,13 @@
       </v-card>
     </v-slide-y-transition>
 
-    <v-snackbar
-      v-model="showSnackbar"
-      :bottom="true"
-    >
+    <v-snackbar v-model="showSnackbar" :bottom="true">
       {{ snackbarMsg }}
       <v-btn
         color="pink"
         flat
         @click="showSnackbar = false"
-      >
-        {{ $vuetify.t('$vuetify.Snackbar.close') }}
-      </v-btn>
+      >{{ $vuetify.t('$vuetify.Snackbar.close') }}</v-btn>
     </v-snackbar>
   </v-container>
 </template>

@@ -306,6 +306,15 @@ export default {
     'csvSave': 'Alle sichern',
     'csvClose': 'Schließen'
   },
+  AdminPassList: {
+    title: 'Passwortliste',
+    selectLabel: 'Klasse wählen',
+    buttonPrint: 'Drucken',
+    buttonBack: 'Zurück',
+    labelUsername: 'Benutzername',
+    labelPassword: 'Passwort',
+    labelNoPassword: 'Passwort zurückgesetzt'
+  },
   AdminChangePhase: {
     'title': 'Phasen verschieben',
     'description.1': 'ACHTUNG! GEFAHR!',

@@ -9,6 +9,7 @@ import IdeaEdit from '@/components/IdeaEdit'
 import Topics from '@/components/Topics'
 import TopicEdit from '@/components/TopicEdit'
 import Profile from '@/components/Profile'
+import PassList from '@/components/PassList'
 import store from '@/store'
 
 Vue.use(Router)
@@ -61,6 +62,12 @@ const router = new Router({
       path: '/admin',
       name: 'Admin',
       component: Admin,
+      meta: { auth: true }
+    },
+    {
+      path: '/admin/password-printout',
+      name: 'PassList',
+      component: PassList,
       meta: { auth: true }
     },
     {
