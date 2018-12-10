@@ -7,11 +7,13 @@
         <v-autocomplete
           name="group"
           prepend-icon="group"
+          :loading="isLoading"
           :items="filterOptions"
           :label="$vuetify.t('$vuetify.AdminPassList.selectLabel')"
           v-model="selectedGroup"
         ></v-autocomplete>
         <v-btn
+        :disabled="isLoading"
           color="primary"
           @click="printPage"
         >{{ $vuetify.t('$vuetify.AdminPassList.buttonPrint') }}</v-btn>
@@ -56,6 +58,7 @@ export default {
   name: 'PasswordList',
   data: function () {
     return {
+      isLoading: true,
       users: [],
       groups: [],
       selectedGroup: null
@@ -138,6 +141,7 @@ export default {
             .map(parseConfig)
             .map(parseGroups)
             .map(checkTempPassword)
+          this.isLoading = false
         })
     }
   }
