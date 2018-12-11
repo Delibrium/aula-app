@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
-    <v-flex sm12 mb-2 mt-3>
-      <v-tabs v-model="orderBy" dark>
+    <v-flex sm12 mb-0 pa-0>
+      <v-tabs v-model="orderBy">
         <v-tab ripple disabled>
           <v-icon>swap_vert</v-icon>
         </v-tab>
@@ -14,7 +14,6 @@
         <v-spacer></v-spacer>
         <v-text-field
           v-model="query"
-          dark
           flat
           :label="$vuetify.t('$vuetify.IdeaListing.search')"
           prepend-inner-icon="search"
@@ -28,7 +27,7 @@
     <v-flex
       v-for="idea in sortedIdeas"
       :key="idea.id"
-      sm12 md6 lg4>
+      sm12 md6 lg4 ma-2>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>
@@ -200,15 +199,14 @@ export default {
 
 <style scoped lang="scss">
   .idea-card {
-    border-radius: 10px;
-    margin: auto 5px;
+    border-radius: 7px;
     text-align: left;
 
     .v-card__title {
       flex-direction: column;
       align-items: baseline;
       cursor: pointer;
-      border-bottom: 5px solid #fafafa !important;
+      border-bottom: 5px solid #eee !important;
 
       h3 {
         font-size: 1.6em;
@@ -239,7 +237,7 @@ export default {
     }
 
     .v-divider {
-      border-color: #fafafa
+      border-color: #eee
     }
 
     .v-icon {

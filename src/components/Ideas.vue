@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md pa-0>
       <v-layout row wrap align-center>
         <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
           <v-card dark color="primary" width="50%" style="float: left" height="100%">
@@ -15,10 +15,10 @@
         </v-flex>
 
 
-        <v-flex md10 offset-md1 xs12 align-center justify-center>
+        <v-flex md10 offset-md1 xs12 align-center justify-center pa-3>
           <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
         </v-flex>
-        <v-flex md10 offset-md1 xs12 align-center justify-center>
+        <v-flex md10 offset-md1 xs12 align-center justify-center pa-3>
           <p class="text-md-left text-xs-left">
             {{ $vuetify.t('$vuetify.Space.description') }}
           </p>

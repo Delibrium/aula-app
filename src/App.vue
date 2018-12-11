@@ -68,6 +68,9 @@
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
 	}
+  .theme--light.application {
+    background-color: #eee;
+  }
   .footer{ /* Apply this to v-bottom-nav if necessary. */
     margin-bottom: constant(safe-area-inset-bottom);
     margin-bottom: env(safe-area-inset-bottom);

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md pa-0>
       <v-layout row wrap align-space-around>
         <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
           <v-card dark color="gray" width="50%" style="float: left" height="100%">
@@ -14,11 +14,11 @@
           </v-card>
         </v-flex>
 
-        <v-flex md8 offset-md2 xs12 align-center justify-center>
+        <v-flex md8 offset-md2 xs12 align-center justify-center pa-3>
           <h1 class="text-md-left text-xs-left">
             {{ $vuetify.t('$vuetify.Topic.introTitle') }}
           </h1>
-          <p class="text-md-left text-xs-left">
+          <p class="text-md-left text-xs-left" pa-3>
             {{ $vuetify.t('$vuetify.Topic.introDescription') }}
           </p>
           <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">

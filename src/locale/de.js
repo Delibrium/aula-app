@@ -29,7 +29,7 @@ export default {
   },
   Space: {
     'wildIdeas': 'Wilde Ideen',
-    'ideaTopics': 'Themen auf dem Tisch',
+    'ideaTopics': 'Themenraum',
     'subtitle': 'Was soll sich verändern?',
     'description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
     'newIdea': 'Neue Idee',

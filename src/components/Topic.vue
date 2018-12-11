@@ -1,39 +1,32 @@
 <template>
-  <v-container fluid grid-list-md>
-      <v-layout row wrap align-center>
-        <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
-          <v-card dark color="gray" width="50%" style="float: left" height="100%">
-            <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
-            </router-link>
-          </v-card>
-          <v-card dark color="primary" width="50%" style="float: left" height="100%">
-            <router-link :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.ideaTopics') }}</v-card-text>
-            </router-link>
-          </v-card>
-        </v-flex>
+  <v-container pa-0>
+    <v-layout row wrap>
+      <v-flex xs12 class='phase-banner' px-3 py-2>
+        <h2>
+          {{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}
+        </h2>
+      </v-flex>
+      <v-flex xs12 class='phase-notification' px-3 py-2>
+        <p>
+          <v-icon>timer</v-icon> Endet in 11 Stunden
+        </p>
+      </v-flex>
+      <v-flex xs12 class="topic-wrapper">
+        <v-container px-0 pb-3>
+          <v-layout row wrap class="topic">
+            <v-flex md6 px-3 py-3>
+              <h1 class="text-md-left text-xs-left">{{ topic.title }}</h1>
+            </v-flex>
+            <v-flex md6 px-3 py-3>
+              <p class="text-md-left text-xs-left">{{ topic.description }}</p>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-flex>
 
-
-        <v-flex md10 offset-md1 xs12 align-center justify-center>
-          <h1 class="text-md-left text-xs-left">
-            {{ topic.title }}
-          </h1>
-        </v-flex>
-        <v-flex md10 offset-md1 xs12 align-center justify-center>
-          <p class="text-md-left text-xs-left">
-            {{ topic.description }}
-          </p>
-        </v-flex>
-
-        <v-flex v-if="this.userMayCreateIdeas()" xs12 md10 offset-md1 pa-2 align-center justify-center text-md-center text-xs-center>
-          <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-            <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
-          </router-link>
-        </v-flex>
-        <v-flex  xs12 md12 lg10 offset-lg1 pa-2 mt-5>
-          <IdeaListing :ideas="ideas" :topic="topic" />
-        </v-flex>
+      <v-flex>
+        <IdeaListing :ideas="ideas" :topic="topic"/>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -70,7 +63,7 @@ export default {
       return !isUserMemberOf(['school_admin', 'principal'])
     },
     openIdea: function (idea) {
-      this.$router.push({name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id }})
+      this.$router.push({ name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id } })
     },
 
     getTopic: function () {
@@ -91,13 +84,28 @@ export default {
 
 
 <style scoped lang="scss">
-  .tab-nav {
-    margin-bottom: 2em;
-  }
+.topic-wrapper {
+  background-color: var(--v-secondary-base);
+}
 
-  .tab-nav a {
-    font-size: 1.4em;
-    color: white;
-    text-decoration: none;
-  }
+.topic > div {
+  background-color: white;
+}
+
+.phase-banner {
+  text-transform: uppercase;
+  background-color: var(--v-secondary-base);
+  color: white;
+  font-size: .8em;
+}
+
+.phase-notification {
+  text-transform: uppercase;
+  color: var(--v-secondary-base);
+  background-color: white;
+
+  .v-icon { color: var(--v-secondary-base); }
+
+  p { margin: 0; }
+}
 </style>
