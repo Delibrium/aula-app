@@ -139,11 +139,13 @@ export default {
           if (res.status < 400) {
             this.reset()
             this.showSnackbar = true
-            this.snackbarMsg = this.$vuetify.t('$vuetify.AdminCategories.snackbarDeleted')
+            this.snackbarMsg = this.$vuetify.t(
+              '$vuetify.AdminCategories.snackbarDeleted')
           } else {
             this.reset()
             this.showSnackbar = true
-            this.snackbarMsg = this.$vuetify.t('$vuetify.AdminCategories.snackbarDeleteFailed')
+            this.snackbarMsg = this.$vuetify.t(
+              '$vuetify.AdminCategories.snackbarDeleteFailed')
           }
         })
     }

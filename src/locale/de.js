@@ -1,10 +1,43 @@
 export default {
+  noDataText: 'Leider wurde hier nichts geladen',
+  dataIterator: {
+    prevPage: 'Vorige Seite',
+    nextPage: 'Nächste Seite',
+    rowsPerPageAll: 'Alle',
+    rowsPerPageText: 'Einträge pro Seite:',
+    pageText: '{0}-{1} von {2}',
+    noResultsText: 'Keine passenden Einträge gefunden'
+  },
+  dataTable: {
+    rowsPerPageText: 'pro Seite'
+  },
+  roles: {
+    noRoles: 'Keine Rolle zugewiesen',
+    student: 'Schüler',
+    class_guest: 'Gast',
+    school_guest: 'Gast der Schule',
+    moderator: 'Moderator',
+    principal: 'Schulleitung',
+    school_admin: 'Admin',
+    admin: 'Aula-Admin'
+  },
+  rolesCompound: {
+    noRoles: 'Keine Rolle zugewiesen',
+    student: 'Schüler in {0}',
+    class_guest: 'Gast in {0}',
+    school_guest: 'Gast der Schule',
+    moderator: 'Moderator in {0}',
+    principal: 'Schulleitung',
+    school_admin: 'Admin',
+    admin: 'Aula-Admin'
+  },
   Login: {
     'welcome': 'Willkommen bei Aula',
     'login': 'Benutzername',
     'password': 'Passwort',
     'password.reminder': 'Wenn Du eine email-Adresse eingegeben hast, kannst du dein Passwort hier neu setzen.',
-    'password.reminder.noemail': 'Solltest du dein Passwort nicht mehr kennen und keine email-Adresse haben, melde dich bitte bei den Admins euer Schule.'
+    'password.reminder.noemail': 'Solltest du dein Passwort nicht mehr kennen und keine email-Adresse haben, melde dich bitte bei den Admins euer Schule.',
+    'passwordError': 'Leider stimmt entweder Benutzername oder Passwort nicht.'
   },
   Footer: {
     'user.terms': 'Nutzungsbedingungen',
@@ -229,14 +262,38 @@ export default {
     'change.status': 'Status setzen!'
   },
   AdminUsers: {
-    'table.name': 'Name',
-    'table.class': 'Klass',
-    'table.role': 'Role',
-    'table.deleted': 'gelöscht',
-    'load.users': 'Nutzer anlegen',
-    'search.user': 'Nutzersuche',
-    'load.class': 'Klasse anlegen',
-    'search.class': 'Klassensuche'
+    'titleAdd': 'Neuen Benutzer hinzufügen',
+    'titleEdit': 'Benutzer "{0}" ändern',
+    'columnHasSetPassword': 'Passwort zurückgesetzt',
+    'columnHasSetPassword-true': 'Ja',
+    'columnHasSetPassword-false': 'Nein',
+    'columnActions': '',
+    'searchLabel': 'Suche',
+    'searchNoResults': 'Für deine Suche nach {0} wurden leider keine Benutzer gefunden',
+    'formFirstName': 'Vorname',
+    'formLastName': 'Nachname',
+    'formLogin': 'Benutzername',
+    'formLoginSuggestion': 'Benutzername: {0}',
+    'formLoginUniqueError': 'Es gibt schon einen Benutzer \'{0}\' an dieser Schule. Bitte gib einen anderen Namen ein.',
+    'formEmail': 'Email (optional)',
+    'formGroup': 'Rolle',
+    'formIdeaSpace': 'Klasse',
+    'formNoSpaceSelected': 'Nicht zugewiesen',
+    'formRoleRequiresSpace': 'Bitte wähle für diese Rolle eine dazugehörige Klasse',
+    'formCreate': 'Erstellen',
+    'formSave': 'Sichern',
+    'formReset': 'Zurücksetzen',
+    'formCancel': 'Abbrechen',
+    'deleteHeader': 'Benutzer Löschen',
+    'deleteText': 'Benutzer "{0}" wirklich löschen?',
+    'deleteConfirm': 'Unwiderrufbar löschen',
+    'deleteCancel': 'Zurück',
+    'snackbarCreated': 'Nutzer erstellt',
+    'snackbarSaved': 'Nutzerdaten gesichert',
+    'snackbarDeleted': 'Nutzer wurde gelöscht',
+    'snackbarRoleAdded': 'Rolle wurde hinzugefügt',
+    'snackbarDeleteFailed': 'Nutzer konnte nicht gelöscht werden',
+    'snackbarDuplicateGroup': 'Der Benutzer hat diese Rolle bereits'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',

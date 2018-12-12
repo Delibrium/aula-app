@@ -10,59 +10,143 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form id="check-login-form">
-                  <v-text-field prepend-icon="person" v-model="data.body.username" :label="$vuetify.t('$vuetify.Login.login')" type="text"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" v-model="data.body.password" :label="$vuetify.t('$vuetify.Login.password')" type="password"></v-text-field>
+                <v-form id="login">
+                  <v-autocomplete
+                    name='school'
+                    prepend-icon="school"
+                    :items="schools"
+                    label="Schule"
+                    @change="handleChangeSchool"
+                    v-validate="'required'"
+                    v-model="selectedSchoolId"
+                    :error-messages="errors.collect('school')"
+                  ></v-autocomplete>
+                  <v-text-field
+                    name='username'
+                    prepend-icon="person"
+                    v-model="username"
+                    :label="$vuetify.t('$vuetify.Login.login')"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('username')"
+                    type="text">
+                  </v-text-field>
+                  <v-text-field
+                    name='password'
+                    id="password"
+                    prepend-icon="lock"
+                    v-model="password"
+                    :label="$vuetify.t('$vuetify.Login.password')"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('password')"
+                    type="password">
+                  </v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn type="submit" color="green darken-1" form="check-login-form" @click="login">Login</v-btn>
+                <v-btn
+                  dark
+                  type="submit"
+                  color="green darken-1"
+                  form="check-login-form"
+                  @click.stop="login">
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
+      <v-snackbar
+        v-model="showSnackbar"
+        :bottom="true"
+      >
+        {{ snackbarMsg }}
+        <v-btn
+          color="pink"
+          flat
+          @click="showSnackbar = false"
+        >
+          {{ $vuetify.t('$vuetify.Snackbar.close') }}
+        </v-btn>
+      </v-snackbar>
     </v-content>
   </v-app>
 </template>
 
 <script>
-  export default {
-    name: 'Login',
-    data: () => ({
-      drawer: null,
-      data: {
-        body: {
-          username: '',
-          password: ''
-        }
-      }
-    }),
+import api from '@/api'
 
-    mounted: function () {
-    },
+export default {
+  $_veeValidate: { validator: 'new' },
 
-    props: {
-      source: String
-    },
+  name: 'Login',
+  data: () => ({
+    username: '',
+    password: '',
+    schools: [],
+    selectedSchoolId: null,
+    showSnackbar: false,
+    snackbarMsg: ''
+  }),
 
-    methods: {
-      login: function () {
-        // var redirect = this.$auth.redirect()
-        this.$auth.login({
-          data: this.data.body,
-          redirect: { name: 'IdeaSpaces' },
-          fetchUser: true
-        }).then((res) => {
-          this.$store.commit('SET_USER', res.data.data)
-          this.$auth.user(res.data.data)
-        }, (res) => {
-          console.log('Error on Login')
-          this.error = res.data
+  beforeMount: function () {
+    this.loadSchools()
+  },
+
+  props: {
+    source: String
+  },
+
+  methods: {
+    login: function () {
+      this.$validator.validate()
+        .then(isFormValid => {
+          if (!isFormValid) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.formError')
+            return
+          }
+
+          const params = {
+            data: {
+              username: this.username,
+              password: this.password,
+              school_id: this.selectedSchoolId
+            },
+            redirect: { name: 'IdeaSpaces' },
+            fetchUser: true
+          }
+          this.$auth.login(params)
+            .then((res) => {
+              this.$store.commit('SET_USER', res.data.data)
+              this.$auth.user(res.data.data)
+            })
+            .catch((error) => {
+              if (error.response && error.response.status === 401) {
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t(
+                  '$vuetify.Login.passwordError'
+                )
+              } else {
+                this.showSnackbar = true
+                this.snackbarMsg = this.$vuetify.t(
+                  '$vuetify.Snackbar.serverError'
+                )
+              }
+            })
         })
-      }
+    },
+    loadSchools: function () {
+      api.school.getPublic()
+        .then(res => {
+          this.schools = res.data
+        })
+    },
+    handleChangeSchool: function (value) {
+      this.selectedSchoolId = value
     }
   }
+}
 </script>
 

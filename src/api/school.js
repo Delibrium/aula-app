@@ -1,18 +1,29 @@
 import service from '@/api/service'
 
-export function getSchools () {
+function get () {
   return service.get('/school')
 }
 
-export function getSchoolConfig (schoolId) {
+function getPublic () {
+  return service.get('/rpc/school_listing')
+}
+
+function getConfig (schoolId) {
   return service.post('/rpc/config', {'space_id': schoolId})
 }
 
-export function updateSchoolConfig (schoolId, configKey, configValue) {
+function updateConfig (schoolId, configKey, configValue) {
   return service.post('/rpc/config_update',
     {
       space_id: schoolId,
       key: configKey,
       value: configValue
     })
+}
+
+export default {
+  get,
+  getPublic,
+  getConfig,
+  updateConfig
 }

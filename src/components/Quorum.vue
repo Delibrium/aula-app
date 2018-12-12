@@ -44,7 +44,7 @@
 
 <script>
 
-import * as api from '@/api/school'
+import api from '@/api'
 
 export default {
   name: 'Quorum',
