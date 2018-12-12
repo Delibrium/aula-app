@@ -1,10 +1,6 @@
 <template>
   <v-app light>
-    <v-toolbar fixed app class="white">
-      <router-link to="/"><img class="header_logo" src="/static/img/aula_old_logo.svg"/></router-link>
-      <v-spacer></v-spacer>
-      <Menu v-if="$auth.ready()"></Menu>
-    </v-toolbar>
+    <AppBar />
     <v-content>
       <div v-if="$auth.ready()">
         <router-view></router-view>
@@ -18,9 +14,10 @@
 
 <script>
   import Vue from 'vue'
-  import Menu from './components/Menu'
+  import AppBar from './components/AppBar'
+
   export default {
-    components: { Menu },
+    components: { AppBar },
     data () {
       return {
         cordova: Vue.cordova,
