@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap grid-list-md>
     <v-flex sm12 mb-0 pa-0>
       <v-tabs v-model="orderBy">
         <v-tab ripple disabled>
@@ -20,10 +20,12 @@
         ></v-text-field>
       </v-tabs>
     </v-flex>
+
     <v-flex v-if="ideas.length === 0" pt-3>
       <h2>{{ $vuetify.t('$vuetify.IdeaListing.noIdeas') }}</h2>
     </v-flex>
-    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md6 lg4 ma-2>
+
+    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md6 lg4 pa-2>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md pa-0>
+  <v-container fluid pa-0>
       <v-layout row wrap align-center>
         <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
           <v-card dark color="primary" width="50%" style="float: left" height="100%">
