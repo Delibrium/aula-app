@@ -1,6 +1,6 @@
 import service from '@/api/service'
 
-export function getIdeasSpaces (schoolId) {
+export function getIdeaSpaces (schoolId) {
   return service.get('/idea_space', {params: {school_id: `eq.${schoolId}`}})
 }
 

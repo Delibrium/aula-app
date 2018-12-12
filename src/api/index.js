@@ -1,15 +1,17 @@
 import service from './service'
-import { getSchools } from './school'
-import * as user from './user'
 import * as topic from './topic'
 import * as ideaSpace from './ideaSpace'
+import school from './school'
+import user from './user'
 import comment from './comment'
+import category from './category'
 
 export default {
+  category,
+  comment,
+  ideaSpace,
+  school,
   service,
   topic,
-  getSchools,
-  ideaSpace,
-  user,
-  comment
+  user
 }

@@ -35,7 +35,7 @@
             </v-expansion-panel-content>
 
           <!-- User and Groups -->
-            <v-expansion-panel-content :disabled="!hasSelectedSchool">
+            <v-expansion-panel-content :disabled="!hasSelectedSchool" value=1>
               <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.users')}}</div>
               <GroupsUsers></GroupsUsers>
             </v-expansion-panel-content>
