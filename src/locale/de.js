@@ -72,6 +72,9 @@ export default {
   IdeaListing: {
     'sortByAge': 'Alter',
     'sortBySupporters': 'Unterstützung',
+    'sortByName': 'Alphabetisch',
+    'sortByRandom': 'Zufällig',
+    'sortByRecentComments': 'Zuletzt kommentiert',
     'search': 'Suche',
     'noIdeas': 'Hier wurden noch keine Ideen aufgeschrieben.',
     'ideaSubtitle': 'Von {0} am {1}',
