@@ -68,8 +68,10 @@ export default {
     'tab.delegates': 'Beauftrage Stimmen',
     'back.phase.limit': "Thema {0} konnte nicht zurückgesetzt werden: steht schon auf 'Ausarbeitung'",
     'phase.change': 'Thema {0} wurde von {1} nach {2} verschoben.',
-    'phase.time': '{0} (Endet morgen am {1} um ca. {2} Uhr)',
-    'your.delegate': 'Derzeit stimmt für dich ab: {0}'
+    'phaseTimeLeft': 'Endet {0}',
+    'your.delegate': 'Derzeit stimmt für dich ab: {0}',
+    'cantCreateIdea': 'Diesem Thema können keine Ideen hinzugefügt werden.',
+    'notFound': 'Dieses Thema wurde leider nicht gefunden.'
   },
   TopicPhase: {
     'wildIdeas': 'Wilde-Ideen-Phase',
@@ -92,6 +94,7 @@ export default {
   },
   IdeaCreation: {
     'title': 'Deine Idee',
+    'titleWithTopic': 'Deine Idee für das Thema "{0}"',
     'name': 'Wie soll deine Idee heißen?',
     'nameExample': 'z.B. bessere Ausstatung im Computerraum',
     'suggestion': 'Was möchtest du vorschlagen?',
@@ -99,6 +102,7 @@ export default {
     'previewShow': 'Vorschau einblenden',
     'selectCategory': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
     'publish': 'Idee veröffentlichen',
+    'backToTopic': 'Zurück zum Thema',
     'yourDelegates': 'Derzeit Stimmt für dich ab:'
   },
   UserProfile: {

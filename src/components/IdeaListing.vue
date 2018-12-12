@@ -108,6 +108,19 @@
         </v-card-text>
       </v-card>
     </v-flex>
+
+    <v-btn color="primary" fixed dark fab bottom right icon href
+      v-if="this.topic == null || this.topic.phase === 'edit_topics'"
+      :to="{
+        name: 'IdeaCreate',
+        params: {
+          space: this.$route.params.spaceSlug,
+          topicId: this.topic && this.topic.id
+        }
+      }"
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
   </v-layout>
 </template>
 

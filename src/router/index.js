@@ -29,7 +29,7 @@ const router = new Router({
       meta: { auth: true }
     },
     {
-      path: '/space/:spaceSlug/idea/create',
+      path: '/space/:spaceSlug/idea/create/:topicId?',
       name: 'IdeaCreate',
       component: IdeaEdit,
       meta: { auth: true }

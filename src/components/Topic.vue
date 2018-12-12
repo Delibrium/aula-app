@@ -1,15 +1,12 @@
 <template>
   <v-container pa-0>
     <v-layout row wrap>
-      <v-flex xs12 class='phase-banner' px-3 py-2>
-        <h2>
-          {{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}
-        </h2>
+      <v-flex xs12 class="phase-banner" px-3 py-2>
+        <h2>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</h2>
       </v-flex>
-      <v-flex xs12 class='phase-notification' px-3 py-2>
-        <p>
-          <v-icon>timer</v-icon> Endet in 11 Stunden
-        </p>
+      <v-flex xs12 class="phase-notification" px-3 py-1 v-if="timeLeft != null">
+        <v-icon>timer</v-icon>
+        {{ $vuetify.t('$vuetify.Topic.phaseTimeLeft', timeLeft) }}
       </v-flex>
       <v-flex xs12 class="topic-wrapper">
         <v-container px-0 pb-3>
@@ -23,9 +20,8 @@
           </v-layout>
         </v-container>
       </v-flex>
-
       <v-flex>
-        <IdeaListing :ideas="ideas" :topic="topic"/>
+        <IdeaListing :ideas="ideas" :topic="topic" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -36,13 +32,24 @@
 import api from '@/api'
 import IdeaListing from '@/components/IdeaListing'
 import { isUserMemberOf } from '../utils/permissions'
+import moment from 'moment'
 
 export default {
   name: 'Topic',
   components: { IdeaListing },
   computed: {
     spaceId: function () { return this.$route.params['spaceId'] },
-    topicId: function () { return this.$route.params['topicId'] }
+    topicId: function () { return this.$route.params['topicId'] },
+    timeLeft: function () {
+      const phaseDuration = [1, 'day']
+      if (this.topic == null || this.topic.phase !== 'edit_topics') {
+        return null
+      } else {
+        return moment(this.topic.meta.editTopicsStarted)
+          .add(...phaseDuration)
+          .calendar()
+      }
+    }
   },
 
   data: function () {
@@ -56,6 +63,9 @@ export default {
   beforeMount: function () {
     this.getTopic()
     this.getIdeas()
+
+    // Set momeent locale to be the same as configured for vuetify
+    moment.locale(this.$vuetify.lang.current)
   },
 
   methods: {
@@ -70,6 +80,7 @@ export default {
       api.topic.get(this.topicId)
         .then((res) => {
           this.topic = res.data[0]
+          this.topic.meta = { editTopicsStarted: new Date() }
         })
     },
     getIdeas: function () {
@@ -96,16 +107,22 @@ export default {
   text-transform: uppercase;
   background-color: var(--v-secondary-base);
   color: white;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .phase-notification {
   text-transform: uppercase;
   color: var(--v-secondary-base);
   background-color: white;
+  font-size: 0.9em;
+  font-weight: bold;
 
-  .v-icon { color: var(--v-secondary-base); }
+  .v-icon {
+    color: var(--v-secondary-base);
+  }
 
-  p { margin: 0; }
+  p {
+    margin: 0;
+  }
 }
 </style>
