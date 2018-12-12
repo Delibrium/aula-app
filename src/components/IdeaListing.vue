@@ -91,9 +91,9 @@
             </v-list-tile>
           </v-list>
 
-          <div class="categories">
-            <img class="header_logo" src="/static/img/aula_old_logo.svg">
-          </div>
+          <v-flex text-xs-right pr-4 class="categories">
+            <img src="/static/img/svg/icon_regeln.svg">
+          </v-flex>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -161,7 +161,14 @@ export default {
         Name: (a, b) => a.title === b.title ? 0 : a.title > b.title ? 1 : -1, // eslint-disable-line,
         Random: (a, b) => 0.5 - Math.random(),
         Result: (a, b) => null,
-        Feasibility: (a, b) => a.feasible === b.feasible ? sortFn.Name(a, b) : a.feasible > b.feasible ? 1 : -1,
+        Feasibility: (a, b) => {
+          if (a.feasible == null) {
+            if (b.feasible == null) return 0
+            return 1
+          }
+          if (b.feasible == null) return -1
+          return a.feasible.val < b.feasible.val ? 1 : -1
+        },
         RecentComments: (a, b) => {
           if (this.getSuggestionCount(a) === 0) {
             if (this.getSuggestionCount(b) === 0) return 0

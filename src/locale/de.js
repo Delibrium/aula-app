@@ -75,6 +75,7 @@ export default {
     'sortByName': 'Alphabetisch',
     'sortByRandom': 'Zufällig',
     'sortByRecentComments': 'Zuletzt kommentiert',
+    'sortByFeasibility': 'Machbarkeit',
     'search': 'Suche',
     'noIdeas': 'Hier wurden noch keine Ideen aufgeschrieben.',
     'ideaSubtitle': 'Von {0} am {1}',
