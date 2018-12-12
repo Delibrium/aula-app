@@ -262,7 +262,7 @@ export default {
     'change.status': 'Status setzen!'
   },
   AdminUsers: {
-    'titleAdd': 'Neuen Benutzer hinzufügen',
+    'titleAdd': 'Neue Benutzer hinzufügen',
     'titleEdit': 'Benutzer "{0}" ändern',
     'columnHasSetPassword': 'Passwort zurückgesetzt',
     'columnHasSetPassword-true': 'Ja',
@@ -288,12 +288,15 @@ export default {
     'deleteText': 'Benutzer "{0}" wirklich löschen?',
     'deleteConfirm': 'Unwiderrufbar löschen',
     'deleteCancel': 'Zurück',
-    'snackbarCreated': 'Nutzer erstellt',
+    'snackbarCreated': '{0} Nutzer erstellt',
     'snackbarSaved': 'Nutzerdaten gesichert',
     'snackbarDeleted': 'Nutzer wurde gelöscht',
     'snackbarRoleAdded': 'Rolle wurde hinzugefügt',
     'snackbarDeleteFailed': 'Nutzer konnte nicht gelöscht werden',
-    'snackbarDuplicateGroup': 'Der Benutzer hat diese Rolle bereits'
+    'snackbarDuplicateGroup': 'Der Benutzer hat diese Rolle bereits',
+    'csvDialog': 'Aus CSV-Datei',
+    'csvFilePicker': 'Datei auswählen',
+    'csvFormatError': 'Bitte sicherstellen, dass alle benötigten Spalten vorhanden sind.'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',

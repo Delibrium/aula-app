@@ -2,18 +2,19 @@
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
       <v-card>
-        <v-card-title>
-          <h1>Benutzer und Gruppen</h1>
-          <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="search"
-            :label="$vuetify.t('$vuetify.AdminUsers.searchLabel')"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-card-title>
         <v-card-text>
+          <v-toolbar>
+            <v-toolbar-title>{{ users.length }} Benutzer</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              :label="$vuetify.t('$vuetify.AdminUsers.searchLabel')"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-toolbar>
+
           <v-data-table
             :headers="headers"
             :items="users"
@@ -88,10 +89,11 @@
             </v-card>
           </v-data-table>
 
-          <v-layout row wrap>
+          <v-layout row wrap mt-3>
             <v-flex xs12 sm6>
               <GroupsUsersEdit
                 :user="toEdit"
+                :users="users"
                 :handleCancel="reset"
                 :handleSuccess="handleNewUser"
               />
@@ -209,8 +211,8 @@ export default {
         config: JSON.parse(entry.config)
       })
 
-      // Groups are returned as a composite value, which means they're strings
-      // that need to be unpacked
+      // Groups are returned from Postgrest as a composite value, which means
+      // they're strings that need to be unpacked
       const parseGroups = entry => Object.assign({}, entry, {
         groups: entry.groups[0] === '(,,)' // Postgres return value for 'no groups'
           ? []
@@ -233,19 +235,25 @@ export default {
         hasSetPassword: entry.config.temp_password == null
       })
 
-      api.user.getListing().then((res) => {
-        this.users = res.data
-          .map(parseConfig)
-          .map(parseGroups)
-          .map(checkTempPassword)
-        this.isLoading = false
-      })
+      api.user.getListing()
+        .then((res) => {
+          this.users = res.data
+            .map(parseConfig)
+            .map(parseGroups)
+            .map(checkTempPassword)
+          this.isLoading = false
+        })
+        .catch(() => {
+          this.isLoading = false
+        })
     },
-    handleNewUser: function (data) {
+    handleNewUser: function () {
+      this.isLoading = true
       this.reset()
       this.getUsers()
     },
     handleGroupsUpdated: function (data) {
+      this.isLoading = true
       this.getUsers()
     },
     deleteUser: function () {
