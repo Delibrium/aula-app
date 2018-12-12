@@ -16,6 +16,8 @@
   import Vue from 'vue'
   import AppBar from './components/AppBar'
 
+  import './vison-font.css'
+
   export default {
     components: { AppBar },
     data () {
@@ -64,9 +66,16 @@
 	body {
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
-	}
+  }
+
+  .boldfont {
+    font-family: 'visionbold', Helvetica, Arial, sans-serif;
+  }
   .theme--light.application {
     background-color: #eee;
+    font-family: 'visionregular', Helvetica, Arial, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
   }
   .footer{ /* Apply this to v-bottom-nav if necessary. */
     margin-bottom: constant(safe-area-inset-bottom);

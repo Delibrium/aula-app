@@ -1,16 +1,13 @@
 <template>
   <v-layout row wrap grid-list-md>
     <v-flex sm12 mb-0 pa-0>
-      <v-tabs v-model="orderBy">
-        <v-tab ripple disabled>
-          <v-icon>swap_vert</v-icon>
-        </v-tab>
+      <v-tabs v-model="orderBy" show-arrows class="boldfont">
+        <v-icon class='tab-icon'>swap_vert</v-icon>
         <v-tab
           ripple
           v-for="sortOption in sortOptions"
           :key="sortOption"
         >{{ $vuetify.t('$vuetify.IdeaListing.sortBy' + sortOption) }}</v-tab>
-        <v-spacer></v-spacer>
         <v-text-field
           v-model="query"
           flat
@@ -175,14 +172,14 @@ export default {
         }
       }
 
-      const fn = sortFn[this.sortOptions[this.orderBy - 1]]
+      const fn = sortFn[this.sortOptions[this.orderBy]]
       ideaSet.sort(fn)
       return ideaSet
     }
   },
 
   data: () => ({
-    orderBy: 1,
+    orderBy: 0,
     query: ''
   }),
 
@@ -240,6 +237,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.tab-icon {
+  margin: auto 10px;
+}
+
 .idea-card {
   border-radius: 7px;
   text-align: left;
@@ -248,7 +249,7 @@ export default {
     flex-direction: column;
     align-items: baseline;
     cursor: pointer;
-    border-bottom: 5px solid #eee !important;
+    border-bottom: 3px solid #eee !important;
 
     h3 {
       font-size: 1.6em;

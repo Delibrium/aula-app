@@ -5,18 +5,16 @@
         <h2>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</h2>
       </v-flex>
 
-      <v-flex xs12 class="phase-notification" px-3 py-1 v-if="timeLeft != null">
-        <v-icon>timer</v-icon>
+      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="timeLeft != null">
+        <v-icon small>timer</v-icon>
         {{ $vuetify.t('$vuetify.Topic.phaseTimeLeft', timeLeft) }}
       </v-flex>
 
       <v-flex xs12 class="topic-wrapper">
-        <v-container px-0 pb-3>
-          <v-layout column class="topic" text-md-left >
-            <v-flex md6 px-3 py-3>
+        <v-container px-0 pb-3 my-4>
+          <v-layout row wrap class="topic">
+            <v-flex raised sm8 offset-sm2 px-4 py-4>
               <h1>{{ topic.title }}</h1>
-            </v-flex>
-            <v-flex md6 px-3 py-3>
               <p>{{ topic.description }}</p>
             </v-flex>
           </v-layout>
@@ -101,9 +99,12 @@ export default {
   background-color: var(--v-secondary-base);
 }
 
+h1 {
+  margin-bottom: .5em;
+}
+
 .topic > div {
   background-color: white;
-  max-width: 750px;
 }
 
 .phase-banner {
@@ -118,7 +119,6 @@ export default {
   color: var(--v-secondary-base);
   background-color: white;
   font-size: 0.9em;
-  font-weight: bold;
 
   .v-icon {
     color: var(--v-secondary-base);
