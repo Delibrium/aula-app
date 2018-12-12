@@ -38,10 +38,13 @@
     </v-list>
 
     <v-card v-if="toDelete != null">
-      <v-card-title><h3>{{ $vuetify.t('$vuetify.AdminCategories.deleteHeader') }}</h3></v-card-title>
+      <v-card-title>
+        <h3>{{ $vuetify.t('$vuetify.AdminCategories.deleteHeader') }}</h3>
+      </v-card-title>
       <v-card-text>
         <p>
-          {{ $vuetify.t('$vuetify.AdminCategories.deleteText', categories[toDelete].name) }}
+          {{ $vuetify.t('$vuetify.AdminCategories.deleteText',
+            categories[toDelete].name) }}
         </p>
       </v-card-text>
       <v-card-actions>

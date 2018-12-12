@@ -45,7 +45,9 @@
           ></v-select>
         </v-flex>
         <v-flex class='text-xs-right'>
-          <v-btn @click="addGroup">Rolle hinzufügen</v-btn>
+          <v-btn @click="addGroup">
+            {{ $vuetify.t('$vuetify.AdminUsers.formAddRole') }}
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-card-text>

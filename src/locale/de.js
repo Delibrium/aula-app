@@ -32,6 +32,7 @@ export default {
     admin: 'Aula-Admin'
   },
   Login: {
+    'button': 'Login',
     'welcome': 'Willkommen bei Aula',
     'login': 'Benutzername',
     'password': 'Passwort',
@@ -278,6 +279,7 @@ export default {
     'formEmail': 'Email (optional)',
     'formGroup': 'Rolle',
     'formIdeaSpace': 'Klasse',
+    'formAddRole': 'Rolle hinzufügen',
     'formNoSpaceSelected': 'Nicht zugewiesen',
     'formRoleRequiresSpace': 'Bitte wähle für diese Rolle eine dazugehörige Klasse',
     'formCreate': 'Erstellen',
@@ -296,7 +298,22 @@ export default {
     'snackbarDuplicateGroup': 'Der Benutzer hat diese Rolle bereits',
     'csvDialog': 'Aus CSV-Datei',
     'csvFilePicker': 'Datei auswählen',
-    'csvFormatError': 'Bitte sicherstellen, dass alle benötigten Spalten vorhanden sind.'
+    'csvFormatError': 'Bitte sicherstellen, dass alle benötigten Spalten vorhanden sind.',
+    'csvTitle': 'Aus CSV laden',
+    'csvInstructions': 'Hier können neue Benutzer aus einer Tabellen-Datei erstellt werden. Die Tabelle sollte im Format CSV (mit Kopfzeile) gespeichert werden und die Spalten "Vorname" und "Nachname" enthalten. Optional kann eine Spalte "Email" angegeben werden.',
+    'csvReset': 'Zurücksetzen',
+    'csvTableHeader': 'Vorschau der {0} Nutzer',
+    'csvSave': 'Alle sichern',
+    'csvClose': 'Schließen'
+  },
+  AdminPassList: {
+    title: 'Passwortliste',
+    selectLabel: 'Klasse wählen',
+    buttonPrint: 'Drucken',
+    buttonBack: 'Zurück',
+    labelUsername: 'Benutzername',
+    labelPassword: 'Passwort',
+    labelNoPassword: 'Passwort zurückgesetzt'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',
