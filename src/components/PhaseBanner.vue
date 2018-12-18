@@ -10,11 +10,15 @@
       >
         <h2 v-if="phaseName === phase">
           <span v-if="mayChangePhase">
-            <v-btn icon small dark v-if="phase !== phases[0]" @click="update(-1)">
+            <v-btn icon small dark
+              v-if="phase !== phases[0]"
+              @click="update(-1)">
               <v-icon>arrow_back</v-icon>
             </v-btn>
             {{ $vuetify.t('$vuetify.TopicPhase.' + phase) }}
-            <v-btn icon small dark v-if="phase !== phases[-1]" @click="update(+1)">
+            <v-btn icon small dark
+              v-if="phase !== phases[phases.length - 1]"
+              @click="update(+1)">
               <v-icon>arrow_forward</v-icon>
             </v-btn>
           </span>

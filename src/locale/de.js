@@ -76,6 +76,7 @@ export default {
     'sortByRandom': 'Zufällig',
     'sortByRecentComments': 'Zuletzt kommentiert',
     'sortByFeasibility': 'Machbarkeit',
+    'sortByResult': 'Ergebnis',
     'search': 'Suche',
     'noIdeas': 'Hier wurden noch keine Ideen aufgeschrieben.',
     'ideaSubtitle': 'Von {0} am {1}',
@@ -107,6 +108,7 @@ export default {
     'back.phase.limit': "Thema {0} konnte nicht zurückgesetzt werden: steht schon auf 'Ausarbeitung'",
     'phase.change': 'Thema {0} wurde von {1} nach {2} verschoben.',
     'phaseTimeLeft': 'Endet {0}',
+    'phaseComplete': 'Zeit abgelaufen. Nächste Phase kann von einem Moderator eingeleitet werden.',
     'your.delegate': 'Derzeit stimmt für dich ab: {0}',
     'cantCreateIdea': 'Diesem Thema können keine Ideen hinzugefügt werden.',
     'notFound': 'Dieses Thema wurde leider nicht gefunden.'

@@ -3,9 +3,14 @@
     <v-layout row wrap>
       <PhaseBanner :topic="this.topic" />
 
-      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="timeLeft != null">
+      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === false">
         <v-icon small>timer</v-icon>
         {{ $vuetify.t('$vuetify.Topic.phaseTimeLeft', timeLeft) }}
+      </v-flex>
+
+      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === true">
+        <v-icon small>check</v-icon>
+        {{ $vuetify.t('$vuetify.Topic.phaseComplete') }}
       </v-flex>
 
       <v-flex xs12 class="topic-wrapper">
@@ -39,8 +44,11 @@ export default {
   computed: {
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
-    timeLeft: function () {
-      // Return an array with the amount of days in current phase and unit 'day'
+    phaseEndsAt: function () {
+      // Return end of current phase as a moment.js object
+
+      // Returns an array with the amount of days in current phase and unit 'day'
+      // as used by moment.js
       const phaseDuration = key => [
         (this.$store.getters.schoolConfig[key] || 1),
         'day'
@@ -51,13 +59,27 @@ export default {
       if (this.topic.phase === 'edit_topics' && this.topic.config.edit_topics_started != null) {
         return moment(this.topic.config.edit_topics_started)
           .add(...phaseDuration('phaseWorking'))
-          .calendar()
       } else if (this.topic.phase === 'vote' && this.topic.config.vote_started != null) {
         return moment(this.topic.config.vote_started)
-          .add(...phaseDuration('phaseWorking'))
-          .calendar()
+          .add(...phaseDuration('phaseVoting'))
       } else {
         return null
+      }
+    },
+    phaseComplete: function () {
+      const end = this.phaseEndsAt
+      if (end == null) {
+        return null
+      } else {
+        return end.isBefore()
+      }
+    },
+    timeLeft: function () {
+      const end = this.phaseEndsAt
+      if (end == null) {
+        return null
+      } else {
+        return end.calendar()
       }
     }
   },
