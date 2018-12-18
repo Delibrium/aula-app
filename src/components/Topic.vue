@@ -21,7 +21,7 @@
         </v-container>
       </v-flex>
       <v-flex>
-        <IdeaListing :ideas="ideas" :topic="topic" />
+        <IdeaListing :ideas="ideas" :topic="topic"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,13 +41,24 @@ export default {
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
     timeLeft: function () {
-      const phaseDuration = [1, 'day']
-      if (this.topic == null || this.topic.phase !== 'edit_topics') {
-        return null
-      } else {
-        return moment(this.topic.meta.editTopicsStarted)
-          .add(...phaseDuration)
+      // Return an array with the amount of days in current phase and unit 'day'
+      const phaseDuration = key => [
+        (this.$store.getters.schoolConfig[key] || 1),
+        'day'
+      ]
+
+      if (this.topic == null) return null
+
+      if (this.topic.phase === 'edit_topics' && this.topic.config.edit_topics_started != null) {
+        return moment(this.topic.config.edit_topics_started)
+          .add(...phaseDuration('phaseWorking'))
           .calendar()
+      } else if (this.topic.phase === 'vote' && this.topic.config.vote_started != null) {
+        return moment(this.topic.config.vote_started)
+          .add(...phaseDuration('phaseWorking'))
+          .calendar()
+      } else {
+        return null
       }
     }
   },
@@ -100,7 +111,7 @@ export default {
 }
 
 h1 {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .topic > div {

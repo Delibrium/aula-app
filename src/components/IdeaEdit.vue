@@ -113,7 +113,6 @@ export default {
 
   methods: {
     submitIdea: function () {
-      debugger
       this.$validator.validate()
         .then(isFormValid => {
           // Do nothing if validation fails -  errors are displayed in UI
