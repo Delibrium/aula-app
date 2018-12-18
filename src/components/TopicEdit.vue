@@ -148,6 +148,7 @@ export default {
             return
           }
 
+          const now = (new Date()).toISOString()
           const topic = {
             title: this.title,
             description: this.description,
@@ -156,7 +157,10 @@ export default {
             changed_by: this.$store.getters.userId,
             idea_space: this.$route.params['spaceId'],
             image: '',
-            phase: 'edit_topics'
+            phase: 'edit_topics',
+            config: {
+              'edit_topics_started': now
+            }
           }
 
           topicApi.create(topic)
