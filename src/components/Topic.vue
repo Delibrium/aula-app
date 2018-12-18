@@ -1,7 +1,7 @@
 <template>
   <v-container pa-0 v-if="topic != null">
     <v-layout row wrap>
-      <PhaseBanner :phase="this.topic.phase" />
+      <PhaseBanner :topic="this.topic" />
 
       <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="timeLeft != null">
         <v-icon small>timer</v-icon>

@@ -56,3 +56,7 @@ export function getTopics (schoolId, ideaSpaceId) {
   }
   return service.get('/topic', { params: queryParams })
 }
+
+export function setPhase (topic, phase) {
+  return service.post('/rpc/change_phase', { topic, phase })
+}
