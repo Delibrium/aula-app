@@ -1,9 +1,7 @@
 <template>
-  <v-container pa-0>
+  <v-container pa-0 v-if="topic != null">
     <v-layout row wrap>
-      <v-flex xs12 class="phase-banner" px-3 py-2>
-        <h2>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</h2>
-      </v-flex>
+      <PhaseBanner :phase="this.topic.phase" />
 
       <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="timeLeft != null">
         <v-icon small>timer</v-icon>
@@ -31,12 +29,13 @@
 
 import api from '@/api'
 import IdeaListing from '@/components/IdeaListing'
+import PhaseBanner from '@/components/PhaseBanner'
 import { isUserMemberOf } from '../utils/permissions'
 import moment from 'moment'
 
 export default {
   name: 'Topic',
-  components: { IdeaListing },
+  components: { IdeaListing, PhaseBanner },
   computed: {
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
