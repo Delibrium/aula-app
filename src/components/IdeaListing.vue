@@ -80,16 +80,18 @@
               </span>
             </v-list-tile>
 
-            <v-list-tile v-else-if="topic.phase === 'vote'" class="idea-in-voting">
+            <v-list-tile v-else-if="topic.phase === 'vote'" class="showing-votes">
               <v-icon>thumb_up</v-icon>
               {{ $vuetify.t('$vuetify.IdeaListing.votesFor', getVotesPro(idea)) }}
               <v-icon>thumb_down</v-icon>
               {{ $vuetify.t('$vuetify.IdeaListing.votesAgainst', getVotesAgainst(idea)) }}
             </v-list-tile>
 
-            <v-list-tile v-else-if="topic.phase === 'results'">
-              <v-icon>check</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.resultsPhase') }}
+            <v-list-tile v-else-if="topic.phase === 'finished'" class="showing-votes">
+              <v-icon>thumb_up</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.votesFor', getVotesPro(idea)) }}
+              <v-icon>thumb_down</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.votesAgainst', getVotesAgainst(idea)) }}
             </v-list-tile>
           </v-list>
 
@@ -314,7 +316,7 @@ export default {
     color: var(--v-primary-base);
   }
 
-  .idea-in-voting i:nth-child(2) {
+  .showing-votes i:nth-child(2) {
     margin-left: 10px;
   }
 }
