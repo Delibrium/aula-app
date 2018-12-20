@@ -87,8 +87,9 @@ export default {
     'isFeasible': 'Umsetzbar',
     'isNotFeasible': 'Nicht umsetzbar',
     'waitingForFeasibility': 'Idee wird geprüft',
-    'waitingForVoting': 'Abstimmung läuft',
-    'resultsPhase': 'Ergebnis'
+    'resultsPhase': 'Ergebnis',
+    'votesFor': '{0} dafür',
+    'votesAgainst': '{0} dagegen'
   },
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',

@@ -80,9 +80,11 @@
               </span>
             </v-list-tile>
 
-            <v-list-tile v-else-if="topic.phase === 'vote'">
-              <v-icon>schedule</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.waitingForVoting') }}
+            <v-list-tile v-else-if="topic.phase === 'vote'" class="idea-in-voting">
+              <v-icon>thumb_up</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.votesFor', getVotesPro(idea)) }}
+              <v-icon>thumb_down</v-icon>
+              {{ $vuetify.t('$vuetify.IdeaListing.votesAgainst', getVotesAgainst(idea)) }}
             </v-list-tile>
 
             <v-list-tile v-else-if="topic.phase === 'results'">
@@ -217,6 +219,12 @@ export default {
     getSuggestionCount (idea) {
       return idea.comment.length
     },
+    getVotesPro (idea) {
+      return idea.idea_vote != null && idea.idea_vote.filter(v => v.val === 'yes').length
+    },
+    getVotesAgainst (idea) {
+      return idea.idea_vote != null && idea.idea_vote.filter(v => v.val === 'no').length
+    },
     getLastSuggestionDate (idea) {
       if (idea.comment.length === 0) return null
       const lastComment = Object.assign([], idea.comment)
@@ -304,6 +312,10 @@ export default {
   .feasible,
   .feasible .v-icon {
     color: var(--v-primary-base);
+  }
+
+  .idea-in-voting i:nth-child(2) {
+    margin-left: 10px;
   }
 }
 </style>
