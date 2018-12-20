@@ -60,6 +60,12 @@ const router = new Router({
       meta: { auth: true }
     },
     {
+      path: '/space/:spaceSlug/topics/:topicId/edit',
+      name: 'TopicEdit',
+      component: TopicEdit,
+      meta: { auth: true }
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login,

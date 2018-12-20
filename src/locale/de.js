@@ -112,7 +112,8 @@ export default {
     'phaseComplete': 'Zeit abgelaufen. Nächste Phase kann von einem Moderator eingeleitet werden.',
     'your.delegate': 'Derzeit stimmt für dich ab: {0}',
     'cantCreateIdea': 'Diesem Thema können keine Ideen hinzugefügt werden.',
-    'notFound': 'Dieses Thema wurde leider nicht gefunden.'
+    'notFound': 'Dieses Thema wurde leider nicht gefunden.',
+    'edit': 'Thema bearbeiten'
   },
   TopicPhase: {
     'wildIdeas': 'Wilde-Ideen-Phase',
@@ -122,7 +123,8 @@ export default {
     'finished': 'Ergebnisphase'
   },
   TopicCreation: {
-    'pageTitle': 'Thema erstellen',
+    'pageTitleCreating': 'Thema erstellen',
+    'pageTitleEditing': 'Thema bearbeiten',
     'title': 'Wie soll der Titel des Themas lauten?',
     'titleHint': 'z.B. Computerraum',
     'description': 'Beschreibung des Themas',
@@ -131,7 +133,8 @@ export default {
     'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
-    'topic.description.empty': 'Thema: darf nicht leer sein'
+    'topic.description.empty': 'Thema: darf nicht leer sein',
+    'topicNotFound': 'Das zu bearbeitende Thema wurde nicht gefunden'
   },
   IdeaCreation: {
     'title': 'Deine Idee',

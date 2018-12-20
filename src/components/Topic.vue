@@ -31,6 +31,15 @@
             <v-flex raised sm8 offset-sm2 px-4 py-4>
               <h1>{{ topic.title }}</h1>
               <p>{{ topic.description }}</p>
+              <v-btn small
+                v-if="mayEditTopic"
+                :to="{
+                  name: 'TopicEdit',
+                  topicId: this.topicId,
+                  spaceSlug: this.spaceSlug
+                }">
+                {{ $vuetify.t('$vuetify.Topic.edit') }}
+              </v-btn>
             </v-flex>
           </v-layout>
         </v-container>
@@ -57,6 +66,11 @@ export default {
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
     spaceSlug: function () { return this.$route.params['spaceSlug'] },
+    mayEditTopic: function () {
+      return isUserMemberOf(
+        ['admin', 'school_admin', 'moderator']
+      )
+    },
     phaseEndsAt: function () {
       // Return end of current phase as a moment.js object
 
