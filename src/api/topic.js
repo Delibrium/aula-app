@@ -22,13 +22,20 @@ export function getIdeas (topicId) {
   return service.get('/idea', { params })
 }
 
-export function create (topic, ideaIds) {
+export function createOrUpdate (topic, ideaIds) {
   const config = {
     headers: {
       PREFER: 'return=representation'
     }
   }
-  return service.post('/topic', topic, config)
+  if (topic.id == null) {
+    return service.post('/topic', topic, config)
+  } else {
+    config.params = {
+      id: `eq.${topic.id}`
+    }
+    return service.patch('/topic', topic, config)
+  }
 }
 
 export function assignIdeas (topicId, ideaIds) {
