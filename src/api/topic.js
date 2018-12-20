@@ -4,7 +4,7 @@ export function get (topicId) {
   const params = {
     id: `eq.${topicId}`,
     select: '*,' +
-     'created_by(id,first_name,last_name)'
+     'created_by(id,first_name,last_name),idea_space(id,title)'
   }
   return service.get('/topic', { params })
 }

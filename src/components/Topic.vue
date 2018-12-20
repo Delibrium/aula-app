@@ -1,7 +1,19 @@
 <template>
   <v-container pa-0 v-if="topic != null">
     <v-layout row wrap>
-      <PhaseBanner :topic="this.topic" />
+      <v-breadcrumbs>
+        <v-breadcrumbs-item href="/">
+          Aula
+        </v-breadcrumbs-item>
+        <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
+          {{ topic.idea_space.title }}
+        </v-breadcrumbs-item>
+        <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
+          {{ topic.title }}
+        </v-breadcrumbs-item>
+        <v-icon slot="divider">arrow_forward</v-icon>
+      </v-breadcrumbs>
+      <PhaseBanner :topic="this.topic"/>
 
       <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === false">
         <v-icon small>timer</v-icon>
@@ -44,6 +56,7 @@ export default {
   computed: {
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
+    spaceSlug: function () { return this.$route.params['spaceSlug'] },
     phaseEndsAt: function () {
       // Return end of current phase as a moment.js object
 
