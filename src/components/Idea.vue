@@ -51,7 +51,10 @@
           <div>
             <v-btn-toggle v-model="voteValue" @change="voteChanged">
               <v-btn primary>
-                <v-icon left>thumb_up</v-icon>Unterstützen
+                <v-icon left>thumb_up</v-icon>Dafür
+              </v-btn>
+              <v-btn primary>
+                <v-icon left>thumb_down</v-icon>Dagegen
               </v-btn>
             </v-btn-toggle>
           </div>
@@ -109,9 +112,9 @@ export default {
         : allowedPhases.indexOf(this.idea.topic.phase) >= 0
     },
     currentVote: function () {
-      const currentId = this.$store.getters.userId
+      const currentUserId = this.$store.getters.userId
       const vote = this.votes && this.votes
-        .filter(v => v.created_by === currentId).shift()
+        .filter(v => v.created_by === currentUserId).shift()
       return vote == null
         ? null
         : vote.val === 'yes'

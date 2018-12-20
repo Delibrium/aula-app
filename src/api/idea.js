@@ -34,6 +34,25 @@ function patchVote (vote) {
   return service.patch('/idea_vote', vote, { params })
 }
 
+function getLikes (ideaId) {
+  const params = {
+    idea: 'eq.' + ideaId
+  }
+  return service.get('/idea_like', { params })
+}
+
+function deleteLike (userId, ideaId) {
+  const params = {
+    created_by: `eq.${userId}`,
+    idea: `eq.${ideaId}`
+  }
+  return service.delete('/idea_like', { params })
+}
+
+function postLike (like) {
+  return service.post('/idea_like', like)
+}
+
 function getComments (ideaId) {
   const params = {
     parent_idea: 'eq.' + ideaId,
@@ -58,6 +77,9 @@ export default {
   postVote,
   patchVote,
   deleteVote,
+  getLikes,
+  postLike,
+  deleteLike,
   getComments,
   getQuorumInfo
 }
