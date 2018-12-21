@@ -1,5 +1,5 @@
 <template>
-  <v-container class="container" fluid row>
+  <v-container :class="small == null ? 'container' : 'container small'" fluid row>
     <v-layout>
       <v-flex
         v-for="phaseName in this.phases"
@@ -9,7 +9,7 @@
         :key="phaseName"
       >
         <h2 v-if="phaseName === phase">
-          <span v-if="mayChangePhase">
+          <span v-if="mayChangePhase && small == null">
             <v-btn icon small dark
               v-if="phase !== phases[0]"
               @click="update(-1)">
@@ -61,13 +61,22 @@ export default {
         .then(() => location.reload())
     }
   },
-  props: ['topic']
+  props: ['topic', 'small']
 }
 </script>
 
 <style scoped lang="scss">
 .container {
   padding: 0;
+}
+
+.small {
+  flex: 1 0 0px;
+  overflow:hidden;
+
+  .flex {
+    font-size: 0.7em;
+  }
 }
 
 .flex {

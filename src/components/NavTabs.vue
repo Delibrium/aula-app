@@ -39,6 +39,7 @@ export default {
 
   .v-card__text {
     border-bottom: 2px solid #eee;
+    padding: 8px 16px;
   }
 
   .router-link-active .v-card__text {

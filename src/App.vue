@@ -68,8 +68,8 @@
     padding-top: env(safe-area-inset-top);
   }
 
-  .boldfont {
-    font-family: 'visionbold', Helvetica, Arial, sans-serif;
+  .boldfont, .headline {
+    font-family: 'visionbold', Helvetica, Arial, sans-serif !important;
   }
   .theme--light.application {
     background-color: #eee;

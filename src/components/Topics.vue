@@ -27,30 +27,34 @@
           <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
         </v-flex>
 
-        <v-flex xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
-          <v-layout row wrap>
-            <v-flex v-for="topic in topics" :key="topic.id" sm12 md6>
-              <v-card
-                class="topic-card"
-                hover
-                @click.native="openTopic(topic)">
-                <v-img :src="topic.image"></v-img>
-                <v-card-title primary-title>
-                  <div>
-                    <span class='topic-phase'>{{ $vuetify.t('$vuetify.TopicPhase.' + topic.phase) }}</span>
-                    <h3 class="headline mb-0">{{topic.title}}</h3>
-                  </div>
-                </v-card-title>
-                <v-card-text>
-                  <p>{{ topic.description }}</p>
-                  <div>
-                    <v-icon>chat_bubble</v-icon>
-                    {{ getIdeaCount(topic) }} Ideen
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
+
+        <v-flex xs12 md10 offset-md1 text-xs-center class='boldfont tab-bar'>
+          <h3>{{ topics.length }} Themen</h3>
+        </v-flex>
+
+        <v-flex xs12 md10 offset-md1 class='topic-list'>
+          <v-container justify-center fluid>
+            <v-layout row wrap>
+              <v-flex v-for="topic in topics" :key="topic.id" sm12 md4 pb-3>
+                <v-card
+                  class="topic-card"
+                  @click.native="openTopic(topic)">
+                  <v-img :src="topic.image"></v-img>
+                  <PhaseBanner :topic="topic" small />
+                  <v-card-title primary-title>
+                      <h3 class="headline mb-0">{{topic.title}}</h3>
+                  </v-card-title>
+                  <v-card-text>
+                    <p>{{ topic.description }}</p>
+                    <div>
+                      <v-icon>chat_bubble</v-icon>
+                      {{ getIdeaCount(topic) }} Ideen
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-flex>
     </v-layout>
   </v-container>
@@ -60,6 +64,7 @@
 
 import * as api from '@/api/ideaSpace'
 import NavTabs from '@/components/NavTabs'
+import PhaseBanner from '@/components/PhaseBanner'
 import { isUserMemberOf } from '@/utils/permissions'
 
 export default {
@@ -72,7 +77,7 @@ export default {
     }
   },
 
-  components: { NavTabs },
+  components: { NavTabs, PhaseBanner },
 
   props: {
     spaceSlug: ''
@@ -95,8 +100,19 @@ export default {
       return isUserMemberOf(['admin', 'school_admin', 'principal'])
     },
     getTopics: function (schoolId, spaceId) {
+      const phaseOrder = {
+        'edit_topics': 1,
+        'feasibility': 2,
+        'vote': 3,
+        'finished': 4
+      }
+      const byPhase = (a, b) => {
+        if (phaseOrder[a.phase] === phaseOrder[b.phase]) return 0
+        return phaseOrder[a.phase] < phaseOrder[b.phase] ? 1 : -1
+      }
       api.getTopics(schoolId, spaceId)
         .then(res => {
+          res.data.sort(byPhase)
           this.topics = res.data
         })
         .catch(err => {
@@ -147,6 +163,14 @@ export default {
     .v-breadcrumbs {
       padding: 14px 12px 12px;
     }
+
+    li a.v-breadcrumbs__item {
+      color: #222;
+    }
+
+    li:last-child a.v-breadcrumbs__item {
+      color: var(--v-secondary-base) !important;
+    }
   }
 
   .page-header {
@@ -159,6 +183,12 @@ export default {
     .v-btn {
       font-family: 'visionbold', Helvetica, Arial, sans-serif;
       color: var(--v-secondary-base);
+      border-radius: 5px;
     }
+  }
+
+  .tab-bar {
+    background-color: white;
+    border-bottom: 1px solid #999;
   }
 </style>

@@ -26,7 +26,7 @@
           <v-btn large color="white" :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
         </v-flex>
 
-        <v-flex xs12 md10 offset-md1 pa-2>
+        <v-flex xs12 md10 offset-md1 pa-0>
           <IdeaListing :ideas="ideas" />
         </v-flex>
     </v-layout>
@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .breadcrumbs {
     font-family: 'visionbold', Helvetica, Arial, sans-serif;
     background-color: white;
@@ -94,7 +94,16 @@ export default {
     .v-breadcrumbs {
       padding: 14px 12px 12px;
     }
+
+    li a.v-breadcrumbs__item {
+      color: #222;
+    }
+
+    li:last-child a.v-breadcrumbs__item {
+      color: var(--v-secondary-base) !important;
+    }
   }
+
   .page-header {
     background-color: #8c9eff;
 
@@ -105,6 +114,7 @@ export default {
     .v-btn {
       font-family: 'visionbold', Helvetica, Arial, sans-serif;
       color: var(--v-secondary-base);
+      border-radius: 5px;
     }
   }
 </style>
