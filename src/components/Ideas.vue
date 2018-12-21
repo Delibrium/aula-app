@@ -1,14 +1,29 @@
 <template>
   <v-container fluid pa-0>
       <v-layout row wrap align-center>
+        <v-flex md10 offset-md1 xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+          <v-breadcrumbs>
+            <v-breadcrumbs-item href="/">
+              Aula
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug">
+              [SpaceName]
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'">
+              Wilde ideen
+            </v-breadcrumbs-item>
+            <v-icon slot="divider">arrow_forward</v-icon>
+          </v-breadcrumbs>
+        </v-flex>
+
         <NavTabs active=0 />
 
+        <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
+          <img src="/static/img/header_temp.png">
+        </v-flex>
+
         <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class='page-header'>
-          <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
-          <p class="text-md-left text-xs-left">
-            {{ $vuetify.t('$vuetify.Space.description') }}
-          </p>
-          <v-btn large :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+          <v-btn large color="white" :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
         </v-flex>
 
         <v-flex xs12 md10 offset-md1 pa-2>
@@ -71,8 +86,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .breadcrumbs {
+    font-family: 'visionbold', Helvetica, Arial, sans-serif;
+    background-color: white;
+    border-bottom: 1px solid grey;
+
+    .v-breadcrumbs {
+      padding: 14px 12px 12px;
+    }
+  }
   .page-header {
     background-color: #8c9eff;
+
+    img {
+      height: 120px;
+    }
 
     .v-btn {
       font-family: 'visionbold', Helvetica, Arial, sans-serif;

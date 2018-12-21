@@ -1,6 +1,22 @@
 <template>
   <v-container fluid grid-list-md pa-0>
       <v-layout row wrap align-center>
+
+        <v-flex md10 offset-md1 xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+          <v-breadcrumbs>
+            <v-breadcrumbs-item href="/">
+              Aula
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug">
+              [SpaceName]
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
+              Themenraum
+            </v-breadcrumbs-item>
+            <v-icon slot="divider">arrow_forward</v-icon>
+          </v-breadcrumbs>
+        </v-flex>
+
         <NavTabs active=1 />
 
         <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
@@ -8,7 +24,7 @@
         </v-flex>
 
         <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class="page-header">
-          <v-btn large :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+          <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
         </v-flex>
 
         <v-flex xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
@@ -121,6 +137,16 @@ export default {
     text-transform: uppercase;
     color: #777;
     font-size: .8em;
+  }
+
+  .breadcrumbs {
+    font-family: 'visionbold', Helvetica, Arial, sans-serif;
+    background-color: white;
+    border-bottom: 1px solid grey;
+
+    .v-breadcrumbs {
+      padding: 14px 12px 12px;
+    }
   }
 
   .page-header {
