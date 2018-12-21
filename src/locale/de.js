@@ -94,7 +94,7 @@ export default {
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
-    'newTopic': 'Neues Thema',
+    'newTopic': 'Neues Thema erstellen',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',

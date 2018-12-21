@@ -3,22 +3,15 @@
       <v-layout row wrap align-center>
         <NavTabs active=0 />
 
-        <v-flex md10 offset-md1 xs12 align-center justify-center pa-3>
+        <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class='page-header'>
           <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
-        </v-flex>
-        <v-flex md10 offset-md1 xs12 align-center justify-center pa-3>
           <p class="text-md-left text-xs-left">
             {{ $vuetify.t('$vuetify.Space.description') }}
           </p>
+          <v-btn large :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
         </v-flex>
 
-        <v-flex v-if="this.userMayCreateIdeas()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-          <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-            <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
-          </router-link>
-        </v-flex>
-
-        <v-flex xs12 md10 offset-md1 pa-2 mt-5>
+        <v-flex xs12 md10 offset-md1 pa-2>
           <IdeaListing :ideas="ideas" />
         </v-flex>
     </v-layout>
@@ -76,3 +69,14 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .page-header {
+    background-color: #8c9eff;
+
+    .v-btn {
+      font-family: 'visionbold', Helvetica, Arial, sans-serif;
+      color: var(--v-secondary-base);
+    }
+  }
+</style>

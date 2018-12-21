@@ -1,21 +1,17 @@
 <template>
   <v-container fluid grid-list-md pa-0>
-      <v-layout row wrap align-space-around>
+      <v-layout row wrap align-center>
         <NavTabs active=1 />
 
-        <v-flex md8 offset-md2 xs12 align-center justify-center pa-3>
-          <h1 class="text-md-left text-xs-left">
-            {{ $vuetify.t('$vuetify.Topic.introTitle') }}
-          </h1>
-          <p class="text-md-left text-xs-left" pa-3>
-            {{ $vuetify.t('$vuetify.Topic.introDescription') }}
-          </p>
-          <router-link :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-            <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
-          </router-link>
+        <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
+          <img src="/static/img/header_temp.png">
         </v-flex>
 
-        <v-flex  xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
+        <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class="page-header">
+          <v-btn large :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+        </v-flex>
+
+        <v-flex xs12 md10 offset-md1 pa-2 align-center justify-center text-md-left text-xs-left class='topic-list'>
           <v-layout row wrap>
             <v-flex v-for="topic in topics" :key="topic.id" sm12 md6>
               <v-card
@@ -121,13 +117,22 @@ export default {
     padding-bottom: 0
   }
 
-  .topic-list {
-    margin-top: 2em;
-  }
-
   .topic-phase {
     text-transform: uppercase;
     color: #777;
     font-size: .8em;
+  }
+
+  .page-header {
+    background-color: #8c9eff;
+
+    img {
+      height: 120px;
+    }
+
+    .v-btn {
+      font-family: 'visionbold', Helvetica, Arial, sans-serif;
+      color: var(--v-secondary-base);
+    }
   }
 </style>

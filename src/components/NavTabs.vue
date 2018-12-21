@@ -1,6 +1,6 @@
 <template>
-  <v-flex md10 xs12 offset-md1 mb-5 color="primary" class="tab-nav">
-    <v-card dark :color="active == 0 ? 'primary' : 'gray'" width="50%" style="float: left" height="100%">
+  <v-flex md10 xs12 offset-md1 mb-0 pa-0 color="primary" class="tab-nav">
+    <v-card flat :color="active == 0 ? 'white' : '#eee'" width="50%" style="float: left" height="100%">
       <router-link
         :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
       >
@@ -9,7 +9,7 @@
         >{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
       </router-link>
     </v-card>
-    <v-card dark :color="active == 1 ? 'primary' : 'gray'" width="50%" style="float: left" height="100%">
+    <v-card flat :color="active == 1 ? 'white' : '#eee'" width="50%" style="float: left" height="100%">
       <router-link
         :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
       >
@@ -29,13 +29,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .tab-nav {
-    margin-bottom: 2em;
+  .tab-nav a {
+    font-size: 1.2em;
+    color: gray;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'visionbold', Helvetica, Arial, sans-serif;
   }
 
-  .tab-nav a {
-    font-size: 1.4em;
-    color: white;
-    text-decoration: none;
+  .v-card__text {
+    border-bottom: 2px solid #eee;
+  }
+
+  .router-link-active .v-card__text {
+    color: #222;
+    border-bottom: 2px solid #222;
   }
 </style>
