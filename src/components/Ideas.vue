@@ -1,19 +1,7 @@
 <template>
   <v-container fluid pa-0>
       <v-layout row wrap align-center>
-        <v-flex md10 xs12 offset-md1 mb-5 color="primary" class='tab-nav'>
-          <v-card dark color="primary" width="50%" style="float: left" height="100%">
-            <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
-            </router-link>
-          </v-card>
-          <v-card dark color="gray" width="50%" style="float: left" height="100%">
-            <router-link :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.ideaTopics') }}</v-card-text>
-            </router-link>
-          </v-card>
-        </v-flex>
-
+        <NavTabs active=0 />
 
         <v-flex md10 offset-md1 xs12 align-center justify-center pa-3>
           <h1 class="text-md-left text-xs-left">{{ $vuetify.t('$vuetify.Space.subtitle') }}</h1>
@@ -41,11 +29,12 @@
 
 import * as api from '@/api/ideaSpace'
 import IdeaListing from '@/components/IdeaListing'
+import NavTabs from '@/components/NavTabs'
 import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Ideas',
-  components: { IdeaListing },
+  components: { IdeaListing, NavTabs },
   data: function () {
     return {
       tab: 0,
@@ -87,16 +76,3 @@ export default {
   }
 }
 </script>
-
-
-<style scoped lang="scss">
-  .tab-nav {
-    margin-bottom: 2em;
-  }
-
-  .tab-nav a {
-    font-size: 1.4em;
-    color: white;
-    text-decoration: none;
-  }
-</style>
