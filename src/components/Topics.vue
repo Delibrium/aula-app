@@ -32,7 +32,7 @@
         </v-flex>
 
         <v-flex class='topic-list'>
-          <v-container justify-center fluid>
+          <v-container justify-center fluid grid-list-md px-0>
             <v-layout row wrap>
               <v-flex v-for="topic in topics" :key="topic.id" sm12 md4 pb-3>
                 <v-card
