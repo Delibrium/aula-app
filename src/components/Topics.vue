@@ -1,17 +1,13 @@
 <template>
-  <v-container fluid grid-list-md pa-0>
+  <v-container pa-0>
       <v-layout row wrap align-center>
-
-        <v-flex md10 offset-md1 xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+        <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
           <v-breadcrumbs>
             <v-breadcrumbs-item href="/">
               Aula
             </v-breadcrumbs-item>
-            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug">
-              [SpaceName]
-            </v-breadcrumbs-item>
             <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
-              Themenraum
+              [Space Name] Themenraum
             </v-breadcrumbs-item>
             <v-icon slot="divider">arrow_forward</v-icon>
           </v-breadcrumbs>
@@ -19,23 +15,23 @@
 
         <NavTabs active=1 />
 
-        <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
+        <v-flex xs12 text-xs-center class="page-header">
           <span class="info-helper">
             <v-icon dark>info</v-icon>
           </span>
           <img src="/static/img/header_temp.png">
         </v-flex>
 
-        <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class="page-header">
+        <v-flex xs12 text-xs-center pa-3 class="page-header">
           <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
         </v-flex>
 
 
-        <v-flex xs12 md10 offset-md1 text-xs-center class='boldfont tab-bar'>
+        <v-flex xs12 text-xs-center class='boldfont tab-bar'>
           <h3>{{ topics.length }} Themen</h3>
         </v-flex>
 
-        <v-flex xs12 md10 offset-md1 class='topic-list'>
+        <v-flex class='topic-list'>
           <v-container justify-center fluid>
             <v-layout row wrap>
               <v-flex v-for="topic in topics" :key="topic.id" sm12 md4 pb-3>

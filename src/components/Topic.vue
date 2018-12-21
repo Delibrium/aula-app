@@ -1,18 +1,20 @@
 <template>
   <v-container pa-0 v-if="topic != null">
     <v-layout row wrap>
-      <v-breadcrumbs>
-        <v-breadcrumbs-item href="/">
-          Aula
-        </v-breadcrumbs-item>
-        <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
-          {{ topic.idea_space.title }}
-        </v-breadcrumbs-item>
-        <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
-          {{ topic.title }}
-        </v-breadcrumbs-item>
-        <v-icon slot="divider">arrow_forward</v-icon>
-      </v-breadcrumbs>
+      <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+        <v-breadcrumbs>
+          <v-breadcrumbs-item href="/">
+            Aula
+          </v-breadcrumbs-item>
+          <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
+            {{ topic.idea_space.title }}
+          </v-breadcrumbs-item>
+          <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
+            {{ topic.title }}
+          </v-breadcrumbs-item>
+          <v-icon slot="divider">arrow_forward</v-icon>
+        </v-breadcrumbs>
+      </v-flex>
 
       <PhaseBanner :topic="this.topic"/>
 
@@ -165,6 +167,24 @@ h1 {
 
 .topic > div {
   background-color: white;
+}
+
+.breadcrumbs {
+  font-family: 'visionbold', Helvetica, Arial, sans-serif;
+  background-color: white;
+  border-bottom: 1px solid grey;
+
+  .v-breadcrumbs {
+    padding: 14px 12px 12px;
+  }
+
+  li a.v-breadcrumbs__item {
+    color: #222;
+  }
+
+  li:last-child a.v-breadcrumbs__item {
+    color: var(--v-secondary-base) !important;
+  }
 }
 
 .phase-banner {

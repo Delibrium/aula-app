@@ -1,5 +1,5 @@
 <template>
-  <v-flex md10 xs12 offset-md1 mb-0 pa-0 color="primary" class="tab-nav">
+  <v-flex xs12 mb-0 pa-0 color="primary" class="tab-nav">
     <v-card flat :color="active == 0 ? 'white' : '#eee'" width="50%" style="float: left" height="100%">
       <router-link
         :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"

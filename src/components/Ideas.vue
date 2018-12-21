@@ -1,20 +1,19 @@
 <template>
-  <v-container fluid pa-0>
+  <v-container pa-0>
     <v-layout row wrap align-center>
-      <v-flex md10 offset-md1 xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
+      <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
         <v-breadcrumbs>
           <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
-          <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug">[SpaceName]</v-breadcrumbs-item>
           <v-breadcrumbs-item
             :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
-          >Wilde ideen</v-breadcrumbs-item>
+          >[Space Name] Wilde ideen</v-breadcrumbs-item>
           <v-icon slot="divider">arrow_forward</v-icon>
         </v-breadcrumbs>
       </v-flex>
 
       <NavTabs active="0"/>
 
-      <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
+      <v-flex xs12 text-xs-center class="page-header">
         <span class="info-helper">
           <v-icon dark>info</v-icon>
         </span>
@@ -22,7 +21,7 @@
         <div><img src="/static/img/header_temp.png"></div>
       </v-flex>
 
-      <v-flex md10 offset-md1 xs12 text-xs-center pa-3 class="page-header">
+      <v-flex xs12 text-xs-center pa-3 class="page-header">
         <v-btn
           large
           color="white"
@@ -30,7 +29,7 @@
         >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
       </v-flex>
 
-      <v-flex xs12 md10 offset-md1 pa-0>
+      <v-flex xs12>
         <IdeaListing :ideas="ideas"/>
       </v-flex>
     </v-layout>
