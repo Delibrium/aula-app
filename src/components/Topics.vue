@@ -20,6 +20,9 @@
         <NavTabs active=1 />
 
         <v-flex md10 offset-md1 xs12 text-xs-center class="page-header">
+          <span class="info-helper">
+            <v-icon dark>info</v-icon>
+          </span>
           <img src="/static/img/header_temp.png">
         </v-flex>
 
@@ -176,7 +179,14 @@ export default {
   .page-header {
     background-color: #8c9eff;
 
+    .info-helper {
+      width: 35px;
+      padding: 5px;
+      float: right;
+    }
+
     img {
+      margin-right: -35px;
       height: 120px;
     }
 

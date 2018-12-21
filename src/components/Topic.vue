@@ -13,6 +13,7 @@
         </v-breadcrumbs-item>
         <v-icon slot="divider">arrow_forward</v-icon>
       </v-breadcrumbs>
+
       <PhaseBanner :topic="this.topic"/>
 
       <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === false">
