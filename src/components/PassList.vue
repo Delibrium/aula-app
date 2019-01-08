@@ -1,24 +1,23 @@
 <template>
-  <v-container grid-list-md>
+  <v-container grid-list-md class='page-container'>
     <v-layout class="no-print">
-      <v-flex sm12 md4 my-5 pa-3 d-block elevation-12>
-        <h1>
-          {{ $vuetify.t('$vuetify.AdminPassList.title') }}
-        </h1>
+      <v-flex sm12 my-5 pa-3 d-block elevation-9>
+        <h1>{{ $vuetify.t('$vuetify.AdminPassList.title') }}</h1>
 
         <v-autocomplete
           name="group"
-          prepend-icon="school"
+          prepend-icon="group"
+          :loading="isLoading"
           :items="filterOptions"
           :label="$vuetify.t('$vuetify.AdminPassList.selectLabel')"
           v-model="selectedGroup"
         ></v-autocomplete>
-        <v-btn color="primary" @click="printPage">
-          {{ $vuetify.t('$vuetify.AdminPassList.buttonPrint') }}
-        </v-btn>
-        <v-btn to="/admin">
-          {{ $vuetify.t('$vuetify.AdminPassList.buttonBack') }}
-        </v-btn>
+        <v-btn
+        :disabled="isLoading"
+          color="primary"
+          @click="printPage"
+        >{{ $vuetify.t('$vuetify.AdminPassList.buttonPrint') }}</v-btn>
+        <v-btn to="/admin">{{ $vuetify.t('$vuetify.AdminPassList.buttonBack') }}</v-btn>
       </v-flex>
     </v-layout>
     <v-layout row wrap>
@@ -31,23 +30,15 @@
                   <h2>{{ user.first_name }} {{ user.last_name }}</h2>
                   <ul>
                     <li>
-                      <strong>
-                        {{ $vuetify.t('$vuetify.AdminPassList.labelUsername') }}:
-                      </strong>
+                      <strong>{{ $vuetify.t('$vuetify.AdminPassList.labelUsername') }}:</strong>
                       <span class="monospace">{{ user.login }}</span>
                     </li>
                     <li v-if="user.config.temp_password == null">
-                      <em>
-                        {{ $vuetify.t('$vuetify.AdminPassList.labelNoPassword') }}
-                      </em>
+                      <em>{{ $vuetify.t('$vuetify.AdminPassList.labelNoPassword') }}</em>
                     </li>
                     <li v-else>
-                      <strong>
-                        {{ $vuetify.t('$vuetify.AdminPassList.labelPassword') }}:
-                      </strong>
-                      <span class="monospace">
-                        {{ user.config.temp_password }}
-                      </span>
+                      <strong>{{ $vuetify.t('$vuetify.AdminPassList.labelPassword') }}:</strong>
+                      <span class="monospace">{{ user.config.temp_password }}</span>
                     </li>
                   </ul>
                 </td>
@@ -64,9 +55,10 @@
 import api from '@/api'
 
 export default {
-  name: 'Password List',
+  name: 'PasswordList',
   data: function () {
     return {
+      isLoading: true,
       users: [],
       groups: [],
       selectedGroup: null
@@ -149,6 +141,7 @@ export default {
             .map(parseConfig)
             .map(parseGroups)
             .map(checkTempPassword)
+          this.isLoading = false
         })
     }
   }
@@ -159,6 +152,20 @@ export default {
 ul {
   list-style-type: none;
 }
+.page-container {
+  max-width: 960px;
+}
+.monospace {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+  .user-card {
+    width: 50%;
+    height: 9em;
+    page-break-inside: avoid;
+    position: relative;
+    display: block;
+    border: 1px dashed #999;
+  }
 @media print {
   .v-toolbar,
   .no-print {
@@ -168,19 +175,8 @@ ul {
   .container {
     padding: 0 !important;
   }
-  .user-card {
-    width: 50%;
-    height: 9em;
-    page-break-inside: avoid;
-    position: relative;
-    display: block;
-    border: 1px dashed #999;
-  }
   .v-card-text {
     position: relative;
-  }
-  .monospace {
-    font-family: "Lucida Console", Monaco, monospace;
   }
 }
 </style>
