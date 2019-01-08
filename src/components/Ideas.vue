@@ -1,66 +1,51 @@
 <template>
-    <v-container fluid grid-list-md>
-        <v-layout row wrap align-center>
-          <v-flex md10 xs12 offset-md1 color="green" class='tab-nav'>
-            <v-card dark color="green" width="50%" style="float: left" height="100%">
-              <router-link :to="{ name: 'Ideas', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-                <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.wildIdeas') }}</v-card-text>
-              </router-link>
-            </v-card>
-            <v-card dark color="gray" width="50%" style="float: left" height="100%">
-              <router-link :to="{ name: 'Topics', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-                <v-card-text class="text-md-center text-xs-center">{{ $vuetify.t('$vuetify.Space.ideaTopics') }}</v-card-text>
-              </router-link>
-            </v-card>
-          </v-flex>
+  <v-container pa-0>
+    <v-layout row wrap align-center>
+      <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
+        <v-breadcrumbs>
+          <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
+          <v-breadcrumbs-item
+            :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
+          >[Space Name] Wilde ideen</v-breadcrumbs-item>
+          <v-icon slot="divider">arrow_forward</v-icon>
+        </v-breadcrumbs>
+      </v-flex>
 
+      <NavTabs active="0"/>
 
-          <v-flex md8 offset-md2 xs12 align-center justify-center>
-            <h1 class="text-md-left text-xs-left">Was soll sich verändern?</h1>
-          </v-flex>
-          <v-flex md8 offset-md2 xs12 align-center justify-center>
-            <p class="text-md-left text-xs-left">
-              Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und
-ka  nnst für die Idee abstimmen und diese somit "auf den Tisch bringen".
-            </p>
-          </v-flex>
+      <v-flex xs12 text-xs-center class="page-header">
+        <span class="info-helper">
+          <v-icon dark>info</v-icon>
+        </span>
 
-          <v-flex v-if="this.userMayCreateIdeas()" xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <router-link :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">
-              <v-btn round color="green" dark>{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
-            </router-link>
-          </v-flex>
-          <v-flex md8 offset-md2>
-            <Filters></Filters>
-          </v-flex>
-          <v-flex  xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-            <v-list two-line>
-              <template v-for="idea in ideas">
-                <v-list-tile
-                  :key="idea.id"
-                  ripple
-                  @click="openIdea(idea)"
-                        >
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ idea.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list>
-          </v-flex>
-      </v-layout>
-    </v-container>
+        <div><img src="/static/img/header_temp.png"></div>
+      </v-flex>
+
+      <v-flex xs12 text-xs-center pa-3 class="page-header">
+        <v-btn
+          large
+          color="white"
+          :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
+        >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+      </v-flex>
+
+      <v-flex xs12>
+        <IdeaListing :ideas="ideas"/>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 
 import * as api from '@/api/ideaSpace'
-import Filters from '@/components/Filters'
+import IdeaListing from '@/components/IdeaListing'
+import NavTabs from '@/components/NavTabs'
 import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Ideas',
-  components: { Filters },
+  components: { IdeaListing, NavTabs },
   data: function () {
     return {
       tab: 0,
@@ -91,7 +76,7 @@ export default {
       return !isUserMemberOf(['school_admin', 'principal'])
     },
     openIdea: function (idea) {
-      this.$router.push({name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id }})
+      this.$router.push({ name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id } })
     },
 
     getIdeas: function (schoolId, spaceId) {
@@ -103,15 +88,43 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.breadcrumbs {
+  font-family: "visionbold", Helvetica, Arial, sans-serif;
+  background-color: white;
+  border-bottom: 1px solid grey;
 
-<style scoped lang="scss">
-  .tab-nav {
-    margin-bottom: 2em;
+  .v-breadcrumbs {
+    padding: 14px 12px 12px;
   }
 
-  .tab-nav a {
-    font-size: 1.4em;
-    color: white;
-    text-decoration: none;
+  li a.v-breadcrumbs__item {
+    color: #222;
   }
+
+  li:last-child a.v-breadcrumbs__item {
+    color: var(--v-secondary-base) !important;
+  }
+}
+
+.page-header {
+  background-color: var(--v-primary-lighten3);
+
+  .info-helper {
+    width: 35px;
+    padding: 5px;
+    float: right;
+  }
+
+  img {
+    height: 120px;
+    margin-right: -35px;
+  }
+
+  .v-btn {
+    font-family: "visionbold", Helvetica, Arial, sans-serif;
+    color: var(--v-primary-base);
+    border-radius: 5px;
+  }
+}
 </style>

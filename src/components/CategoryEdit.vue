@@ -30,15 +30,17 @@
         <upload-btn
           class='inlineinput'
           :title="this.$vuetify.t('$vuetify.AdminCategories.formPickIcon')"
+          flat
+          color="white"
           accept="image/*"
           :fileChangedCallback="handleIconSelected">
         </upload-btn>
       </v-card-text>
       <v-card-actions>
-        <v-btn flat @click="this.submit" v-if="this.editingId == null">
+        <v-btn color="primary" @click="this.submit" v-if="this.editingId == null">
           {{ $vuetify.t('$vuetify.AdminCategories.formCreate', name) }}
         </v-btn>
-        <v-btn flat @click="this.submit" v-else>
+        <v-btn color="primary" @click="this.submit" v-else>
           {{ $vuetify.t('$vuetify.AdminCategories.formSave', name) }}
         </v-btn>
         <v-btn flat @click="this.cancel" v-if="this.editingId == null">
@@ -55,7 +57,7 @@
     >
       {{ snackbarMsg }}
       <v-btn
-        color="pink"
+        color="accent"
         flat
         @click="showSnackbar = false"
       >

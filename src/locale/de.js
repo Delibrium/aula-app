@@ -63,24 +63,38 @@ export default {
   },
   Space: {
     'wildIdeas': 'Wilde Ideen',
-    'ideaTopics': 'Themen auf dem Tisch',
-    'wild.ideas.title': 'Wilde Ideen',
-    'ask.ideas': 'Was soll sich verändern?',
-    'ask.ideas.description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
+    'ideaTopics': 'Themenraum',
+    'subtitle': 'Was soll sich verändern?',
+    'description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
     'newIdea': 'Neue Idee',
-    'idea.filters': 'Filtere nach Kategorie',
-    'all.ideas': 'Alle Kategorien',
-    'search.idea': 'Suchen',
-    'sort.ideas': 'Sortieren nach',
-    'idea.supporters': 'Unterstützung',
-    'idea.date': 'Datum',
-    'no.ideas.search.results': 'Keine Ideen.',
     'ask.on.no.ideas.search.results': 'Erstelle Deine eigene Idee!'
+  },
+  IdeaListing: {
+    'sortByAge': 'Alter',
+    'sortBySupporters': 'Unterstützung',
+    'sortByName': 'Alphabetisch',
+    'sortByRandom': 'Zufällig',
+    'sortByRecentComments': 'Zuletzt kommentiert',
+    'sortByFeasibility': 'Machbarkeit',
+    'sortByResult': 'Ergebnis',
+    'search': 'Suche',
+    'noIdeas': 'Hier wurden noch keine Ideen aufgeschrieben.',
+    'ideaSubtitle': 'Von {0} am {1}',
+    'noComments': 'Keine Verbesserungsvorschläge',
+    'numComments': '{0} Verbesserungsvorschläge',
+    'noSupporters': 'Keine Unterstützer',
+    'numSupporters': '{0} Unterstützer',
+    'isFeasible': 'Umsetzbar',
+    'isNotFeasible': 'Nicht umsetzbar',
+    'waitingForFeasibility': 'Idee wird geprüft',
+    'resultsPhase': 'Ergebnis',
+    'votesFor': '{0} dafür',
+    'votesAgainst': '{0} dagegen'
   },
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
-    'newTopic': 'Neues Thema',
+    'newTopic': 'Neues Thema erstellen',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',
@@ -94,8 +108,12 @@ export default {
     'tab.delegates': 'Beauftrage Stimmen',
     'back.phase.limit': "Thema {0} konnte nicht zurückgesetzt werden: steht schon auf 'Ausarbeitung'",
     'phase.change': 'Thema {0} wurde von {1} nach {2} verschoben.',
-    'phase.time': '{0} (Endet morgen am {1} um ca. {2} Uhr)',
-    'your.delegate': 'Derzeit stimmt für dich ab: {0}'
+    'phaseTimeLeft': 'Endet {0}',
+    'phaseComplete': 'Zeit abgelaufen. Nächste Phase kann von einem Moderator eingeleitet werden.',
+    'your.delegate': 'Derzeit stimmt für dich ab: {0}',
+    'cantCreateIdea': 'Diesem Thema können keine Ideen hinzugefügt werden.',
+    'notFound': 'Dieses Thema wurde leider nicht gefunden.',
+    'edit': 'Thema bearbeiten'
   },
   TopicPhase: {
     'wildIdeas': 'Wilde-Ideen-Phase',
@@ -105,7 +123,8 @@ export default {
     'finished': 'Ergebnisphase'
   },
   TopicCreation: {
-    'pageTitle': 'Thema erstellen',
+    'pageTitleCreating': 'Thema erstellen',
+    'pageTitleEditing': 'Thema bearbeiten',
     'title': 'Wie soll der Titel des Themas lauten?',
     'titleHint': 'z.B. Computerraum',
     'description': 'Beschreibung des Themas',
@@ -114,10 +133,12 @@ export default {
     'publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
     'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
-    'topic.description.empty': 'Thema: darf nicht leer sein'
+    'topic.description.empty': 'Thema: darf nicht leer sein',
+    'topicNotFound': 'Das zu bearbeitende Thema wurde nicht gefunden'
   },
   IdeaCreation: {
     'title': 'Deine Idee',
+    'titleWithTopic': 'Deine Idee für das Thema "{0}"',
     'name': 'Wie soll deine Idee heißen?',
     'nameExample': 'z.B. bessere Ausstatung im Computerraum',
     'suggestion': 'Was möchtest du vorschlagen?',
@@ -125,6 +146,7 @@ export default {
     'previewShow': 'Vorschau einblenden',
     'selectCategory': 'Kann deine Idee einer der folgenden Kategorieren zugeordnet werden?',
     'publish': 'Idee veröffentlichen',
+    'backToTopic': 'Zurück zum Thema',
     'yourDelegates': 'Derzeit Stimmt für dich ab:'
   },
   UserProfile: {

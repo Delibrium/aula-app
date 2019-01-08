@@ -1,12 +1,41 @@
 import service from '@/api/service'
 
-export function create (topic, ideaIds) {
+export function get (topicId) {
+  const params = {
+    id: `eq.${topicId}`,
+    select: '*,' +
+     'created_by(id,first_name,last_name),idea_space(id,title)'
+  }
+  return service.get('/topic', { params })
+}
+
+export function getIdeas (topicId) {
+  const params = {
+    topic: `eq.${topicId}`,
+    select: '*,' +
+      'created_by(id,first_name,last_name),' +
+      'comment(created_at),' +
+      'idea_vote(created_by,val),' +
+      'idea_like(created_by),' +
+      'feasible(val)'
+  }
+  return service.get('/idea', { params })
+}
+
+export function createOrUpdate (topic, ideaIds) {
   const config = {
     headers: {
       PREFER: 'return=representation'
     }
   }
-  return service.post('/topic', topic, config)
+  if (topic.id == null) {
+    return service.post('/topic', topic, config)
+  } else {
+    config.params = {
+      id: `eq.${topic.id}`
+    }
+    return service.patch('/topic', topic, config)
+  }
 }
 
 export function assignIdeas (topicId, ideaIds) {
@@ -34,4 +63,8 @@ export function getTopics (schoolId, ideaSpaceId) {
     idea_space: `eq.${ideaSpaceId}`
   }
   return service.get('/topic', { params: queryParams })
+}
+
+export function setPhase (topic, phase) {
+  return service.post('/rpc/change_phase', { topic, phase })
 }

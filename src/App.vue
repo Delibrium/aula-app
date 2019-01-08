@@ -1,10 +1,6 @@
 <template>
   <v-app light>
-    <v-toolbar fixed app class="white">
-      <router-link to="/"><img class="header_logo" src="/static/img/aula_old_logo.svg"/></router-link>
-      <v-spacer></v-spacer>
-      <Menu v-if="$auth.ready()"></Menu>
-    </v-toolbar>
+    <AppBar />
     <v-content>
       <div v-if="$auth.ready()">
         <router-view></router-view>
@@ -18,9 +14,12 @@
 
 <script>
   import Vue from 'vue'
-  import Menu from './components/Menu'
+  import AppBar from './components/AppBar'
+
+  import './vison-font.css'
+
   export default {
-    components: { Menu },
+    components: { AppBar },
     data () {
       return {
         cordova: Vue.cordova,
@@ -67,7 +66,17 @@
 	body {
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
-	}
+  }
+
+  .boldfont, .headline {
+    font-family: 'visionbold', Helvetica, Arial, sans-serif !important;
+  }
+  .theme--light.application {
+    background-color: #eee;
+    font-family: 'visionregular', Helvetica, Arial, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+  }
   .footer{ /* Apply this to v-bottom-nav if necessary. */
     margin-bottom: constant(safe-area-inset-bottom);
     margin-bottom: env(safe-area-inset-bottom);
