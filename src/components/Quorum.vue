@@ -70,9 +70,9 @@ export default {
 
   methods: {
     submit: function () {
-      api.updateSchoolConfig(this.$store.getters.selected_school, 'schoolQuorum', this.schoolQuorum)
+      api.school.updateConfig(this.$store.getters.selected_school, 'schoolQuorum', this.schoolQuorum)
         .then(() => {
-          api.updateSchoolConfig(this.$store.getters.selected_school, 'classQuorum', this.classQuorum)
+          api.school.updateConfig(this.$store.getters.selected_school, 'classQuorum', this.classQuorum)
         })
     }
   }

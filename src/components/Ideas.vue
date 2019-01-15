@@ -6,7 +6,7 @@
           <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
           <v-breadcrumbs-item
             :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
-          >[Space Name] Wilde ideen</v-breadcrumbs-item>
+                              >[{{ spaceName }}] Wilde ideen</v-breadcrumbs-item>
           <v-icon slot="divider">arrow_forward</v-icon>
         </v-breadcrumbs>
       </v-flex>
@@ -50,7 +50,8 @@ export default {
     return {
       tab: 0,
       ideas: [],
-      spaceId: this.$route.params['spaceId']
+      spaceId: this.$route.params['spaceId'],
+      spaceName: ''
     }
   },
 
@@ -64,6 +65,7 @@ export default {
         .then((res) => {
           console.log(res)
           this.spaceId = res.data[0].id
+          this.spaceName = res.data[0].title
           this.getIdeas(this.$store.getters.selected_school, this.spaceId)
         })
     } else {
@@ -108,7 +110,9 @@ export default {
 }
 
 .page-header {
-  background-color: var(--v-primary-lighten3);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  background-image: linear-gradient(281deg, #00c853, #ffffff);
 
   .info-helper {
     width: 35px;

@@ -60,9 +60,9 @@ export default {
   methods: {
     submit: function () {
       // this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: phase})
-      api.updateSchoolConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
+      api.school.updateConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
         .then(() => {
-          api.updateSchoolConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
+          api.school.updateConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
         })
     }
   }
