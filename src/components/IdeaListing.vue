@@ -19,7 +19,9 @@
     </v-flex>
 
     <v-flex v-if="ideas.length === 0" pt-3>
-      <h2>{{ $vuetify.t('$vuetify.IdeaListing.noIdeas') }}</h2>
+      <v-card class="idea-card" flat>
+        <v-card-title><h2>{{ $vuetify.t('$vuetify.IdeaListing.noIdeas') }}</h2></v-card-title>
+      </v-card>
     </v-flex>
 
     <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md6 lg4 pa-2>
@@ -102,7 +104,7 @@
       </v-card>
     </v-flex>
 
-    <v-btn
+  <!--  <v-btn
       color="primary"
       fixed
       dark
@@ -121,7 +123,7 @@
       }"
     >
       <v-icon>add</v-icon>
-    </v-btn>
+  </v-btn> -->
   </v-layout>
 </template>
 
@@ -259,6 +261,7 @@ export default {
 }
 
 .idea-card {
+  margin: 10px;
   border-radius: 7px;
   text-align: left;
 

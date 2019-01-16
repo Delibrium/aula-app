@@ -13,21 +13,23 @@
 
       <NavTabs active="0"/>
 
-      <v-flex xs12 text-xs-center class="page-header">
-        <span class="info-helper">
-          <v-icon dark>info</v-icon>
-        </span>
+      <v-layout column class="page-header-background-ideas">
+        <v-flex xs12 text-xs-center class="page-header">
+          <span class="info-helper">
+            <v-icon dark>info</v-icon>
+          </span>
 
-        <div><img src="/static/img/header_temp.png"></div>
-      </v-flex>
+          <div><img src="/static/img/lamp.svg"></div>
+        </v-flex>
 
-      <v-flex xs12 text-xs-center pa-3 class="page-header">
-        <v-btn
-          large
-          color="white"
-          :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
-        >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
-      </v-flex>
+        <v-flex xs12 text-xs-center pa-3 class="page-header">
+          <v-btn
+            large
+            color="white"
+            :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
+          >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+        </v-flex>
+      </v-layout>
 
       <v-flex xs12>
         <IdeaListing :ideas="ideas"/>
@@ -63,7 +65,6 @@ export default {
     if (!this.spaceId) {
       api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
         .then((res) => {
-          console.log(res)
           this.spaceId = res.data[0].id
           this.spaceName = res.data[0].title
           this.getIdeas(this.$store.getters.selected_school, this.spaceId)
@@ -109,11 +110,13 @@ export default {
   }
 }
 
-.page-header {
+.page-header-background-ideas {
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
   background-image: linear-gradient(281deg, #00c853, #ffffff);
+}
 
+.page-header {
   .info-helper {
     width: 35px;
     padding: 5px;
@@ -121,7 +124,7 @@ export default {
   }
 
   img {
-    height: 120px;
+    height: 180px;
     margin-right: -35px;
   }
 

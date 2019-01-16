@@ -1,5 +1,4 @@
-<template>
-  <v-container :class="small == null ? 'container' : 'container small'" fluid row>
+<template> <v-container :class="small == null ? 'container' : 'container small'" fluid row>
     <v-layout>
       <v-flex
         v-for="phaseName in this.phases"

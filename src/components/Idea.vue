@@ -3,6 +3,7 @@
     <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
         <v-flex md8 xs12 offset-md2 color="primary">
+          <v-card>
           <span>
             In
             <span v-if="this.idea.topic != null">
@@ -58,6 +59,8 @@
               </v-btn>
             </v-btn-toggle>
           </div>
+
+          </v-card>
 
           <Comments :disabled="!allowCommenting"/>
 

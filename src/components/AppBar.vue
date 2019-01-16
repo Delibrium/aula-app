@@ -1,7 +1,7 @@
 <template>
   <v-toolbar fixed app class="white">
       <router-link to="/">
-        <img class="header_logo" src="/static/img/aula_old_logo.svg"/>
+        <img class="header_logo" src="/static/img/Aula_Logo.svg"/>
       </router-link>
       <v-spacer></v-spacer>
       <Menu v-if="$auth.ready()"></Menu>
@@ -15,3 +15,12 @@ export default {
   components: { Menu }
 }
 </script>
+
+<style scoped lang="scss">
+
+.v-toolbar {
+  box-shadow: none;
+}
+
+</style>
+

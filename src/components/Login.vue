@@ -1,6 +1,5 @@
 <template>
   <v-app id="inspire">
-    <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
@@ -70,7 +69,6 @@
           {{ $vuetify.t('$vuetify.Snackbar.close') }}
         </v-btn>
       </v-snackbar>
-    </v-content>
   </v-app>
 </template>
 

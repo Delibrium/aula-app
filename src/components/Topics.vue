@@ -15,17 +15,18 @@
 
         <NavTabs active=1 />
 
-        <v-flex xs12 text-xs-center class="page-header">
-          <span class="info-helper">
-            <v-icon dark>info</v-icon>
-          </span>
-          <img src="/static/img/header_temp.png">
-        </v-flex>
+        <v-layout column  class="page-header-background">
+          <v-flex xs12 text-xs-center class="page-header-topics">
+            <span class="info-helper">
+              <v-icon dark>info</v-icon>
+            </span>
+            <img src="/static/img/Karteikasten.svg">
+          </v-flex>
 
-        <v-flex xs12 text-xs-center pa-3 class="page-header">
-          <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
-        </v-flex>
-
+          <v-flex xs12 text-xs-center pa-3>
+            <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+          </v-flex>
+        </v-layout>
 
         <v-flex xs12 text-xs-center class='boldfont tab-bar'>
           <h3>{{ topics.length }} Themen</h3>
@@ -172,9 +173,14 @@ export default {
     }
   }
 
-  .page-header {
+  .page-header-background {
     background-color: #8c9eff;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    background-image: linear-gradient(122deg, #ffffff, #304ffe);
+  }
 
+  .page-header-topics {
     .info-helper {
       width: 35px;
       padding: 5px;
@@ -183,7 +189,7 @@ export default {
 
     img {
       margin-right: -35px;
-      height: 120px;
+      height: 180px;
     }
 
     .v-btn {

@@ -83,6 +83,6 @@
   }
 
   .header_logo {
-     width: 100px;
+    width: 50px;
   }
 </style>
