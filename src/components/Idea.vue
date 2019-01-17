@@ -1,68 +1,79 @@
 <template>
-  <v-slide-y-transition mode="out-in">
-    <v-container fluid grid-list-md>
+    <v-container  pa-0>
       <v-layout row wrap align-center>
         <v-flex md8 xs12 offset-md2 class="idea-banner" color="primary">
           <v-card class="idea">
-          <span>
-            In
-            <span v-if="this.idea.topic != null">
-              {{ this.getPhaseName() }} für Thema
-              <router-link
-                :to="{
-                  name: 'Topic',
-                  params: {
-                    spaceSlug: $route.params['spaceSlug'],
-                    topicId: this.idea.topic.id
-                  }
-                }"
-              >{{ idea.topic.title }}</router-link>
-            </span>
-            <span v-else>
-              <router-link
-                :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
-              >{{ this.getPhaseName() }}</router-link>
-            </span>
-          </span>
-          <h1 v-if="idea">{{ idea.title }}</h1>
+            <v-card-text>
+              <v-layout row wrap align-center>
+                <v-flex xs12 md12>
+                  <span>
+                    In
+                    <span v-if="this.idea.topic != null">
+                      {{ this.getPhaseName() }} für Thema
+                      <router-link
+                        :to="{
+                          name: 'Topic',
+                          params: {
+                            spaceSlug: $route.params['spaceSlug'],
+                            topicId: this.idea.topic.id
+                          }
+                        }"
+                      >{{ idea.topic.title }}</router-link>
+                    </span>
+                    <span v-else>
+                      <router-link
+                        :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
+                      >{{ this.getPhaseName() }}</router-link>
+                    </span>
+                  </span>
+                  <h1 v-if="idea">{{ idea.title }}</h1>
 
-          <p v-if="idea.created_by != null">
-            {{
-            $vuetify.t('$vuetify.Idea.authorCreated',
-            idea.created_by.first_name,
-            created.toLocaleString()
-            )
-            }}
-          </p>
+                  <p v-if="idea.created_by != null">
+                    {{
+                    $vuetify.t('$vuetify.Idea.authorCreated',
+                    idea.created_by.first_name,
+                    created.toLocaleString()
+                    )
+                    }}
+                  </p>
 
-          <p v-if="quorum != null && votes != null">
-            {{ $vuetify.t('$vuetify.Idea.supporterCount',
-            proVotes.length,
-            quorum.requiredVoteCount
-            ) }}
-          </p>
+                  <p v-if="quorum != null && votes != null">
+                    {{ $vuetify.t('$vuetify.Idea.supporterCount',
+                    proVotes.length,
+                    quorum.requiredVoteCount
+                    ) }}
+                  </p>
 
-          <p>{{ idea.description }}</p>
+                  <p>{{ idea.description }}</p>
 
-          <p
-            v-if="idea.category != null"
-          >{{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}</p>
-          <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
+                  <p
+                    v-if="idea.category != null"
+                  >{{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}</p>
+                  <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
-          <div>
-            <v-btn-toggle v-model="voteValue" @change="voteChanged">
-              <v-btn primary>
-                <v-icon left>thumb_up</v-icon>Dafür
-              </v-btn>
-              <v-btn primary>
-                <v-icon left>thumb_down</v-icon>Dagegen
-              </v-btn>
-            </v-btn-toggle>
-          </div>
+                  <div>
+                  </div>
+              </v-flex>
+              <v-flex>
+                <v-layout align-content-center justify-space-around>
+                  <v-flex md4 align-center>
+                    <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                      <v-btn primary>
+                        <v-icon left>thumb_up</v-icon>Dafür
+                      </v-btn>
+                      <v-btn primary>
+                        <v-icon left>thumb_down</v-icon>Dagegen
+                      </v-btn>
+                    </v-btn-toggle>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
 
+              </v-layout>
+            </v-card-text>
           </v-card>
           </v-flex>
-          <v-flex md8 xs12 offset-md2 color="primary">
+          <v-flex md8 offset-md2 xs12 offset-md2 color="primary">
 
           <Comments :disabled="!allowCommenting"/>
 
@@ -83,7 +94,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-slide-y-transition>
 </template>
 
 <script>
@@ -218,7 +228,6 @@ export default {
     background-color: #536dfe;
   }
   .idea {
-    margin: 40px 81px;
     padding: 20px;
   }
 </style>

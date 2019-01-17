@@ -1,38 +1,42 @@
 <template>
   <v-container pa-0>
     <v-layout row wrap align-center>
-      <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
-        <v-breadcrumbs>
-          <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
-          <v-breadcrumbs-item
-            :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
-                              >[{{ spaceName }}] Wilde ideen</v-breadcrumbs-item>
-          <v-icon slot="divider">arrow_forward</v-icon>
-        </v-breadcrumbs>
-      </v-flex>
+      <v-flex xs12 offset-md2 md8>
+        <v-layout row wrap align-center>
+          <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
+            <v-breadcrumbs>
+              <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
+              <v-breadcrumbs-item
+                :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
+                                  >[{{ spaceName }}] Wilde ideen</v-breadcrumbs-item>
+              <v-icon slot="divider">arrow_forward</v-icon>
+            </v-breadcrumbs>
+          </v-flex>
 
-      <NavTabs active="0"/>
+          <NavTabs active="0"/>
 
-      <v-layout column class="page-header-background-ideas">
-        <v-flex xs12 text-xs-center class="page-header">
-          <span class="info-helper">
-            <v-icon dark>info</v-icon>
-          </span>
+          <v-layout column class="page-header-background-ideas">
+            <v-flex xs12 text-xs-center class="page-header">
+              <span class="info-helper">
+                <v-icon dark>info</v-icon>
+              </span>
 
-          <div><img src="/static/img/lamp.svg"></div>
-        </v-flex>
+              <div><img src="/static/img/lamp.svg"></div>
+            </v-flex>
 
-        <v-flex xs12 text-xs-center pa-3 class="page-header">
-          <v-btn
-            large
-            color="white"
-            :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
-          >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
-        </v-flex>
-      </v-layout>
+            <v-flex xs12 text-xs-center pa-3 class="page-header">
+              <v-btn
+                large
+                color="white"
+                :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}"
+              >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+            </v-flex>
+          </v-layout>
 
-      <v-flex xs12>
-        <IdeaListing :ideas="ideas"/>
+          <v-flex xs12>
+            <IdeaListing :ideas="ideas"/>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>

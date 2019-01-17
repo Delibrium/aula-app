@@ -13,12 +13,9 @@
       </v-btn-toggle>
     </h3>
 
-    <Comment
-      class='commentTopLevel'
-      :comments="comments"
-    />
+    <v-btn @click="editingComment = true"> Vorschag Hinzufügen </v-btn>
 
-    <v-card class='newCommentForm' v-if="!disabled">
+    <v-card class='newCommentForm' v-if="!disabled && editingComment">
       <v-form>
         <v-card-title v-if="editingId != null">
           <h3>
@@ -59,8 +56,16 @@
       </v-form>
     </v-card>
     <p v-else>
+      <h1 v-if="disabled">
       {{ $vuetify.t('$vuetify.Comment.disabled') }}
+      </h1>
     </p>
+
+    <Comment
+      class='commentTopLevel'
+      :comments="comments"
+    />
+
 
     <v-snackbar
       v-model="showSnackbar"
@@ -101,6 +106,7 @@ export default {
     return {
       comments: null,
       editingId: null,
+      editingComment: false,
       text: null,
       parentCommentId: null,
       showSnackbar: null,
@@ -134,6 +140,7 @@ export default {
       this.editingId = null
       this.text = ''
       this.parentCommentId = null
+      this.editingComment = false
       // Reset the validator on the next tick to avoid triggering
       // validation errors because of the empty fields
       this.$nextTick(() => this.$validator.reset())

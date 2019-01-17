@@ -2,6 +2,16 @@
   <v-slide-y-transition mode="out-in">
     <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
+      <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+        <v-breadcrumbs>
+          <v-breadcrumbs-item href="/">
+            Aula
+          </v-breadcrumbs-item>
+          <v-breadcrumbs-item :href="'#/space/' + spaceSlug ">
+            {{ spaceName }}
+          </v-breadcrumbs-item>
+        </v-breadcrumbs>
+      </v-flex>
         <v-flex md8 offset-md2>
           <v-card>
             <v-card-text>
@@ -80,6 +90,7 @@ export default {
     showSnackbar: false,
     snackbarMsg: '',
     topic: null,
+    spaceName: '',
     dictionary: {
       custom: {
         title: {
@@ -113,6 +124,11 @@ export default {
           this.topic = res.data[0]
         })
     }
+    api.ideaSpace.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+      .then((res) => {
+        this.spaceId = res.data[0].id
+        this.spaceName = res.data[0].title
+      })
   },
 
   mounted () {

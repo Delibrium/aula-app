@@ -1,60 +1,64 @@
 <template>
   <v-container pa-0>
       <v-layout row wrap align-center>
-        <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
-          <v-breadcrumbs>
-            <v-breadcrumbs-item href="/">
-              Aula
-            </v-breadcrumbs-item>
-            <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
-              [Space Name] Themenraum
-            </v-breadcrumbs-item>
-            <v-icon slot="divider">arrow_forward</v-icon>
-          </v-breadcrumbs>
-        </v-flex>
+        <v-flex xs12 offset-md2 md8>
+          <v-layout row wrap align-center>
+            <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+              <v-breadcrumbs>
+                <v-breadcrumbs-item href="/">
+                  Aula
+                </v-breadcrumbs-item>
+                <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
+                  [Space Name] Themenraum
+                </v-breadcrumbs-item>
+                <v-icon slot="divider">arrow_forward</v-icon>
+              </v-breadcrumbs>
+            </v-flex>
 
-        <NavTabs active=1 />
+            <NavTabs active=1 />
 
-        <v-layout column  class="page-header-background">
-          <v-flex xs12 text-xs-center class="page-header-topics">
-            <span class="info-helper">
-              <v-icon dark>info</v-icon>
-            </span>
-            <img src="/static/img/Karteikasten.svg">
-          </v-flex>
+            <v-layout column  class="page-header-background">
+              <v-flex xs12 text-xs-center class="page-header-topics">
+                <span class="info-helper">
+                  <v-icon dark>info</v-icon>
+                </span>
+                <img src="/static/img/Karteikasten.svg">
+              </v-flex>
 
-          <v-flex xs12 text-xs-center pa-3>
-            <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
-          </v-flex>
-        </v-layout>
-
-        <v-flex xs12 text-xs-center class='boldfont tab-bar'>
-          <h3>{{ topics.length }} Themen</h3>
-        </v-flex>
-
-        <v-flex class='topic-list'>
-          <v-container justify-center fluid grid-list-md px-0>
-            <v-layout row wrap>
-              <v-flex v-for="topic in topics" :key="topic.id" sm12 md4 pb-3>
-                <v-card
-                  class="topic-card"
-                  @click.native="openTopic(topic)">
-                  <v-img :src="topic.image"></v-img>
-                  <PhaseBanner :topic="topic" small />
-                  <v-card-title primary-title>
-                      <h3 class="headline mb-0">{{topic.title}}</h3>
-                  </v-card-title>
-                  <v-card-text>
-                    <p>{{ topic.description }}</p>
-                    <div>
-                      <v-icon>chat_bubble</v-icon>
-                      {{ getIdeaCount(topic) }} Ideen
-                    </div>
-                  </v-card-text>
-                </v-card>
+              <v-flex xs12 text-xs-center pa-3>
+                <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
               </v-flex>
             </v-layout>
-          </v-container>
+
+            <v-flex xs12 text-xs-center class='boldfont tab-bar'>
+              <h3>{{ topics.length }} Themen</h3>
+            </v-flex>
+
+            <v-flex class='topic-list'>
+              <v-container justify-center fluid grid-list-md px-0>
+                <v-layout row wrap>
+                  <v-flex v-for="topic in topics" :key="topic.id" sm12 md4 pb-3>
+                    <v-card
+                      class="topic-card"
+                      @click.native="openTopic(topic)">
+                      <v-img :src="topic.image"></v-img>
+                      <PhaseBanner :topic="topic" small />
+                      <v-card-title primary-title>
+                          <h3 class="headline mb-0">{{topic.title}}</h3>
+                      </v-card-title>
+                      <v-card-text>
+                        <p>{{ topic.description }}</p>
+                        <div>
+                          <v-icon>chat_bubble</v-icon>
+                          {{ getIdeaCount(topic) }} Ideen
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                    </v-flex>
+               </v-layout>
+              </v-container>
+            </v-flex>
+          </v-layout>
         </v-flex>
     </v-layout>
   </v-container>
