@@ -28,7 +28,7 @@
         {{ $vuetify.t('$vuetify.Topic.phaseComplete') }}
       </v-flex>
 
-      <v-flex xs12 class="topic-wrapper">
+      <v-flex xs12 class="topic-wrapper" :class="topicPhaseClass">
         <v-container px-0 pb-3 my-4>
           <v-layout row wrap class="topic">
             <v-flex raised sm8 offset-sm2 px-4 py-4>
@@ -66,6 +66,14 @@ export default {
   name: 'Topic',
   components: { IdeaListing, PhaseBanner },
   computed: {
+    topicPhaseClass: function () {
+      return {
+        'edit-topics': this.topic.phase === 'edit_topics',
+        'feasibility': this.topic.phase === 'feasibility',
+        'vote': this.topic.phase === 'vote',
+        'finished': this.topic.phase === 'finished'
+      }
+    },
     spaceId: function () { return this.$route.params['spaceId'] },
     topicId: function () { return this.$route.params['topicId'] },
     spaceSlug: function () { return this.$route.params['spaceSlug'] },
@@ -185,6 +193,27 @@ h1 {
   li:last-child a.v-breadcrumbs__item {
     color: var(--v-secondary-base) !important;
   }
+}
+
+.topic-wrapper {
+
+  &.edit-topics {
+    background: url('/static/img/01_Banner_Ausarbeitungsphase.svg');
+  }
+
+  &.feasibility {
+    background: url('/static/img/02_Banner_Pruffungsphase.svg');
+  }
+
+  &.vote {
+    background: url('/static/img/03_Banner_Abstimmungsphase.svg');
+  }
+
+  &.finished {
+    background: url('/static/img/04_Banner_Ergebnisphase_dunkel.svg');
+  }
+
+
 }
 
 .phase-banner {

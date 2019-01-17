@@ -2,10 +2,8 @@
    <v-menu bottom right>
      <v-btn v-if="$auth.check()"
        slot="activator"
-       color="primary"
      >
-     <v-icon>more_vert</v-icon>
-       User
+     <v-icon>menu</v-icon>
      </v-btn>
 
      <v-btn v-else

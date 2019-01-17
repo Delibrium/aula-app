@@ -1,66 +1,70 @@
 <template>
   <li>
     <div v-if="commentId != null">
-      <span v-if="comment.is_deleted">
-        {{ $vuetify.t('$vuetify.Comment.isDeleted') }}
-      </span>
-      <span v-else>
-        {{ comment.text }}
-      </span>
-
-      <div>
-        <v-tooltip bottom>
-          <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
-            <v-btn flat small>
-              <v-icon>thumb_up</v-icon>
-            </v-btn>
-            <v-btn flat small>
-              <v-icon>thumb_down</v-icon>
-            </v-btn>
-          </v-btn-toggle>
-          <span>
-            {{ $vuetify.t('$vuetify.Comment.tally', this.tally) }}
+      <v-card class="comment">
+        <v-card-text>
+          <span v-if="comment.is_deleted">
+            {{ $vuetify.t('$vuetify.Comment.isDeleted') }}
           </span>
-        </v-tooltip>
+          <span v-else>
+            {{ comment.text }}
+          </span>
 
-        <em>
-          {{
-            $vuetify.t('$vuetify.Comment.authorCreated',
-              comment.created_by.first_name,
-              created.toLocaleString())
-          }}
-        </em>
-        <em v-if="comment.changed_by != null">
-          {{ $vuetify.t('$vuetify.Comment.editedBy',
-            this.comment.changed_by.first_name) }}
-        </em>
+          <div>
+            <v-tooltip bottom>
+              <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
+                <v-btn flat small>
+                  <v-icon>thumb_up</v-icon>
+                </v-btn>
+                <v-btn flat small>
+                  <v-icon>thumb_down</v-icon>
+                </v-btn>
+              </v-btn-toggle>
+              <span>
+                {{ $vuetify.t('$vuetify.Comment.tally', this.tally) }}
+              </span>
+            </v-tooltip>
 
-        <v-btn
-          small icon
-          v-if="isOwnComment"
-          :disabled="comment.is_deleted"
-          @click="setEditingId"
-        >
-          <v-icon>edit</v-icon>
-        </v-btn>
+            <em>
+              {{
+                $vuetify.t('$vuetify.Comment.authorCreated',
+                  comment.created_by.first_name,
+                  created.toLocaleString())
+              }}
+            </em>
+            <em v-if="comment.changed_by != null">
+              {{ $vuetify.t('$vuetify.Comment.editedBy',
+                this.comment.changed_by.first_name) }}
+            </em>
 
-        <v-btn
-          small icon
-          v-if="isOwnComment"
-          :disabled="comment.is_deleted"
-          @click="setDeleted"
-        >
-          <v-icon>delete</v-icon>
-        </v-btn>
+            <v-btn
+              small icon
+              v-if="isOwnComment"
+              :disabled="comment.is_deleted"
+              @click="setEditingId"
+            >
+              <v-icon>edit</v-icon>
+            </v-btn>
 
-        <v-btn
-          small icon
-          v-if="commentId != null"
-          @click="setReplyId"
-        >
-          <v-icon>reply</v-icon>
-        </v-btn>
-      </div>
+            <v-btn
+              small icon
+              v-if="isOwnComment"
+              :disabled="comment.is_deleted"
+              @click="setDeleted"
+            >
+              <v-icon>delete</v-icon>
+            </v-btn>
+
+            <v-btn
+              small icon
+              v-if="commentId != null"
+              @click="setReplyId"
+            >
+              <v-icon>reply</v-icon>
+            </v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
     </div>
 
     <ul v-if="directChildren.length > 0">
@@ -193,3 +197,9 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+.comment {
+   margin-top: 10px;
+}
+</style>

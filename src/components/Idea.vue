@@ -2,8 +2,8 @@
   <v-slide-y-transition mode="out-in">
     <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
-        <v-flex md8 xs12 offset-md2 color="primary">
-          <v-card>
+        <v-flex md8 xs12 offset-md2 class="idea-banner" color="primary">
+          <v-card class="idea">
           <span>
             In
             <span v-if="this.idea.topic != null">
@@ -61,6 +61,8 @@
           </div>
 
           </v-card>
+          </v-flex>
+          <v-flex md8 xs12 offset-md2 color="primary">
 
           <Comments :disabled="!allowCommenting"/>
 
@@ -210,3 +212,13 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .idea-banner {
+    background-color: #536dfe;
+  }
+  .idea {
+    margin: 40px 81px;
+    padding: 20px;
+  }
+</style>
