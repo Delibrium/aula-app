@@ -41,6 +41,20 @@ export function createIdeaSpace (ideaSpace) {
   return service.post('/idea_space', ideaSpace, config)
 }
 
+export function updateIdeaSpace (ideaSpace) {
+  return service({
+    method: 'patch',
+    url: '/idea_space',
+    data: ideaSpace,
+    params: {
+      id: `eq.${ideaSpace.id}`
+    },
+    headers: {
+      PREFER: 'return=representation'
+    }
+  })
+}
+
 export function createIdea (idea) {
   const config = {
     headers: {
