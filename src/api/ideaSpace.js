@@ -32,6 +32,15 @@ export function getSpace (schoolId, spaceSlug) {
   return service.get('/idea_space', {params: queryParams})
 }
 
+export function createIdeaSpace (ideaSpace) {
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+  return service.post('/idea_space', ideaSpace, config)
+}
+
 export function createIdea (idea) {
   const config = {
     headers: {

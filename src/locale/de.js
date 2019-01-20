@@ -233,6 +233,7 @@ export default {
   },
   AdminMenu: {
     'title': 'Prozessverwaltung',
+    'ideaSpace': 'Klasse',
     'phaseDuration': 'Dauer der Phasen',
     'categories': 'Kategorien',
     'quorum': 'Quorum',
@@ -283,6 +284,13 @@ export default {
     'normal.status': 'Normalbetrieb (aufgetaut)',
     'holiday.status': 'Ferienbetrieb (eingefroren)',
     'change.status': 'Status setzen!'
+  },
+  AdminIdeaSpace: {
+    'formIdeaSpace': 'Klasse',
+    'formIdeaSpaceName': 'Klass Name',
+    'formIdeaSpaceDescription': 'Beschreibung',
+    'formIdeaSpaceUrlName': 'Klass Url Name',
+    'add': 'Add Klass'
   },
   AdminUsers: {
     'titleAdd': 'Neue Benutzer hinzufügen',
