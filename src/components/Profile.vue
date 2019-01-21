@@ -6,12 +6,12 @@
           <v-img src="/static/img/profile_default.png" max-width="100"/>
         </v-flex>
         <v-flex d-flex xs12 sm12 pa-2 align-content-center justify-center>
-           <h1 class="text-xs-center">{{ $store.getters.user.profile.username }}</h1>
+           <h1 class="text-xs-center">{{ $store.getters.user.profile.first_name }} {{ $store.getters.user.profile.last_name }}</h1>
         </v-flex>
         <v-flex d-flex xs12 sm12>
           <v-layout row wrap align-center justify-center>
-            <v-flex d-flex sm1 align-content-center justify-center>
-              <v-chip justify-center class="text-xs-center text-sm-center" label outline color="primary">Admin</v-chip>
+            <v-flex d-flex sm1 align-content-center justify-center v-for="(role, index) in $store.getters.user.profile.role">
+              <v-chip justify-center class="text-xs-center text-sm-center" label outline color="primary">{{ role }}</v-chip>
             </v-flex>
           </v-layout>
         </v-flex>
