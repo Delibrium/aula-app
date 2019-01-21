@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout wrap align-center>
         <v-flex d-flex xs12 sm12 align-content-center justify-center>
-          <v-img :src="user.picture" max-width="100"/>
+          <v-img :src="user.picture?user.picture:'/static/img/profile_default.png'" max-width="100"/>
         </v-flex>
         <v-flex d-flex xs12 sm12 pa-2 align-content-center justify-center>
           <vue-base64-file-upload
