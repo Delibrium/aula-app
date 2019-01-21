@@ -51,13 +51,16 @@
         <v-flex d-flex xs12 sm12 pa-2>
           <v-card>
             <v-card-text>
-              <v-list>
-                <template v-for="(space, index) in ideaSpaces">
-                  <v-list-tile-content>
-                    <v-list-tile-title @click="editIdeaSpace(space)" v-html="space.title"></v-list-tile-title>
-                  </v-list-tile-content>
-                </template>
-              </v-list>
+              <v-data-table
+                :headers="headers"
+                :items="ideaSpaces"
+                class="elevation-1"
+              >
+              <template slot="items" slot-scope="props">
+                <td @click="editIdeaSpace(props.item)" >{{ props.item.title }}</td>
+                <td>{{ props.item.description }}</td>
+              </template>
+              </v-data-table>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -80,6 +83,19 @@ export default {
   name: 'Phase',
   data: function () {
     return {
+      headers: [
+        {
+          text: this.$vuetify.t('$vuetify.AdminIdeaSpace.formIdeaSpaceName'),
+          align: 'left',
+          sortable: true,
+          value: 'name'
+        },
+        {
+          text: this.$vuetify.t('$vuetify.AdminIdeaSpace.formIdeaSpaceDescription'),
+          align: 'left',
+          sortable: true,
+          value: 'description'
+        }],
       ideaSpaces: [],
       ideaSpaceCreationDialog: false,
       isEditing: false,

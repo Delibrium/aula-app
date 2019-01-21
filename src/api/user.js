@@ -52,6 +52,13 @@ function update (user) {
   return service.post('/rpc/update_user', user, config)
 }
 
+function updateProfilePicture (userId, userPicture) {
+  const params = {
+    id: `eq.${userId}`
+  }
+  return service.patch('/users', { picture: userPicture }, { params })
+}
+
 function remove (userId) {
   const params = {
     id: `eq.${userId}`
@@ -71,5 +78,6 @@ export default {
   create,
   update,
   remove,
-  getListing
+  getListing,
+  updateProfilePicture
 }

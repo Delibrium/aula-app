@@ -10,6 +10,7 @@ import Topic from '@/components/Topic'
 import Topics from '@/components/Topics'
 import TopicEdit from '@/components/TopicEdit'
 import Profile from '@/components/Profile'
+import ProfileEdit from '@/components/ProfileEdit'
 import PassList from '@/components/PassList'
 import store from '@/store'
 
@@ -88,8 +89,13 @@ const router = new Router({
       name: 'Profile',
       component: Profile,
       meta: { auth: true }
+    },
+    {
+      path: '/user/:userId/edit',
+      name: 'ProfileEdit',
+      component: ProfileEdit,
+      meta: { auth: true }
     }
-
   ]
 })
 
