@@ -194,7 +194,7 @@ export default {
           })
       } else {
         const vote = {
-          school_id: this.$store.getters.schoolId,
+          school_id: this.$store.getters.user.profile.school_id,
           idea: this.$route.params['ideaId'],
           created_by: this.$store.getters.userId,
           changed_by: this.$store.getters.userId,

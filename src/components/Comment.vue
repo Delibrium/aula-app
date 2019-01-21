@@ -164,12 +164,13 @@
           })
         } else {
           const vote = {
-            school_id: this.$store.getters.schoolId,
+            school_id: this.$store.getters.school_id,
             comment: this.commentId,
             created_by: this.$store.getters.userId,
             changed_by: this.$store.getters.userId,
             val
           }
+          console.log(vote)
           api.comment.postVote(vote)
             .catch((err) => {
               if (err.request != null && err.request.status === 409) {

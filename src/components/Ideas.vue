@@ -5,7 +5,7 @@
         <v-layout row wrap align-center>
           <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
             <v-breadcrumbs>
-              <v-breadcrumbs-item href="/">Aula</v-breadcrumbs-item>
+              <v-breadcrumbs-item href="#/">Aula</v-breadcrumbs-item>
               <v-breadcrumbs-item
                 :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
                                   >[{{ spaceName }}] Wilde ideen</v-breadcrumbs-item>
