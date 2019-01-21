@@ -7,11 +7,15 @@ export function getIdeaSpaces (schoolId) {
 export function getIdeas (schoolId, ideaSpaceId, topic) {
   var queryParams = {
     school_id: `eq.${schoolId}`,
-    idea_space: `eq.${ideaSpaceId}`,
     select: '*,' +
       'created_by(id,first_name,last_name),' +
       'comment(count),' +
       'idea_vote(created_by)'
+  }
+  if (ideaSpaceId !== null) {
+    queryParams['idea_space'] = `eq.${ideaSpaceId}`
+  } else {
+    queryParams['idea_space'] = `is.null`
   }
   if (!topic) {
     queryParams['topic'] = 'is.null'

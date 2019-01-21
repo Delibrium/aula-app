@@ -67,12 +67,18 @@ export default {
 
   beforeMount: function () {
     if (!this.spaceId) {
-      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-        .then((res) => {
-          this.spaceId = res.data[0].id
-          this.spaceName = res.data[0].title
-          this.getIdeas(this.$store.getters.selected_school, this.spaceId)
-        })
+      var spaceSlug = this.$route.params['spaceSlug']
+      if (spaceSlug !== 'school') {
+        api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+          .then((res) => {
+            this.spaceId = res.data[0].id
+            this.spaceName = res.data[0].title
+            this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+          })
+      } else {
+        this.spaceName = 'School'
+        this.getIdeas(this.$store.getters.selected_school)
+      }
     } else {
       this.getIdeas(this.$store.getters.selected_school, this.spaceId)
     }
@@ -86,7 +92,7 @@ export default {
       this.$router.push({ name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id } })
     },
 
-    getIdeas: function (schoolId, spaceId) {
+    getIdeas: function (schoolId, spaceId = null) {
       api.getIdeas(schoolId, spaceId).then((res) => {
         this.ideas = res.data
       })
