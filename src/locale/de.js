@@ -174,6 +174,9 @@ export default {
     'new.password.confirm': 'neues Passwort bestätigen',
     'save': 'Änderungen speichern'
   },
+  Form: {
+    'save': 'Änderungen speichern'
+  },
   IdeaCategories: {
     'rules': 'Regeln',
     'material': 'Ausstatung',
@@ -291,6 +294,10 @@ export default {
     'formIdeaSpaceDescription': 'Beschreibung',
     'formIdeaSpaceUrlName': 'Klass Url Name',
     'add': 'Add Klass'
+  },
+  AdminCommunity: {
+    'tableHeaderName': 'Name',
+    'mainSpaceName': 'Main Ideas space name'
   },
   AdminUsers: {
     'titleAdd': 'Neue Benutzer hinzufügen',

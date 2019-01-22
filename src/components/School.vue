@@ -1,17 +1,34 @@
 <template>
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
-      <v-layout row wrap>
-        <v-flex d-flex xs12 sm4 pa-2 v-for="school in schools" :key="school.id">
-          <v-card class="elevation-1" :class="{'green lighten-3': $store.getters.selected_school === school.id}">
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{ school.name }}</h3>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn color="primary" @click="selectSchool(school)">Select</v-btn>
-            </v-card-actions>
+      <v-layout column wrap>
+        <v-flex d-flex xs12 sm4 pa-2>
+          <v-data-table
+            :headers="headers"
+            :items="schools"
+            class="elevation-1"
+          >
+          <template slot="items" slot-scope="props">
+            <td  :class="{'green lighten-3': $store.getters.selected_school === props.item.id}" @click="selectSchool(props.item)">{{ props.item.name }}</td>
+          </template>
+          </v-data-table>
+        </v-flex>
+
+        <v-flex d-flex xs12 sm4 pa-2>
+          <v-card class="elevation-1">
+            <v-card-text>
+                <v-text-field
+                  name="description"
+                  v-model="schoolConfig.mainSpaceName"
+                  v-validate="'required'"
+                 :label="this.$vuetify.t('$vuetify.AdminCommunity.mainSpaceName')"
+                  required
+                ></v-text-field>
+
+                <v-btn
+                  @click="updateSchool"
+                >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -25,9 +42,19 @@ import api from '@/api'
 
 export default {
   name: 'School',
-  data: () => ({
-    schools: []
-  }),
+  data: function () {
+    return {
+      schools: [],
+      schoolConfig: this.$store.getters.schoolConfig,
+      headers: [
+        {
+          text: this.$vuetify.t('$vuetify.AdminCommunity.tableHeaderName'),
+          align: 'left',
+          sortable: true,
+          value: 'schoolName'
+        }]
+    }
+  },
 
   props: {
   },
@@ -43,6 +70,10 @@ export default {
         this.$store.commit('SET_SCHOOL_CONFIG', res.data)
         this.$emit('selectedSchool')
       })
+    },
+
+    updateSchool: function () {
+      api.school.updateConfig(this.$store.getters.school_id, 'mainSpaceName', this.schoolConfig.mainSpaceName)
     }
   },
 

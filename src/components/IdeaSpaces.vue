@@ -11,7 +11,7 @@
                 ></v-img>
             <v-card-title primary-title>
               <div>
-                <h3 class="headline mb-0">School</h3>
+                <h3 class="headline mb-0">{{ $store.getters.schoolConfig.mainSpaceName }}</h3>
               </div>
             </v-card-title>
           </v-card>
