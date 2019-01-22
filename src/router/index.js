@@ -11,6 +11,7 @@ import Topics from '@/components/Topics'
 import TopicEdit from '@/components/TopicEdit'
 import Profile from '@/components/Profile'
 import ProfileEdit from '@/components/ProfileEdit'
+import UserEdit from '@/components/UserEdit'
 import PassList from '@/components/PassList'
 import store from '@/store'
 
@@ -82,6 +83,12 @@ const router = new Router({
       path: '/admin/password-printout',
       name: 'PassList',
       component: PassList,
+      meta: { auth: true }
+    },
+    {
+      path: '/user/settings',
+      name: 'UserEdit',
+      component: UserEdit,
       meta: { auth: true }
     },
     {

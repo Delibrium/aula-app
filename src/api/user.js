@@ -43,6 +43,17 @@ function create (user) {
   return service.post('/rpc/add_user', user, config)
 }
 
+function updateEmail (userId, email) {
+  return service({
+    method: 'patch',
+    url: '/users',
+    data: { email: email },
+    params: {
+      id: `eq.${userId}`
+    }
+  })
+}
+
 function update (user) {
   const config = {
     headers: {
@@ -79,5 +90,6 @@ export default {
   update,
   remove,
   getListing,
-  updateProfilePicture
+  updateProfilePicture,
+  updateEmail
 }
