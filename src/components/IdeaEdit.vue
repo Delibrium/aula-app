@@ -2,65 +2,69 @@
   <v-slide-y-transition mode="out-in">
     <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
-      <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
-        <v-breadcrumbs>
-          <v-breadcrumbs-item href="/">
-            Aula
-          </v-breadcrumbs-item>
-          <v-breadcrumbs-item :href="'#/space/' + spaceSlug ">
-            {{ spaceName }}
-          </v-breadcrumbs-item>
-        </v-breadcrumbs>
-      </v-flex>
-        <v-flex md8 offset-md2>
-          <v-card>
-            <v-card-text>
-              <v-layout row wrap align-center>
-                <v-flex md8 offset-md2 xs12>
-                  <h1 v-if="this.topic != null">{{ $vuetify.t('$vuetify.IdeaCreation.titleWithTopic', this.topic.title) }}</h1>
-                  <h1 v-else>{{ $vuetify.t('$vuetify.IdeaCreation.title') }}</h1>
-                </v-flex>
-                <v-flex md8 offset-md2 xs12>
-                  <v-text-field
-                    name="title"
-                    :label="$vuetify.t('$vuetify.IdeaCreation.name')"
-                    :hint="$vuetify.t('$vuetify.IdeaCreation.nameExample')"
-                    v-model="title"
-                    v-validate="'required|max:160'"
-                    :error-messages="errors.collect('title')"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex md8 offset-md2 xs12>
-                  <v-textarea
-                    name="suggestion"
-                    :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
-                    :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
-                    v-model="description"
-                  ></v-textarea>
-                </v-flex>
-                <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-                  <v-alert error :value="!topicMayReceiveIdeas">
-                    {{ $vuetify.t('$vuetify.Topic.cantCreateIdea') }}
-                  </v-alert>
-                  <v-btn
-                    @click="submitIdea"
-                    :disabled="!topicMayReceiveIdeas"
-                    round
-                    color="primary"
-                    dark
-                  >{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
-                  <v-btn
-                    v-if="this.topic != null"
-                    href
-                    :to="{name: 'Topic', params: {topicId: this.topicId}}"
-                    round
-                    dark
-                  >{{ $vuetify.t('$vuetify.IdeaCreation.backToTopic') }}</v-btn>
-                </v-flex>
-              </v-layout>
-            </v-card-text>
-          </v-card>
+        <v-flex md8 offset-md2 xs12>
+          <v-layout row wrap align-center>
+            <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+              <v-breadcrumbs>
+                <v-breadcrumbs-item href="/">
+                  Aula
+                </v-breadcrumbs-item>
+                <v-breadcrumbs-item :href="'#/space/' + spaceSlug ">
+                  {{ spaceName }}
+                </v-breadcrumbs-item>
+              </v-breadcrumbs>
+            </v-flex>
+            <v-flex>
+              <v-card>
+                <v-card-text>
+                  <v-layout row wrap align-center>
+                    <v-flex md8 offset-md2 xs12>
+                      <h1 v-if="this.topic != null">{{ $vuetify.t('$vuetify.IdeaCreation.titleWithTopic', this.topic.title) }}</h1>
+                      <h1 v-else>{{ $vuetify.t('$vuetify.IdeaCreation.title') }}</h1>
+                    </v-flex>
+                    <v-flex md8 offset-md2 xs12>
+                      <v-text-field
+                        name="title"
+                        :label="$vuetify.t('$vuetify.IdeaCreation.name')"
+                        :hint="$vuetify.t('$vuetify.IdeaCreation.nameExample')"
+                        v-model="title"
+                        v-validate="'required|max:160'"
+                        :error-messages="errors.collect('title')"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex md8 offset-md2 xs12>
+                      <v-textarea
+                        name="suggestion"
+                        :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
+                        :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
+                        v-model="description"
+                      ></v-textarea>
+                    </v-flex>
+                    <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+                      <v-alert error :value="!topicMayReceiveIdeas">
+                        {{ $vuetify.t('$vuetify.Topic.cantCreateIdea') }}
+                      </v-alert>
+                      <v-btn
+                        @click="submitIdea"
+                        :disabled="!topicMayReceiveIdeas"
+                        round
+                        color="primary"
+                        dark
+                      >{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
+                      <v-btn
+                        v-if="this.topic != null"
+                        href
+                        :to="{name: 'Topic', params: {topicId: this.topicId}}"
+                        round
+                        dark
+                      >{{ $vuetify.t('$vuetify.IdeaCreation.backToTopic') }}</v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </v-flex>
       </v-layout>
       <v-snackbar v-model="showSnackbar" :bottom="true">

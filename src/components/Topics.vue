@@ -50,7 +50,7 @@
                         <p>{{ topic.description }}</p>
                         <div>
                           <v-icon>chat_bubble</v-icon>
-                          {{ getIdeaCount(topic) }} Ideen
+                          {{ topic.count }} Ideen
                         </div>
                       </v-card-text>
                     </v-card>
@@ -67,6 +67,7 @@
 <script>
 
 import * as api from '@/api/ideaSpace'
+import * as apiTopic from '@/api/topic'
 import NavTabs from '@/components/NavTabs'
 import PhaseBanner from '@/components/PhaseBanner'
 import { isUserMemberOf } from '@/utils/permissions'
@@ -77,6 +78,7 @@ export default {
     return {
       tab: 1,
       topics: [],
+      topicsCount: {},
       spaceId: this.$route.params['spaceId']
     }
   },
@@ -114,10 +116,24 @@ export default {
         if (phaseOrder[a.phase] === phaseOrder[b.phase]) return 0
         return phaseOrder[a.phase] < phaseOrder[b.phase] ? 1 : -1
       }
-      api.getTopics(schoolId, spaceId)
+      return api.getTopics(schoolId, spaceId)
         .then(res => {
           res.data.sort(byPhase)
           this.topics = res.data
+          console.log(this.topics)
+          var ps = []
+          this.topics.forEach(topic => {
+            console.log(topic)
+            this.topicsCount[topic.id] = 0
+            ps.push(apiTopic.getIdeasCount(topic.id).then((res) => {
+              this.topicsCount[topic.id] = res.data[0]['count']
+            }))
+          })
+          return Promise.all(ps).then(res => {
+            for (var topic of this.topics) {
+              this.$set(topic, 'count', this.topicsCount[topic.id])
+            }
+          })
         })
         .catch(err => {
           console.log(err)

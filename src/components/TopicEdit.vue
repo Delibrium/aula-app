@@ -3,77 +3,85 @@
     <v-container fluid grid-list-md>
       <v-layout row wrap align-center>
         <v-flex md8 offset-md2 xs12>
-          <h1 v-if="editTopicId == null">
-            {{ $vuetify.t('$vuetify.TopicCreation.pageTitleCreating') }}
-          </h1>
-          <h1 v-else>
-            {{ $vuetify.t('$vuetify.TopicCreation.pageTitleEditing') }}
-          </h1>
-        </v-flex>
-        <v-flex md8 offset-md2 xs12>
-          <v-text-field
-            name="title"
-            :label="$vuetify.t('$vuetify.TopicCreation.title')"
-            :hint="$vuetify.t('$vuetify.TopicCreation.titleHint')"
-            v-validate="'required|max:160'"
-            :error-messages="errors.collect('title')"
-            required
-            v-model="title"
-            :disabled="isLoadingTopic"
-            :loading="isLoadingTopic"
-          ></v-text-field>
-        </v-flex>
-        <v-flex md8 offset-md2 xs12>
-          <v-textarea
-            name="description"
-            :label="$vuetify.t('$vuetify.TopicCreation.description')"
-            :hint="$vuetify.t('$vuetify.TopicCreation.descriptionHint')"
-            v-validate="'required'"
-            required
-            :error-messages="errors.collect('description')"
-            v-model="description"
-            :disabled="isLoadingTopic"
-            :loading="isLoadingTopic"
-          ></v-textarea>
-        </v-flex>
-        <v-flex class="select-ideas" md8 offset-md2 xs12>
-          <h2>{{ $vuetify.t('$vuetify.TopicCreation.selectIdeas') }}</h2>
-          <v-alert
-            :value="errors.has('selectIdeas')"
-            type="warning"
-          >{{ errors.first('selectIdeas')}}</v-alert>
-          <v-list two-line dense>
-            <template v-for="(idea, index) in ideas">
-              <v-list-tile :key="idea.id">
-                <v-list-tile-avatar>
-                  <v-checkbox
-                    name="selectIdeas"
-                    v-model="selected"
-                    :value="idea.id"
-                    :v-validate="shouldValidateWildIdeas"
-                  ></v-checkbox>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ idea.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ idea.description }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </template>
-          </v-list>
-        </v-flex>
-        <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
-          <v-btn
-            @click="submit"
-            round
-            color="primary"
-            dark
-          >{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
-          <v-btn
-            v-if="this.$route.params.topicId != null"
-            :to="{ name: 'Topic', spaceSlug: this.$route.params.spaceSlug, topicId: this.$route.params.topicId }"
-            round
-            dark
-          >{{ $vuetify.t('$vuetify.TopicCreation.cancel') }}</v-btn>
+          <v-card>
+            <v-card-text>
+              <v-layout row wrap align-center>
+                <v-flex md8 offset-md2 xs12>
+                  <h1 v-if="editTopicId == null">
+                    {{ $vuetify.t('$vuetify.TopicCreation.pageTitleCreating') }}
+                  </h1>
+                  <h1 v-else>
+                    {{ $vuetify.t('$vuetify.TopicCreation.pageTitleEditing') }}
+                  </h1>
+                </v-flex>
+                <v-flex md8 offset-md2 xs12>
+                  <v-text-field
+                    name="title"
+                    :label="$vuetify.t('$vuetify.TopicCreation.title')"
+                    :hint="$vuetify.t('$vuetify.TopicCreation.titleHint')"
+                    v-validate="'required|max:160'"
+                    :error-messages="errors.collect('title')"
+                    required
+                    v-model="title"
+                    :disabled="isLoadingTopic"
+                    :loading="isLoadingTopic"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex md8 offset-md2 xs12>
+                  <v-textarea
+                    name="description"
+                    :label="$vuetify.t('$vuetify.TopicCreation.description')"
+                    :hint="$vuetify.t('$vuetify.TopicCreation.descriptionHint')"
+                    v-validate="'required'"
+                    required
+                    :error-messages="errors.collect('description')"
+                    v-model="description"
+                    :disabled="isLoadingTopic"
+                    :loading="isLoadingTopic"
+                  ></v-textarea>
+                </v-flex>
+                <v-flex class="select-ideas" md8 offset-md2 xs12>
+                  <h2>{{ $vuetify.t('$vuetify.TopicCreation.selectIdeas') }}</h2>
+                  <v-alert
+                    :value="errors.has('selectIdeas')"
+                    type="warning"
+                  >{{ errors.first('selectIdeas')}}</v-alert>
+                  <v-list two-line dense>
+                    <template v-for="(idea, index) in ideas">
+                      <v-list-tile :key="idea.id">
+                        <v-list-tile-avatar>
+                          <v-checkbox
+                            name="selectIdeas"
+                            v-model="selected"
+                            :value="idea.id"
+                            :v-validate="shouldValidateWildIdeas"
+                          ></v-checkbox>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ idea.title }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ idea.description }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </template>
+                  </v-list>
+                </v-flex>
+                <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+                  <v-btn
+                    @click="submit"
+                    round
+                    color="primary"
+                    dark
+                  >{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
+                  <v-btn
+                    v-if="this.$route.params.topicId != null"
+                    :to="{ name: 'Topic', spaceSlug: this.$route.params.spaceSlug, topicId: this.$route.params.topicId }"
+                    round
+                    dark
+                  >{{ $vuetify.t('$vuetify.TopicCreation.cancel') }}</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+          </v-card>
         </v-flex>
       </v-layout>
       <v-snackbar v-model="showSnackbar" :bottom="true">

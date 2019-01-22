@@ -2,37 +2,41 @@
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
       <v-layout row wrap justify-center align-center>
-        <!-- Default Idea Space -->
-        <v-flex d-flex xs12 sm3 pa-2>
-          <router-link :to="{ name: 'Ideas', params: { spaceSlug: 'school' } }">
-          <v-card>
-              <v-img
-                src="/static/img/school.png"
-                ></v-img>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{ $store.getters.schoolConfig.mainSpaceName }}</h3>
-              </div>
-            </v-card-title>
-          </v-card>
-          </router-link>
-        </v-flex>
+        <v-flex md8>
+          <v-layout row wrap justify-center align-center>
+            <!-- Default Idea Space -->
+            <v-flex d-flex xs12 sm4 pa-2>
+              <router-link :to="{ name: 'Ideas', params: { spaceSlug: 'school' } }">
+              <v-card>
+                  <v-img
+                    src="/static/img/school.png"
+                    ></v-img>
+                <v-card-title primary-title>
+                  <div>
+                    <h3 class="headline mb-0">{{ $store.getters.schoolConfig.mainSpaceName }}</h3>
+                  </div>
+                </v-card-title>
+              </v-card>
+              </router-link>
+            </v-flex>
 
-        <v-flex d-flex xs12 sm3 pa-2 v-for="space in idea_space" :key="space.id">
-          <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }">
-          <v-card >
-              <v-img
-                src="/static/img/room1.png"
-                ></v-img>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">{{ space.title }}</h3>
-              </div>
-            </v-card-title>
-          </v-card>
-          </router-link>
-        </v-flex>
+            <v-flex d-flex xs12 sm4 pa-2 v-for="space in idea_space" :key="space.id">
+              <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }">
+              <v-card >
+                  <v-img
+                    src="/static/img/room1.png"
+                    ></v-img>
+                <v-card-title primary-title>
+                  <div>
+                    <h3 class="headline mb-0">{{ space.title }}</h3>
+                  </div>
+                </v-card-title>
+              </v-card>
+              </router-link>
+            </v-flex>
 
+          </v-layout>
+        </v-flex>
       </v-layout>
     </v-slide-y-transition>
   </v-container>

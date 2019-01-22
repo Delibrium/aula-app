@@ -1,54 +1,58 @@
 <template>
   <v-container pa-0 v-if="topic != null">
-    <v-layout row wrap>
-      <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
-        <v-breadcrumbs>
-          <v-breadcrumbs-item href="/">
-            Aula
-          </v-breadcrumbs-item>
-          <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
-            {{ topic.idea_space.title }}
-          </v-breadcrumbs-item>
-          <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
-            {{ topic.title }}
-          </v-breadcrumbs-item>
-          <v-icon slot="divider">arrow_forward</v-icon>
-        </v-breadcrumbs>
-      </v-flex>
+    <v-layout row wrap justify-center align-center>
+      <v-flex md8>
+        <v-layout row wrap>
+          <v-flex text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
+            <v-breadcrumbs>
+              <v-breadcrumbs-item href="/">
+                Aula
+              </v-breadcrumbs-item>
+              <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
+                {{ topic.idea_space.title }}
+              </v-breadcrumbs-item>
+              <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
+                {{ topic.title }}
+              </v-breadcrumbs-item>
+              <v-icon slot="divider">arrow_forward</v-icon>
+            </v-breadcrumbs>
+          </v-flex>
 
-      <PhaseBanner :topic="this.topic"/>
+          <PhaseBanner :topic="this.topic"/>
 
-      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === false">
-        <v-icon small>timer</v-icon>
-        {{ $vuetify.t('$vuetify.Topic.phaseTimeLeft', timeLeft) }}
-      </v-flex>
+          <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === false">
+            <v-icon small>timer</v-icon>
+            {{ $vuetify.t('$vuetify.Topic.phaseTimeLeft', timeLeft) }}
+          </v-flex>
 
-      <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === true">
-        <v-icon small>check</v-icon>
-        {{ $vuetify.t('$vuetify.Topic.phaseComplete') }}
-      </v-flex>
+          <v-flex xs12 class="phase-notification boldfont" px-3 py-1 v-if="phaseComplete === true">
+            <v-icon small>check</v-icon>
+            {{ $vuetify.t('$vuetify.Topic.phaseComplete') }}
+          </v-flex>
 
-      <v-flex xs12 class="topic-wrapper" :class="topicPhaseClass">
-        <v-container px-0 pb-3 my-4>
-          <v-layout row wrap class="topic">
-            <v-flex raised sm8 offset-sm2 px-4 py-4>
-              <h1>{{ topic.title }}</h1>
-              <p>{{ topic.description }}</p>
-              <v-btn small
-                v-if="mayEditTopic"
-                :to="{
-                  name: 'TopicEdit',
-                  topicId: this.topicId,
-                  spaceSlug: this.spaceSlug
-                }">
-                {{ $vuetify.t('$vuetify.Topic.edit') }}
-              </v-btn>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-flex>
-      <v-flex>
-        <IdeaListing :ideas="ideas" :topic="topic"/>
+          <v-flex xs12 class="topic-wrapper" :class="topicPhaseClass">
+            <v-container px-0 pb-3 my-4>
+              <v-layout row wrap class="topic">
+                <v-flex raised sm8 offset-sm2 px-4 py-4>
+                  <h1>{{ topic.title }}</h1>
+                  <p>{{ topic.description }}</p>
+                  <v-btn small
+                    v-if="mayEditTopic"
+                    :to="{
+                      name: 'TopicEdit',
+                      topicId: this.topicId,
+                      spaceSlug: this.spaceSlug
+                    }">
+                    {{ $vuetify.t('$vuetify.Topic.edit') }}
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-flex>
+          <v-flex>
+            <IdeaListing :ideas="ideas" :topic="topic"/>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>

@@ -22,6 +22,14 @@ export function getIdeas (topicId) {
   return service.get('/idea', { params })
 }
 
+export function getIdeasCount (topicId) {
+  const params = {
+    topic: `eq.${topicId}`,
+    select: 'count'
+  }
+  return service.get('/idea', { params })
+}
+
 export function createOrUpdate (topic, ideaIds) {
   const config = {
     headers: {
