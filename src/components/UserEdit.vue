@@ -10,6 +10,33 @@
             required
           ></v-text-field>
         </v-flex>
+        <v-flex d-flex xs12 sm12>
+          <v-text-field
+            name="old_password"
+            type="password"
+            v-model="userForm.old_password"
+            :label="this.$vuetify.t('$vuetify.UserSettings.currentPassword')"
+            required
+          ></v-text-field>
+        </v-flex>
+         <v-flex d-flex xs12 sm12>
+          <v-text-field
+            name="new_password"
+            v-model="userForm.new_password"
+            type="password"
+            :label="this.$vuetify.t('$vuetify.UserSettings.newPassword')"
+            required
+          ></v-text-field>
+        </v-flex>
+         <v-flex d-flex xs12 sm12>
+          <v-text-field
+            name="new_password_confirm"
+            v-model="userForm.new_password_confirm"
+            type="password"
+            :label="this.$vuetify.t('$vuetify.UserSettings.newPasswordConfirm')"
+            required
+          ></v-text-field>
+        </v-flex>
         <v-flex d-flex xs12 m2>
           <v-btn @click="saveUserChanges">Save</v-btn>
         </v-flex>
@@ -47,6 +74,8 @@ export default {
   methods: {
     saveUserChanges: function () {
       api.user.updateEmail(this.$store.getters.user.profile.id, this.userForm.email)
+      // TODO: Validate with new password is correctly typed
+      api.user.updatePassword(this.$store.getters.user.profile.id, this.userForm.old_password, this.userForm.new_password)
     }
   }
 }

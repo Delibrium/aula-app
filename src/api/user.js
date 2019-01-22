@@ -63,6 +63,15 @@ function update (user) {
   return service.post('/rpc/update_user', user, config)
 }
 
+function updatePassword (userId, oldPassword, newPassword) {
+  const data = {
+    user_id: userId,
+    old_password: oldPassword,
+    new_password: newPassword
+  }
+  return service.post('/rpc/change_password', data)
+}
+
 function updateProfilePicture (userId, userPicture) {
   const params = {
     id: `eq.${userId}`
@@ -91,5 +100,6 @@ export default {
   remove,
   getListing,
   updateProfilePicture,
-  updateEmail
+  updateEmail,
+  updatePassword
 }

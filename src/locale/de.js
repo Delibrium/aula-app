@@ -169,9 +169,9 @@ export default {
   UserSettings: {
     'email': 'E-mailadresse (optional)',
     'change.password': 'Passwort ändern',
-    'current.password': 'aktuelles Passwort',
-    'new.password': 'neues Passwort',
-    'new.password.confirm': 'neues Passwort bestätigen',
+    'currentPassword': 'aktuelles Passwort',
+    'newPassword': 'neues Passwort',
+    'newPasswordConfirm': 'neues Passwort bestätigen',
     'save': 'Änderungen speichern'
   },
   Form: {
