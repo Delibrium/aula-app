@@ -1,12 +1,12 @@
 <template>
   <v-container pa-0 v-if="topic != null">
     <v-layout row wrap justify-center align-center>
-      <v-flex md8>
+      <v-flex md10>
         <v-layout row wrap>
           <v-flex text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
             <v-breadcrumbs>
               <v-breadcrumbs-item href="/">
-                Aula
+                aula
               </v-breadcrumbs-item>
               <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">
                 {{ topic.idea_space.title }}
@@ -154,6 +154,9 @@ export default {
       api.topic.get(this.topicId)
         .then((res) => {
           this.topic = res.data[0]
+          if (!this.topic.idea_space) {
+            this.topic.idea_space = {'title': this.$store.getters.schoolConfig.mainSpaceName}
+          }
           this.topic.meta = { editTopicsStarted: new Date() }
         })
     },

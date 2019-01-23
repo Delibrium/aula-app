@@ -65,10 +65,14 @@ export function assignIdeas (topicId, ideaIds) {
   })
 }
 
-export function getTopics (schoolId, ideaSpaceId) {
+export function getTopics (schoolId, ideaSpaceId = null) {
   var queryParams = {
-    school_id: `eq.${schoolId}`,
-    idea_space: `eq.${ideaSpaceId}`
+    school_id: `eq.${schoolId}`
+  }
+  if (ideaSpaceId === null) {
+    queryParams['idea_space'] = `is.null`
+  } else {
+    queryParams['idea_space'] = `eq.${ideaSpaceId}`
   }
   return service.get('/topic', { params: queryParams })
 }

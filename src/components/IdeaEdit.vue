@@ -7,7 +7,7 @@
             <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
               <v-breadcrumbs>
                 <v-breadcrumbs-item href="/">
-                  Aula
+                  aula
                 </v-breadcrumbs-item>
                 <v-breadcrumbs-item :href="'#/space/' + spaceSlug ">
                   {{ spaceName }}

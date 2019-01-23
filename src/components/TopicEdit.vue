@@ -150,11 +150,15 @@ export default {
 
   beforeMount: function () {
     if (!this.spaceId) {
-      spaceApi.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-        .then((res) => {
-          this.spaceId = res.data[0].id
-          this.getIdeas(this.$store.getters.selected_school, this.spaceId)
-        })
+      if (this.$route.params['spaceSlug'] !== 'school') {
+        spaceApi.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+          .then((res) => {
+            this.spaceId = res.data[0].id
+            this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+          })
+      } else {
+        this.getIdeas(this.$store.getters.selected_school)
+      }
     } else {
       this.getIdeas(this.$store.getters.selected_school, this.spaceId)
     }
@@ -169,7 +173,11 @@ export default {
 
   methods: {
     getIdeas: function (schoolId, spaceId) {
-      spaceApi.getIdeas(schoolId, spaceId).then((res) => {
+      var queryId
+      if (spaceId) {
+        queryId = spaceId
+      }
+      spaceApi.getIdeas(schoolId, queryId).then((res) => {
         this.ideas = this.ideas.concat(res.data)
       })
     },
@@ -192,10 +200,10 @@ export default {
       const spaceSlug = this.$route.params['spaceSlug']
       topicApi.assignIdeas(topicId, this.selected)
         .then(res => {
+          console.log('ASSIGN IDEAS', res)
           if (res == null || res.status < 400) {
-            const newId = res.data[0].id
             this.$router.push(
-              { name: 'Topic', params: { spaceSlug, topicId: newId } }
+              { name: 'Topic', params: { spaceSlug: spaceSlug, topicId: topicId } }
             )
           } else {
             this.showSnackbar = true

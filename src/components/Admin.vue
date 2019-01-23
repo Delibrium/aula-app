@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
       <v-layout wrap align-center justify-center>
-        <v-flex d-flex md8 xs12 sm12 pa-2 align-content-center justify-center>
+        <v-flex d-flex md10 xs12 sm12 pa-2 align-content-center justify-center>
           <v-card>
             <v-card-text>
               <v-layout row wrap align-center>

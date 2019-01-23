@@ -4,7 +4,7 @@ export function getIdeaSpaces (schoolId) {
   return service.get('/idea_space', {params: {school_id: `eq.${schoolId}`}})
 }
 
-export function getIdeas (schoolId, ideaSpaceId, topic) {
+export function getIdeas (schoolId, ideaSpaceId = null, topic) {
   var queryParams = {
     school_id: `eq.${schoolId}`,
     select: '*,' +
@@ -71,8 +71,12 @@ export function createIdea (idea) {
 export function getTopics (schoolId, ideaSpaceId) {
   var queryParams = {
     school_id: `eq.${schoolId}`,
-    idea_space: `eq.${ideaSpaceId}`,
     select: '*,idea(count)'
+  }
+  if (ideaSpaceId !== null) {
+    queryParams['idea_space'] = `eq.${ideaSpaceId}`
+  } else {
+    queryParams['idea_space'] = `is.null`
   }
   return service.get('/topic', {params: queryParams})
 }

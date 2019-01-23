@@ -13,7 +13,7 @@
       </v-btn-toggle>
     </h3>
 
-    <v-btn @click="editingComment = true"> Vorschag Hinzufügen </v-btn>
+    <v-btn @click="editingComment = true"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
 
     <v-card class='newCommentForm' v-if="!disabled && editingComment">
       <v-form>

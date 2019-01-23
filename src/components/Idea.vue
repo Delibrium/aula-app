@@ -1,7 +1,7 @@
 <template>
     <v-container  pa-0>
-      <v-layout row wrap align-center>
-        <v-flex md8 xs12 offset-md2 class="idea-banner" color="primary">
+      <v-layout row wrap justify-center align-center>
+        <v-flex md10 xs12 class="idea-banner" color="primary">
           <v-card class="idea">
             <v-card-text>
               <v-layout row wrap align-center>
@@ -56,7 +56,7 @@
               </v-flex>
               <v-flex>
                 <v-layout align-content-center justify-space-around>
-                  <v-flex md4 align-center>
+                  <v-flex md4 align-center v-if="idea.topic">
                     <v-btn-toggle v-model="voteValue" @change="voteChanged">
                       <v-btn primary>
                         <v-icon left>thumb_up</v-icon>Dafür
@@ -73,7 +73,7 @@
             </v-card-text>
           </v-card>
           </v-flex>
-          <v-flex md8 offset-md2 xs12 offset-md2 color="primary">
+          <v-flex md10 xs12 color="primary">
 
           <Comments :disabled="!allowCommenting"/>
 

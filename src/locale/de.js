@@ -70,7 +70,7 @@ export default {
     'ask.on.no.ideas.search.results': 'Erstelle Deine eigene Idee!'
   },
   IdeaListing: {
-    'sortByAge': 'Alter',
+    'sortByAge': 'Datum',
     'sortBySupporters': 'Unterstützung',
     'sortByName': 'Alphabetisch',
     'sortByRandom': 'Zufällig',
@@ -201,7 +201,8 @@ export default {
     'reset': 'Zurücksetzen',
     'cancel': 'Abbrechen',
     'snackbarCreated': 'Verbesserungsvorschlag veröffentlicht',
-    'disabled': 'In dieser Phase können keine Verbesserungsvorschläge mehr eingereicht werden.'
+    'disabled': 'In dieser Phase können keine Verbesserungsvorschläge mehr eingereicht werden.',
+    'add': 'Vorschlag hinzufügen'
   },
   Idea: {
     'authorCreated': 'von {0} am {1}',

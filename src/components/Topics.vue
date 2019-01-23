@@ -1,12 +1,12 @@
 <template>
   <v-container pa-0>
       <v-layout row wrap align-center>
-        <v-flex xs12 offset-md2 md8>
+        <v-flex xs12 offset-md1 md10>
           <v-layout row wrap align-center>
             <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
               <v-breadcrumbs>
                 <v-breadcrumbs-item href="/">
-                  Aula
+                  aula
                 </v-breadcrumbs-item>
                 <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
                   [Space Name] Themenraum
@@ -90,12 +90,18 @@ export default {
   },
 
   beforeMount: function () {
+    console.log(this.spaceId)
     if (!this.spaceId) {
-      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-        .then((res) => {
-          this.spaceId = res.data[0].id
-          this.getTopics(this.$store.getters.selected_school, this.spaceId)
-        })
+      if (this.$route.params['spaceSlug'] !== 'school') {
+        api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+          .then((res) => {
+            this.spaceId = res.data[0].id
+            this.getTopics(this.$store.getters.selected_school, this.spaceId)
+          })
+      } else {
+        console.log('get school topic')
+        this.getTopics(this.$store.getters.selected_school)
+      }
     } else {
       this.getTopics(this.$store.getters.selected_school, this.spaceId)
     }
@@ -105,7 +111,7 @@ export default {
     userMayCreateTopics: function () {
       return isUserMemberOf(['admin', 'school_admin', 'principal'])
     },
-    getTopics: function (schoolId, spaceId) {
+    getTopics: function (schoolId, spaceId = null) {
       const phaseOrder = {
         'edit_topics': 1,
         'feasibility': 2,
@@ -116,14 +122,13 @@ export default {
         if (phaseOrder[a.phase] === phaseOrder[b.phase]) return 0
         return phaseOrder[a.phase] < phaseOrder[b.phase] ? 1 : -1
       }
+      console.log(spaceId)
       return api.getTopics(schoolId, spaceId)
         .then(res => {
           res.data.sort(byPhase)
           this.topics = res.data
-          console.log(this.topics)
           var ps = []
           this.topics.forEach(topic => {
-            console.log(topic)
             this.topicsCount[topic.id] = 0
             ps.push(apiTopic.getIdeasCount(topic.id).then((res) => {
               this.topicsCount[topic.id] = res.data[0]['count']
