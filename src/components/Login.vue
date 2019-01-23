@@ -119,6 +119,9 @@ export default {
             .then((res) => {
               this.$store.commit('SET_USER', res.data.data)
               this.$auth.user(res.data.data)
+              api.school.getConfig(res.data.data.user_id).then(res => {
+                this.$store.commit('SET_SCHOOL_CONFIG', res.data)
+              })
             })
             .catch((error) => {
               if (error.response && error.response.status === 401) {
