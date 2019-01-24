@@ -55,14 +55,21 @@
                   </div>
               </v-flex>
               <v-flex>
-                <v-layout align-content-center justify-space-around>
-                  <v-flex md4 align-center v-if="idea.topic">
+                <v-layout align-center justify-center>
+                  <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic">
                     <v-btn-toggle v-model="voteValue" @change="voteChanged">
                       <v-btn primary>
                         <v-icon left>thumb_up</v-icon>Dafür
                       </v-btn>
                       <v-btn primary>
                         <v-icon left>thumb_down</v-icon>Dagegen
+                      </v-btn>
+                    </v-btn-toggle>
+                  </v-flex>
+                  <v-flex md4 align-center text-xs-center text-md-center v-else>
+                    <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                      <v-btn primary>
+                        <v-icon left>thumb_up</v-icon>Unterstützten
                       </v-btn>
                     </v-btn-toggle>
                   </v-flex>
