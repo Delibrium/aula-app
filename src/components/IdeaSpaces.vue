@@ -1,6 +1,5 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-slide-y-transition mode="out-in">
       <v-layout row wrap justify-center align-center>
         <v-flex md8>
           <v-layout row wrap justify-center align-center>
@@ -38,7 +37,6 @@
           </v-layout>
         </v-flex>
       </v-layout>
-    </v-slide-y-transition>
   </v-container>
 </template>
 

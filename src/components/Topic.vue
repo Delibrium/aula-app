@@ -23,7 +23,7 @@
 
           <v-flex text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
             <v-breadcrumbs>
-              <v-breadcrumbs-item href="/">
+              <v-breadcrumbs-item href="#/">
                 aula
               </v-breadcrumbs-item>
               <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics'">

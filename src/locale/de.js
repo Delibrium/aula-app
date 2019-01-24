@@ -207,6 +207,8 @@ export default {
     'add': 'Vorschlag hinzufügen'
   },
   Idea: {
+    'idea': 'Idee',
+    'wildIdeas': 'Wilde Ideen',
     'authorCreated': 'von {0} am {1}',
     'votes.pro': '{0} Quorum-Stimmen',
     'suggestion': 'Verbesserungsvorschlag',

@@ -1,9 +1,13 @@
 import service from '@/api/service'
 
-function getIdea (ideaId) {
+function getIdea (ideaId, getIdeaSpace = false) {
+  var ideaSpaceQuery = 'idea_space'
+  if (getIdeaSpace) {
+    ideaSpaceQuery = 'idea_space(id,title)'
+  }
   const params = {
     id: 'eq.' + ideaId,
-    select: 'id,title,description,idea_space,created_by(id,first_name),created_at,category(id,name),topic(id,title,phase)'
+    select: `id,title,description,${ideaSpaceQuery},created_by(id,first_name),created_at,category(id,name),topic(id,title,phase)`
   }
   return service.get('/idea', { params })
 }

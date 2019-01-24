@@ -1,19 +1,12 @@
 <template>
   <v-slide-y-transition mode="out-in">
-    <v-container fluid grid-list-md>
-      <v-layout row wrap align-center>
-        <v-flex md8 offset-md2 xs12>
+    <v-container pa-0 fluid grid-list-md>
+      <v-layout row wrap align-center justify-center>
+        <v-flex md10 xs12>
+           <Breadcrumbs :items="breadcrumbs"/>
+        </v-flex>
+        <v-flex md10 xs12>
           <v-layout row wrap align-center>
-            <v-flex md12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
-              <v-breadcrumbs>
-                <v-breadcrumbs-item href="/">
-                  aula
-                </v-breadcrumbs-item>
-                <v-breadcrumbs-item :href="'#/space/' + spaceSlug ">
-                  {{ spaceName }}
-                </v-breadcrumbs-item>
-              </v-breadcrumbs>
-            </v-flex>
             <v-flex>
               <v-card>
                 <v-card-text>
@@ -82,28 +75,33 @@
 <script>
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export default {
   $_veeValidate: { validator: 'new' },
 
   name: 'IdeaEdit',
-  data: () => ({
-    title: '',
-    description: '',
-    tab: 0,
-    showSnackbar: false,
-    snackbarMsg: '',
-    topic: null,
-    spaceName: '',
-    dictionary: {
-      custom: {
-        title: {
-          required: 'Bitte beschreibe hier deine Idee kurz',
-          max: 'Das ist zu lang! Gib hier nur eine kurze Beschreibung deiner Idee ein.'
+  components: { Breadcrumbs },
+  data: function () {
+    return {
+      title: '',
+      description: '',
+      tab: 0,
+      showSnackbar: false,
+      snackbarMsg: '',
+      topic: null,
+      breadcrumbs: [],
+      spaceName: this.$store.getters.schoolConfig.mainSpaceName,
+      dictionary: {
+        custom: {
+          title: {
+            required: 'Bitte beschreibe hier deine Idee kurz',
+            max: 'Das ist zu lang! Gib hier nur eine kurze Beschreibung deiner Idee ein.'
+          }
         }
       }
     }
-  }),
+  },
 
   computed: {
     topicId: function () {
@@ -128,11 +126,17 @@ export default {
           this.topic = res.data[0]
         })
     }
-    api.ideaSpace.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-      .then((res) => {
-        this.spaceId = res.data[0].id
-        this.spaceName = res.data[0].title
-      })
+
+    if (this.$route.params['spaceSlug'] !== 'school') {
+      api.ideaSpace.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+        .then((res) => {
+          this.spaceId = res.data[0].id
+          this.spaceName = res.data[0].title
+          this.setBreadcrumbs()
+        })
+    }
+
+    this.setBreadcrumbs()
   },
 
   mounted () {
@@ -140,6 +144,31 @@ export default {
   },
 
   methods: {
+    setBreadcrumbs: function () {
+      var ideaPlaceRoute
+
+      ideaPlaceRoute = {
+        title: `[${this.spaceName}] Wilde ideen`,
+        to: {
+          name: 'Ideas',
+          params: {
+            spaceSlug: this.$route.params['spaceSlug']
+          }
+        }
+      }
+
+      this.breadcrumbs = [
+        { title: 'aula',
+          to: '/'
+        },
+        ideaPlaceRoute,
+        {
+          title: this.$vuetify.t('$vuetify.Space.newIdea'),
+          to: this.$route.path
+        }
+      ]
+    },
+
     submitIdea: function () {
       this.$validator.validate()
         .then(isFormValid => {

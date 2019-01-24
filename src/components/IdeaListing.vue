@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap grid-list-md>
+  <v-layout row wrap grid-list-md justify-center>
     <v-flex sm12 mb-0 pa-0>
       <v-tabs v-model="orderBy" show-arrows class="boldfont">
         <v-icon class='tab-icon'>swap_vert</v-icon>
@@ -24,7 +24,7 @@
       </v-card>
     </v-flex>
 
-    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md6 lg4 pa-2>
+    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md12 lg12 pa-2>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
           <h3>{{ idea.title }}</h3>

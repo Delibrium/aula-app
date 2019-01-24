@@ -1,6 +1,9 @@
 <template>
     <v-container  pa-0>
       <v-layout row wrap justify-center align-center>
+        <v-flex md10 xs12>
+           <Breadcrumbs :items="breadcrumbs"/>
+        </v-flex>
         <v-flex md10 xs12 class="idea-banner" color="primary">
           <v-card class="idea">
             <v-card-text>
@@ -107,16 +110,19 @@
 
 import ideaApi from '@/api/idea'
 import Comments from '@/components/Comments'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export default {
   name: 'Idea',
-  components: { Comments },
+  components: { Comments, Breadcrumbs },
   data: () => ({
     idea: {},
+    ideaSpace: null,
     quorum: null,
     comments: null,
     votes: null,
-    voteValue: null
+    voteValue: null,
+    breadcrumbs: []
   }),
 
   beforeMount: function () {
@@ -150,10 +156,52 @@ export default {
 
   methods: {
     getIdea: function () {
-      ideaApi.getIdea(this.$route.params['ideaId']).then(res => {
+      ideaApi.getIdea(this.$route.params['ideaId'], true).then(res => {
         this.idea = res.data[0]
         this.getQuorumInfo()
         this.getVotes()
+
+        var ideaPlaceRoute = {}
+        if (this.idea.topic) {
+          ideaPlaceRoute = {
+            title: `${this.getPhaseName()} für Thema ${this.idea.topic.title}`,
+            to: {
+              name: 'Topic',
+              params: {
+                spaceSlug: this.$route.params['spaceSlug'],
+                topicId: this.idea.topic.id
+              }
+            }
+          }
+        } else {
+          var ideaSpaceTitle = ''
+          if (this.idea.idea_space !== null) {
+            ideaSpaceTitle = `[${this.idea.idea_space.title}]`
+          } else {
+            ideaSpaceTitle = `[${this.$store.getters.schoolConfig.mainSpaceName}]`
+          }
+
+          ideaPlaceRoute = {
+            title: `${ideaSpaceTitle} ${this.$vuetify.t('$vuetify.Idea.wildIdeas')}`,
+            to: {
+              name: 'Ideas',
+              params: {
+                spaceSlug: this.$route.params['spaceSlug']
+              }
+            }
+          }
+        }
+
+        this.breadcrumbs = [
+          { title: 'aula',
+            to: '/'
+          },
+          ideaPlaceRoute,
+          {
+            title: this.$vuetify.t('$vuetify.Idea.idea'),
+            to: this.$route.path
+          }
+        ]
       })
     },
     getPhaseName: function () {
@@ -164,9 +212,13 @@ export default {
       }
     },
     getQuorumInfo: function () {
+      var ideaSpaceId
+      if (this.idea.idea_space !== null) {
+        ideaSpaceId = this.idea.idea_space.id
+      }
       ideaApi.getQuorumInfo(
         this.$store.getters.selected_school,
-        this.idea.idea_space
+        ideaSpaceId
       ).then(resp => {
         this.quorum = resp.data
       })
