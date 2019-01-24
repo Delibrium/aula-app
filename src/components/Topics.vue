@@ -5,11 +5,11 @@
           <v-layout row wrap align-center>
             <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
               <v-breadcrumbs>
-                <v-breadcrumbs-item href="/">
+                <v-breadcrumbs-item href="#/">
                   aula
                 </v-breadcrumbs-item>
                 <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
-                  [Space Name] Themenraum
+                  [{{ spaceName }}] Themenraum
                 </v-breadcrumbs-item>
                 <v-icon slot="divider">arrow_forward</v-icon>
               </v-breadcrumbs>
@@ -79,7 +79,8 @@ export default {
       tab: 1,
       topics: [],
       topicsCount: {},
-      spaceId: this.$route.params['spaceId']
+      spaceId: this.$route.params['spaceId'],
+      spaceName: ''
     }
   },
 
@@ -90,16 +91,16 @@ export default {
   },
 
   beforeMount: function () {
-    console.log(this.spaceId)
     if (!this.spaceId) {
       if (this.$route.params['spaceSlug'] !== 'school') {
         api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
           .then((res) => {
             this.spaceId = res.data[0].id
+            this.spaceName = res.data[0].title
             this.getTopics(this.$store.getters.selected_school, this.spaceId)
           })
       } else {
-        console.log('get school topic')
+        this.spaceName = this.$store.getters.schoolConfig.mainSpaceName
         this.getTopics(this.$store.getters.selected_school)
       }
     } else {
@@ -122,7 +123,6 @@ export default {
         if (phaseOrder[a.phase] === phaseOrder[b.phase]) return 0
         return phaseOrder[a.phase] < phaseOrder[b.phase] ? 1 : -1
       }
-      console.log(spaceId)
       return api.getTopics(schoolId, spaceId)
         .then(res => {
           res.data.sort(byPhase)
@@ -152,7 +152,6 @@ export default {
       }
     },
     openTopic: function (topic) {
-      console.log(topic.id)
       this.$router.push({
         name: 'Topic',
         params: {

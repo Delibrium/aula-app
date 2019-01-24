@@ -299,7 +299,7 @@ export default {
 
       // Try prepending characters from the first name to the last name
       // until a unique username is generated
-      for (let i = 1; i < firstName.length; i++) {
+      for (let i = (firstName.length >= 3) ? 3 : 0; i < firstName.length; i++) {
         candidate = (firstName.slice(0, i) + lastName).toLowerCase()
         if (!this.allUsernames.includes(candidate)) return candidate
       }

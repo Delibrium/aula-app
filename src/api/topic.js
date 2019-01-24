@@ -65,6 +65,14 @@ export function assignIdeas (topicId, ideaIds) {
   })
 }
 
+export function deleteTopic (schoolId, topicId) {
+  const params = {
+    school_id: `eq.${schoolId}`,
+    id: `eq.${topicId}`
+  }
+  return service.delete('/topic', { params })
+}
+
 export function getTopics (schoolId, ideaSpaceId = null) {
   var queryParams = {
     school_id: `eq.${schoolId}`

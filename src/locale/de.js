@@ -98,7 +98,7 @@ export default {
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',
-    'delete.topic': 'Thema Löschen',
+    'delete': 'Thema Löschen',
     'advance.topic.phase': 'Nächste Phase',
     'back.topic.phase': 'Vorherige Phase',
     'to.topic.list': 'Zu Allen Themen',
@@ -175,7 +175,9 @@ export default {
     'save': 'Änderungen speichern'
   },
   Form: {
-    'save': 'Änderungen speichern'
+    'save': 'Änderungen speichern',
+    'delete': 'Löschen',
+    'cancel': 'Abbrechen'
   },
   IdeaCategories: {
     'rules': 'Regeln',

@@ -3,6 +3,24 @@
     <v-layout row wrap justify-center align-center>
       <v-flex md10>
         <v-layout row wrap>
+          <v-dialog
+            v-model="showDeleteTopic"
+            persistent
+            max-width="280"
+            >
+            <v-card>
+              <v-card-title class="headline">{{ $vuetify.t('$vuetify.Topic.delete') }}?</v-card-title>
+              <v-card-text>
+
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="green darken-1" flat @click="showDeleteTopic = false">{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
+                <v-btn color="red darken-1" flat @click="deleteTopic()">{{ $vuetify.t('$vuetify.Form.delete') }}</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
           <v-flex text-xs-left mt-1 pa-0 hidden-sm-and-down class='breadcrumbs'>
             <v-breadcrumbs>
               <v-breadcrumbs-item href="/">
@@ -34,6 +52,9 @@
             <v-container px-0 pb-3 my-4>
               <v-layout row wrap class="topic">
                 <v-flex raised sm8 offset-sm2 px-4 py-4>
+                  <span class="info-helper" v-if="mayEditTopic">
+                    <v-icon @click="showDeleteTopic = true">delete</v-icon>
+                  </span>
                   <h1>{{ topic.title }}</h1>
                   <p>{{ topic.description }}</p>
                   <v-btn small
@@ -61,6 +82,7 @@
 <script>
 
 import api from '@/api'
+import apiIdea from '@/api/idea'
 import IdeaListing from '@/components/IdeaListing'
 import PhaseBanner from '@/components/PhaseBanner'
 import { isUserMemberOf } from '../utils/permissions'
@@ -130,7 +152,8 @@ export default {
     return {
       tab: 1,
       topic: null,
-      ideas: []
+      ideas: [],
+      showDeleteTopic: false
     }
   },
 
@@ -148,6 +171,20 @@ export default {
     },
     openIdea: function (idea) {
       this.$router.push({ name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id } })
+    },
+    deleteTopic: function () {
+      const ideasId = this.ideas.map((i) => i.id)
+      if (ideasId.length > 0) {
+        apiIdea.updateIdeas(ideasId, { topic: null }).then(() => {
+          api.topic.deleteTopic(this.topic.school_id, this.topicId).then(() => {
+            this.$router.push({ name: 'Ideas', params: { spaceSlug: this.$route.params['spaceSlug'] } })
+          })
+        })
+      } else {
+        api.topic.deleteTopic(this.topic.school_id, this.topicId).then(() => {
+          this.$router.push({ name: 'Ideas', params: { spaceSlug: this.$route.params['spaceSlug'] } })
+        })
+      }
     },
 
     getTopic: function () {
@@ -184,6 +221,12 @@ h1 {
   background-color: white;
 }
 
+.info-helper {
+  width: 35px;
+  padding: 5px;
+  float: right;
+}
+
 .breadcrumbs {
   font-family: 'visionbold', Helvetica, Arial, sans-serif;
   background-color: white;
@@ -203,7 +246,6 @@ h1 {
 }
 
 .topic-wrapper {
-
   &.edit-topics {
     background: url('/static/img/01_Banner_Ausarbeitungsphase.svg');
   }

@@ -40,6 +40,17 @@ function getLikes (ideaId) {
   return service.get('/idea_like', { params })
 }
 
+function updateIdeas (ideaIds, newData) {
+  return service({
+    method: 'patch',
+    url: '/idea',
+    data: newData,
+    params: {
+      id: `in.(${ideaIds.join(',')})`
+    }
+  })
+}
+
 function deleteLike (userId, ideaId) {
   const params = {
     created_by: `eq.${userId}`,
@@ -72,6 +83,7 @@ function getQuorumInfo (schoolId, ideaSpaceId) {
 
 export default {
   getIdea,
+  updateIdeas,
   getVotes,
   postVote,
   patchVote,

@@ -5,10 +5,10 @@
         <v-layout row wrap align-center>
           <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
             <v-breadcrumbs>
-              <v-breadcrumbs-item href="#/">Aula</v-breadcrumbs-item>
+              <v-breadcrumbs-item href="#/">aula</v-breadcrumbs-item>
               <v-breadcrumbs-item
                 :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
-                                  >[{{ $store.getters.schoolConfig.mainSpaceName }}] Wilde ideen</v-breadcrumbs-item>
+                                  >[{{ spaceName}}] Wilde ideen</v-breadcrumbs-item>
               <v-icon slot="divider">arrow_forward</v-icon>
             </v-breadcrumbs>
           </v-flex>
@@ -66,21 +66,17 @@ export default {
   },
 
   beforeMount: function () {
-    if (!this.spaceId) {
-      var spaceSlug = this.$route.params['spaceSlug']
-      if (spaceSlug !== 'school') {
-        api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-          .then((res) => {
-            this.spaceId = res.data[0].id
-            this.spaceName = res.data[0].title
-            this.getIdeas(this.$store.getters.selected_school, this.spaceId)
-          })
-      } else {
-        this.spaceName = 'School'
-        this.getIdeas(this.$store.getters.selected_school)
-      }
+    var spaceSlug = this.$route.params['spaceSlug']
+    if (spaceSlug !== 'school') {
+      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+        .then((res) => {
+          this.spaceId = res.data[0].id
+          this.spaceName = res.data[0].title
+          this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+        })
     } else {
-      this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+      this.spaceName = this.$store.getters.schoolConfig.mainSpaceName
+      this.getIdeas(this.$store.getters.selected_school)
     }
   },
 
