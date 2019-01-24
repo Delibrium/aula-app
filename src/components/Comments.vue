@@ -15,51 +15,51 @@
 
     <v-btn @click="editingComment = true"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
 
-    <v-card class='newCommentForm' v-if="!disabled && editingComment">
-      <v-form>
-        <v-card-title v-if="editingId != null">
-          <h3>
-            {{ $vuetify.t('$vuetify.Comment.formTitleEdit') }}
-          </h3>
-        </v-card-title>
-        <v-card-title v-else>
-          <h3>
-            {{ $vuetify.t('$vuetify.Comment.formTitleCreate') }}
-          </h3>
-        </v-card-title>
+    <v-dialog v-model="editingComment" max-width="500">
+      <v-card class='newCommentForm' v-if="!disabled">
+        <v-form>
+          <v-card-title v-if="editingId != null">
+            <h3>
+              {{ $vuetify.t('$vuetify.Comment.formTitleEdit') }}
+            </h3>
+          </v-card-title>
+          <v-card-title v-else>
+            <h3>
+              {{ $vuetify.t('$vuetify.Comment.formTitleCreate') }}
+            </h3>
+          </v-card-title>
 
-        <v-card-text>
-          <p v-if="parentCommentId != null">
-            {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentCommentId) }}
-          </p>
-          <v-text-field
-            name='text'
-            v-model='text'
-            v-validate="'required'"
-            :error-messages="errors.collect('text')"
-            :label="this.$vuetify.t('$vuetify.Comment.formLabelTitle')"
-            required
-            >
-          </v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn flat @click="this.submit">
-            {{ $vuetify.t('$vuetify.Comment.submit') }}
-          </v-btn>
-          <v-btn flat @click="this.cancel" v-if="this.editingId == null">
-            {{ $vuetify.t('$vuetify.Comment.reset') }}
-          </v-btn>
-          <v-btn flat @click="this.cancel" v-else>
-            {{ $vuetify.t('$vuetify.Comment.cancel') }}
-          </v-btn>
-        </v-card-actions>
-      </v-form>
-    </v-card>
-    <p v-else>
-      <h1 v-if="disabled">
-      {{ $vuetify.t('$vuetify.Comment.disabled') }}
-      </h1>
-    </p>
+          <v-card-text>
+            <p v-if="parentCommentId != null">
+              {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentCommentId) }}
+            </p>
+            <v-text-field
+              name='text'
+              v-model='text'
+              v-validate="'required'"
+              :error-messages="errors.collect('text')"
+              :label="this.$vuetify.t('$vuetify.Comment.formLabelTitle')"
+              required
+              >
+            </v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn flat @click="this.submit">
+              {{ $vuetify.t('$vuetify.Comment.submit') }}
+            </v-btn>
+            <v-btn flat @click="this.cancel" v-if="this.editingId == null">
+              {{ $vuetify.t('$vuetify.Comment.reset') }}
+            </v-btn>
+            <v-btn flat @click="this.cancel" v-else>
+              {{ $vuetify.t('$vuetify.Comment.cancel') }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+        <h1 v-if="disabled">
+        {{ $vuetify.t('$vuetify.Comment.disabled') }}
+        </h1>
+    </v-dialog>
 
     <Comment
       class='commentTopLevel'
@@ -152,9 +152,11 @@ export default {
       })
     },
     setReply: function (commentId) {
+      this.editingComment = true
       this.parentCommentId = commentId
     },
     setEditing: function (commentId) {
+      this.editingComment = true
       const comment = this.comments.filter(c => c.id === commentId).shift()
       if (comment != null) {
         this.text = comment.text
@@ -262,6 +264,5 @@ export default {
     margin-bottom: 1em;
   }
   .newCommentForm {
-    margin-top: 2em;
   }
 </style>
