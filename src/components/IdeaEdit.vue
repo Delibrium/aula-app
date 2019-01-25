@@ -1,5 +1,4 @@
 <template>
-  <v-slide-y-transition mode="out-in">
     <v-container pa-0 fluid grid-list-md>
       <v-layout row wrap align-center justify-center>
         <v-flex md10 xs12>
@@ -10,12 +9,12 @@
             <v-flex>
               <v-card>
                 <v-card-text>
-                  <v-layout row wrap align-center>
-                    <v-flex md8 offset-md2 xs12>
+                  <v-layout row wrap align-center justify-center>
+                    <v-flex md10>
                       <h1 v-if="this.topic != null">{{ $vuetify.t('$vuetify.IdeaCreation.titleWithTopic', this.topic.title) }}</h1>
                       <h1 v-else>{{ $vuetify.t('$vuetify.IdeaCreation.title') }}</h1>
                     </v-flex>
-                    <v-flex md8 offset-md2 xs12>
+                    <v-flex md10 xs12>
                       <v-text-field
                         name="title"
                         :label="$vuetify.t('$vuetify.IdeaCreation.name')"
@@ -26,7 +25,7 @@
                         required
                       ></v-text-field>
                     </v-flex>
-                    <v-flex md8 offset-md2 xs12>
+                    <v-flex md10 xs12>
                       <v-textarea
                         name="suggestion"
                         :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
@@ -34,7 +33,10 @@
                         v-model="description"
                       ></v-textarea>
                     </v-flex>
-                    <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
+                    <v-flex md10 xs12>
+                      <CategorySelect @selectedCategory="selectCategory"/>
+                    </v-flex>
+                    <v-flex xs12 md8 pa-2 align-center justify-center text-md-center text-xs-center>
                       <v-alert error :value="!topicMayReceiveIdeas">
                         {{ $vuetify.t('$vuetify.Topic.cantCreateIdea') }}
                       </v-alert>
@@ -69,23 +71,24 @@
         >{{ $vuetify.t('$vuetify.Snackbar.close') }}</v-btn>
       </v-snackbar>
     </v-container>
-  </v-slide-y-transition>
 </template>
 
 <script>
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import CategorySelect from '@/components/CategorySelect'
 
 export default {
   $_veeValidate: { validator: 'new' },
 
   name: 'IdeaEdit',
-  components: { Breadcrumbs },
+  components: { Breadcrumbs, CategorySelect },
   data: function () {
     return {
       title: '',
       description: '',
+      category: null,
       tab: 0,
       showSnackbar: false,
       snackbarMsg: '',
@@ -144,6 +147,9 @@ export default {
   },
 
   methods: {
+    selectCategory: function (categoryId) {
+      this.category = categoryId
+    },
     setBreadcrumbs: function () {
       var ideaPlaceRoute
 
@@ -191,7 +197,8 @@ export default {
             school_id: this.$store.getters.selected_school,
             created_by: this.$store.getters.userId,
             changed_by: this.$store.getters.userId,
-            idea_space: this.$route.params['spaceId']
+            idea_space: this.$route.params['spaceId'],
+            category: this.category
           }
 
           if (this.topic != null) {

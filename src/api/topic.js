@@ -14,6 +14,7 @@ export function getIdeas (topicId) {
     topic: `eq.${topicId}`,
     select: '*,' +
       'created_by(id,first_name,last_name),' +
+      'category(name, image),' +
       'comment(created_at),' +
       'idea_vote(created_by,val),' +
       'idea_like(created_by),' +

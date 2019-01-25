@@ -17,7 +17,7 @@
       >
 
         <v-list-tile-avatar>
-          <img :src="category.icon">
+          <v-img :src="category.image"/>
         </v-list-tile-avatar>
 
         <v-list-tile-content>

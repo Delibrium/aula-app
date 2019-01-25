@@ -98,7 +98,8 @@
           </v-list>
 
           <v-flex text-xs-right pr-4 class="categories">
-            <img src="/static/img/svg/icon_regeln.svg">
+            <v-img v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
+            <img v-else src="/static/img/svg/icon_regeln.svg">
           </v-flex>
         </v-card-text>
       </v-card>
@@ -293,6 +294,10 @@ export default {
   .categories {
     padding-left: 10px;
     align-self: center;
+
+    .v-image {
+       float: right;
+    }
   }
 
   .suggestions {

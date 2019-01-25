@@ -8,6 +8,7 @@ export function getIdeas (schoolId, ideaSpaceId = null, topic) {
   var queryParams = {
     school_id: `eq.${schoolId}`,
     select: '*,' +
+      'category(id,name,image),' +
       'created_by(id,first_name,last_name),' +
       'comment(count),' +
       'idea_vote(created_by)'

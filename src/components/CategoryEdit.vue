@@ -26,15 +26,22 @@
           required
           >
         </v-text-field>
-        <v-avatar class='inlineinput' size='36'><img :src="formIconUrl" /></v-avatar>
-        <upload-btn
+        <!-- <v-avatar class='inlineinput' size='36'><img :src="formIconUrl" /></v-avatar> -->
+        <vue-base64-file-upload
+          accept="image/png,image/jpeg,image/svg"
+          image-class="upload-image-preview"
+          input-class="upload-image-input"
+          @file="onFile"
+          @load="onLoad" />
+
+        <!-- <upload-btn
           class='inlineinput'
           :title="this.$vuetify.t('$vuetify.AdminCategories.formPickIcon')"
           flat
           color="white"
           accept="image/*"
           :fileChangedCallback="handleIconSelected">
-        </upload-btn>
+        </upload-btn> -->
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" @click="this.submit" v-if="this.editingId == null">
@@ -70,7 +77,8 @@
 <script>
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
-import UploadButton from 'vuetify-upload-button'
+// import UploadButton from 'vuetify-upload-button'
+import VueBase64FileUpload from 'vue-base64-file-upload'
 
 export default {
   $_veeValidate: { validator: 'new' },
@@ -98,7 +106,7 @@ export default {
   },
 
   components: {
-    'upload-btn': UploadButton
+    VueBase64FileUpload
   },
 
   props: ['handleSuccess', 'handleCancel', 'category'],
@@ -119,6 +127,14 @@ export default {
   },
 
   methods: {
+    onFile: function (file) {
+      console.log(file) // file object
+    },
+
+    onLoad: function (dataUri) {
+      this.iconFile = dataUri
+    },
+
     cancel: function () {
       this.editingId = null
       this.name = ''
@@ -161,7 +177,8 @@ export default {
           const category = {
             school_id: this.$store.getters.selected_school,
             name: this.name,
-            description: this.description
+            description: this.description,
+            image: this.iconFile
           }
 
           if (this.iconChanged === true) {
@@ -199,11 +216,17 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .card {
     padding: 10px;
   }
   .inlineinput {
     display: inline-block;
+  }
+  .upload-image-input {
+     text-align: left;
+  }
+  .upload-image-preview {
+     max-width: 90px;
   }
 </style>
