@@ -4,7 +4,7 @@
         <v-flex md10 xs12>
            <Breadcrumbs :items="breadcrumbs"/>
         </v-flex>
-        <v-flex md10 xs12 class="idea-banner" color="primary" :class="{'md': $vuetify.breakpoint.mdAndUp, 'wild-idea-phase': !idea.topic }">
+        <v-flex md10 xs12 class="idea-banner" color="primary" :class="ideaPhaseClass">
           <v-layout column md10 xs12>
             <v-flex md10 xs10 pa-2>
               <h1 class="phase-title">{{ this.getPhaseName() }}</h1>
@@ -169,6 +169,17 @@ export default {
   },
 
   computed: {
+    ideaPhaseClass: function () {
+      return {
+        'md': this.$vuetify.breakpoint.mdAndUp,
+        'wild-idea-phase': !this.idea.topic,
+        'edit-topic': this.idea.topic && this.idea.topic.phase === 'edit_topics',
+        'feasibility': this.idea.topic && this.idea.topic.phase === 'feasibility',
+        'vote': this.idea.topic && this.idea.topic.phase === 'vote',
+        'finished': this.idea.topic && this.idea.topic.phase === 'finished'
+      }
+    },
+
     created: function () {
       return this.idea && this.idea.created_at && new Date(this.idea.created_at)
     },
@@ -329,6 +340,22 @@ export default {
 
     &.wild-idea-phase {
       background-color: #00c853;
+    }
+
+    &.edit-topic {
+      background-color: #8c9eff;
+    }
+
+    &.feasibility {
+      background-color: #536dfe;
+    }
+
+    &.vote {
+      background-color: #304ffe;
+    }
+
+    &.finished {
+      background-color: #1a237e;
     }
 
     &.md {
