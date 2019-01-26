@@ -246,6 +246,7 @@ h1 {
 }
 
 .topic-wrapper {
+  background-size: contain;
   &.edit-topics {
     background: url('/static/img/01_Banner_Ausarbeitungsphase.svg');
   }
