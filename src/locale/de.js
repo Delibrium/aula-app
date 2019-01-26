@@ -213,7 +213,7 @@ export default {
     'authorCreated': 'von <b>{0}</b>',
     'votes.pro': '{0} Quorum-Stimmen',
     'suggestion': 'Verbesserungsvorschlag',
-    'supporterCount': '{0} von {1} Unterstützern',
+    'supporterCount': '<span class="supportNum">{0}</span> von <span class="neededNum">{1}</span> Unterstützern',
     'create.topic': 'Thema anlegen',
     'on.table': 'Auf den Tisch!',
     'not.on.table': 'Docht nicht auf den Tisch?',

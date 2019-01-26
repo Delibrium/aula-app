@@ -32,26 +32,6 @@
                     <v-card-text>
                       <v-layout row wrap align-center>
                         <v-flex xs12 md12>
-                          <span>
-                            In
-                            <span v-if="this.idea.topic != null">
-                              {{ this.getPhaseName() }} für Thema
-                              <router-link
-                                :to="{
-                                  name: 'Topic',
-                                  params: {
-                                    spaceSlug: $route.params['spaceSlug'],
-                                    topicId: this.idea.topic.id
-                                  }
-                                }"
-                              >{{ idea.topic.title }}</router-link>
-                            </span>
-                            <span v-else>
-                              <router-link
-                                :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
-                              >{{ this.getPhaseName() }}</router-link>
-                            </span>
-                          </span>
                           <h1 v-if="idea">{{ idea.title }}</h1>
 
                           <!-- <p v-if="idea.created_by != null">
@@ -63,21 +43,21 @@
                             }}
                           </p> -->
 
-                          <p v-if="quorum != null && votes != null">
-                            {{ $vuetify.t('$vuetify.Idea.supporterCount',
-                            proVotes.length,
-                            quorum.requiredVoteCount
-                            ) }}
-                          </p>
 
                           <p>{{ idea.description }}</p>
 
-                          <p
-                            v-if="idea.category != null"
-                          >{{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}</p>
-                          <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
-
                           <div>
+                          <div v-if="quorum != null && votes != null" class="quorum-info">
+                            <div class="text" v-html="$vuetify.t('$vuetify.Idea.supporterCount', proVotes.length,
+                            quorum.requiredVoteCount
+                            )">
+                            </div>
+                            <div class="bar">
+                              <div class="votes" :style="{width: `${proVotesPercent}%`}"></div>
+                            </div>
+                          </div>
+
+
                           </div>
                       </v-flex>
                       <v-flex>
@@ -108,10 +88,31 @@
                 </v-flex>
                 <v-flex pl-4 hidden-xs-only>
                   <v-card>
-                    <v-card-title>
-                      <h2>{{ $vuetify.t('$vuetify.Topic.topic') }}</h2>
-                    </v-card-title>
-                    <v-card-text>
+                    <v-card-text class="thema-card-info">
+                      <h3>{{ $vuetify.t('$vuetify.Topic.topic') }}</h3>
+                      <p>
+                          <span>
+                            In
+                            <span v-if="this.idea.topic != null">
+                              {{ this.getPhaseName() }} für Thema
+                              <router-link
+                                :to="{
+                                  name: 'Topic',
+                                  params: {
+                                    spaceSlug: $route.params['spaceSlug'],
+                                    topicId: this.idea.topic.id
+                                  }
+                                }"
+                              >{{ idea.topic.title }}</router-link>
+                            </span>
+                            <span v-else>
+                              <router-link
+                                :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
+                              >{{ this.getPhaseName() }}</router-link>
+                            </span>
+                          </span>
+                      </p>
+
                       <h3>{{ $vuetify.t('$vuetify.Category.category') }} </h3>
                       <v-img v-if="idea.category" :src="idea.category.image" height="60" width="60"></v-img>
                       <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
@@ -169,6 +170,10 @@ export default {
   },
 
   computed: {
+    proVotesPercent: function () {
+      return 100.0 * this.proVotes.length / this.quorum.requiredVoteCount
+    },
+
     ideaPhaseClass: function () {
       return {
         'md': this.$vuetify.breakpoint.mdAndUp,
@@ -332,7 +337,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .idea-banner {
     padding-bottom: 25px;
     padding-left: 10px;
@@ -386,5 +391,44 @@ export default {
     p {
       margin-bottom: 0;
     }
+  }
+
+  .quorum-info {
+     background-color: #eee;
+     padding: 15px 20px;
+     border-radius: 4px;
+     margin-bottom: 20px;
+
+     .text {
+       .supportNum {
+         color: #00c853;
+       }
+       .neededNum {
+         color: #777;
+       }
+       margin-bottom: 15px;
+     }
+
+     .bar {
+        min-height: 20px;
+        background-color: #bdbdbd;
+        border-radius: 10px;
+
+        .votes {
+           background-color: #00c853;
+           border-radius: 10px;
+           min-height: 20px;
+           width: 50%;
+           transition: width 0.5s;
+        }
+     }
+  }
+
+  .thema-card-info {
+    h3 {
+      text-transform: uppercase;
+      color: #212121;
+    }
+
   }
 </style>
