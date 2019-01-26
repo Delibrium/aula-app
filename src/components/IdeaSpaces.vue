@@ -8,7 +8,8 @@
               <router-link :to="{ name: 'Ideas', params: { spaceSlug: 'school' } }">
               <v-card>
                   <v-img
-                    src="/static/img/school.png"
+                    src="/static/img/svg/Schule.svg"
+                    height="162"
                     ></v-img>
                 <v-card-title primary-title>
                   <div>
@@ -23,7 +24,8 @@
               <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }">
               <v-card >
                   <v-img
-                    src="/static/img/room1.png"
+                    :src="space.image"
+                    height="162"
                     ></v-img>
                 <v-card-title primary-title>
                   <div>

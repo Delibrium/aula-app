@@ -15,7 +15,7 @@
                   <v-card class="idea">
                     <v-card-title>
                       <v-layout row>
-                        <v-flex>
+                        <v-flex v-if="idea.created_by">
                           <v-avatar size="36px">
                             <v-img :src="idea.created_by.picture"/>
                           </v-avatar>

@@ -67,7 +67,7 @@
       </v-card>
     </div>
 
-    <ul v-if="directChildren.length > 0">
+    <ul v-if="directChildren.length > 0" :class="{parent: !comment}">
       <!-- Recursive insertion of child comments -->
       <Comment
         v-for="child in directChildren"
@@ -205,6 +205,8 @@
 }
 
 ul {
+  &.parent {
    padding-left: 0;
+  }
 }
 </style>
