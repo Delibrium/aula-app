@@ -4,86 +4,125 @@
         <v-flex md10 xs12>
            <Breadcrumbs :items="breadcrumbs"/>
         </v-flex>
-        <v-flex md10 xs12 class="idea-banner" color="primary">
-          <v-card class="idea">
-            <v-card-text>
-              <v-layout row wrap align-center>
-                <v-flex xs12 md12>
-                  <span>
-                    In
-                    <span v-if="this.idea.topic != null">
-                      {{ this.getPhaseName() }} für Thema
-                      <router-link
-                        :to="{
-                          name: 'Topic',
-                          params: {
-                            spaceSlug: $route.params['spaceSlug'],
-                            topicId: this.idea.topic.id
-                          }
-                        }"
-                      >{{ idea.topic.title }}</router-link>
-                    </span>
-                    <span v-else>
-                      <router-link
-                        :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
-                      >{{ this.getPhaseName() }}</router-link>
-                    </span>
-                  </span>
-                  <h1 v-if="idea">{{ idea.title }}</h1>
+        <v-flex md10 xs12 class="idea-banner" color="primary" :class="{'md': $vuetify.breakpoint.mdAndUp, 'wild-idea-phase': !idea.topic }">
+          <v-layout column md10 xs12>
+            <v-flex md10 xs10 pa-2>
+              <h1 class="phase-title">{{ this.getPhaseName() }}</h1>
+            </v-flex>
+            <v-flex md6>
+              <v-layout row>
+                <v-flex md8>
+                  <v-card class="idea">
+                    <v-card-title>
+                      <v-layout row>
+                        <v-flex>
+                          <v-avatar size="36px">
+                            <v-img :src="idea.created_by.picture"/>
+                          </v-avatar>
+                          <div class="author-info">
+                          <p v-if="idea.created_by != null" v-html="$vuetify.t('$vuetify.Idea.authorCreated', idea.created_by.first_name)">
+                          </p>
+                          <p>
+                          {{ created.toLocaleString() }}
+                          </p>
+                          </div>
+                        </v-flex>
+                      </v-layout>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-layout row wrap align-center>
+                        <v-flex xs12 md12>
+                          <span>
+                            In
+                            <span v-if="this.idea.topic != null">
+                              {{ this.getPhaseName() }} für Thema
+                              <router-link
+                                :to="{
+                                  name: 'Topic',
+                                  params: {
+                                    spaceSlug: $route.params['spaceSlug'],
+                                    topicId: this.idea.topic.id
+                                  }
+                                }"
+                              >{{ idea.topic.title }}</router-link>
+                            </span>
+                            <span v-else>
+                              <router-link
+                                :to="{ name: 'Ideas', params: { spaceSlug:$route.params['spaceSlug']} }"
+                              >{{ this.getPhaseName() }}</router-link>
+                            </span>
+                          </span>
+                          <h1 v-if="idea">{{ idea.title }}</h1>
 
-                  <p v-if="idea.created_by != null">
-                    {{
-                    $vuetify.t('$vuetify.Idea.authorCreated',
-                    idea.created_by.first_name,
-                    created.toLocaleString()
-                    )
-                    }}
-                  </p>
+                          <!-- <p v-if="idea.created_by != null">
+                            {{
+                            $vuetify.t('$vuetify.Idea.authorCreated',
+                            idea.created_by.first_name,
+                            created.toLocaleString()
+                            )
+                            }}
+                          </p> -->
 
-                  <p v-if="quorum != null && votes != null">
-                    {{ $vuetify.t('$vuetify.Idea.supporterCount',
-                    proVotes.length,
-                    quorum.requiredVoteCount
-                    ) }}
-                  </p>
+                          <p v-if="quorum != null && votes != null">
+                            {{ $vuetify.t('$vuetify.Idea.supporterCount',
+                            proVotes.length,
+                            quorum.requiredVoteCount
+                            ) }}
+                          </p>
 
-                  <p>{{ idea.description }}</p>
+                          <p>{{ idea.description }}</p>
 
-                  <p
-                    v-if="idea.category != null"
-                  >{{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}</p>
-                  <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
+                          <p
+                            v-if="idea.category != null"
+                          >{{ $vuetify.t('$vuetify.Idea.category', idea.category.name) }}</p>
+                          <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
 
-                  <div>
-                  </div>
-              </v-flex>
-              <v-flex>
-                <v-layout align-center justify-center>
-                  <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic">
-                    <v-btn-toggle v-model="voteValue" @change="voteChanged">
-                      <v-btn primary>
-                        <v-icon left>thumb_up</v-icon>Dafür
-                      </v-btn>
-                      <v-btn primary>
-                        <v-icon left>thumb_down</v-icon>Dagegen
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-flex>
-                  <v-flex md4 align-center text-xs-center text-md-center v-else>
-                    <v-btn-toggle v-model="voteValue" @change="voteChanged">
-                      <v-btn primary>
-                        <v-icon left>thumb_up</v-icon>Unterstützten
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
+                          <div>
+                          </div>
+                      </v-flex>
+                      <v-flex>
+                        <v-layout align-center justify-center>
+                          <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic">
+                            <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                              <v-btn primary>
+                                <v-icon left>thumb_up</v-icon>Dafür
+                              </v-btn>
+                              <v-btn primary>
+                                <v-icon left>thumb_down</v-icon>Dagegen
+                              </v-btn>
+                            </v-btn-toggle>
+                          </v-flex>
+                          <v-flex md4 align-center text-xs-center text-md-center v-else>
+                            <v-btn-toggle v-model="voteValue" @change="voteChanged">
+                              <v-btn primary class="support-idea white--text" color="#00c853">
+                                <v-icon left>thumb_up</v-icon>Unterstützten
+                              </v-btn>
+                            </v-btn-toggle>
+                          </v-flex>
+                        </v-layout>
+                      </v-flex>
 
+                      </v-layout>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex pl-4 hidden-xs-only>
+                  <v-card>
+                    <v-card-title>
+                      <h2>{{ $vuetify.t('$vuetify.Topic.topic') }}</h2>
+                    </v-card-title>
+                    <v-card-text>
+                      <h3>{{ $vuetify.t('$vuetify.Category.category') }} </h3>
+                      <v-img v-if="idea.category" :src="idea.category.image" height="60" width="60"></v-img>
+                      <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
               </v-layout>
-            </v-card-text>
-          </v-card>
+            </v-flex>
+          </v-layout>
           </v-flex>
-          <v-flex md10 xs12 color="primary">
+          <v-flex  md10 xs12 color="primary">
 
           <Comments :disabled="!allowCommenting"/>
 
@@ -284,9 +323,41 @@ export default {
 
 <style scoped lang="scss">
   .idea-banner {
-    background-color: #536dfe;
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &.wild-idea-phase {
+      background-color: #00c853;
+    }
+
+    &.md {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+  }
+  .phase-title {
+     color: white;
+     text-transform: uppercase;
+     font-size: 16px;
   }
   .idea {
-    padding: 20px;
+    .v-card__title {
+      border-bottom: 1px solid #eee;
+    }
+  }
+  .support-idea {
+    color: white;
+  }
+  .v-avatar {
+     float: left;
+  }
+  .author-info {
+    float: left;
+    padding-left: 20px;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 </style>

@@ -203,4 +203,8 @@
 .comment {
    margin-top: 10px;
 }
+
+ul {
+   padding-left: 0;
+}
 </style>

@@ -1,19 +1,26 @@
 <template>
-  <div class='comments'>
-    <h3 v-if="comments != null">
-      {{ $vuetify.t('$vuetify.Comment.title', comments.length) }}
+  <v-layout column class='comments'>
+    <v-flex md10 xs12 class="actions">
+      <h3 v-if="comments != null">
+        {{ $vuetify.t('$vuetify.Comment.title', comments.length) }}
 
-      <v-btn-toggle v-model="sortBy" @change="this.sortComments" mandatory>
-        <v-btn small>
-          {{ $vuetify.t('$vuetify.Comment.sortByNew') }}
-        </v-btn>
-        <v-btn small>
-          {{ $vuetify.t('$vuetify.Comment.sortByVotes') }}
-        </v-btn>
-      </v-btn-toggle>
-    </h3>
-
-    <v-btn @click="editingComment = true"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+        <v-btn-toggle v-model="sortBy" @change="this.sortComments" mandatory>
+          <v-btn small>
+            {{ $vuetify.t('$vuetify.Comment.sortByNew') }}
+          </v-btn>
+          <v-btn small>
+            {{ $vuetify.t('$vuetify.Comment.sortByVotes') }}
+          </v-btn>
+        </v-btn-toggle>
+      </h3>
+    </v-flex>
+    <v-flex md10 xs12>
+      <v-layout align-center justify-center>
+        <v-flex class="add-comment" md2 text-md-center text-xs-center>
+          <v-btn @click="editingComment = true" class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+        </v-flex>
+      </v-layout>
+    </v-flex>
 
     <v-dialog v-model="editingComment" max-width="500">
       <v-card class='newCommentForm' v-if="!disabled">
@@ -61,10 +68,12 @@
         </h1>
     </v-dialog>
 
+    <v-flex>
     <Comment
       class='commentTopLevel'
       :comments="comments"
     />
+    </v-flex>
 
 
     <v-snackbar
@@ -81,7 +90,7 @@
       </v-btn>
     </v-snackbar>
 
-  </div>
+  </v-layout>
 </template>
 
 <script>
@@ -256,13 +265,28 @@ export default {
   }
   .commentTopLevel {
     list-style: none;
+    ul {
+      padding-left: 0 !important;
+    }
   }
   .comments {
-    margin: 2em auto;
+    .actions {
+       background-color: white;
+       padding: 10px;
+       border-bottom: 1px solid #bdbdbd;
+
+       h3 {
+        text-align: center;
+       }
+    }
   }
   .comments > h3 {
     margin-bottom: 1em;
   }
   .newCommentForm {
+  }
+
+  .add-comment {
+     padding: 10px;
   }
 </style>

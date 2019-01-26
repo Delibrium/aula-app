@@ -2,6 +2,8 @@
    <v-menu bottom right>
      <v-btn v-if="$auth.check()"
        slot="activator"
+       flat
+       class="menu"
      >
      <v-icon>menu</v-icon>
      </v-btn>
@@ -48,3 +50,9 @@
     }
   }
 </script>
+
+<style scoped scss>
+.menu {
+   min-width: 0;
+}
+</style>

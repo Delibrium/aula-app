@@ -92,6 +92,7 @@ export default {
     'votesAgainst': '{0} dagegen'
   },
   Topic: {
+    'topic': 'Thema',
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
     'newTopic': 'Neues Thema erstellen',
@@ -209,7 +210,7 @@ export default {
   Idea: {
     'idea': 'Idee',
     'wildIdeas': 'Wilde Ideen',
-    'authorCreated': 'von {0} am {1}',
+    'authorCreated': 'von <b>{0}</b>',
     'votes.pro': '{0} Quorum-Stimmen',
     'suggestion': 'Verbesserungsvorschlag',
     'supporterCount': '{0} von {1} Unterstützern',
@@ -255,6 +256,9 @@ export default {
     'phaseWorking': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
     'phaseVoting': 'Wie viele Tage soll die Abstimmungphase dauren?',
     'days': 'Tage'
+  },
+  Category: {
+    'category': 'Kategorie'
   },
   AdminCategories: {
     'usageNote': 'Klicke auf bestehende Kategorien, um deren Namen und Beschreibung zu ändern.',
