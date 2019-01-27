@@ -47,7 +47,7 @@
                           <p>{{ idea.description }}</p>
 
                           <div>
-                          <div v-if="quorum != null && votes != null" class="quorum-info">
+                          <div v-if="quorum != null && votes != null && !idea.topic || (idea.topic && idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics')" class="quorum-info">
                             <div class="text" v-html="$vuetify.t('$vuetify.Idea.supporterCount', proVotes.length,
                             quorum.requiredVoteCount
                             )">
@@ -62,7 +62,7 @@
                       </v-flex>
                       <v-flex>
                         <v-layout align-center justify-center>
-                          <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic">
+                          <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic && idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics' && idea.topic.phase !== 'finished'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary>
                                 <v-icon left>thumb_up</v-icon>Dafür
@@ -72,7 +72,7 @@
                               </v-btn>
                             </v-btn-toggle>
                           </v-flex>
-                          <v-flex md4 align-center text-xs-center text-md-center v-else>
+                          <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic || idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary class="support-idea white--text" color="#00c853">
                                 <v-icon left>thumb_up</v-icon>Unterstützten
