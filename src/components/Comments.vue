@@ -4,6 +4,7 @@
       <h3 v-if="comments != null">
         {{ $vuetify.t('$vuetify.Comment.title', comments.length) }}
 
+        <div class="buttons">
         <v-btn-toggle v-model="sortBy" @change="this.sortComments" mandatory>
           <v-btn small>
             {{ $vuetify.t('$vuetify.Comment.sortByNew') }}
@@ -12,6 +13,7 @@
             {{ $vuetify.t('$vuetify.Comment.sortByVotes') }}
           </v-btn>
         </v-btn-toggle>
+        </div>
       </h3>
     </v-flex>
     <v-flex md10 xs12>
@@ -279,6 +281,10 @@ export default {
 
        h3 {
         text-align: center;
+       }
+
+       .buttons {
+         float: right;
        }
     }
   }

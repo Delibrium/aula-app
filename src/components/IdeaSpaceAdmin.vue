@@ -32,6 +32,13 @@
                 ></v-text-field>
               </v-flex>
               <v-flex d-flex xs12 sm12 pa-2>
+                <v-layout columm>
+                  <v-flex :class="{ selectedImage: image === newIdeaSpace.image }" pa-2 v-for="(image, index) of defaultIdeaSpacesImages" :key="index" >
+                    <v-img :src="image"height="100" width="200" @click="selectImage(image)"/>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex d-flex xs12 sm12 pa-2>
                <v-btn
                  @click="addIdeaSpace"
                >
@@ -80,7 +87,7 @@
 import api from '@/api'
 
 export default {
-  name: 'Phase',
+  name: 'IdeaSpacesAdmin',
   data: function () {
     return {
       headers: [
@@ -99,9 +106,11 @@ export default {
       ideaSpaces: [],
       ideaSpaceCreationDialog: false,
       isEditing: false,
+      defaultIdeaSpacesImages: ['/static/img/svg/door1.svg', '/static/img/svg/door2.svg', '/static/img/svg/door3.svg', '/static/img/svg/door4.svg'],
       newIdeaSpace: {
         school_id: this.$store.getters.selected_school,
-        title: ''
+        title: '',
+        image: '/static/img/svg/door1.svg'
       }
     }
   },
@@ -141,8 +150,17 @@ export default {
       this.newIdeaSpace = ideaSpace
       this.ideaSpaceCreationDialog = true
     },
+    selectImage: function (image) {
+      this.newIdeaSpace.image = image
+    },
     submit: function () {
     }
   }
 }
 </script>
+
+<style scss>
+.selectedImage {
+   border: 1px solid black;
+}
+</style>
