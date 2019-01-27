@@ -2,6 +2,31 @@
   <li>
     <div v-if="commentId != null">
       <v-card class="comment">
+        <v-card-title>
+          <v-avatar size="36px">
+            <v-img :src="comment.created_by.picture"/>
+          </v-avatar>
+          <span class="author" v-html="
+                $vuetify.t('$vuetify.Comment.authorCreated',
+                  comment.created_by.first_name,
+                  created.toLocaleString())
+                  ">
+            </span>
+            <v-spacer/>
+            <v-tooltip bottom>
+              <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
+                <v-btn flat small>
+                  <v-icon>favorite</v-icon>
+                </v-btn>
+                <!-- <v-btn flat small>
+                  <v-icon>thumb_down</v-icon>
+                  </v-btn>-->
+              </v-btn-toggle>
+              <span>
+                {{ $vuetify.t('$vuetify.Comment.tally', this.tally) }}
+              </span>
+            </v-tooltip>
+        </v-card-title>
         <v-card-text>
           <span v-if="comment.is_deleted">
             {{ $vuetify.t('$vuetify.Comment.isDeleted') }}
@@ -11,59 +36,46 @@
           </span>
 
           <div>
-            <v-tooltip bottom>
-              <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
-                <v-btn flat small>
-                  <v-icon>thumb_up</v-icon>
-                </v-btn>
-                <v-btn flat small>
-                  <v-icon>thumb_down</v-icon>
-                </v-btn>
-              </v-btn-toggle>
-              <span>
-                {{ $vuetify.t('$vuetify.Comment.tally', this.tally) }}
-              </span>
-            </v-tooltip>
 
-            <em>
-              {{
-                $vuetify.t('$vuetify.Comment.authorCreated',
-                  comment.created_by.first_name,
-                  created.toLocaleString())
-              }}
-            </em>
             <em v-if="comment.changed_by != null">
               {{ $vuetify.t('$vuetify.Comment.editedBy',
                 this.comment.changed_by.first_name) }}
             </em>
 
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
             <v-btn
-              small icon
+              flat
+              v-if="commentId != null"
+              @click="setReplyId(comment)"
+            >
+              <v-icon>reply</v-icon>
+              {{ $vuetify.t('$vuetify.Comment.reply') }}
+            </v-btn>
+
+            <v-btn
+              flat
               v-if="isOwnComment"
               :disabled="comment.is_deleted"
               @click="setEditingId"
             >
               <v-icon>edit</v-icon>
+              {{ $vuetify.t('$vuetify.Comment.edit') }}
             </v-btn>
 
             <v-btn
-              small icon
+              flat
               v-if="isOwnComment"
               :disabled="comment.is_deleted"
               @click="setDeleted"
             >
               <v-icon>delete</v-icon>
+              {{ $vuetify.t('$vuetify.Comment.delete') }}
             </v-btn>
 
-            <v-btn
-              small icon
-              v-if="commentId != null"
-              @click="setReplyId(comment)"
-            >
-              <v-icon>reply</v-icon>
-            </v-btn>
-          </div>
-        </v-card-text>
+        </v-card-actions>
       </v-card>
     </div>
 
@@ -202,11 +214,18 @@
 <style scoped lang="scss">
 .comment {
    margin-top: 10px;
+   .author {
+     margin-left: 10px;
+   }
 }
 
 ul {
   &.parent {
    padding-left: 0;
   }
+}
+
+.v-card__actions {
+   border-top: 1.5px solid #eee;
 }
 </style>
