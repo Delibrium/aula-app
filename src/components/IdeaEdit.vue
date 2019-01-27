@@ -1,5 +1,5 @@
 <template>
-    <v-container pa-0 fluid grid-list-md>
+    <v-container pa-0>
       <v-layout row wrap align-center justify-center>
         <v-flex md10 xs12>
            <Breadcrumbs :items="breadcrumbs"/>
