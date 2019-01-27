@@ -1,7 +1,7 @@
 <template>
    <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
      <v-breadcrumbs>
-       <v-breadcrumbs-item :to="item.to" :key="index" v-for="(item,index) in items">{{ item.title }}</v-breadcrumbs-item>
+       <v-breadcrumbs-item :exact="true" :to="item.to" :key="index" v-for="(item,index) in items">{{ item.title }}</v-breadcrumbs-item>
        <v-icon slot="divider">arrow_forward</v-icon>
      </v-breadcrumbs>
    </v-flex>
@@ -26,7 +26,7 @@ export default {
 .breadcrumbs {
   font-family: "visionbold", Helvetica, Arial, sans-serif;
   background-color: white;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #bdbdbd;
 
   .v-breadcrumbs {
     padding: 14px 12px 12px;

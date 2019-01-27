@@ -155,6 +155,7 @@ export default {
     'delegates': 'Deine Beauftragung für Schule',
     'remove.delegation': 'Beauftragung für {0} entziehen',
     'report': 'Melden',
+    'profile': 'Profil',
     'edit': 'Profil bearbeiten',
     'tab.supported.ideas': 'Erstellte Ideen',
     'tab.delegate.for': 'Für wen stimme ich ab?',
