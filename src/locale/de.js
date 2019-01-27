@@ -306,7 +306,7 @@ export default {
     'formIdeaSpaceName': 'Klass Name',
     'formIdeaSpaceDescription': 'Beschreibung',
     'formIdeaSpaceUrlName': 'Klass Url Name',
-    'add': 'Add Klass'
+    'add': 'Klasse hinzufügen'
   },
   AdminCommunity: {
     'tableHeaderName': 'Name',

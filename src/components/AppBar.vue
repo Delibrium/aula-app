@@ -1,7 +1,7 @@
 <template>
   <v-toolbar fixed app class="white">
       <router-link to="/">
-        <img class="header_logo" src="/static/img/Aula_Logo.svg"/>
+        <img class="header_logo" src="../static/img/Aula_Logo.svg"/>
       </router-link>
       <v-spacer></v-spacer>
       <Menu v-if="$auth.ready()"></Menu>

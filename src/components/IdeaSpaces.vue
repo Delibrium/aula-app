@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
       <v-layout row wrap justify-center align-center>
-        <v-flex md8>
+        <v-flex md10>
           <v-layout row wrap justify-center align-center>
             <!-- Default Idea Space -->
             <v-flex d-flex xs12 sm4 pa-2 class="idea-space">

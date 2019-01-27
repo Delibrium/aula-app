@@ -2,9 +2,7 @@
   <v-app light>
     <AppBar />
     <v-content>
-      <div v-if="$auth.ready()">
-        <router-view></router-view>
-      </div>
+      <router-view v-if="$auth.ready()"></router-view>
       <div v-if="!$auth.ready()">
         Loading ...
       </div>

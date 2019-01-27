@@ -33,7 +33,7 @@
               </v-flex>
               <v-flex d-flex xs12 sm12 pa-2>
                 <v-layout columm>
-                  <v-flex :class="{ selectedImage: image === newIdeaSpace.image }" pa-2 v-for="(image, index) of defaultIdeaSpacesImages" :key="index" >
+                  <v-flex class="ideaSpaceImage-button" :class="{ selectedImage: image === newIdeaSpace.image }" pa-2 v-for="(image, index) of defaultIdeaSpacesImages" :key="index" >
                     <v-img :src="image"height="100" width="200" @click="selectImage(image)"/>
                   </v-flex>
                 </v-layout>
@@ -42,7 +42,7 @@
                <v-btn
                  @click="addIdeaSpace"
                >
-               {{ $vuetify.t('$vuetify.AdminIdeaSpace.add') }}
+               {{ $vuetify.t('$vuetify.Form.save') }}
                </v-btn>
                <v-btn
                  @click="ideaSpaceCreationDialog = false"
@@ -159,8 +159,12 @@ export default {
 }
 </script>
 
-<style scss>
-.selectedImage {
-   border: 1px solid black;
+<style lang="scss">
+.ideaSpaceImage-button {
+   border: 2px solid rgba(0,0,0,0);
+   border-radius: 4px;
+   &.selectedImage {
+    border: 2px solid var(--v-secondary-base);
+   }
 }
 </style>

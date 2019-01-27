@@ -1,75 +1,74 @@
 <template>
-  <v-app id="inspire">
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title>{{ $vuetify.t('$vuetify.Login.welcome') }}</v-toolbar-title>
-                <v-spacer></v-spacer>
-              </v-toolbar>
-              <v-card-text>
-                <v-form id="login">
-                  <v-autocomplete
-                    name='school'
-                    prepend-icon="school"
-                    :items="schools"
-                    label="Schule"
-                    @change="handleChangeSchool"
-                    v-validate="'required'"
-                    v-model="selectedSchoolId"
-                    :error-messages="errors.collect('school')"
-                  ></v-autocomplete>
-                  <v-text-field
-                    name='username'
-                    prepend-icon="person"
-                    v-model="username"
-                    :label="$vuetify.t('$vuetify.Login.login')"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('username')"
-                    type="text">
-                  </v-text-field>
-                  <v-text-field
-                    name='password'
-                    id="password"
-                    prepend-icon="lock"
-                    v-model="password"
-                    :label="$vuetify.t('$vuetify.Login.password')"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('password')"
-                    type="password">
-                  </v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  dark
-                  type="submit"
-                  color="green darken-1"
-                  form="check-login-form"
-                  @click.stop="login">
-                  {{ $vuetify.t('$vuetify.Login.button') }}
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-      <v-snackbar
-        v-model="showSnackbar"
-        :bottom="true"
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>{{ $vuetify.t('$vuetify.Login.welcome') }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form id="login"  @submit="login">
+              <v-autocomplete
+                name='school'
+                prepend-icon="school"
+                :items="schools"
+                label="Schule"
+                @change="handleChangeSchool"
+                v-validate="'required'"
+                v-model="selectedSchoolId"
+                :error-messages="errors.collect('school')"
+              ></v-autocomplete>
+              <v-text-field
+                name='username'
+                prepend-icon="person"
+                v-model="username"
+                :label="$vuetify.t('$vuetify.Login.login')"
+                v-validate="'required'"
+                :error-messages="errors.collect('username')"
+                type="text">
+              </v-text-field>
+              <v-text-field
+                name='password'
+                id="password"
+                prepend-icon="lock"
+                v-model="password"
+                :label="$vuetify.t('$vuetify.Login.password')"
+                v-validate="'required'"
+                @keyup.native.enter="login"
+                :error-messages="errors.collect('password')"
+                type="password">
+              </v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              dark
+              type="submit"
+              color="green darken-1"
+              form="check-login-form"
+              @click.stop="login">
+              {{ $vuetify.t('$vuetify.Login.button') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-snackbar
+      v-model="showSnackbar"
+      :bottom="true"
+    >
+      {{ snackbarMsg }}
+      <v-btn
+        color="pink"
+        flat
+        @click="showSnackbar = false"
       >
-        {{ snackbarMsg }}
-        <v-btn
-          color="pink"
-          flat
-          @click="showSnackbar = false"
-        >
-          {{ $vuetify.t('$vuetify.Snackbar.close') }}
-        </v-btn>
-      </v-snackbar>
-  </v-app>
+        {{ $vuetify.t('$vuetify.Snackbar.close') }}
+      </v-btn>
+    </v-snackbar>
+  </v-container>
 </template>
 
 <script>
