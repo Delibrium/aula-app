@@ -58,7 +58,7 @@
             <v-btn
               small icon
               v-if="commentId != null"
-              @click="setReplyId"
+              @click="setReplyId(comment)"
             >
               <v-icon>reply</v-icon>
             </v-btn>
@@ -141,8 +141,8 @@
       }
     },
     methods: {
-      setReplyId: function () {
-        this.$root.$emit('set-reply', this.commentId)
+      setReplyId: function (comment) {
+        this.$root.$emit('set-reply', this.comment)
       },
       setEditingId: function () {
         this.$root.$emit('set-edit', this.commentId)

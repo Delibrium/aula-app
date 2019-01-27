@@ -38,7 +38,7 @@
 
           <v-card-text>
             <p v-if="parentCommentId != null">
-              {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentCommentId) }}
+              {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentComment.created_by.first_name) }}
             </p>
             <v-text-field
               name='text'
@@ -118,6 +118,7 @@ export default {
       editingComment: false,
       text: null,
       parentCommentId: null,
+      parentComment: null,
       showSnackbar: null,
       snackbarMsg: null,
       sortBy: 1
@@ -160,9 +161,10 @@ export default {
         this.sortComments()
       })
     },
-    setReply: function (commentId) {
+    setReply: function (comment) {
       this.editingComment = true
-      this.parentCommentId = commentId
+      this.parentComment = comment
+      this.parentCommentId = comment.id
     },
     setEditing: function (commentId) {
       this.editingComment = true
