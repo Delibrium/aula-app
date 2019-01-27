@@ -171,7 +171,7 @@ export default {
 
   computed: {
     proVotesPercent: function () {
-      return 100.0 * this.proVotes.length / this.quorum.requiredVoteCount
+      return 100.0 * Math.min(this.proVotes.length / this.quorum.requiredVoteCount, 1)
     },
 
     ideaPhaseClass: function () {
