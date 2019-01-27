@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-layout row justify-center>
+    <v-layout row wrap justify-center>
       <v-flex md2 v-for="(category, index) in categories" :key="category.id" align-center @click="selectCategory(category)" :class="{selected: category.id === selectedCategory}">
         <v-layout column>
           <v-flex class="category-title">
