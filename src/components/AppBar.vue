@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed app class="white">
+  <v-toolbar md10 fixed app class="white">
       <router-link to="/">
         <img class="header_logo" src="../static/img/Aula_Logo.svg"/>
       </router-link>

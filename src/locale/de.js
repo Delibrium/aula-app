@@ -41,7 +41,7 @@ export default {
     'passwordError': 'Leider stimmt entweder Benutzername oder Passwort nicht.'
   },
   Footer: {
-    'user.terms': 'Nutzungsbedingungen',
+    'userTerms': 'Nutzungsbedingungen',
     'impressum': 'Impressum'
   },
   Menu: {

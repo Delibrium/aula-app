@@ -7,6 +7,16 @@
         Loading ...
       </div>
     </v-content>
+    <v-footer>
+      <v-layout row justify-center>
+        <v-flex md2>
+          {{ $vuetify.t('$vuetify.Footer.userTerms') }}
+        </v-flex>
+        <v-flex md2>
+          {{ $vuetify.t('$vuetify.Footer.impressum') }}
+        </v-flex>
+      </v-layout>
+    </v-footer>
   </v-app>
 </template>
 
