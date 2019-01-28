@@ -40,6 +40,7 @@
     "vue-base64-file-upload": "^1.0.4",
     "vue-cordova": "0.1.2",
     "vue-head": "2.0.12",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "3.0.1",
     "vuetify": "1.2.3",
     "vuetify-upload-button": "^1.2.2",

@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
 import VeeValidate from 'vee-validate'
 import 'vuetify/dist/vuetify.css'
+import VueQuillEditor from 'vue-quill-editor'
 import VueCordova from 'vue-cordova'
 import VueHead from 'vue-head'
 import en from './locale/en'
@@ -16,6 +17,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 import api from './api'
+
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor)
 
 Vue.use(Vuetify, {
   lang: {

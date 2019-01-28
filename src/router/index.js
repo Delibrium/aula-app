@@ -13,6 +13,7 @@ import Profile from '@/components/Profile'
 import ProfileEdit from '@/components/ProfileEdit'
 import UserEdit from '@/components/UserEdit'
 import PassList from '@/components/PassList'
+import Page from '@/components/Page'
 import store from '@/store'
 
 Vue.use(Router)
@@ -101,6 +102,13 @@ const router = new Router({
       path: '/user/:userId/edit',
       name: 'ProfileEdit',
       component: ProfileEdit,
+      meta: { auth: true }
+    },
+    {
+      path: '/impressum',
+      name: 'Impressum',
+      component: Page,
+      props: { page_name: 'impressum' },
       meta: { auth: true }
     }
   ]

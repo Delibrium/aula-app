@@ -41,7 +41,7 @@ export default {
     'passwordError': 'Leider stimmt entweder Benutzername oder Passwort nicht.'
   },
   Footer: {
-    'user.terms': 'Nutzungsbedingungen',
+    'userTerms': 'Nutzungsbedingungen',
     'impressum': 'Impressum'
   },
   Menu: {
@@ -310,7 +310,8 @@ export default {
   },
   AdminCommunity: {
     'tableHeaderName': 'Name',
-    'mainSpaceName': 'Main Ideas space name'
+    'mainSpaceName': 'Main Ideas space name',
+    'impressumEdit': 'Impressum bearbeiten'
   },
   AdminUsers: {
     'titleAdd': 'Neue Benutzer hinzufügen',
