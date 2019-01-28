@@ -3,8 +3,8 @@
     <div v-if="commentId != null">
       <v-card class="comment">
         <v-card-title>
-          <v-avatar size="36px">
-            <v-img :src="comment.created_by.picture"/>
+          <v-avatar :size="avatarSize">
+            <v-img :src="comment.created_by.picture ? comment.created_by.picture : '/static/img/svg/Aula_Logo_Kopf.svg'"/>
           </v-avatar>
           <span class="author" v-html="
                 $vuetify.t('$vuetify.Comment.authorCreated',
@@ -106,6 +106,13 @@
       this.voteValue = this.currentVote
     },
     computed: {
+      avatarSize: function () {
+        if (this.comment.created_by.picture) {
+          return '36px'
+        } else {
+          return '50px'
+        }
+      },
       comment: function () {
         // Return data for current comment
         return this.comments == null
@@ -227,5 +234,9 @@ ul {
 
 .v-card__actions {
    border-top: 1.5px solid #eee;
+}
+
+.author {
+   max-width: 50%;
 }
 </style>
