@@ -310,7 +310,8 @@ export default {
   },
   AdminCommunity: {
     'tableHeaderName': 'Name',
-    'mainSpaceName': 'Main Ideas space name'
+    'mainSpaceName': 'Main Ideas space name',
+    'impressumEdit': 'Impressum bearbeiten'
   },
   AdminUsers: {
     'titleAdd': 'Neue Benutzer hinzufügen',

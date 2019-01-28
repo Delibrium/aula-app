@@ -12,6 +12,14 @@ function getConfig (schoolId) {
   return service.post('/rpc/config', {'space_id': schoolId})
 }
 
+function getPage (schoolId, page) {
+  return service.post('/rpc/get_page', {'space_id': schoolId, page_name: page})
+}
+
+function updatePage (schoolId, page, content) {
+  return service.post('/rpc/update_page', {'space_id': schoolId, page: page, content: content})
+}
+
 function updateConfig (schoolId, configKey, configValue) {
   return service.post('/rpc/config_update',
     {
@@ -25,5 +33,7 @@ export default {
   get,
   getPublic,
   getConfig,
-  updateConfig
+  updateConfig,
+  getPage,
+  updatePage
 }

@@ -13,7 +13,7 @@
           {{ $vuetify.t('$vuetify.Footer.userTerms') }}
         </v-flex>
         <v-flex md2>
-          {{ $vuetify.t('$vuetify.Footer.impressum') }}
+          <router-link to="/impressum">{{ $vuetify.t('$vuetify.Footer.impressum') }}</router-link>
         </v-flex>
       </v-layout>
     </v-footer>

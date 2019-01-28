@@ -26,11 +26,18 @@
                 ></v-text-field>
 
                 <v-btn
+                  @click="openEditImpressum"
+                >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
+
+                <v-btn
                   @click="updateSchool"
                 >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
             </v-card-text>
           </v-card>
         </v-flex>
+        <v-dialog v-model="editImpressum">
+          <ImpressumEditor @close-impressum-editor="editImpressum = false"/>
+        </v-dialog>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -39,13 +46,16 @@
 <script>
 
 import api from '@/api'
+import ImpressumEditor from '@/components/ImpressumEditor'
 
 export default {
   name: 'School',
+  components: { ImpressumEditor },
   data: function () {
     return {
       schools: [],
       schoolConfig: this.$store.getters.schoolConfig,
+      editImpressum: false,
       headers: [
         {
           text: this.$vuetify.t('$vuetify.AdminCommunity.tableHeaderName'),
@@ -61,6 +71,10 @@ export default {
 
   methods: {
     submit: function () {
+    },
+
+    openEditImpressum: function () {
+      this.editImpressum = true
     },
 
     selectSchool: function (school) {
