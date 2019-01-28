@@ -109,7 +109,7 @@ const router = new Router({
       name: 'Impressum',
       component: Page,
       props: { page_name: 'impressum' },
-      meta: { auth: true }
+      meta: {}
     }
   ]
 })
@@ -119,7 +119,7 @@ router.beforeResolve((to, from, next) => {
   if (to.path === '/admin') {
     next()
   }
-  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.profile.role.indexOf('admin') >= 0)) {
+  if (to.path !== '/login' && selectedSchool < 0 && (store.getters.user.profile.role && store.getters.user.profile.role.indexOf('admin') >= 0)) {
     next({path: '/admin'})
   } else {
     next()

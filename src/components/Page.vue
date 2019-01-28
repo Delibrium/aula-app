@@ -15,7 +15,8 @@ export default {
   name: 'Page',
   data: function () {
     return {
-      page: ''
+      page: '',
+      communityId: 1
     }
   },
 
@@ -24,7 +25,10 @@ export default {
   },
 
   beforeMount: function () {
-    api.school.getPage(this.$store.getters.school_id, this.page_name).then((res) => {
+  //  if (this.$store.getters.school_id) {
+  //    this.communityId = this.$store.getters.school_id
+  //  }
+    api.school.getPage(this.communityId, this.page_name).then((res) => {
       this.page = res.data
     })
   },
