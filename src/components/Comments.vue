@@ -65,9 +65,13 @@
           </v-card-actions>
         </v-form>
       </v-card>
-        <h1 v-if="disabled">
-        {{ $vuetify.t('$vuetify.Comment.disabled') }}
-        </h1>
+      <v-card v-if="disabled">
+        <v-card-text>
+          <v-alert type="info" :value="true">
+            {{ $vuetify.t('$vuetify.Comment.disabled') }}
+          </v-alert>
+        </v-card-text>
+      </v-card>
     </v-dialog>
 
     <v-flex>
