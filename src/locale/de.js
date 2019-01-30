@@ -309,6 +309,7 @@ export default {
     'add': 'Klasse hinzufügen'
   },
   AdminCommunity: {
+    'community': 'Schule',
     'tableHeaderName': 'Name',
     'mainSpaceName': 'Main Ideas space name',
     'impressumEdit': 'Impressum bearbeiten'

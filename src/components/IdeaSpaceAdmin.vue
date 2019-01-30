@@ -25,8 +25,9 @@
               <v-flex d-flex xs12 sm12 pa-2>
                 <v-text-field
                   name="slug"
-                  v-model="newIdeaSpace.slug"
+                  v-model="slug"
                   v-validate="'required'"
+                  readonly
                  :label="this.$vuetify.t('$vuetify.AdminIdeaSpace.formIdeaSpaceUrlName')"
                   required
                 ></v-text-field>
@@ -73,7 +74,7 @@
         </v-flex>
         <v-flex d-flex xs12 sm12 pa-2>
           <v-btn
-            @click="ideaSpaceCreationDialog = true"
+            @click="openIdeaSpaceEditor"
           >
           {{ $vuetify.t('$vuetify.AdminIdeaSpace.add') }}
           </v-btn>
@@ -85,6 +86,7 @@
 <script>
 
 import api from '@/api'
+import slugify from 'slugify'
 
 export default {
   name: 'IdeaSpacesAdmin',
@@ -116,6 +118,9 @@ export default {
   },
 
   computed: {
+    slug: function () {
+      return slugify(this.newIdeaSpace.title)
+    }
   },
 
   props: {
@@ -126,6 +131,16 @@ export default {
   },
 
   methods: {
+    openIdeaSpaceEditor: function () {
+      this.newIdeaSpace = {
+        school_id: this.$store.getters.selected_school,
+        title: '',
+        image: '/static/img/svg/door1.svg'
+      }
+
+      this.ideaSpaceCreationDialog = true
+    },
+
     getIdeaSpaces: function () {
       api.ideaSpace.getIdeaSpaces(this.$store.getters.selected_school).then(response => {
         this.ideaSpaces = response.data
@@ -134,11 +149,13 @@ export default {
     addIdeaSpace: function () {
       if (!this.isEditing) {
         this.newIdeaSpace.created_by = this.$store.getters.userId
+        this.newIdeaSpace.slug = this.slug
         api.ideaSpace.createIdeaSpace(this.newIdeaSpace).then(() => {
           this.getIdeaSpaces()
           this.ideaSpaceCreationDialog = false
         })
       } else {
+        this.newIdeaSpace.slug = this.slug
         api.ideaSpace.updateIdeaSpace(this.newIdeaSpace).then(() => {
           this.getIdeaSpaces()
           this.ideaSpaceCreationDialog = false
