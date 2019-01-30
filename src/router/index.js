@@ -13,6 +13,7 @@ import Profile from '@/components/Profile'
 import ProfileEdit from '@/components/ProfileEdit'
 import UserEdit from '@/components/UserEdit'
 import PassList from '@/components/PassList'
+import Redirect from '@/components/Redirect'
 import Page from '@/components/Page'
 import store from '@/store'
 
@@ -110,7 +111,14 @@ const router = new Router({
       component: Page,
       props: { page_name: 'impressum' },
       meta: {}
+    },
+    {
+      path: 'Redirect/:path',
+      name: 'Redirect',
+      component: Redirect,
+      meta: { auth: true }
     }
+
   ]
 })
 
