@@ -157,8 +157,8 @@ export default {
         ? Object.assign([], this.ideas)
         : this.ideas
           .filter(idea =>
-            idea.title.toLowerCase().includes(this.query) ||
-            idea.description.toLowerCase().includes(this.query)
+            idea.title.toLowerCase().includes(this.query.toLowerCase()) ||
+            idea.description.toLowerCase().includes(this.query.toLowerCase())
           )
 
       const sortFn = {

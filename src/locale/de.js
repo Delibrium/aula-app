@@ -224,6 +224,8 @@ export default {
     'is.possible': 'Durchführbar',
     'not.possible': 'Nicht durchführbar',
     'statement': 'Statement abgeben',
+    'support': 'Unterstützen',
+    'noSupport': 'Nicht mehr unterstützen',
     'category': 'Diese Idee gehört zur Kategorie {0}',
     'noCategory': 'Diese Idee gehört zu keiner Kategorie',
     'new.suggestion': 'Neuer Verbesserungsvorschlag',

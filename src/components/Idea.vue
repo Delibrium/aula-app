@@ -75,7 +75,9 @@
                           <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic || idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary class="support-idea white--text" color="#00c853">
-                                <v-icon left>thumb_up</v-icon>Unterstützten
+                                <v-icon left>thumb_up</v-icon>
+                                <span v-if="!voteValue && voteValue !== 0">{{$vuetify.t('$vuetify.Idea.support')}}</span>
+                                <span v-else>{{$vuetify.t('$vuetify.Idea.noSupport')}}</span>
                               </v-btn>
                             </v-btn-toggle>
                           </v-flex>
@@ -282,6 +284,7 @@ export default {
       ideaApi.getVotes(this.idea.id).then(resp => {
         this.votes = resp.data
         this.voteValue = this.currentVote
+        console.log(this.currentVote, this.voteValue)
       })
     },
     voteChanged: function (clicked) {
