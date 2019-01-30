@@ -1,7 +1,7 @@
 import service from '@/api/service'
 
 export function getIdeaSpaces (schoolId) {
-  return service.get('/idea_space', {params: {school_id: `eq.${schoolId}`}})
+  return service.get('/idea_space', {params: {school_id: `eq.${schoolId}`, order: 'title'}})
 }
 
 export function getIdeas (schoolId, ideaSpaceId = null, topic) {
