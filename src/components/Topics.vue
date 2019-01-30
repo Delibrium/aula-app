@@ -19,10 +19,12 @@
 
             <v-layout column  class="page-header-background">
               <v-flex xs12 text-xs-center class="page-header-topics">
-                <span class="info-helper">
+                <div class="info-helper">
                   <v-icon dark>info</v-icon>
-                </span>
-                <img src="/static/img/Karteikasten.svg">
+                </div>
+                <div>
+                  <v-img class="topics-icon" src="/static/img/Karteikasten.svg" width="300" height="300"/>
+                </div>
               </v-flex>
 
               <v-flex xs12 text-xs-center pa-3>
@@ -205,10 +207,13 @@ export default {
   }
 
   .page-header-topics {
+    position: relative;
     .info-helper {
       width: 35px;
       padding: 5px;
-      float: right;
+      position: absolute;
+      top: 0;
+      right: 0;
     }
 
     img {
@@ -226,5 +231,9 @@ export default {
   .tab-bar {
     background-color: white;
     border-bottom: 1px solid #999;
+  }
+
+  .topics-icon {
+     margin: auto;
   }
 </style>

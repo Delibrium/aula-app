@@ -16,12 +16,14 @@
           <NavTabs active="0"/>
 
           <v-layout column class="page-header-background-ideas">
-            <v-flex xs12 text-xs-center class="page-header">
+            <v-flex xs12 text-xs-center text-center class="page-header">
               <span class="info-helper">
                 <v-icon dark>info</v-icon>
               </span>
 
-              <div><img src="/static/img/lamp.svg"></div>
+              <div>
+                <v-img class="wild-ideas-icon" src="/static/img/lamp.svg" width="300" height="300"></v-img>
+              </div>
             </v-flex>
 
             <v-flex xs12 text-xs-center pa-3 class="page-header">
@@ -123,10 +125,13 @@ export default {
 }
 
 .page-header {
+  position: relative;
   .info-helper {
     width: 35px;
     padding: 5px;
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   img {
@@ -139,5 +144,9 @@ export default {
     color: var(--v-primary-base);
     border-radius: 5px;
   }
+}
+
+.wild-ideas-icon {
+   margin: auto;
 }
 </style>
