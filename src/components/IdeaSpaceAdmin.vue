@@ -33,7 +33,7 @@
                 ></v-text-field>
               </v-flex>
               <v-flex d-flex xs12 sm12 pa-2>
-                <v-layout columm>
+                <v-layout row wrap>
                   <v-flex class="ideaSpaceImage-button" :class="{ selectedImage: image === newIdeaSpace.image }" pa-2 v-for="(image, index) of defaultIdeaSpacesImages" :key="index" >
                     <v-img :src="image"height="100" width="200" @click="selectImage(image)"/>
                   </v-flex>

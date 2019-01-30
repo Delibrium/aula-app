@@ -98,8 +98,11 @@
           </v-list>
 
           <v-flex text-xs-right pr-4 class="categories">
-            <v-img v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
-            <img v-else src="/static/img/svg/icon_regeln.svg">
+            <v-tooltip bottom>
+            <v-img slot="activator" v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
+            <img  slot="activator" v-else src="/static/img/svg/icon_regeln.svg">
+            <span v-if="idea.category">{{ idea.category.name }}</span>
+            </v-tooltip>
           </v-flex>
         </v-card-text>
       </v-card>
