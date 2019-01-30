@@ -57,11 +57,9 @@ export default {
       const newIndex = (this.phases.indexOf(this.phase) + delta) % this.phases.length
       const newPhase = this.phases[newIndex]
       const path = this.$route.path
-      console.log(this.$route)
 
       api.topic.setPhase(this.topic.id, newPhase)
         .then(() => {
-          console.log(this.$router.path, path)
           this.$router.push({ name: 'Redirect', params: { path: path } })
         })
     }
