@@ -14,9 +14,9 @@
             </span>
             <v-spacer/>
             <v-tooltip bottom>
-              <v-btn-toggle slot="activator" v-model="voteValue" @change="voteChanged">
+              <v-btn-toggle slot="activator" v-model="voteValue" color="green" @change="voteChanged">
                 <v-btn flat small>
-                  <v-icon>favorite</v-icon>
+                  <v-icon :style="{ 'color': voteIndicatorColor}">favorite</v-icon>
                 </v-btn>
                 <!-- <v-btn flat small>
                   <v-icon>thumb_down</v-icon>
@@ -106,6 +106,14 @@
       this.voteValue = this.currentVote
     },
     computed: {
+      voteIndicatorColor: function () {
+        console.log(this.voteValue)
+        if (this.voteValue === 0) {
+          return 'var(--v-primary-base)'
+        } else {
+          return 'black'
+        }
+      },
       avatarSize: function () {
         if (this.comment.created_by.picture) {
           return '36px'
@@ -238,5 +246,13 @@ ul {
 
 .author {
    max-width: 50%;
+}
+
+.v-btn--active::before {
+   background-color: rgba(0,0,0,0);
+}
+
+.v-btn-toggle--selected {
+  box-shadow: none;
 }
 </style>

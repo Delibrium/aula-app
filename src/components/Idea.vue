@@ -17,7 +17,8 @@
                       <v-layout row>
                         <v-flex v-if="idea.created_by">
                           <v-avatar size="36px">
-                            <v-img :src="idea.created_by.picture"/>
+                            <v-img v-if="idea.created_by.picture" :src="idea.created_by.picture"/>
+                            <v-img v-else src="/static/img/svg/Aula_Logo_Kopf.svg" width="40" height="40"/>
                           </v-avatar>
                           <div class="author-info">
                           <p v-if="idea.created_by != null" v-html="$vuetify.t('$vuetify.Idea.authorCreated', idea.created_by.first_name)">
@@ -116,8 +117,11 @@
                       </p>
 
                       <h3>{{ $vuetify.t('$vuetify.Category.category') }} </h3>
-                      <v-img v-if="idea.category" :src="idea.category.image" height="60" width="60"></v-img>
-                      <p v-else>{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
+                      <v-tooltip bottom v-if="idea.category">
+                      <v-img slot="activator" :src="idea.category.image" height="60" width="60"></v-img>
+                      <span>{{ idea.category.name }}</span>
+                      </v-tooltip>
+                      <p v-if="!idea.category">{{ $vuetify.t('$vuetify.Idea.noCategory') }}</p>
                     </v-card-text>
                   </v-card>
                 </v-flex>
