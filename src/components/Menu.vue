@@ -40,7 +40,6 @@
     },
 
     mounted: function () {
-      console.log(this.$auth.user())
     },
 
     methods: {

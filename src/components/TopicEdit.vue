@@ -200,7 +200,6 @@ export default {
       const spaceSlug = this.$route.params['spaceSlug']
       topicApi.assignIdeas(topicId, this.selected)
         .then(res => {
-          console.log('ASSIGN IDEAS', res)
           if (res == null || res.status < 400) {
             this.$router.push(
               { name: 'Topic', params: { spaceSlug: spaceSlug, topicId: topicId } }

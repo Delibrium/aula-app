@@ -76,7 +76,6 @@ export default {
 
   methods: {
     updateImpressum: function () {
-      console.log(this.impressum)
       api.school.updatePage(this.$store.getters.school_id, 'impressum', this.impressum).then(res => {
         this.$emit('close-impressum-editor')
       })

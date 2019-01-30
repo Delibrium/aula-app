@@ -288,7 +288,6 @@ export default {
       ideaApi.getVotes(this.idea.id).then(resp => {
         this.votes = resp.data
         this.voteValue = this.currentVote
-        console.log(this.currentVote, this.voteValue)
       })
     },
     voteChanged: function (clicked) {

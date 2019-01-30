@@ -31,7 +31,6 @@ export default {
 
   beforeMount: function () {
     api.category.get(this.$store.getters.school_id).then((res) => {
-      console.log(res.data)
       this.categories = res.data
     })
   },
@@ -39,7 +38,6 @@ export default {
   methods: {
     selectCategory: function (category) {
       this.selectedCategory = category.id
-      console.log(category)
       this.$emit('selectedCategory', category.id)
     }
   }

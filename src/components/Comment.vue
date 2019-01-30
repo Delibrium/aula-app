@@ -48,6 +48,7 @@
           <v-spacer></v-spacer>
             <v-btn
               flat
+              small
               v-if="commentId != null"
               @click="setReplyId(comment)"
             >
@@ -57,22 +58,24 @@
 
             <v-btn
               flat
+              small
               v-if="isOwnComment"
               :disabled="comment.is_deleted"
               @click="setEditingId"
             >
               <v-icon>edit</v-icon>
-              {{ $vuetify.t('$vuetify.Comment.edit') }}
+              <span class="hidden-xs-only">{{ $vuetify.t('$vuetify.Comment.edit') }}</span>
             </v-btn>
 
             <v-btn
               flat
+              small
               v-if="isOwnComment"
               :disabled="comment.is_deleted"
               @click="setDeleted"
             >
               <v-icon>delete</v-icon>
-              {{ $vuetify.t('$vuetify.Comment.delete') }}
+              <span class="hidden-xs-only">{{ $vuetify.t('$vuetify.Comment.delete') }}</span>
             </v-btn>
 
         </v-card-actions>
@@ -107,7 +110,6 @@
     },
     computed: {
       voteIndicatorColor: function () {
-        console.log(this.voteValue)
         if (this.voteValue === 0) {
           return 'var(--v-primary-base)'
         } else {
@@ -197,7 +199,6 @@
             changed_by: this.$store.getters.userId,
             val
           }
-          console.log(vote)
           api.comment.postVote(vote)
             .catch((err) => {
               if (err.request != null && err.request.status === 409) {
@@ -246,6 +247,10 @@ ul {
 
 .author {
    max-width: 50%;
+}
+
+.v-btn {
+   min-width: 30px;
 }
 
 .v-btn--active::before {

@@ -24,7 +24,7 @@
       </v-layout>
     </v-flex>
 
-    <v-dialog v-model="editingComment" max-width="500">
+    <v-dialog v-model="editingComment" :max-width="maxEditorWidth" :fullscreen="$vuetify.breakpoint.xsOnly" transition="dialog-bottom-transition" content-class="comment-editor">
       <v-card class='newCommentForm' v-if="!disabled">
         <v-form>
           <v-card-title v-if="editingId != null">
@@ -148,6 +148,21 @@ export default {
   computed: {
     ideaId: function () {
       return this.$route.params.ideaId
+    },
+    fullWidthEditor: function () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return true
+        default: return false
+      }
+    },
+    maxEditorWidth: function () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return '100%'
+        case 'sm': return '400px'
+        case 'md': return '500px'
+        case 'lg': return '600px'
+        case 'xl': return '800px'
+      }
     }
   },
 
@@ -300,5 +315,13 @@ export default {
 
   .add-comment {
      padding: 10px;
+  }
+
+  .v-dialog.comment-editor {
+     margin: 10px;
+  }
+
+  .v-dialog.v-dialog--active {
+     margin: 0;
   }
 </style>
