@@ -69,6 +69,20 @@ export function createIdea (idea) {
   return service.post('/idea', idea, config)
 }
 
+export function updateIdea (idea) {
+  return service({
+    method: 'patch',
+    url: '/idea',
+    data: idea,
+    params: {
+      id: `eq.${idea.id}`
+    },
+    headers: {
+      PREFER: 'return=representation'
+    }
+  })
+}
+
 export function getTopics (schoolId, ideaSpaceId) {
   var queryParams = {
     school_id: `eq.${schoolId}`,

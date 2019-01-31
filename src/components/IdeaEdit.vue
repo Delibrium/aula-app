@@ -19,7 +19,7 @@
                         name="title"
                         :label="$vuetify.t('$vuetify.IdeaCreation.name')"
                         :hint="$vuetify.t('$vuetify.IdeaCreation.nameExample')"
-                        v-model="title"
+                        v-model="idea.title"
                         v-validate="'required|max:160'"
                         :error-messages="errors.collect('title')"
                         required
@@ -30,11 +30,11 @@
                         name="suggestion"
                         :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
                         :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
-                        v-model="description"
+                        v-model="idea.description"
                       ></v-textarea>
                     </v-flex>
                     <v-flex md10 xs12>
-                      <CategorySelect @selectedCategory="selectCategory"/>
+                      <CategorySelect :selectedCategory="categoryId" :cats="categories" @select-category="selectCategory"/>
                     </v-flex>
                     <v-flex xs12 md8 pa-2 align-center justify-center text-md-center text-xs-center>
                       <v-alert error :value="!topicMayReceiveIdeas">
@@ -43,10 +43,9 @@
                       <v-btn
                         @click="submitIdea"
                         :disabled="!topicMayReceiveIdeas"
-                        round
                         color="primary"
                         dark
-                      >{{ $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
+                      >{{ isEditing ? $vuetify.t('$vuetify.Form.save') : $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
                       <v-btn
                         v-if="this.topic != null"
                         href
@@ -75,6 +74,7 @@
 
 <script>
 import api from '@/api'
+import apiIdea from '@/api/idea'
 import { isUserMemberOf } from '../utils/permissions'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import CategorySelect from '@/components/CategorySelect'
@@ -86,9 +86,12 @@ export default {
   components: { Breadcrumbs, CategorySelect },
   data: function () {
     return {
-      title: '',
-      description: '',
-      category: null,
+      idea: {
+        title: '',
+        description: '',
+        category: { }
+      },
+      categories: [],
       tab: 0,
       showSnackbar: false,
       snackbarMsg: '',
@@ -107,6 +110,9 @@ export default {
   },
 
   computed: {
+    categoryId: function () {
+      return this.idea.category.id
+    },
     topicId: function () {
       return this.$route.params.topicId
     },
@@ -119,7 +125,8 @@ export default {
   },
 
   props: {
-    spaceSlug: ''
+    spaceSlug: '',
+    isEditing: false
   },
 
   beforeMount: function () {
@@ -139,7 +146,23 @@ export default {
         })
     }
 
+    api.category.get(this.$store.getters.school_id).then((res) => {
+      this.$set(this, 'categories', res.data)
+      if (!this.isEditing) {
+        let defaultCategory = this.categories.filter(c => c.def)
+        this.idea.category = defaultCategory[0]
+      }
+    })
+
     this.setBreadcrumbs()
+
+    if (this.$route.params['ideaId']) {
+      apiIdea.getIdea(this.$route.params['ideaId']).then((res) => {
+        let idea = res.data[0]
+        this.idea = idea
+        this.$nextTick()
+      })
+    }
   },
 
   mounted () {
@@ -148,7 +171,7 @@ export default {
 
   methods: {
     selectCategory: function (categoryId) {
-      this.category = categoryId
+      this.idea.category = categoryId
     },
     setBreadcrumbs: function () {
       var ideaPlaceRoute
@@ -192,13 +215,13 @@ export default {
           }
 
           let newIdea = {
-            title: this.title,
-            description: this.description,
+            title: this.idea.title,
+            description: this.idea.description,
             school_id: this.$store.getters.selected_school,
-            created_by: this.$store.getters.userId,
+            created_by: this.isEditing ? this.idea.created_by.id : this.$store.getters.userId,
             changed_by: this.$store.getters.userId,
             idea_space: this.$route.params['spaceId'],
-            category: this.category
+            category: this.idea.category.id
           }
 
           if (this.topic != null) {
@@ -207,7 +230,15 @@ export default {
             })
           }
 
-          api.ideaSpace.createIdea(newIdea)
+          let apiRequest
+          if (this.isEditing) {
+            newIdea.id = this.idea.id
+            apiRequest = api.ideaSpace.updateIdea
+          } else {
+            apiRequest = api.ideaSpace.createIdea
+          }
+
+          apiRequest(newIdea)
             .then((res) => {
               if (res.status < 400 && res.data.length > 0) {
                 const spaceSlug = this.$route.params['spaceSlug']
@@ -225,7 +256,7 @@ export default {
               this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.networkError')
             })
         })
-        .catch(() => {
+        .catch((e) => {
           this.showSnackbar = true
           this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.clientError')
         })

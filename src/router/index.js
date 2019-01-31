@@ -34,6 +34,13 @@ const router = new Router({
       meta: { auth: true }
     },
     {
+      path: '/space/:spaceSlug/idea/:ideaId/edit',
+      name: 'IdeaEdit',
+      props: { isEditing: true },
+      component: IdeaEdit,
+      meta: { auth: true }
+    },
+    {
       path: '/space/:spaceSlug/idea/create/:topicId?',
       name: 'IdeaCreate',
       component: IdeaEdit,

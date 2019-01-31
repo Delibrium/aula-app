@@ -284,7 +284,8 @@ export default {
     'formReset': 'Zurücksetzen',
     'formCancel': 'Abbrechen',
     'snackbarCreated': 'Erstellt',
-    'snackbarSaved': 'Gesichert'
+    'snackbarSaved': 'Gesichert',
+    'isDefault': 'Default'
   },
   AdminQuorum: {
     'school': 'Wie hoch soll das Quorum schulweit sein?',

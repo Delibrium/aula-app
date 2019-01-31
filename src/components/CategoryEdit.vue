@@ -26,6 +26,15 @@
           required
           >
         </v-text-field>
+        <v-checkbox
+          name='default'
+          v-model='def'
+          v-validate="'required'"
+          :error-messages="errors.collect('description')"
+          :label="this.$vuetify.t('$vuetify.AdminCategories.isDefault')"
+          required
+          >
+        </v-checkbox>
         <!-- <v-avatar class='inlineinput' size='36'><img :src="formIconUrl" /></v-avatar> -->
         <vue-base64-file-upload
           accept="image/png,image/jpeg,image/svg"
@@ -91,6 +100,8 @@ export default {
       editingId: null,
       showSnackbar: false,
       snackbarMsg: '',
+      def: false,
+      image: '',
       iconFile: '',
       iconUrl: '',
       iconChanged: false
@@ -121,7 +132,8 @@ export default {
         this.name = next.name
         this.description = next.description
         this.editingId = next.id
-        this.iconUrl = next.icon
+        this.image = next.image
+        this.def = next.def
       }
     }
   },
@@ -132,7 +144,7 @@ export default {
     },
 
     onLoad: function (dataUri) {
-      this.iconFile = dataUri
+      this.image = dataUri
     },
 
     cancel: function () {
@@ -142,6 +154,7 @@ export default {
       this.iconFile = ''
       this.iconUrl = ''
       this.iconChanged = false
+      this.image = ''
       this.$nextTick(() => this.$validator.reset())
     },
     handleIconSelected: function (icon) {
@@ -178,7 +191,8 @@ export default {
             school_id: this.$store.getters.selected_school,
             name: this.name,
             description: this.description,
-            image: this.iconFile
+            image: this.image,
+            def: this.def
           }
 
           if (this.iconChanged === true) {

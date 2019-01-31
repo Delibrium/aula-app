@@ -28,6 +28,9 @@
                           </p>
                           </div>
                         </v-flex>
+                        <v-flex class="text-md-right text-xs-right">
+                          <router-link tag="v-icon" :to="{ name: 'IdeaEdit', params: { ideaId: this.idea.id }}">edit</router-link>
+                        </v-flex>
                       </v-layout>
                     </v-card-title>
                     <v-card-text>

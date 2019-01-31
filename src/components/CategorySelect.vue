@@ -1,13 +1,13 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap justify-center>
-      <v-flex class="category-button" md2 v-for="(category, index) in categories" :key="category.id" align-center @click="selectCategory(category)" :class="{selected: category.id === selectedCategory}">
+      <v-flex class="category-button" md1 v-for="category in cats" :key="category.id" @click="selectCategory(category)" :class="{selected: category.id === selectedCategory}">
         <v-layout column>
           <v-flex class="category-title">
             <h3>{{ category.name }}</h3>
           </v-flex>
           <v-flex>
-            <v-img :src="category.image" width="90" height="90"/>
+            <v-img :src="category.image" width="50" height="50"/>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -17,28 +17,20 @@
 
 <script>
 
-import api from '@/api'
-
 export default {
   name: 'CategorySelect',
-  props: ['category'],
+  props: ['selectedCategory', 'cats'],
   data: function () {
     return {
-      selectedCategory: this.category,
-      categories: []
     }
   },
 
   beforeMount: function () {
-    api.category.get(this.$store.getters.school_id).then((res) => {
-      this.categories = res.data
-    })
   },
 
   methods: {
     selectCategory: function (category) {
-      this.selectedCategory = category.id
-      this.$emit('selectedCategory', category.id)
+      this.$emit('select-category', category)
     }
   }
 
