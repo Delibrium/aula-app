@@ -24,19 +24,30 @@
       </v-card>
     </v-flex>
 
-    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md12 lg12 pa-2>
+    <v-flex v-for="idea in this.sortedIdeas" :key="idea.id" sm12 md12 lg12 pa-0>
       <v-card class="idea-card" flat>
         <v-card-title @click="openIdea(idea)">
-          <h3>{{ idea.title }}</h3>
-          <div class="card-meta">
-            {{ $vuetify.t('$vuetify.IdeaListing.ideaSubtitle',
-            getAuthorName(idea),
-            getCreatedDate(idea)) }}
-          </div>
+          <v-layout row>
+            <v-flex md10>
+              <h3>{{ idea.title }}</h3>
+              <div class="card-meta">
+                {{ $vuetify.t('$vuetify.IdeaListing.ideaSubtitle',
+                getAuthorName(idea),
+                getCreatedDate(idea)) }}
+              </div>
+            </v-flex>
+            <v-flex>
+            <v-tooltip bottom>
+              <v-img class="idea-category" slot="activator" v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
+              <img  slot="activator" v-else src="/static/img/svg/icon_regeln.svg">
+              <span v-if="idea.category">{{ idea.category.name }}</span>
+            </v-tooltip>
+            </v-flex>
+          </v-layout>
         </v-card-title>
 
         <v-card-text>
-          <v-list>
+          <v-list dense>
             <v-list-tile class="suggestions">
               <v-icon>comment</v-icon>
               <span
@@ -98,11 +109,6 @@
           </v-list>
 
           <v-flex text-xs-right pr-4 class="categories">
-            <v-tooltip bottom>
-            <v-img slot="activator" v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
-            <img  slot="activator" v-else src="/static/img/svg/icon_regeln.svg">
-            <span v-if="idea.category">{{ idea.category.name }}</span>
-            </v-tooltip>
           </v-flex>
         </v-card-text>
       </v-card>
@@ -264,16 +270,19 @@ export default {
   margin: auto 10px;
 }
 
+.idea-category {
+  float: right;
+}
+
 .idea-card {
   margin: 10px;
   border-radius: 7px;
   text-align: left;
 
   .v-card__title {
-    flex-direction: column;
-    align-items: baseline;
     cursor: pointer;
     border-bottom: 3px solid #eee !important;
+    padding: 12px;
 
     h3 {
       font-size: 1.6em;
@@ -286,8 +295,7 @@ export default {
   }
 
   .v-card__text {
-    display: flex;
-    word-break: break-all;
+    padding: 0;
   }
 
   .v-list__tile span {
@@ -304,7 +312,6 @@ export default {
   }
 
   .suggestions {
-    margin-bottom: 10px;
   }
 
   .v-divider {
