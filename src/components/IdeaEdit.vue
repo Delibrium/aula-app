@@ -50,7 +50,6 @@
                         v-if="this.topic != null"
                         href
                         :to="{name: 'Topic', params: {topicId: this.topicId}}"
-                        round
                         dark
                       >{{ $vuetify.t('$vuetify.IdeaCreation.backToTopic') }}</v-btn>
                     </v-flex>
@@ -130,6 +129,7 @@ export default {
   },
 
   beforeMount: function () {
+    console.log(this.topicId)
     if (this.topicId != null) {
       api.topic.get(this.topicId)
         .then(res => {
@@ -176,12 +176,25 @@ export default {
     setBreadcrumbs: function () {
       var ideaPlaceRoute
 
-      ideaPlaceRoute = {
-        title: `[${this.spaceName}] Wilde ideen`,
-        to: {
-          name: 'Ideas',
-          params: {
-            spaceSlug: this.$route.params['spaceSlug']
+      if (!this.topicId) {
+        ideaPlaceRoute = {
+          title: `[${this.spaceName}] ${this.$vuetify.t('$vuetify.Idea.wildIdeas')}`,
+          to: {
+            name: 'Ideas',
+            params: {
+              spaceSlug: this.$route.params['spaceSlug']
+            }
+          }
+        }
+      } else {
+        ideaPlaceRoute = {
+          title: `[${this.spaceName}] ${this.$vuetify.t('$vuetify.Space.ideaTopics')}`,
+          to: {
+            name: 'Topic',
+            params: {
+              spaceSlug: this.$route.params['spaceSlug'],
+              spaceId: this.spaceId
+            }
           }
         }
       }

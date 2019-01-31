@@ -66,6 +66,12 @@
                     }">
                     {{ $vuetify.t('$vuetify.Topic.edit') }}
                   </v-btn>
+                  <v-btn
+                    v-if="this.topic.phase === 'edit_topics'"
+                    small
+                    color="white"
+                    :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId, topicId: this.topic.id}}"
+                  >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
