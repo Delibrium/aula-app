@@ -65,7 +65,7 @@
                           </div>
                       </v-flex>
                       <v-flex>
-                        <v-layout align-center justify-center>
+                        <v-layout align-center justify-center wrap>
                           <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic && idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics' && idea.topic.phase !== 'finished'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary>
@@ -85,6 +85,19 @@
                               </v-btn>
                             </v-btn-toggle>
                           </v-flex>
+
+                          <!-- Is Idea Feasible? -->
+                          <v-flex md8 text-xs-center text-md-center>
+                            <v-btn primary :depressed="idea.feasible" :class="{pressed: idea.feasible}"  :color="this.$vuetify.theme.primary" @click="isPossible(true)">
+                              <v-icon left>done</v-icon>
+                              <span>{{$vuetify.t('$vuetify.Idea.isPossible')}}</span>
+                            </v-btn>
+                            <v-btn primary :depressed="idea.feasible === false" :class="{pressed: idea.feasible === false}" :color="this.$vuetify.theme.primary" @click="isPossible(false)">
+                              <v-icon left>clear</v-icon>
+                              <span>{{$vuetify.t('$vuetify.Idea.notPossible')}}</span>
+                            </v-btn>
+                          </v-flex>
+
                         </v-layout>
                       </v-flex>
 
@@ -219,6 +232,14 @@ export default {
   },
 
   methods: {
+    isPossible: function (value) {
+      if (value === this.idea.feasible) {
+        value = null
+      }
+      this.$set(this.idea, 'feasible', value)
+      ideaApi.updateIdeas([this.idea.id], {feasible: value})
+    },
+
     getIdea: function () {
       ideaApi.getIdea(this.$route.params['ideaId'], true).then(res => {
         this.idea = res.data[0]
@@ -439,5 +460,9 @@ export default {
       color: #212121;
     }
 
+  }
+
+  .pressed {
+     background-color: var(--v-primary-lighten2) !important;
   }
 </style>
