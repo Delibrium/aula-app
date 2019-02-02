@@ -23,6 +23,50 @@ export function getIdeas (topicId) {
   return service.get('/idea', { params })
 }
 
+export function getDelegate (topicId, userId) {
+  const params = {
+    context_topic: `eq.${topicId}`,
+    from_user: `eq.${userId}`
+  }
+  return service.get('/delegation', { params })
+}
+
+export function createDelegate (schoolId, topicId, fromId, toId) {
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+
+  const delegation = {
+    created_by: fromId,
+    context_topic: topicId,
+    school_id: schoolId,
+    from_user: fromId,
+    to_user: toId
+  }
+
+  return service.post('/delegation', delegation, config)
+}
+
+export function updateDelegate (topicId, fromId, toId) {
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    },
+    params: {
+      context_topic: `eq.${topicId}`,
+      from_user: `eq.${fromId}`
+    }
+  }
+
+  const delegation = {
+    to_user: toId
+  }
+
+  return service.patch('/delegation', delegation, config)
+}
+
 export function getIdeasCount (topicId) {
   const params = {
     topic: `eq.${topicId}`,

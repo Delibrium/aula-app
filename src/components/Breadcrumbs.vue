@@ -2,7 +2,7 @@
    <v-flex xs12 text-xs-left mt-1 pa-0 hidden-sm-and-down class="breadcrumbs">
      <v-breadcrumbs>
        <v-breadcrumbs-item :exact="true" :to="item.to" :key="index" v-for="(item,index) in items">{{ item.title }}</v-breadcrumbs-item>
-       <v-icon slot="divider">arrow_forward</v-icon>
+       <v-icon color="primary" slot="divider">arrow_forward</v-icon>
      </v-breadcrumbs>
    </v-flex>
 </template>

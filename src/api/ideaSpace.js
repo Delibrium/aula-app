@@ -83,6 +83,17 @@ export function updateIdea (idea) {
   })
 }
 
+export function getUsers (schoolId, ideaSpaceId) {
+  var queryParams = {}
+  if (!ideaSpaceId) {
+    queryParams['school_id'] = `eq.${schoolId}`
+    return service.get('/users', {params: queryParams})
+  } else {
+    queryParams['space_id'] = ideaSpaceId
+    return service.post('/rpc/ideas_space_user', queryParams)
+  }
+}
+
 export function getTopics (schoolId, ideaSpaceId) {
   var queryParams = {
     school_id: `eq.${schoolId}`,

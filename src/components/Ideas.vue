@@ -9,7 +9,7 @@
               <v-breadcrumbs-item
                 :href="'#/space/' + this.$route.params.spaceSlug + '/ideas'"
                                   >[{{ spaceName}}] Wilde ideen</v-breadcrumbs-item>
-              <v-icon slot="divider">arrow_forward</v-icon>
+              <v-icon color="primary" slot="divider">arrow_forward</v-icon>
             </v-breadcrumbs>
           </v-flex>
 

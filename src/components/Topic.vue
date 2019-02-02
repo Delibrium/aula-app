@@ -32,7 +32,7 @@
               <v-breadcrumbs-item :href="'#/space/' + this.spaceSlug + '/topics/' + this.topicId ">
                 {{ topic.title }}
               </v-breadcrumbs-item>
-              <v-icon slot="divider">arrow_forward</v-icon>
+              <v-icon color="primary" slot="divider">arrow_forward</v-icon>
             </v-breadcrumbs>
           </v-flex>
 
@@ -72,12 +72,40 @@
                     color="white"
                     :to="{ name: 'IdeaCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId, topicId: this.topic.id}}"
                   >{{ $vuetify.t('$vuetify.Space.newIdea') }}</v-btn>
+                  <v-btn
+                    v-if="this.topic.phase !== 'finished'"
+                    small
+                    color="white"
+                    :to="{ name: 'Delegate', param: {
+                           spaceSlug:$route.params['spaceSlug'],
+                           spaceId: spaceId,
+                           topicId: this.topic.id,
+                          }}"
+                  >{{ $vuetify.t('$vuetify.Topic.changeDelegate') }}</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
           </v-flex>
+          <v-flex xs12 md12>
+            <v-tabs
+              v-model="tab"
+              dark
+              >
+              <v-tab>
+                {{ $vuetify.t('$vuetify.Topic.allIdeas') }}
+              </v-tab>
+              <v-tab>
+                {{ $vuetify.t('$vuetify.Topic.delegates') }}
+              </v-tab>
+              <v-tab-item key="0">
+                <IdeaListing :ideas="ideas" :topic="topic"/>
+              </v-tab-item>
+              <v-tab-item key="1">
+                DELEGATE
+              </v-tab-item>
+            </v-tabs>
+          </v-flex>
           <v-flex>
-            <IdeaListing :ideas="ideas" :topic="topic"/>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -156,7 +184,7 @@ export default {
 
   data: function () {
     return {
-      tab: 1,
+      tab: 0,
       topic: null,
       ideas: [],
       showDeleteTopic: false
@@ -166,7 +194,6 @@ export default {
   beforeMount: function () {
     this.getTopic()
     this.getIdeas()
-
     // Set momeent locale to be the same as configured for vuetify
     moment.locale(this.$vuetify.lang.current)
   },
@@ -201,6 +228,9 @@ export default {
             this.topic.idea_space = {'title': this.$store.getters.schoolConfig.mainSpaceName}
           }
           this.topic.meta = { editTopicsStarted: new Date() }
+
+          console.log(this.spaceId)
+          api.ideaSpace.getUsers(this.$store.getters.school_id, this.topic.idea_space.id)
         })
     },
     getIdeas: function () {

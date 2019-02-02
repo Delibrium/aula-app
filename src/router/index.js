@@ -14,6 +14,7 @@ import ProfileEdit from '@/components/ProfileEdit'
 import UserEdit from '@/components/UserEdit'
 import PassList from '@/components/PassList'
 import Redirect from '@/components/Redirect'
+import Delegate from '@/components/Delegate'
 import Page from '@/components/Page'
 import store from '@/store'
 
@@ -74,6 +75,12 @@ const router = new Router({
       path: '/space/:spaceSlug/topics/:topicId/edit',
       name: 'TopicEdit',
       component: TopicEdit,
+      meta: { auth: true }
+    },
+    {
+      path: '/space/:spaceSlug/topics/:topicId/delegate',
+      name: 'Delegate',
+      component: Delegate,
       meta: { auth: true }
     },
     {
