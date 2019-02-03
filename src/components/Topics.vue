@@ -11,7 +11,7 @@
                 <v-breadcrumbs-item :href="'#/space/' + this.$route.params.spaceSlug + '/topics'">
                   [{{ spaceName }}] Themenraum
                 </v-breadcrumbs-item>
-                <v-icon slot="divider">arrow_forward</v-icon>
+                <v-icon slot="divider" color="primary">arrow_forward</v-icon>
               </v-breadcrumbs>
             </v-flex>
 
