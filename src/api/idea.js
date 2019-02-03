@@ -32,29 +32,49 @@ function updateOrCreateFeasibility (feasibility) {
   return apiRequest('/feasible', feasibility, { params })
 }
 
-function getVotes (ideaId) {
+function getVotes (ideaId, phase = null) {
+  var endpoint = '/idea_vote'
+  if (phase === 'wild-idea-phase') {
+    endpoint = '/idea_like'
+  }
+
   const params = {
     idea: 'eq.' + ideaId
   }
-  return service.get('/idea_vote', { params })
+  return service.get(endpoint, { params })
 }
 
-function deleteVote (userId, ideaId) {
+function deleteVote (userId, ideaId, phase = null) {
+  var endpoint = '/idea_vote'
+  if (phase === 'wild-idea-phase') {
+    endpoint = '/idea_like'
+  }
+
   const params = {
     and: `(created_by.eq.${userId},idea.eq.${ideaId})`
   }
-  return service.delete('/idea_vote', { params })
+  return service.delete(endpoint, { params })
 }
 
-function postVote (vote) {
-  return service.post('/idea_vote', vote)
+function postVote (vote, phase = null) {
+  var endpoint = '/idea_vote'
+  if (phase === 'wild-idea-phase') {
+    endpoint = '/idea_like'
+  }
+
+  return service.post(endpoint, vote)
 }
 
-function patchVote (vote) {
+function patchVote (vote, phase = null) {
+  var endpoint = '/idea_vote'
+  if (phase === 'wild-idea-phase') {
+    endpoint = '/idea_like'
+  }
+
   const params = {
     idea: `eq.${vote.idea}`
   }
-  return service.patch('/idea_vote', vote, { params })
+  return service.patch(endpoint, vote, { params })
 }
 
 function getLikes (ideaId) {

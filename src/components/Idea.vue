@@ -88,16 +88,10 @@
 
                           <!-- Is Idea Feasible? -->
                           <v-flex md4 text-xs-center text-md-center>
-               <!--             <v-btn primary :depressed="idea.feasible" :class="{pressed: idea.feasible}"  :color="this.$vuetify.theme.primary" @click="isPossible(true)">
-                              <v-icon left>done</v-icon>
-                              <span>{{$vuetify.t('$vuetify.Idea.isPossible')}}</span>
-                            </v-btn>
-                            <v-btn primary :depressed="idea.feasible === false" :class="{pressed: idea.feasible === false}" :color="this.$vuetify.theme.primary" @click="isPossible(false)">
-                              <v-icon left>clear</v-icon>
-                              <span>{{$vuetify.t('$vuetify.Idea.notPossible')}}</span>
-                              </v-btn>  -->
                               <v-btn @click="setFeasibility">
-                                {{$vuetify.t('$vuetify.Idea.isPossible')}}?
+                                <span v-if="feasibility.val === true">{{ $vuetify.t('$vuetify.Idea.isPossible')  }}</span>
+                                <span v-else-if="feasibility.val === false">{{ $vuetify.t('$vuetify.Idea.notPossible')  }}</span>
+                                <span v-else>{{$vuetify.t('$vuetify.Idea.isPossible')}}?</span>
                               </v-btn>
                           </v-flex>
 
@@ -226,6 +220,10 @@ export default {
   },
 
   computed: {
+    phase: function () {
+      return !this.idea.topic ? 'wild-idea-phase' : this.idea.topic
+    },
+
     proVotesPercent: function () {
       return 100.0 * Math.min(this.proVotes.length / this.quorum.requiredVoteCount, 1)
     },
@@ -366,7 +364,7 @@ export default {
       })
     },
     getVotes: function () {
-      ideaApi.getVotes(this.idea.id).then(resp => {
+      ideaApi.getVotes(this.idea.id, this.phase).then(resp => {
         this.votes = resp.data
         this.voteValue = this.currentVote
       })
@@ -386,7 +384,8 @@ export default {
         // Vote was reset => delete vote
         ideaApi.deleteVote(
           this.$store.getters.userId,
-          this.$route.params['ideaId']
+          this.$route.params['ideaId'],
+          this.phase
         ).then(res => {
           this.getVotes()
         })
@@ -401,14 +400,14 @@ export default {
           changed_by: this.$store.getters.userId,
           val
         }
-        ideaApi.postVote(vote)
+        ideaApi.postVote(vote, this.phase)
           .then(res => {
             this.getVotes()
           })
           .catch((err) => {
             if (err.request != null && err.request.status === 409) {
               // User has already voted
-              ideaApi.patchVote(vote)
+              ideaApi.patchVote(vote, this.phase)
                 .then(res => {
                   this.getVotes()
                 })
