@@ -12,6 +12,26 @@ function getIdea (ideaId, getIdeaSpace = false) {
   return service.get('/idea', { params })
 }
 
+function getFeasibility (ideaId) {
+  const params = {
+    idea: 'eq.' + ideaId
+  }
+  return service.get('/feasible', { params })
+}
+
+function updateOrCreateFeasibility (feasibility) {
+  var apiRequest, params
+  if (Object.keys(feasibility).indexOf('id') >= 0) {
+    apiRequest = service.patch
+    params = {
+      id: 'eq.' + feasibility.id
+    }
+  } else {
+    apiRequest = service.post
+  }
+  return apiRequest('/feasible', feasibility, { params })
+}
+
 function getVotes (ideaId) {
   const params = {
     idea: 'eq.' + ideaId
@@ -96,5 +116,7 @@ export default {
   postLike,
   deleteLike,
   getComments,
-  getQuorumInfo
+  getQuorumInfo,
+  getFeasibility,
+  updateOrCreateFeasibility
 }

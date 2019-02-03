@@ -87,15 +87,18 @@
                           </v-flex>
 
                           <!-- Is Idea Feasible? -->
-                          <v-flex md8 text-xs-center text-md-center>
-                            <v-btn primary :depressed="idea.feasible" :class="{pressed: idea.feasible}"  :color="this.$vuetify.theme.primary" @click="isPossible(true)">
+                          <v-flex md4 text-xs-center text-md-center>
+               <!--             <v-btn primary :depressed="idea.feasible" :class="{pressed: idea.feasible}"  :color="this.$vuetify.theme.primary" @click="isPossible(true)">
                               <v-icon left>done</v-icon>
                               <span>{{$vuetify.t('$vuetify.Idea.isPossible')}}</span>
                             </v-btn>
                             <v-btn primary :depressed="idea.feasible === false" :class="{pressed: idea.feasible === false}" :color="this.$vuetify.theme.primary" @click="isPossible(false)">
                               <v-icon left>clear</v-icon>
                               <span>{{$vuetify.t('$vuetify.Idea.notPossible')}}</span>
-                            </v-btn>
+                              </v-btn>  -->
+                              <v-btn @click="setFeasibility">
+                                {{$vuetify.t('$vuetify.Idea.isPossible')}}?
+                              </v-btn>
                           </v-flex>
 
                         </v-layout>
@@ -165,6 +168,29 @@
           </div>
         </v-flex>
       </v-layout>
+      <v-dialog
+        width="500"
+        v-model="dialogFeasible">
+        <v-card>
+          <v-card-text>
+            <v-select
+               :label="$vuetify.t('$vuetify.Idea.isPossible') + '?'"
+               v-model="feasibility.val"
+               :items="feasibleOptions"/>
+             <v-textarea
+               :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
+               :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
+               v-model="feasibility.reason"
+             ></v-textarea>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn @click="saveFeasibility">{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+            <v-btn @click="dialogFeasible = false">{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
+          </v-card-actions>
+        </v-card>
+
+      </v-dialog>
     </v-container>
 </template>
 
@@ -177,15 +203,23 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 export default {
   name: 'Idea',
   components: { Comments, Breadcrumbs },
-  data: () => ({
-    idea: {},
-    ideaSpace: null,
-    quorum: null,
-    comments: null,
-    votes: null,
-    voteValue: null,
-    breadcrumbs: []
-  }),
+  data: function () {
+    return {
+      idea: {},
+      ideaSpace: null,
+      quorum: null,
+      comments: null,
+      votes: null,
+      voteValue: null,
+      breadcrumbs: [],
+      dialogFeasible: false,
+      feasibility: { val: null, reason: '' },
+      feasibleOptions: [
+        {text: this.$vuetify.t('$vuetify.Idea.isPossible'), value: true},
+        {text: this.$vuetify.t('$vuetify.Idea.notPossible'), value: false}
+      ]
+    }
+  },
 
   beforeMount: function () {
     this.getIdea()
@@ -232,6 +266,21 @@ export default {
   },
 
   methods: {
+    saveFeasibility: function () {
+      if (!this.feasibility.created_at) {
+        this.feasibility.school_id = this.$store.getters.school_id
+        this.feasibility.created_by = this.$store.getters.user.profile.id
+        this.feasibility.idea = this.idea.id
+      }
+      ideaApi.updateOrCreateFeasibility(this.feasibility).then(res => {
+        if (res.status < 400) {
+          this.dialogFeasible = false
+        }
+      })
+    },
+    setFeasibility: function () {
+      this.dialogFeasible = true
+    },
     isPossible: function (value) {
       if (value === this.idea.feasible) {
         value = null
@@ -245,6 +294,14 @@ export default {
         this.idea = res.data[0]
         this.getQuorumInfo()
         this.getVotes()
+
+        if (this.idea.topic && this.idea.topic.phase !== 'finished') {
+          ideaApi.getFeasibility(this.idea.id).then((res) => {
+            if (res.data.length > 0) {
+              this.feasibility = res.data[0]
+            }
+          })
+        }
 
         var ideaPlaceRoute = {}
         if (this.idea.topic) {

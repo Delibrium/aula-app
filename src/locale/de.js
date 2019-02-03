@@ -225,6 +225,7 @@ export default {
     'isPossible': 'Durchführbar',
     'notPossible': 'Nicht durchführbar',
     'statement': 'Statement abgeben',
+    'feasibleDesc': 'Was möchtest du sagen?',
     'support': 'Unterstützen',
     'noSupport': 'Nicht mehr unterstützen',
     'category': 'Diese Idee gehört zur Kategorie {0}',
