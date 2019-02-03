@@ -67,7 +67,8 @@ export default {
     'subtitle': 'Was soll sich verändern?',
     'description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
     'newIdea': 'Neue Idee',
-    'ask.on.no.ideas.search.results': 'Erstelle Deine eigene Idee!'
+    'ask.on.no.ideas.search.results': 'Erstelle Deine eigene Idee!',
+    'info': 'Schau dir die Ideen an, die andere haben. Welche davon würdest du unterstützen? Hast du eine eigene Idee, die nicht dabei ist? Dann stell sie hier ein!'
   },
   IdeaListing: {
     'sortByAge': 'Datum',
@@ -93,6 +94,7 @@ export default {
   },
   Topic: {
     'topic': 'Thema',
+    'info': 'In diesen Themen befinden sich Ideen. Über die Themen in der Ausarbeitungsphase kannst du diskutieren, eigene Ideen hinzufügen und Verbesserungsvorschläge machen. Wenn das Thema in der Abstimmungsphase ist, kannst du über Ideen darin abstimmen.',
     'introTitle': 'Diese Themen sind in der Diskussion',
     'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
     'newTopic': 'Neues Thema erstellen',

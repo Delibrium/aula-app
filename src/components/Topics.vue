@@ -20,7 +20,7 @@
             <v-layout column  class="page-header-background">
               <v-flex xs12 text-xs-center class="page-header-topics">
                 <div class="info-helper">
-                  <v-icon dark>info</v-icon>
+                  <v-icon @click="info = true" dark>info</v-icon>
                 </div>
                 <div>
                   <v-img class="topics-icon" src="/static/img/Karteikasten.svg" width="300" height="300"/>
@@ -63,6 +63,14 @@
           </v-layout>
         </v-flex>
     </v-layout>
+    <v-dialog v-model="info" width="500">
+        <v-card>
+          <v-card-text>
+            {{ $vuetify.t('$vuetify.Topic.info') }}
+          </v-card-text>
+        </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -82,7 +90,8 @@ export default {
       topics: [],
       topicsCount: {},
       spaceId: this.$route.params['spaceId'],
-      spaceName: ''
+      spaceName: '',
+      info: false
     }
   },
 
@@ -214,6 +223,7 @@ export default {
       position: absolute;
       top: 0;
       right: 0;
+      z-index: 5;
     }
 
     img {

@@ -17,7 +17,7 @@
 
           <v-layout column class="page-header-background-ideas">
             <v-flex xs12 text-xs-center text-center class="page-header">
-              <span class="info-helper">
+              <span class="info-helper" @click="info = true">
                 <v-icon dark>info</v-icon>
               </span>
 
@@ -38,6 +38,15 @@
           <v-flex xs12>
             <IdeaListing :ideas="ideas"/>
           </v-flex>
+
+          <v-dialog v-model="info" width="500">
+            <v-card>
+              <v-card-text>
+                {{ $vuetify.t('$vuetify.Space.info') }}
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+
         </v-layout>
       </v-flex>
     </v-layout>
@@ -59,7 +68,8 @@ export default {
       tab: 0,
       ideas: [],
       spaceId: this.$route.params['spaceId'],
-      spaceName: ''
+      spaceName: '',
+      info: false
     }
   },
 
@@ -132,6 +142,7 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 5;
   }
 
   img {
