@@ -47,6 +47,11 @@
                         dark
                       >{{ isEditing ? $vuetify.t('$vuetify.Form.save') : $vuetify.t('$vuetify.IdeaCreation.publish') }}</v-btn>
                       <v-btn
+                        v-if="this.topic === null"
+                        @click="$router.back()"
+                        dark
+                      >{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
+                      <v-btn
                         v-if="this.topic != null"
                         href
                         :to="{name: 'Topic', params: {topicId: this.topicId}}"

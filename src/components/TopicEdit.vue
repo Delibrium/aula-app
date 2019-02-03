@@ -68,16 +68,19 @@
                 <v-flex xs12 md8 offset-md2 pa-2 align-center justify-center text-md-center text-xs-center>
                   <v-btn
                     @click="submit"
-                    round
                     color="primary"
                     dark
                   >{{ $vuetify.t('$vuetify.TopicCreation.publish') }}</v-btn>
                   <v-btn
                     v-if="this.$route.params.topicId != null"
                     :to="{ name: 'Topic', spaceSlug: this.$route.params.spaceSlug, topicId: this.$route.params.topicId }"
-                    round
                     dark
                   >{{ $vuetify.t('$vuetify.TopicCreation.cancel') }}</v-btn>
+                  <v-btn
+                    v-if="this.$route.params.topicId == null"
+                    @click="$router.back()"
+                    dark
+                  >{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
                 </v-flex>
               </v-layout>
             </v-card-text>
