@@ -79,7 +79,7 @@
               <v-card-actions>
                 <v-btn
                   @click="deleteUser"
-                  color="error"
+                  color="red"
                 >{{ $vuetify.t('$vuetify.AdminUsers.deleteConfirm') }}</v-btn>
                 <v-btn @click="reset">{{ $vuetify.t('$vuetify.AdminUsers.deleteCancel') }}</v-btn>
               </v-card-actions>

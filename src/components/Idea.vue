@@ -87,7 +87,7 @@
                           </v-flex>
 
                           <!-- Is Idea Feasible? -->
-                          <v-flex md4 text-xs-center text-md-center>
+                          <v-flex md4 text-xs-center text-md-center v-if="canEditFeasibility">
                               <v-btn @click="setFeasibility">
                                 <span v-if="feasibility.val === true">{{ $vuetify.t('$vuetify.Idea.isPossible')  }}</span>
                                 <span v-else-if="feasibility.val === false">{{ $vuetify.t('$vuetify.Idea.notPossible')  }}</span>
@@ -193,6 +193,7 @@
 import ideaApi from '@/api/idea'
 import Comments from '@/components/Comments'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'Idea',
@@ -220,6 +221,10 @@ export default {
   },
 
   computed: {
+    canEditFeasibility: function () {
+      return isUserMemberOf(['admin', 'school_admin', 'principal'])
+    },
+
     phase: function () {
       return !this.idea.topic ? 'wild-idea-phase' : this.idea.topic
     },

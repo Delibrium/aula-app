@@ -192,7 +192,7 @@ export default {
             return
           }
 
-          if (!isUserMemberOf(['admin'])) {
+          if (!isUserMemberOf(['admin', 'school_admin'])) {
             this.showSnackbar = true
             this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.rightsError')
             return
