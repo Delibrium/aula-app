@@ -172,8 +172,8 @@
                v-model="feasibility.val"
                :items="feasibleOptions"/>
              <v-textarea
-               :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
-               :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
+               :label="$vuetify.t('$vuetify.Idea.statement')"
+               :hint="$vuetify.t('$vuetify.Idea.feasibilityReason')"
                v-model="feasibility.reason"
              ></v-textarea>
           </v-card-text>

@@ -3,7 +3,7 @@ import service from '@/api/service'
 function get (schoolId) {
   const params = {
     school_id: `eq.${schoolId}`,
-    order: 'name,id'
+    order: 'position,name,id'
   }
   return service.get('/category', { params })
 }

@@ -26,6 +26,15 @@
           required
           >
         </v-text-field>
+        <v-text-field
+          name='position'
+          v-model='position'
+          v-validate="'required'"
+          :label="this.$vuetify.t('$vuetify.AdminCategories.position')"
+          required
+          >
+        </v-text-field>
+
         <v-checkbox
           name='default'
           v-model='def'
@@ -100,6 +109,7 @@ export default {
       editingId: null,
       showSnackbar: false,
       snackbarMsg: '',
+      position: null,
       def: false,
       image: '',
       iconFile: '',
@@ -155,6 +165,7 @@ export default {
       this.iconUrl = ''
       this.iconChanged = false
       this.image = ''
+      this.position = null
       this.$nextTick(() => this.$validator.reset())
     },
     handleIconSelected: function (icon) {
@@ -192,7 +203,8 @@ export default {
             name: this.name,
             description: this.description,
             image: this.image,
-            def: this.def
+            def: this.def,
+            position: this.position
           }
 
           if (this.iconChanged === true) {

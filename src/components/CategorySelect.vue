@@ -4,7 +4,7 @@
       <v-flex class="category-button" md1 v-for="category in cats" :key="category.id" @click="selectCategory(category)" :class="{selected: category.id === selectedCategory}">
         <v-layout column>
           <v-flex class="category-title">
-            <h3>{{ category.name }}</h3>
+            <h4>{{ category.name }}</h4>
           </v-flex>
           <v-flex>
             <v-img :src="category.image" width="50" height="50"/>
