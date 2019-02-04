@@ -310,6 +310,8 @@ export default {
   },
   AdminIdeaSpace: {
     'formIdeaSpace': 'Klasse',
+    'delete': 'Klass Löschen',
+    'deleteAlert': 'Achtung! Möchtest du diese Klasse wirklich löschen? Das löscht alle damit verbundenen Benutzerrollen, die Ideen darin, die Kommentare, Themen, Abstimmungen und Delegationen. Diese Aktion kann nicht mehr rückgängig gemacht werden!',
     'formIdeaSpaceName': 'Klass Name',
     'formIdeaSpaceDescription': 'Beschreibung',
     'formIdeaSpaceUrlName': 'Klass Url Name',

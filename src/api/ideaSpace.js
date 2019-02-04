@@ -94,6 +94,14 @@ export function getUsers (schoolId, ideaSpaceId) {
   }
 }
 
+export function deleteIdeaSpace (schoolId, ideaSpaceId) {
+  var queryParams = {
+    school_id: schoolId,
+    space_id: ideaSpaceId
+  }
+  return service.post('/rpc/delete_space', queryParams)
+}
+
 export function getTopics (schoolId, ideaSpaceId) {
   var queryParams = {
     school_id: `eq.${schoolId}`,

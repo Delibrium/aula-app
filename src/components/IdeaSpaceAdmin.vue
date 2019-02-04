@@ -4,6 +4,14 @@
         <v-card>
           <v-card-text>
             <v-layout column align-start>
+              <v-flex v-if="isEditing" d-flex xs12 sm12 pa-2>
+               <v-btn
+                 color="red"
+                 @click="ideaSpaceDeleteDialog = true"
+               >
+               {{ $vuetify.t('$vuetify.AdminIdeaSpace.delete') }}
+               </v-btn>
+              </v-flex>
               <v-flex d-flex xs12 sm12 pa-2>
                 <v-text-field
                   name="title"
@@ -49,10 +57,37 @@
                  @click="ideaSpaceCreationDialog = false"
                >
                {{ $vuetify.t('$vuetify.AdminUsers.formCancel') }}
+
+
                </v-btn>
              </v-flex>
             </v-layout>
           </v-card-text>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="ideaSpaceDeleteDialog" width="500">
+        <v-card>
+          <v-card-title>
+            <h1> {{ $vuetify.t('$vuetify.AdminIdeaSpace.delete') }}</h1>
+          </v-card-title>
+          <v-card-text>
+            <v-alert :value="true" type="info">
+             {{ $vuetify.t('$vuetify.AdminIdeaSpace.deleteAlert') }}
+            </v-alert>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              @click="deleteIdeaSpace"
+              color="red"
+            >
+            {{ $vuetify.t('$vuetify.Form.delete') }}
+            </v-btn>
+            <v-btn
+              @click="ideaSpaceDeleteDialog = false"
+            >
+            {{ $vuetify.t('$vuetify.Form.cancel') }}
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
       <v-layout column align-start>
@@ -107,6 +142,7 @@ export default {
         }],
       ideaSpaces: [],
       ideaSpaceCreationDialog: false,
+      ideaSpaceDeleteDialog: false,
       isEditing: false,
       defaultIdeaSpacesImages: ['/static/img/svg/door1.svg', '/static/img/svg/door2.svg', '/static/img/svg/door3.svg', '/static/img/svg/door4.svg'],
       newIdeaSpace: {
@@ -144,6 +180,14 @@ export default {
     getIdeaSpaces: function () {
       api.ideaSpace.getIdeaSpaces(this.$store.getters.selected_school).then(response => {
         this.ideaSpaces = response.data
+      })
+    },
+    deleteIdeaSpace: function () {
+      const spaceId = this.newIdeaSpace.id
+      api.ideaSpace.deleteIdeaSpace(this.newIdeaSpace.school_id, this.newIdeaSpace.id).then(resp => {
+        this.ideaSpaces = this.ideaSpaces.filter(i => i.id !== spaceId)
+        this.ideaSpaceDeleteDialog = false
+        this.ideaSpaceCreationDialog = false
       })
     },
     addIdeaSpace: function () {
