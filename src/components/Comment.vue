@@ -59,7 +59,7 @@
             <v-btn
               flat
               small
-              v-if="isOwnComment"
+              v-if="canEdit"
               :disabled="comment.is_deleted"
               @click="setEditingId"
             >
@@ -70,7 +70,7 @@
             <v-btn
               flat
               small
-              v-if="isOwnComment"
+              v-if="canEdit"
               :disabled="comment.is_deleted"
               @click="setDeleted"
             >
@@ -96,6 +96,7 @@
 
 <script>
   import api from '@/api'
+  import { isUserMemberOf } from '@/utils/permissions'
 
   export default {
     name: 'Comment',
@@ -114,6 +115,13 @@
           return 'var(--v-primary-base)'
         } else {
           return 'black'
+        }
+      },
+      canEdit: function () {
+        if (this.isOwnComment || isUserMemberOf(['admin', 'school_admin', 'moderator'])) {
+          return true
+        } else {
+          return false
         }
       },
       avatarSize: function () {
