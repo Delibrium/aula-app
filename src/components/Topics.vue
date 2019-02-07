@@ -27,7 +27,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 text-xs-center pa-3>
+              <v-flex xs12 text-xs-center pa-3 v-if="userMayCreateTopics">
                 <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
               </v-flex>
             </v-layout>
@@ -119,10 +119,13 @@ export default {
     }
   },
 
-  methods: {
+  computed: {
     userMayCreateTopics: function () {
       return isUserMemberOf(['admin', 'school_admin', 'principal'])
-    },
+    }
+  },
+
+  methods: {
     getTopics: function (schoolId, spaceId = null) {
       const phaseOrder = {
         'edit_topics': 1,

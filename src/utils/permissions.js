@@ -1,11 +1,18 @@
 import Store from '../store'
 
 export function isUserMemberOf (allowedRoles) {
-  if (Store.getters.user.profile.role == null) return false
+  if (Store.getters.user.profile.roles == null) return false
 
-  for (var role of Store.getters.user.profile.role) {
-    console.log(role)
-    if (allowedRoles.indexOf(role) >= 0) return true
+  for (var role of Store.getters.user.profile.roles) {
+    for (var arole of allowedRoles) {
+      if (typeof arole !== 'string' && role.length === 2) {
+        if (arole[0] === role[0] && arole[1] === role[1]) {
+          return true
+        }
+      } else if (arole === role[0]) {
+        return true
+      }
+    }
   }
   return false
 }

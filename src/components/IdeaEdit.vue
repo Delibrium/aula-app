@@ -134,7 +134,6 @@ export default {
   },
 
   beforeMount: function () {
-    console.log(this.topicId)
     if (this.topicId != null) {
       api.topic.get(this.topicId)
         .then(res => {

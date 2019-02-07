@@ -26,7 +26,7 @@
               </div>
             </v-flex>
 
-            <v-flex xs12 text-xs-center pa-3 class="page-header">
+            <v-flex xs12 text-xs-center pa-3 class="page-header" v-if="userMayCreateIdeas">
               <v-btn
                 large
                 color="white"
@@ -92,10 +92,14 @@ export default {
     }
   },
 
-  methods: {
+  computed: {
     userMayCreateIdeas: function () {
-      return !isUserMemberOf(['school_admin', 'principal'])
-    },
+      console.log('LOG', (this.spaceId) ? ['student', this.spaceId] : 'student', this.spaceId)
+      return (!isUserMemberOf(['school_admin', 'principal']) && isUserMemberOf([(this.spaceId) ? ['student', this.spaceId] : 'student']))
+    }
+  },
+
+  methods: {
     openIdea: function (idea) {
       this.$router.push({ name: 'IdeaView', params: { spaceSlug: this.$route.params['spaceSlug'], ideaId: idea.id } })
     },
