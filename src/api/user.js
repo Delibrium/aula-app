@@ -86,8 +86,12 @@ function remove (userId) {
   return service.delete('/users', { params })
 }
 
-function getListing (schoolId) {
-  return service.post('/rpc/user_listing')
+function getListing (schoolId = null, spaceId = null) {
+  const params = {
+    schoolid: schoolId,
+    spaceid: spaceId
+  }
+  return service.post('/rpc/user_listing', params)
 }
 
 export default {

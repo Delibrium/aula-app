@@ -227,7 +227,11 @@ export default {
         hasSetPassword: entry.config.temp_password == null
       })
 
-      api.user.getListing()
+      var schoolId
+      if (this.$store.getters.selected_school) {
+        schoolId = this.$store.getters.selected_school
+      }
+      api.user.getListing(schoolId)
         .then((res) => {
           this.users = res.data
             .map(parseConfig)
