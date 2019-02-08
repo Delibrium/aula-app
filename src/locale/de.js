@@ -177,6 +177,8 @@ export default {
     'currentPassword': 'aktuelles Passwort',
     'newPassword': 'neues Passwort',
     'newPasswordConfirm': 'neues Passwort bestätigen',
+    'newPasswordConfirmError': 'Die Passwörter stimmen nicht überein',
+    'oldPasswordRequired': 'Passwort-Felder sind nur teilweise ausgefüllt.',
     'save': 'Änderungen speichern'
   },
   Form: {

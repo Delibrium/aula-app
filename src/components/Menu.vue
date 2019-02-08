@@ -20,7 +20,7 @@
      <v-list v-if="$auth.check()">
        <router-link  tag="v-list-tile" :to="`/user/${$store.getters.userId}`">{{ $vuetify.t('$vuetify.Menu.profileView') }}</router-link>
        <router-link  tag="v-list-tile" :to="`/user/settings`">
-         Einstellungen
+         {{ $vuetify.t('$vuetify.Menu.settings') }}
        </router-link>
         <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">Prozessverwaltung</router-link>
         <v-list-tile @click="logout">
