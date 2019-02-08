@@ -94,8 +94,7 @@ export default {
 
   computed: {
     userMayCreateIdeas: function () {
-      console.log('LOG', (this.spaceId) ? ['student', this.spaceId] : 'student', this.spaceId)
-      return (!isUserMemberOf(['school_admin', 'principal']) && isUserMemberOf([(this.spaceId) ? ['student', this.spaceId] : 'student']))
+      return (isUserMemberOf(['school_admin', 'principal', 'admin']) || isUserMemberOf([(this.spaceId) ? ['student', this.spaceId] : 'student']))
     }
   },
 
