@@ -37,7 +37,7 @@
 
           <div>
 
-            <em v-if="comment.changed_by != null">
+            <em v-if="comment.changed_by != null && isEdited">
               {{ $vuetify.t('$vuetify.Comment.editedBy',
                 this.comment.changed_by.first_name) }}
             </em>
@@ -107,6 +107,7 @@
       }
     },
     beforeMount: function () {
+      console.log(this.comment)
       this.voteValue = this.currentVote
     },
     computed: {
@@ -116,6 +117,9 @@
         } else {
           return 'black'
         }
+      },
+      isEdited: function () {
+        return ((new Date(this.comment.changed_at)) > (new Date(this.comment.created_at)))
       },
       canEdit: function () {
         if (this.isOwnComment || isUserMemberOf(['admin', 'school_admin', 'moderator'])) {
