@@ -267,7 +267,7 @@ export default {
   },
   AdminPhaseTime: {
     'phaseWorking': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
-    'phaseVoting': 'Wie viele Tage soll die Abstimmungphase dauren?',
+    'phaseVoting': 'Wie viele Tage soll die Abstimmungphase dauern?',
     'days': 'Tage'
   },
   Category: {
@@ -298,8 +298,8 @@ export default {
   AdminQuorum: {
     'school': 'Wie hoch soll das Quorum schulweit sein?',
     'class': 'Wie hoch soll das Quorum klassenweit sein?',
-    'schoolPercent': '% aller Schülerinnen der Schule',
-    'classPercent': '% aller Schülerinnen der Klasse'
+    'schoolPercent': '% aller SchülerInnen der Schule',
+    'classPercent': '% aller SchülerInnen der Klasse'
   },
   AdminHolidays: {
     'description': 'Im Ferienbetrieb sind die folgenden Änderungen zu beachten:',

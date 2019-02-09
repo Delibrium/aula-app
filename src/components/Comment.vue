@@ -107,7 +107,6 @@
       }
     },
     beforeMount: function () {
-      console.log(this.comment)
       this.voteValue = this.currentVote
     },
     computed: {
