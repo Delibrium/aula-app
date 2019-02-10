@@ -123,6 +123,20 @@ const router = new Router({
       path: '/impressum',
       name: 'Impressum',
       component: Page,
+      props: { pageName: 'impressum' },
+      meta: {}
+    },
+    {
+      path: '/terms',
+      name: 'terms',
+      component: Page,
+      props: { pageName: 'terms' },
+      meta: {}
+    },
+    {
+      path: '/impressum',
+      name: 'Impressum',
+      component: Page,
       props: { page_name: 'impressum' },
       meta: {}
     },

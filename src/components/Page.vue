@@ -21,11 +21,11 @@ export default {
   },
 
   props: {
-    page_name: String
+    pageName: String
   },
 
   beforeMount: function () {
-    api.school.getPage(this.communityId, this.page_name).then((res) => {
+    api.school.getPage(this.communityId, this.pageName).then((res) => {
       this.page = res.data[0]['content']
     })
   },

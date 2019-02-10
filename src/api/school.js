@@ -18,7 +18,7 @@ function getPage (schoolId, page) {
     name: 'eq.' + page
   }
 
-  return service.get('/page', params)
+  return service.get('/page', { params })
 }
 
 function updatePage (schoolId, page, content) {
@@ -27,7 +27,7 @@ function updatePage (schoolId, page, content) {
     name: 'eq.' + page
   }
 
-  return service.patch('/page', {'content': content}, params)
+  return service.patch('/page', {'content': content}, { params })
 }
 
 function updateConfig (schoolId, configKey, configValue) {

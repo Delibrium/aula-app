@@ -26,7 +26,11 @@
                 ></v-text-field>
 
                 <v-btn
-                  @click="openEditImpressum"
+                  @click="openEditPage('terms')"
+                >{{ $vuetify.t('$vuetify.AdminCommunity.termsEdit') }}</v-btn>
+
+                <v-btn
+                  @click="openEditPage('impressum')"
                 >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
 
                 <v-btn
@@ -35,8 +39,8 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-dialog v-model="editImpressum" v-if="canEditImpressum">
-          <ImpressumEditor @close-impressum-editor="editImpressum = false"/>
+        <v-dialog v-model="editPage" v-if="canEditMainPages && pageName !== ''">
+          <PageEditor :pageName="pageName" @close-page-editor="editPage = false"/>
         </v-dialog>
       </v-layout>
     </v-slide-y-transition>
@@ -47,16 +51,17 @@
 
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
-import ImpressumEditor from '@/components/ImpressumEditor'
+import PageEditor from '@/components/PageEditor'
 
 export default {
   name: 'School',
-  components: { ImpressumEditor },
+  components: { PageEditor },
   data: function () {
     return {
       schools: [],
       schoolConfig: this.$store.getters.schoolConfig,
-      editImpressum: false,
+      editPage: false,
+      pageName: '',
       headers: [
         {
           text: this.$vuetify.t('$vuetify.AdminCommunity.tableHeaderName'),
@@ -71,7 +76,7 @@ export default {
   },
 
   computed: {
-    canEditImpressum: function () {
+    canEditMainPages: function () {
       return isUserMemberOf(['admin'])
     }
   },
@@ -80,8 +85,9 @@ export default {
     submit: function () {
     },
 
-    openEditImpressum: function () {
-      this.editImpressum = true
+    openEditPage: function (pageName) {
+      this.pageName = pageName
+      this.editPage = true
     },
 
     selectSchool: function (school) {

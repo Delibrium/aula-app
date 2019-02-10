@@ -2,7 +2,7 @@
   <v-app light>
     <AppBar />
     <v-content>
-      <router-view v-if="$auth.ready()"></router-view>
+      <router-view v-if="$auth.ready()" :key="$route.fullPath"></router-view>
       <div v-if="!$auth.ready()">
         Loading ...
       </div>
@@ -10,7 +10,7 @@
     <v-footer>
       <v-layout row justify-center>
         <v-flex md2>
-          {{ $vuetify.t('$vuetify.Footer.userTerms') }}
+          <router-link to="/terms">{{ $vuetify.t('$vuetify.Footer.userTerms') }}</router-link>
         </v-flex>
         <v-flex md2 text-xs-center text-md-center>
           <router-link to="/impressum">{{ $vuetify.t('$vuetify.Footer.impressum') }}</router-link>

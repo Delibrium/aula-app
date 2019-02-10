@@ -184,7 +184,8 @@ export default {
   Form: {
     'save': 'Änderungen speichern',
     'delete': 'Löschen',
-    'cancel': 'Abbrechen'
+    'cancel': 'Abbrechen',
+    'edit': 'Bearbeiten'
   },
   IdeaCategories: {
     'rules': 'Regeln',
@@ -325,7 +326,8 @@ export default {
     'community': 'Schule',
     'tableHeaderName': 'Name',
     'mainSpaceName': 'Main Ideas space name',
-    'impressumEdit': 'Impressum bearbeiten'
+    'impressumEdit': 'Impressum bearbeiten',
+    'termsEdit': 'Nutzungsbedingungen bearbeiten'
   },
   AdminUsers: {
     'titleAdd': 'Neue Benutzer hinzufügen',
