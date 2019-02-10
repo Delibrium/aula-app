@@ -15,6 +15,12 @@
                       <School></School>
                     </v-expansion-panel-content>
 
+                  <!-- Pages -->
+                    <v-expansion-panel-content :disabled="!hasSelectedSchool">
+                      <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.pages')}}</div>
+                      <PagesAdmin></PagesAdmin>
+                    </v-expansion-panel-content>
+
                   <!-- Idea Spaces -->
                     <v-expansion-panel-content :disabled="!hasSelectedSchool">
                       <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.ideaSpace')}}</div>
@@ -64,6 +70,7 @@
 
 <script>
 import IdeaSpaceAdmin from '@/components/IdeaSpaceAdmin'
+import PagesAdmin from '@/components/PagesAdmin'
 import Phase from '@/components/Phase'
 import Quorum from '@/components/Quorum'
 import Categories from '@/components/Categories'
@@ -75,6 +82,7 @@ export default {
   name: 'Admin',
   components: {
     IdeaSpaceAdmin,
+    PagesAdmin,
     Phase,
     Quorum,
     Categories,

@@ -12,6 +12,14 @@ function getConfig (schoolId) {
   return service.post('/rpc/config', {'space_id': schoolId})
 }
 
+function getPages (schoolId) {
+  const params = {
+    school_id: 'eq.' + schoolId
+  }
+
+  return service.get('/page', { params })
+}
+
 function getPage (schoolId, page) {
   const params = {
     school_id: 'eq.' + schoolId,
@@ -45,5 +53,6 @@ export default {
   getConfig,
   updateConfig,
   getPage,
+  getPages,
   updatePage
 }

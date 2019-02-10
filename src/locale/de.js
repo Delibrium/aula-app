@@ -257,6 +257,7 @@ export default {
   AdminMenu: {
     'title': 'Prozessverwaltung',
     'ideaSpace': 'Klasse',
+    'pages': 'Pages',
     'phaseDuration': 'Dauer der Phasen',
     'categories': 'Kategorien',
     'quorum': 'Quorum',
@@ -372,6 +373,9 @@ export default {
     'csvTableHeader': 'Vorschau der {0} Nutzer',
     'csvSave': 'Alle sichern',
     'csvClose': 'Schließen'
+  },
+  AdminPages: {
+    pageName: 'Page name'
   },
   AdminPassList: {
     title: 'Passwortliste',
