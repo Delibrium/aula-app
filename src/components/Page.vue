@@ -25,11 +25,8 @@ export default {
   },
 
   beforeMount: function () {
-  //  if (this.$store.getters.school_id) {
-  //    this.communityId = this.$store.getters.school_id
-  //  }
     api.school.getPage(this.communityId, this.page_name).then((res) => {
-      this.page = res.data
+      this.page = res.data[0]['content']
     })
   },
 

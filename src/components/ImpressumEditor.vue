@@ -63,8 +63,8 @@ export default {
   },
 
   beforeMount: function () {
-    api.school.getPage(this.$store.getters.school_id, 'impressum').then(res => {
-      this.impressum = res.data
+    api.school.getPage(this.$store.getters.selected_school, 'impressum').then(res => {
+      this.impressum = res.data[0]['content']
     })
   },
 

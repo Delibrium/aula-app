@@ -35,7 +35,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-dialog v-model="editImpressum">
+        <v-dialog v-model="editImpressum" v-if="canEditImpressum">
           <ImpressumEditor @close-impressum-editor="editImpressum = false"/>
         </v-dialog>
       </v-layout>
@@ -46,6 +46,7 @@
 <script>
 
 import api from '@/api'
+import { isUserMemberOf } from '../utils/permissions'
 import ImpressumEditor from '@/components/ImpressumEditor'
 
 export default {
@@ -67,6 +68,12 @@ export default {
   },
 
   props: {
+  },
+
+  computed: {
+    canEditImpressum: function () {
+      return isUserMemberOf(['admin'])
+    }
   },
 
   methods: {

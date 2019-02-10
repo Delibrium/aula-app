@@ -13,11 +13,21 @@ function getConfig (schoolId) {
 }
 
 function getPage (schoolId, page) {
-  return service.post('/rpc/get_page', {'space_id': schoolId, page_name: page})
+  const params = {
+    school_id: 'eq.' + schoolId,
+    name: 'eq.' + page
+  }
+
+  return service.get('/page', params)
 }
 
 function updatePage (schoolId, page, content) {
-  return service.post('/rpc/update_page', {'space_id': schoolId, page: page, content: content})
+  const params = {
+    school_id: 'eq.' + schoolId,
+    name: 'eq.' + page
+  }
+
+  return service.patch('/page', {'content': content}, params)
 }
 
 function updateConfig (schoolId, configKey, configValue) {

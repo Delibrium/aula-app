@@ -8,7 +8,7 @@
               <v-layout row wrap align-center>
                 <v-flex d-flex xs12 sm12 pa-2>
 
-                  <v-expansion-panel>
+                  <v-expansion-panel v-model="openPanel">
 
                     <v-expansion-panel-content v-if="$auth.user().role.indexOf('admin') >= 0">
                       <div slot="header">{{ $vuetify.t('$vuetify.AdminCommunity.community') }}<span v-if="hasSelectedSchool">: {{ $store.getters.schoolName }}</span></div>
@@ -45,7 +45,7 @@
                     </v-expansion-panel-content>
 
                   <!-- User and Groups -->
-                    <v-expansion-panel-content :disabled="!hasSelectedSchool" value=1>
+                    <v-expansion-panel-content :disabled="!hasSelectedSchool">
                       <div slot="header">{{ $vuetify.t('$vuetify.AdminMenu.users')}}</div>
                       <GroupsUsers></GroupsUsers>
                     </v-expansion-panel-content>
@@ -82,8 +82,11 @@ export default {
     GroupsUsers,
     School
   },
-  data: () => ({
-  }),
+  data: function () {
+    return {
+      openPanel: null
+    }
+  },
 
   computed: {
     hasSelectedSchool: function () { return this.$store.getters.selected_school >= 0 }

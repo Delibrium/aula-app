@@ -87,7 +87,7 @@
                           </v-flex>
 
                           <!-- Is Idea Feasible? -->
-                          <v-flex md4 text-xs-center text-md-center v-if="canEditFeasibility">
+                          <v-flex md4 text-xs-center text-md-center v-if="(this.idea.topic && this.idea.topic.phase === 'feasibility') && canEditFeasibility">
                               <v-btn @click="setFeasibility">
                                 <span v-if="feasibility.val === true">{{ $vuetify.t('$vuetify.Idea.isPossible')  }}</span>
                                 <span v-else-if="feasibility.val === false">{{ $vuetify.t('$vuetify.Idea.notPossible')  }}</span>
