@@ -12,6 +12,21 @@ function getConfig (schoolId) {
   return service.post('/rpc/config', {'space_id': schoolId})
 }
 
+function addPage (newPage) {
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+
+  return service.post('/page', newPage, config)
+}
+
+function deletePage (pageId) {
+  const params = { id: 'eq.' + pageId }
+  return service.delete('/page', { params })
+}
+
 function getPages (schoolId) {
   const params = {
     school_id: 'eq.' + schoolId
@@ -53,6 +68,8 @@ export default {
   getConfig,
   updateConfig,
   getPage,
+  addPage,
+  deletePage,
   getPages,
   updatePage
 }

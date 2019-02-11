@@ -375,7 +375,9 @@ export default {
     'csvClose': 'Schließen'
   },
   AdminPages: {
-    pageName: 'Page name'
+    pageName: 'Page name',
+    confirmDelete: '"{0}" wirklich löschen?',
+    add: 'Page hinzufügen'
   },
   AdminPassList: {
     title: 'Passwortliste',
