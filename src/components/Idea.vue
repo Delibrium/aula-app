@@ -76,6 +76,14 @@
                               </v-btn>
                             </v-btn-toggle>
                           </v-flex>
+                          <v-flex md2 align-center v-if="canMarkWinner && idea.topic && idea.topic.phase === 'finished'">
+                              <v-btn :color="!idea.selected ? 'primary' : 'secondary'" @click="markWinner">
+                              <v-icon>gavel</v-icon>
+                              <span v-if="!idea.selected">{{ $vuetify.t('$vuetify.Idea.markWinner') }}</span>
+                              <span v-if="idea.selected">{{ $vuetify.t('$vuetify.Idea.unmarkWinner') }}</span>
+                              </v-btn>
+                          </v-flex>
+
                           <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic || idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary class="support-idea white--text" color="#00c853">
@@ -225,6 +233,14 @@ export default {
       return isUserMemberOf(['admin', 'school_admin', 'principal'])
     },
 
+    canMarkWinner: function () {
+      if (this.idea.idea_space) {
+        return isUserMemberOf(['admin', 'school_admin', 'principal', ['moderator', this.idea.idea_space.id]])
+      } else {
+        return isUserMemberOf(['admin', 'school_admin', 'principal', 'moderator'])
+      }
+    },
+
     phase: function () {
       return !this.idea.topic ? 'wild-idea-phase' : this.idea.topic
     },
@@ -269,6 +285,12 @@ export default {
   },
 
   methods: {
+    markWinner: function () {
+      const selected = !this.idea.selected
+      ideaApi.updateIdeas([this.idea.id], { 'selected': selected }).then(res => {
+        this.idea.selected = selected
+      })
+    },
     saveFeasibility: function () {
       if (!this.feasibility.created_at) {
         this.feasibility.school_id = this.$store.getters.school_id

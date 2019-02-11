@@ -245,8 +245,9 @@ export default {
     'move': 'Idee verschieben',
     'back.to.topic': 'Zum Ideenraum',
     'ask.first.suggestion': 'Gib den ersten Verbesserungsvorschlag ab!',
-    'mark.winner': 'Als "gewonnen" markieren',
-    'not.winner': 'nicht gewonnen'
+    'markWinner': 'Als "gewonnen" markieren',
+    'unmarkWinner': '"gewonnen" zurücknehmen',
+    'notWinner': 'nicht gewonnen'
   },
   IdeaMove: {
     'move.idea.title': 'Idee verschieben',

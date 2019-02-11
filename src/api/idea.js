@@ -7,7 +7,7 @@ function getIdea (ideaId, getIdeaSpace = false) {
   }
   const params = {
     id: 'eq.' + ideaId,
-    select: `id,title,description,${ideaSpaceQuery},created_by(id,first_name,picture),created_at,category(id,name,image),topic(id,title,phase)`
+    select: `id,title,description,${ideaSpaceQuery},created_by(id,first_name,picture),created_at,category(id,name,image),topic(id,title,phase),selected`
   }
   return service.get('/idea', { params })
 }
