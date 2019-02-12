@@ -57,7 +57,7 @@ function deleteVote (userId, ideaId, phase = null) {
 }
 
 function postVote (vote, phase = null) {
-  var endpoint = '/idea_vote'
+  var endpoint = '/rpc/vote'
   if (phase === 'wild-idea-phase') {
     endpoint = '/idea_like'
   }

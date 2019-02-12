@@ -422,10 +422,10 @@ export default {
       } else {
         const vote = {
           school_id: this.$store.getters.user.profile.school_id,
-          idea: this.$route.params['ideaId'],
-          created_by: this.$store.getters.userId,
-          changed_by: this.$store.getters.userId,
-          val
+          topic_id: this.idea.topic.id,
+          idea_id: this.$route.params['ideaId'],
+          user_id: this.$store.getters.userId,
+          vote_value: val
         }
         ideaApi.postVote(vote, this.phase)
           .then(res => {
