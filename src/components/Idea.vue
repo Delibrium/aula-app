@@ -84,7 +84,7 @@
                               </v-btn>
                           </v-flex>
 
-                          <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic || idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics'">
+                          <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary class="support-idea white--text" color="#00c853">
                                 <v-icon left>thumb_up</v-icon>
