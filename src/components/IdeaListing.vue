@@ -29,6 +29,7 @@
         <v-card-title @click="openIdea(idea)">
           <v-layout row>
             <v-flex md10>
+              <v-icon class="possible" color="primary" v-if="isPossible(idea)">check</v-icon>
               <h3>{{ idea.title }}</h3>
               <div class="card-meta">
                 {{ $vuetify.t('$vuetify.IdeaListing.ideaSubtitle',
@@ -39,7 +40,6 @@
             <v-flex>
             <v-tooltip bottom>
               <v-img class="idea-category" slot="activator" v-if="idea.category" :src="idea.category.image" width="44" height="44"/>
-              <img  slot="activator" v-else src="/static/img/svg/icon_regeln.svg">
               <span v-if="idea.category">{{ idea.category.name }}</span>
             </v-tooltip>
             </v-flex>
@@ -211,6 +211,14 @@ export default {
   props: ['ideas', 'topic'],
 
   methods: {
+    isPossible: function (idea) {
+      console.log(idea)
+      if (idea.feasible[0] && idea.feasible[0].val) {
+        return true
+      } else {
+        return false
+      }
+    },
     openIdea: function (idea) {
       this.$router.push({
         name: 'IdeaView',
@@ -272,6 +280,12 @@ export default {
 
 .idea-category {
   float: right;
+}
+
+.possible {
+   float: left;
+   font-size: 30px;
+   font-weight: bold;
 }
 
 .idea-card {
