@@ -43,6 +43,15 @@ function create (user) {
   return service.post('/rpc/add_user', user, config)
 }
 
+function resetPassword (schoolId, userId) {
+  const data = {
+    school_id: schoolId,
+    user_id: userId
+  }
+
+  return service.post('/rpc/reset_password', data)
+}
+
 function updateEmail (userId, email) {
   return service({
     method: 'patch',
@@ -105,5 +114,6 @@ export default {
   getListing,
   updateProfilePicture,
   updateEmail,
-  updatePassword
+  updatePassword,
+  resetPassword
 }

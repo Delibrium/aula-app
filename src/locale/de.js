@@ -185,6 +185,7 @@ export default {
     'save': 'Änderungen speichern',
     'delete': 'Löschen',
     'cancel': 'Abbrechen',
+    'close': 'Schließen',
     'edit': 'Bearbeiten'
   },
   IdeaCategories: {
@@ -373,7 +374,10 @@ export default {
     'csvReset': 'Zurücksetzen',
     'csvTableHeader': 'Vorschau der {0} Nutzer',
     'csvSave': 'Alle sichern',
-    'csvClose': 'Schließen'
+    'csvClose': 'Schließen',
+    'resetPassword': 'Passwort zurücksetzen',
+    'confirmResetPassword': 'Passwort zurücksetzen für Nutzer "{0}"?',
+    'newPassword': 'Neues Passwort'
   },
   AdminPages: {
     pageName: 'Page name',

@@ -159,6 +159,7 @@
         :items="ideaSpaces"
         :label="this.$vuetify.t('$vuetify.AdminUsers.formIdeaSpace')"
       ></v-select>
+
     </v-card-text>
     <v-card-actions>
       <v-btn
@@ -167,6 +168,12 @@
         @click="submit"
         v-if="editingId == null"
       >{{ $vuetify.t('$vuetify.AdminUsers.formCreate') }}</v-btn>
+      <v-btn
+        flat
+        color="primary"
+        @click="dialogResetPassword = true"
+        v-if="editingId !== null"
+      >{{ $vuetify.t('$vuetify.AdminUsers.resetPassword') }}</v-btn>
       <v-btn
         flat
         color="primary"
@@ -184,6 +191,31 @@
         {{ $vuetify.t('$vuetify.AdminUsers.formCancel') }}
       </v-btn>
     </v-card-actions>
+    <v-dialog v-model="dialogResetPassword" width="400">
+      <v-card>
+        <v-card-title>
+          <h3>{{ $vuetify.t('$vuetify.AdminUsers.confirmResetPassword', this.username) }}</h3>
+        </v-card-title>
+        <v-card-text>
+          <v-alert v-if="newPassword !== ''" :value="true" type="info">
+            <b>{{ $vuetify.t('$vuetify.AdminUsers.newPassword') }}:</b>  <h2>{{ newPassword }}</h2>
+          </v-alert>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="error"
+            v-if="newPassword == ''"
+            @click="resetPassword"
+          >{{ $vuetify.t('$vuetify.AdminUsers.resetPassword') }}</v-btn>
+          <v-btn @click="dialogResetPassword = false" v-if="newPassword == ''">
+            {{ $vuetify.t('$vuetify.AdminUsers.formCancel') }}
+          </v-btn>
+          <v-btn @click="dialogResetPassword = false; newPassword = ''" v-if="newPassword !== ''">
+            {{ $vuetify.t('$vuetify.Form.close') }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-snackbar v-model="showSnackbar" :bottom="true">
       {{ snackbarMsg }}
       <v-btn
@@ -226,6 +258,7 @@ export default {
     }
 
     let defaultData = {
+      dialogResetPassword: false,
       usergroup: 'student',
       editingId: null,
       showSnackbar: false,
@@ -235,6 +268,7 @@ export default {
       csvErrors: [],
       isLoading: false,
       ideaSpaces: [],
+      newPassword: '',
       usernameLabel: this.genUsernameLabel(),
       usergroups: defaultGroups,
       defaultUser: defaultUser,
@@ -292,6 +326,12 @@ export default {
   },
 
   methods: {
+    resetPassword: function () {
+      api.user.resetPassword(this.$store.getters.selected_school, this.editingId).then(res => {
+        this.newPassword = res.data['new_password']
+      })
+    },
+
     genUsername: function (first, last) {
       let candidate
       const firstName = first || this.firstName
