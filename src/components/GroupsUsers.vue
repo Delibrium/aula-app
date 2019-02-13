@@ -52,7 +52,7 @@
               </td>
               <td>
                 <v-icon small class="mr-2" @click="() => edit(props.item.id)">edit</v-icon>
-                <v-icon small @click="() => remove(props.item.id)">delete</v-icon>
+                <v-icon small @click="remove(props.item.id)">delete</v-icon>
               </td>
             </template>
             <v-alert
@@ -253,7 +253,7 @@ export default {
       this.getUsers()
     },
     deleteUser: function () {
-      api.user.remove(this.toDelete)
+      api.user.deleteUser(this.$store.getters.selected_school, this.toDelete)
         .then(res => {
           if (res.status < 400) {
             this.reset()

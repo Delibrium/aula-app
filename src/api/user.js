@@ -95,6 +95,14 @@ function remove (userId) {
   return service.delete('/users', { params })
 }
 
+function deleteUser (schoolId, userId) {
+  const params = {
+    schoolid: schoolId,
+    userid: userId
+  }
+  return service.post('/rpc/delete_user', params)
+}
+
 function getListing (schoolId = null, spaceId = null) {
   const params = {
     schoolid: schoolId,
@@ -115,5 +123,6 @@ export default {
   updateProfilePicture,
   updateEmail,
   updatePassword,
-  resetPassword
+  resetPassword,
+  deleteUser
 }
