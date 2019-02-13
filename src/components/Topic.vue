@@ -101,7 +101,7 @@
                 <IdeaListing :ideas="ideas" :topic="topic"/>
               </v-tab-item>
               <v-tab-item key="1">
-                DELEGATE
+                <DelegateListing :delegates="delegates"/>
               </v-tab-item>
             </v-tabs>
           </v-flex>
@@ -119,12 +119,13 @@ import api from '@/api'
 import apiIdea from '@/api/idea'
 import IdeaListing from '@/components/IdeaListing'
 import PhaseBanner from '@/components/PhaseBanner'
+import DelegateListing from '@/components/DelegateListing'
 import { isUserMemberOf } from '../utils/permissions'
 import moment from 'moment'
 
 export default {
   name: 'Topic',
-  components: { IdeaListing, PhaseBanner },
+  components: { IdeaListing, PhaseBanner, DelegateListing },
   computed: {
     topicPhaseClass: function () {
       return {
@@ -186,6 +187,7 @@ export default {
     return {
       tab: 0,
       topic: null,
+      delegates: {},
       ideas: [],
       showDeleteTopic: false
     }
@@ -229,7 +231,23 @@ export default {
           }
           this.topic.meta = { editTopicsStarted: new Date() }
 
-          console.log(this.spaceId)
+          api.topic.getDelegates(this.topic.id).then(res => {
+            var dtemp = {}
+            for (var d of res.data) {
+              if (Object.keys(dtemp).indexOf(String(d['to_user']['id'])) < 0) {
+                dtemp[d['to_user']['id']] = {
+                  'first_name': d['to_user']['first_name'],
+                  'last_name': d['to_user']['last_name'],
+                  'picture': d['to_user']['picture'],
+                  'users': [{'first_name': d['from_user']['fist_name'], 'last_name': d['from_user']['last_name']}]
+                }
+              } else {
+                dtemp[Number(d['to_user']['id'])]['users'].push({'first_name': d['from_user']['fist_name'], 'last_name': d['from_user']['last_name']})
+              }
+            }
+            this.delegates = dtemp
+          })
+
           api.ideaSpace.getUsers(this.$store.getters.school_id, this.topic.idea_space.id)
         })
     },

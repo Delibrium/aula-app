@@ -23,6 +23,14 @@ export function getIdeas (topicId) {
   return service.get('/idea', { params })
 }
 
+export function getDelegates (topicId) {
+  const params = {
+    context_topic: `eq.${topicId}`,
+    select: 'id, to_user(id, picture, first_name, last_name), from_user(id, first_name, last_name)'
+  }
+  return service.get('/delegation', { params })
+}
+
 export function getDelegate (topicId, userId) {
   const params = {
     context_topic: `eq.${topicId}`,
