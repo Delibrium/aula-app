@@ -32,7 +32,7 @@
               <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }">
               <v-card >
                   <v-img
-                    :src="space.image"
+                    :src="space.image ? space.image : '/static/img/svg/door3.svg'"
                     height="162"
                     ></v-img>
                 <v-card-title primary-title>
@@ -73,7 +73,13 @@ export default {
 
   beforeMount: function () {
     api.getIdeaSpaces(this.$store.getters.selected_school).then((res) => {
-      this.idea_space = res.data
+      var isStudent = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').length > 0
+      if (isStudent) {
+        let studentSpaces = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').map(r => r[1])
+        this.idea_space = res.data.filter(s => studentSpaces.indexOf(s.id) >= 0)
+      } else {
+        this.idea_space = res.data
+      }
     })
   },
 
