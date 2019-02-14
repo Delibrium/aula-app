@@ -20,7 +20,7 @@
         <v-btn to="/admin">{{ $vuetify.t('$vuetify.AdminPassList.buttonBack') }}</v-btn>
       </v-flex>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout row wrap class="print">
       <v-flex v-for="(user, i) in filteredUsers" :key="user.login" class="user-card">
         <v-card tile flat>
           <v-card-text>
@@ -175,11 +175,23 @@ ul {
   .no-print {
     display: none;
   }
+  body {
+    overflow: visible !important;
+  }
+  .print {
+    overflow: visible !important;
+    height: 100% !important;
+    position: relative !important;
+  }
+  * {
+     overflow: visible !important;
+  }
   .v-content,
   .container {
     padding: 0 !important;
   }
   .v-card-text {
+    page-break-inside: avoid !important;
     position: relative;
   }
 }
