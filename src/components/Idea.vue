@@ -84,7 +84,7 @@
                               </v-btn>
                           </v-flex>
 
-                          <v-flex md4 align-center text-xs-center text-md-center v-else-if="!idea.topic">
+                          <v-flex md4 align-center text-xs-center text-md-center v-if="!idea.topic">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary class="support-idea white--text" color="#00c853">
                                 <v-icon left>thumb_up</v-icon>
@@ -420,12 +420,21 @@ export default {
             this.getVotes()
           })
       } else {
-        const vote = {
+        var vote = {
           school_id: this.$store.getters.user.profile.school_id,
-          topic_id: this.idea.topic.id,
-          idea_id: this.$route.params['ideaId'],
-          user_id: this.$store.getters.userId,
-          vote_value: val
+          idea: this.$route.params['ideaId'],
+          created_by: this.$store.getters.userId,
+          val: val
+        }
+
+        if (this.idea.topic) {
+          vote = {
+            school_id: this.$store.getters.user.profile.school_id,
+            idea_id: this.$route.params['ideaId'],
+            user_id: this.$store.getters.userId,
+            vote_value: val,
+            topic_id: this.idea.topic.id
+          }
         }
         ideaApi.postVote(vote, this.phase)
           .then(res => {
