@@ -87,6 +87,7 @@ export function getUsers (schoolId, ideaSpaceId) {
   var queryParams = {}
   if (!ideaSpaceId) {
     queryParams['school_id'] = `eq.${schoolId}`
+    queryParams['config->>deleted'] = 'is.null'
     return service.get('/users', {params: queryParams})
   } else {
     queryParams['space_id'] = ideaSpaceId

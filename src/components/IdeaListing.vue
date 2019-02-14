@@ -212,8 +212,7 @@ export default {
 
   methods: {
     isPossible: function (idea) {
-      console.log(idea)
-      if (idea.feasible[0] && idea.feasible[0].val) {
+      if (idea.feasible && idea.feasible[0] && idea.feasible[0].val) {
         return true
       } else {
         return false
