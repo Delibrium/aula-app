@@ -45,15 +45,20 @@ function getVotes (ideaId, phase = null) {
 }
 
 function deleteVote (userId, ideaId, phase = null) {
-  var endpoint = '/idea_vote'
+  var endpoint = '/rpc/delete_vote'
   if (phase === 'wild-idea-phase') {
     endpoint = '/idea_like'
+    const params = {
+      and: `(created_by.eq.${userId},idea.eq.${ideaId})`
+    }
+    return service.delete(endpoint, { params })
+  } else {
+    let params = {
+      userid: userId,
+      idea_id: ideaId
+    }
+    return service.post(endpoint, params)
   }
-
-  const params = {
-    and: `(created_by.eq.${userId},idea.eq.${ideaId})`
-  }
-  return service.delete(endpoint, { params })
 }
 
 function postVote (vote, phase = null) {

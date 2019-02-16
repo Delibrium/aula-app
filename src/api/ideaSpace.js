@@ -90,7 +90,7 @@ export function getUsers (schoolId, ideaSpaceId) {
     queryParams['config->>deleted'] = 'is.null'
     return service.get('/users', {params: queryParams})
   } else {
-    queryParams['space_id'] = ideaSpaceId
+    queryParams['spaceid'] = ideaSpaceId
     return service.post('/rpc/ideas_space_user', queryParams)
   }
 }
