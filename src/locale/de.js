@@ -59,7 +59,9 @@ export default {
     'selected': 'Ausgewählt',
     'all.delegation': 'Delegation für alle Themen',
     'minimum.delegation.number': 'Untergrenze Anzahl Beauftragungen',
-    'user.search': 'Nutzer suchen'
+    'user.search': 'Nutzer suchen',
+    'noDelegation': 'Keine Beauftragungen in diesem Geltungsbereich.',
+    'delegateYourVote': 'Beauftrage deine Stimme!'
   },
   Space: {
     'wildIdeas': 'Wilde Ideen',

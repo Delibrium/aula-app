@@ -101,7 +101,7 @@
                 <IdeaListing :ideas="ideas" :topic="topic"/>
               </v-tab-item>
               <v-tab-item key="1">
-                <DelegateListing :delegates="delegates"/>
+                <DelegateListing :delegates="delegates" :topic="topic" :spaceSlug="spaceSlug" :spaceId="spaceId"/>
               </v-tab-item>
             </v-tabs>
           </v-flex>
