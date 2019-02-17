@@ -134,6 +134,14 @@ const router = new Router({
       meta: {}
     },
     {
+      path: '/page/:pageName',
+      name: 'Page',
+      props: true,
+      component: Page,
+      meta: {}
+    },
+
+    {
       path: 'Redirect/:path',
       name: 'Redirect',
       component: Redirect,

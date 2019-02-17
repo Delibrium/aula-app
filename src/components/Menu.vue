@@ -23,6 +23,7 @@
          {{ $vuetify.t('$vuetify.Menu.settings') }}
        </router-link>
         <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">Prozessverwaltung</router-link>
+        <router-link v-if="($auth.user().role)" tag="v-list-tile" v-for="(link,index) of menuLinks" :key="index" :to="link.url">{{ link.name }}</router-link>
         <v-list-tile @click="logout">
           Logout
        </v-list-tile>
@@ -40,6 +41,16 @@
     },
 
     mounted: function () {
+    },
+
+    computed: {
+      menuLinks: function () {
+        if (this.$store.getters.schoolConfig.links) {
+          return this.$store.getters.schoolConfig.links.sort((i1, i2) => (i1.position <= i2.position) ? -1 : 1)
+        } else {
+          return []
+        }
+      }
     },
 
     methods: {

@@ -272,7 +272,15 @@ export default {
     'users': 'Gruppen & Nutzer',
     'protocol': 'Protokolle',
     'changePhase': 'Phasen verschieben',
-    'termsOfUse': 'Nutzungsbedingungen ändern'
+    'termsOfUse': 'Nutzungsbedingungen ändern',
+    'links': 'Links'
+  },
+  AdminLinks: {
+    'linkName': 'Name',
+    'links': 'Links',
+    'linkPosition': 'Ort',
+    'addLink': 'Link hinzufügen',
+    'linkUrl': 'URL'
   },
   AdminPhaseTime: {
     'phaseWorking': 'Wie viele Tage soll die Ausarbeitungphase dauern?',
