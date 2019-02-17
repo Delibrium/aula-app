@@ -250,7 +250,10 @@ export default {
     'ask.first.suggestion': 'Gib den ersten Verbesserungsvorschlag ab!',
     'markWinner': 'Als "gewonnen" markieren',
     'unmarkWinner': '"gewonnen" zurücknehmen',
-    'notWinner': 'nicht gewonnen'
+    'notWinner': 'nicht gewonnen',
+    'proVotes': 'Dafür',
+    'againstVotes': 'Dagegen',
+    'quorum': 'Quorum'
   },
   IdeaMove: {
     'move.idea.title': 'Idee verschieben',

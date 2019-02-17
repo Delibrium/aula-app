@@ -19,7 +19,11 @@
     <v-flex md10 xs12>
       <v-layout align-center justify-center>
         <v-flex class="add-comment" md2 text-md-center text-xs-center>
-          <v-btn @click="editingComment = true" class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+          <v-btn v-if="!disabled" @click="editingComment = true" class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+          <v-tooltip v-if="disabled" bottom>
+            <v-btn slot="activator" disabled class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+            <span>{{ $vuetify.t('$vuetify.Comment.disabled') }}</span>
+          </v-tooltip>
         </v-flex>
       </v-layout>
     </v-flex>
