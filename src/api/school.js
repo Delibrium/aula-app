@@ -58,7 +58,7 @@ function updateConfig (schoolId, configKey, configValue) {
     {
       space_id: schoolId,
       key: configKey,
-      value: configValue
+      value: JSON.stringify(configValue)
     })
 }
 

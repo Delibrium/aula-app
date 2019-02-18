@@ -144,11 +144,11 @@ export default {
       ideaSpaceCreationDialog: false,
       ideaSpaceDeleteDialog: false,
       isEditing: false,
-      defaultIdeaSpacesImages: ['/static/img/svg/door1.svg', '/static/img/svg/door2.svg', '/static/img/svg/door3.svg', '/static/img/svg/door4.svg'],
+      defaultIdeaSpacesImages: ['./static/img/svg/door1.svg', './static/img/svg/door2.svg', './static/img/svg/door3.svg', './static/img/svg/door4.svg'],
       newIdeaSpace: {
         school_id: this.$store.getters.selected_school,
         title: '',
-        image: '/static/img/svg/door1.svg'
+        image: './static/img/svg/door1.svg'
       }
     }
   },

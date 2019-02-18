@@ -23,7 +23,7 @@
                   <v-icon @click="info = true" dark>info</v-icon>
                 </div>
                 <div>
-                  <v-img class="topics-icon" src="/static/img/Karteikasten.svg" width="300" height="300"/>
+                  <v-img class="topics-icon" src="./static/img/Karteikasten.svg" width="300" height="300"/>
                 </div>
               </v-flex>
 

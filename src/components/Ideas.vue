@@ -22,7 +22,7 @@
               </span>
 
               <div>
-                <v-img class="wild-ideas-icon" src="/static/img/lamp.svg" width="300" height="300"></v-img>
+                <v-img class="wild-ideas-icon" src="./static/img/lamp.svg" width="300" height="300"></v-img>
               </div>
             </v-flex>
 

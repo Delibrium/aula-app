@@ -121,7 +121,7 @@ export default {
   computed: {
     formIconUrl: function () {
       return (this.iconUrl == null || this.iconUrl.length === 0)
-        ? '/static/img/placeholder_icon.png'
+        ? './static/img/placeholder_icon.png'
         : this.iconUrl
     }
   },

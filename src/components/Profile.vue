@@ -9,7 +9,7 @@
           <v-card-text>
             <v-layout wrap align-center>
               <v-flex d-flex xs12 sm12 pa-2 align-content-center justify-center>
-                <v-img :src="user.picture?user.picture: '/static/img/svg/Aula_Logo_Kopf.svg'" class="avatar-image" max-width="300"/>
+                <v-img :src="user.picture?user.picture: './static/img/svg/Aula_Logo_Kopf.svg'" class="avatar-image" max-width="300"/>
               </v-flex>
               <v-flex d-flex xs12 sm12 pa-2 align-content-center justify-center>
                  <h1 class="text-xs-center">{{ $store.getters.user.profile.first_name }} {{ $store.getters.user.profile.last_name }}</h1>

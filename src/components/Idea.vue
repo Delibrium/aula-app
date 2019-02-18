@@ -18,7 +18,7 @@
                         <v-flex v-if="idea.created_by">
                           <v-avatar size="36px">
                             <v-img v-if="idea.created_by.picture" :src="idea.created_by.picture"/>
-                            <v-img v-else src="/static/img/svg/Aula_Logo_Kopf.svg" width="40" height="40"/>
+                            <v-img v-else src="./static/img/svg/Aula_Logo_Kopf.svg" width="40" height="40"/>
                           </v-avatar>
                           <div class="author-info">
                           <p v-if="idea.created_by != null" v-html="$vuetify.t('$vuetify.Idea.authorCreated', idea.created_by.first_name)">
