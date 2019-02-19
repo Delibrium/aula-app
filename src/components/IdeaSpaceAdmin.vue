@@ -45,7 +45,17 @@
                   <v-flex class="ideaSpaceImage-button" :class="{ selectedImage: image === newIdeaSpace.image }" pa-2 v-for="(image, index) of defaultIdeaSpacesImages" :key="index" >
                     <v-img :src="image"height="100" width="200" @click="selectImage(image)"/>
                   </v-flex>
+
                 </v-layout>
+              </v-flex>
+              <v-flex>
+                <v-img :contain="true" :src="newIdeaSpace.image" height="100" width="200" v-if="defaultIdeaSpacesImages.indexOf(newIdeaSpace.image) < 0"/>
+                <vue-base64-file-upload
+                  accept="image/png,image/jpeg,image/svg"
+                  image-class="upload-image-preview"
+                  input-class="upload-image-input"
+                  @load="onLoad" />
+                </v-flex>
               </v-flex>
               <v-flex d-flex xs12 sm12 pa-2>
                <v-btn
@@ -122,9 +132,11 @@
 
 import api from '@/api'
 import slugify from 'slugify'
+import VueBase64FileUpload from 'vue-base64-file-upload'
 
 export default {
   name: 'IdeaSpacesAdmin',
+  components: { VueBase64FileUpload },
   data: function () {
     return {
       headers: [
@@ -148,7 +160,8 @@ export default {
       newIdeaSpace: {
         school_id: this.$store.getters.selected_school,
         title: '',
-        image: './static/img/svg/door1.svg'
+        image: './static/img/svg/door1.svg',
+        imagecontain: false
       }
     }
   },
@@ -175,6 +188,11 @@ export default {
       }
 
       this.ideaSpaceCreationDialog = true
+    },
+
+    onLoad: function (dataUri) {
+      this.newIdeaSpace.image = dataUri
+      this.newIdeaSpace.imagecontain = true
     },
 
     getIdeaSpaces: function () {
@@ -213,6 +231,7 @@ export default {
     },
     selectImage: function (image) {
       this.newIdeaSpace.image = image
+      this.newIdeaSpace.imagecontain = false
     },
     submit: function () {
     }

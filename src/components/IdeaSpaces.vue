@@ -9,6 +9,7 @@
               <v-card>
                   <v-img
                     :src="schoolImage"
+                    :contain="imagecontain"
                     height="162"
                     ></v-img>
                 <v-card-title primary-title>
@@ -33,6 +34,7 @@
               <v-card >
                   <v-img
                     :src="space.image ? space.image : '/static/img/svg/door3.svg'"
+                    :contain="space.imagecontain"
                     height="162"
                     ></v-img>
                 <v-card-title primary-title>
@@ -67,6 +69,7 @@ export default {
   data: () => ({
     idea_space: [],
     schoolImage: './static/img/svg/Schule.svg',
+    imagecontain: false,
     user: {}
   }),
 
@@ -77,6 +80,7 @@ export default {
     apiSchool.getImage(this.$store.getters.selected_school).then(res => {
       if (res.data[0]['image'] !== '') {
         this.schoolImage = res.data[0]['image']
+        this.imagecontain = res.data[0]['imagecontain']
       }
       api.getIdeaSpaces(this.$store.getters.selected_school).then((res) => {
         var isStudent = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').length > 0

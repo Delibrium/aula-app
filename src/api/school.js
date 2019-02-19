@@ -14,7 +14,7 @@ function update (schoolId, data) {
 function getImage (schoolId) {
   const params = {
     id: `eq.${schoolId}`,
-    select: 'image'
+    select: 'image,imagecontain'
   }
 
   return service.get('/school', { params })

@@ -33,9 +33,10 @@
                        width="280" height="162"
                        @click="setDefaultImage"
                 />
-                <v-img v-if="!isDefaultImage"
+                <v-img v-if="!isDefaultImage && selectedSchool.image !== ''"
                        :class="{ selectedImage: schoolImage !== defaultImage }"
                        :src="selectedSchool.image"
+                       :contain="true"
                        width="280" height="162"
                 />
 
@@ -86,6 +87,7 @@ export default {
       selectedSchool: {},
       defaultImage: './static/img/svg/Schule.svg',
       schoolImage: this.defaultImage,
+      imagecontain: false,
       schoolConfig: this.$store.getters.schoolConfig,
       editPage: false,
       pageName: '',
@@ -117,10 +119,12 @@ export default {
 
     setDefaultImage: function () {
       this.schoolImage = this.defaultImage
+      this.imagecontain = false
     },
 
     onLoad: function (dataUri) {
       this.schoolImage = dataUri
+      this.imagecontain = true
     },
 
     openEditPage: function (pageName) {
@@ -141,7 +145,8 @@ export default {
       api.school.updateConfig(this.$store.getters.school_id, 'mainSpaceName', this.schoolConfig.mainSpaceName).then(
         res => {
           var data = {
-            image: this.schoolImage
+            image: this.schoolImage,
+            imagecontain: this.imagecontain
           }
           api.school.update(this.$store.getters.selected_school, data)
         }
