@@ -23,6 +23,7 @@ export default {
   },
   rolesCompound: {
     noRoles: 'Keine Rolle zugewiesen',
+    school_student: 'Schüler',
     student: 'Schüler in {0}',
     class_guest: 'Gast in {0}',
     school_guest: 'Gast der Schule',

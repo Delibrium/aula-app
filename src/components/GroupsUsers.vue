@@ -30,20 +30,21 @@
               <td>{{ props.item.first_name }}</td>
               <td>{{ props.item.last_name }}</td>
               <td>
-                <ul v-if="props.item.groups.length > 1">
+                <ul v-if="props.item.groups.length >= 1">
                   <li v-for="group in props.item.groups">
+                    <span v-if="group.length > 1">
                     {{ $vuetify.t(
                     '$vuetify.rolesCompound.' + group[0],
                     group[2])
                     }}
+                    </span>
+                    <span v-else>
+                    {{ $vuetify.t(
+                    '$vuetify.rolesCompound.' + ((group[0] === 'student') ? 'school_student' : group[0]))
+                    }}
+                    </span>
                   </li>
                 </ul>
-                <span v-else-if="props.item.groups.length === 1">
-                  {{ $vuetify.t(
-                  '$vuetify.rolesCompound.' + props.item.groups[0][0],
-                  props.item.groups[0][2])
-                  }}
-                </span>
                 <span v-else>{{ $vuetify.t('$vuetify.rolesCompound.noRoles') }}</span>
               </td>
               <td>
@@ -212,12 +213,8 @@ export default {
             // Remove outer parantheses and split into
             // group_name, space_id, space_name
             let rv = val.slice(1, -1).split(',')
-
-            // If space name exists, remove quotes
-            if (rv.length === 3) {
-              rv[2] = rv[2].slice(1, -1)
-            }
-            return rv
+            console.log(rv.filter(r => r !== ''))
+            return rv.filter(r => r !== '')
           })
       })
 
