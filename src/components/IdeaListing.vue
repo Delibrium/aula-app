@@ -238,7 +238,7 @@ export default {
       return new Date(idea.created_at).toLocaleDateString()
     },
     getSuggestionCount (idea) {
-      return idea.comment.length
+      return idea.comment[0] ? idea.comment[0]['count'] : 0
     },
     getVotesPro (idea) {
       return idea.idea_vote != null && idea.idea_vote.filter(v => v.val === 'yes').length
