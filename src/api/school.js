@@ -4,6 +4,22 @@ function get () {
   return service.get('/school')
 }
 
+function update (schoolId, data) {
+  const params = {
+    id: `eq.${schoolId}`
+  }
+  return service.patch('/school', data, { params })
+}
+
+function getImage (schoolId) {
+  const params = {
+    id: `eq.${schoolId}`,
+    select: 'image'
+  }
+
+  return service.get('/school', { params })
+}
+
 function getPublic () {
   return service.get('/rpc/school_listing')
 }
@@ -64,6 +80,8 @@ function updateConfig (schoolId, configKey, configValue) {
 
 export default {
   get,
+  update,
+  getImage,
   getPublic,
   getConfig,
   updateConfig,

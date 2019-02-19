@@ -17,25 +17,48 @@
         <v-flex d-flex xs12 sm4 pa-2>
           <v-card class="elevation-1">
             <v-card-text>
-                <v-text-field
-                  name="description"
-                  v-model="schoolConfig.mainSpaceName"
-                  v-validate="'required'"
-                 :label="this.$vuetify.t('$vuetify.AdminCommunity.mainSpaceName')"
-                  required
-                ></v-text-field>
+              <v-layout column>
+                <v-flex>
+                  <v-text-field
+                    name="description"
+                    v-model="schoolConfig.mainSpaceName"
+                    v-validate="'required'"
+                    :label="this.$vuetify.t('$vuetify.AdminCommunity.mainSpaceName')"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex>
+                <v-img :class="{ selectedImage: schoolImage === defaultImage }"
+                       src="./static/img/svg/Schule.svg"
+                       width="280" height="162"
+                       @click="setDefaultImage"
+                />
+                <v-img v-if="!isDefaultImage"
+                       :class="{ selectedImage: schoolImage !== defaultImage }"
+                       :src="selectedSchool.image"
+                       width="280" height="162"
+                />
 
-                <v-btn
-                  @click="openEditPage('terms')"
-                >{{ $vuetify.t('$vuetify.AdminCommunity.termsEdit') }}</v-btn>
+                <vue-base64-file-upload
+                  accept="image/png,image/jpeg,image/svg"
+                  image-class="upload-image-preview"
+                  input-class="upload-image-input"
+                  @load="onLoad" />
+                </v-flex>
+                <v-flex>
+                  <v-btn
+                    @click="openEditPage('terms')"
+                  >{{ $vuetify.t('$vuetify.AdminCommunity.termsEdit') }}</v-btn>
 
-                <v-btn
-                  @click="openEditPage('impressum')"
-                >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
+                  <v-btn
+                    @click="openEditPage('impressum')"
+                  >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
 
-                <v-btn
-                  @click="updateSchool"
-                >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+                  <v-btn
+                    @click="updateSchool"
+                  >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+                </v-flex>
+              </v-layout>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -52,13 +75,17 @@
 import api from '@/api'
 import { isUserMemberOf } from '../utils/permissions'
 import PageEditor from '@/components/PageEditor'
+import VueBase64FileUpload from 'vue-base64-file-upload'
 
 export default {
   name: 'School',
-  components: { PageEditor },
+  components: { PageEditor, VueBase64FileUpload },
   data: function () {
     return {
       schools: [],
+      selectedSchool: {},
+      defaultImage: './static/img/svg/Schule.svg',
+      schoolImage: this.defaultImage,
       schoolConfig: this.$store.getters.schoolConfig,
       editPage: false,
       pageName: '',
@@ -78,11 +105,22 @@ export default {
   computed: {
     canEditMainPages: function () {
       return isUserMemberOf(['admin'])
+    },
+    isDefaultImage: function () {
+      return this.selectedSchool.image === './static/img/svg/Schule.svg'
     }
   },
 
   methods: {
     submit: function () {
+    },
+
+    setDefaultImage: function () {
+      this.schoolImage = this.defaultImage
+    },
+
+    onLoad: function (dataUri) {
+      this.schoolImage = dataUri
     },
 
     openEditPage: function (pageName) {
@@ -100,14 +138,48 @@ export default {
     },
 
     updateSchool: function () {
-      api.school.updateConfig(this.$store.getters.school_id, 'mainSpaceName', this.schoolConfig.mainSpaceName)
+      api.school.updateConfig(this.$store.getters.school_id, 'mainSpaceName', this.schoolConfig.mainSpaceName).then(
+        res => {
+          var data = {
+            image: this.schoolImage
+          }
+          api.school.update(this.$store.getters.selected_school, data)
+        }
+      )
     }
   },
 
   beforeMount: function () {
     api.school.get().then((res) => {
       this.schools = res.data
+      this.selectedSchool = this.schools.find(s => s.id === this.$store.getters.selected_school)
+      this.schoolImage = this.selectedSchool.image
     })
   }
 }
 </script>
+
+<style lang="scss">
+  .vue-base64-file-upload {
+    border: 4px dashed #dbdbdb;
+    margin-top: 10px;
+    padding: 30px;
+    max-width: 400px;
+    font-weight: bold;
+
+    .upload-image-preview {
+      max-width: 350px;
+    }
+
+    .vue-base64-file-upload-wrapper {
+      input {
+        text-align: center;
+      }
+    }
+  }
+
+  .selectedImage {
+    border: 2px solid var(--v-secondary-base);
+  }
+
+</style>

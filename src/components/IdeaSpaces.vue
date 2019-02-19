@@ -8,7 +8,7 @@
               <router-link :to="{ name: 'Ideas', params: { spaceSlug: 'school' } }">
               <v-card>
                   <v-img
-                    src="./static/img/svg/Schule.svg"
+                    :src="schoolImage"
                     height="162"
                     ></v-img>
                 <v-card-title primary-title>
@@ -60,11 +60,13 @@
 <script>
 
 import * as api from '@/api/ideaSpace'
+import apiSchool from '@/api/school'
 
 export default {
   name: 'IdeaSpaces',
   data: () => ({
     idea_space: [],
+    schoolImage: './static/img/svg/Schule.svg',
     user: {}
   }),
 
@@ -72,14 +74,19 @@ export default {
   },
 
   beforeMount: function () {
-    api.getIdeaSpaces(this.$store.getters.selected_school).then((res) => {
-      var isStudent = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').length > 0
-      if (isStudent) {
-        let studentSpaces = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').map(r => r[1])
-        this.idea_space = res.data.filter(s => studentSpaces.indexOf(s.id) >= 0)
-      } else {
-        this.idea_space = res.data
+    apiSchool.getImage(this.$store.getters.selected_school).then(res => {
+      if (res.data[0]['image'] !== '') {
+        this.schoolImage = res.data[0]['image']
       }
+      api.getIdeaSpaces(this.$store.getters.selected_school).then((res) => {
+        var isStudent = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').length > 0
+        if (isStudent) {
+          let studentSpaces = this.$store.getters.user.profile.roles.filter(r => r[0] === 'student').map(r => r[1])
+          this.idea_space = res.data.filter(s => studentSpaces.indexOf(s.id) >= 0)
+        } else {
+          this.idea_space = res.data
+        }
+      })
     })
   },
 
