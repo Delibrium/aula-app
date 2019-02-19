@@ -23,7 +23,7 @@ export default {
   Delegation: {
     'delegation.network': 'Beauftragungsnetzwerk',
     'selected': 'Ausgewählt',
-    'all.delegation': 'Delegation für alle Themen',
+    'all.delegation': 'Beauftragung für alle Themen',
     'minimum.delegation.number': 'Untergrenze Anzahl Beauftragungen',
     'user.search': 'Nutzer suchen'
   },
@@ -32,7 +32,7 @@ export default {
     'ideaTopics': 'Themen auf dem Tisch',
     'wild.ideas.title': 'Wilde Ideen',
     'ask.ideas': 'Was soll sich verändern?',
-    'ask.ideas.description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst für die Idee abstimmen und diese somit "auf den Tisch bringen".',
+    'ask.ideas.description': 'Du kannst hier jede lose Idee, die du im Kopf hast, einwerfen und kannst die Idee unterstützen und diese somit "auf den Tisch bringen".',
     'newIdea': 'Neue Idee',
     'idea.filters': 'Filtere nach Kategorie',
     'all.ideas': 'Alle Kategorien',
@@ -45,7 +45,7 @@ export default {
   },
   Topic: {
     'introTitle': 'Diese Themen sind in der Diskussion',
-    'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
+    'introDescription': 'Hinter jedem Thema können mehrere passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
     'new.topic': 'Neues Thema',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
@@ -73,12 +73,12 @@ export default {
     'topic.creation': 'Thema erstellen',
     'topic.name': 'Wie soll der Titel des Themas lauten?',
     'topic.name.example': 'z.B. Computerraum',
-    'topic.description': 'Beschreiben Sie das Thema',
+    'topic.description': 'Beschreibe das Thema',
     'topic.description.details': 'Was haben die Ideen dieses Themas gemeinsam?',
     'topic.select.ideas': 'Fügen Sie weitere wilde Ideen dem neuen Thema hinzu',
     'topic.publish': 'Veröffentlichen',
     'cancel': 'Abbrechen',
-    'topic.name.empty': 'Title des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
+    'topic.name.empty': 'Titel des Themas: ungültige Eingabe: zu wenig Input (erwartet: nicht leer)',
     'topic.description.empty': 'Thema: darf nicht leer sein'
   },
   IdeaCreation: {
@@ -94,7 +94,7 @@ export default {
   },
   UserProfile: {
     'delegate.your.vote': 'Für {0} Schule beauftragen',
-    'delegates': 'Deine Beauftragung für Schule',
+    'delegates': 'Deine Beauftragung für die Schule',
     'remove.delegation': 'Beauftragung für {0} entziehen',
     'report': 'Melden',
     'edit': 'Profil bearbeiten',
@@ -132,8 +132,8 @@ export default {
     'suggestion': 'Verbesserungsvorschlag',
     'supporters.numbers': '{0} von {1} Quorum-Stimmen',
     'create.topic': 'Thema anlegen',
-    'on.table': 'Auf den Tisch!',
-    'not.on.table': 'Docht nicht auf den Tisch?',
+    'on.table': 'Unterstützen',
+    'not.on.table': 'Docht nicht unterstützen',
     'is.possible': 'Durchführbar',
     'not.possible': 'Nicht durchführbar',
     'statement': 'Statement abgeben',
@@ -174,9 +174,9 @@ export default {
   },
   AdminQuorum: {
     'school': 'Wie hoch soll das Quorum schulweit sein?',
-    'class': 'Wie hoch soll das Quorum klassenweit sein?',
-    'schoolPercent': '% aller Schülerinnen der Schule',
-    'classPercent': '% aller Schülerinnen der Klasse'
+    'class': 'Wie hoch soll das Quorum raumnweit sein?',
+    'schoolPercent': '% aller SchülerInnen der Schule',
+    'classPercent': '% aller SchülerInnen des Raums'
   },
   AdminHolidays: {
     'description': 'Im Ferienbetrieb sind die folgenden Änderungen zu beachten:',
@@ -191,13 +191,13 @@ export default {
   },
   AdminUsers: {
     'table.name': 'Name',
-    'table.class': 'Klass',
-    'table.role': 'Role',
+    'table.class': 'Raum',
+    'table.role': 'Rolle',
     'table.deleted': 'gelöscht',
     'load.users': 'Nutzer anlegen',
     'search.user': 'Nutzersuche',
-    'load.class': 'Klasse anlegen',
-    'search.class': 'Klassensuche'
+    'load.class': 'Raum anlegen',
+    'search.class': 'Raumsuche'
   },
   AdminChangePhase: {
     'title': 'Phasen verschieben',
