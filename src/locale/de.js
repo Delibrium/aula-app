@@ -58,7 +58,7 @@ export default {
   Delegation: {
     'delegation.network': 'Beauftragungsnetzwerk',
     'selected': 'Ausgewählt',
-    'all.delegation': 'Delegation für alle Themen',
+    'all.delegation': 'Beauftragung für alle Themen',
     'minimum.delegation.number': 'Untergrenze Anzahl Beauftragungen',
     'user.search': 'Nutzer suchen',
     'noDelegation': 'Keine Beauftragungen in diesem Geltungsbereich.',
@@ -99,8 +99,8 @@ export default {
     'topic': 'Thema',
     'info': 'In diesen Themen befinden sich Ideen. Über die Themen in der Ausarbeitungsphase kannst du diskutieren, eigene Ideen hinzufügen und Verbesserungsvorschläge machen. Wenn das Thema in der Abstimmungsphase ist, kannst du über Ideen darin abstimmen.',
     'introTitle': 'Diese Themen sind in der Diskussion',
-    'introDescription': 'Hinter jedem Thema können mehrere  passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
-    'newTopic': 'Neues Thema erstellen',
+    'introDescription': 'Hinter jedem Thema können mehrere passende Ideen stehen, die hier vor der Abstimmung diskutiert werden',
+    'newTopic': 'Neues Thema',
     'view.theme': 'Thema anzeigen',
     'topic.options': 'Optionen',
     'edit.topic': 'Thema bearbeiten',
@@ -158,7 +158,7 @@ export default {
   },
   UserProfile: {
     'delegate.your.vote': 'Für {0} Schule beauftragen',
-    'delegates': 'Deine Beauftragung für Schule',
+    'delegates': 'Deine Beauftragung für die Schule',
     'remove.delegation': 'Beauftragung für {0} entziehen',
     'report': 'Melden',
     'profile': 'Profil',
@@ -229,8 +229,6 @@ export default {
     'suggestion': 'Verbesserungsvorschlag',
     'supporterCount': '<span class="supportNum">{0}</span> von <span class="neededNum">{1}</span> Unterstützern',
     'create.topic': 'Thema anlegen',
-    'on.table': 'Auf den Tisch!',
-    'not.on.table': 'Docht nicht auf den Tisch?',
     'isPossible': 'Durchführbar',
     'notPossible': 'Nicht durchführbar',
     'feasibilityReason': 'Begründen Sie bitte hier, warum die Idee nicht durchführbar ist. Wenn sie durchführbar ist, kann hier ein Kommentar stehen oder dieses Feld kann leer bleiben.',
@@ -264,7 +262,7 @@ export default {
   },
   AdminMenu: {
     'title': 'Prozessverwaltung',
-    'ideaSpace': 'Klasse',
+    'ideaSpace': 'Räume',
     'pages': 'Pages',
     'phaseDuration': 'Dauer der Phasen',
     'categories': 'Kategorien',
@@ -315,9 +313,9 @@ export default {
   },
   AdminQuorum: {
     'school': 'Wie hoch soll das Quorum schulweit sein?',
-    'class': 'Wie hoch soll das Quorum klassenweit sein?',
+    'class': 'Wie hoch soll das Quorum raumnweit sein?',
     'schoolPercent': '% aller SchülerInnen der Schule',
-    'classPercent': '% aller SchülerInnen der Klasse'
+    'classPercent': '% aller SchülerInnen des Raums'
   },
   AdminHolidays: {
     'description': 'Im Ferienbetrieb sind die folgenden Änderungen zu beachten:',
@@ -331,13 +329,13 @@ export default {
     'change.status': 'Status setzen!'
   },
   AdminIdeaSpace: {
-    'formIdeaSpace': 'Klasse',
-    'delete': 'Klass Löschen',
-    'deleteAlert': 'Achtung! Möchtest du diese Klasse wirklich löschen? Das löscht alle damit verbundenen Benutzerrollen, die Ideen darin, die Kommentare, Themen, Abstimmungen und Delegationen. Diese Aktion kann nicht mehr rückgängig gemacht werden!',
-    'formIdeaSpaceName': 'Klass Name',
+    'formIdeaSpace': 'Raum',
+    'delete': 'Raum Löschen',
+    'deleteAlert': 'Achtung! Möchtest du diese Raum wirklich löschen? Das löscht alle damit verbundenen Benutzerrollen, die Ideen darin, die Kommentare, Themen, Abstimmungen und Delegationen. Diese Aktion kann nicht mehr rückgängig gemacht werden!',
+    'formIdeaSpaceName': 'Raum Name',
     'formIdeaSpaceDescription': 'Beschreibung',
-    'formIdeaSpaceUrlName': 'Klass Url Name',
-    'add': 'Klasse hinzufügen'
+    'formIdeaSpaceUrlName': 'Raum Url Name',
+    'add': 'Raum hinzufügen'
   },
   AdminCommunity: {
     'community': 'Schule',
@@ -362,10 +360,10 @@ export default {
     'formLoginUniqueError': 'Es gibt schon einen Benutzer \'{0}\' an dieser Schule. Bitte gib einen anderen Namen ein.',
     'formEmail': 'Email (optional)',
     'formGroup': 'Rolle',
-    'formIdeaSpace': 'Klasse',
+    'formIdeaSpace': 'Raum',
     'formAddRole': 'Rolle hinzufügen',
     'formNoSpaceSelected': 'Nicht zugewiesen',
-    'formRoleRequiresSpace': 'Bitte wähle für diese Rolle eine dazugehörige Klasse',
+    'formRoleRequiresSpace': 'Bitte wähle für diese Rolle eine dazugehörige Raum',
     'formCreate': 'Erstellen',
     'formSave': 'Sichern',
     'formReset': 'Zurücksetzen',
@@ -400,7 +398,7 @@ export default {
   },
   AdminPassList: {
     title: 'Passwortliste',
-    selectLabel: 'Klasse wählen',
+    selectLabel: 'Raum wählen',
     buttonPrint: 'Drucken',
     buttonBack: 'Zurück',
     labelUsername: 'Benutzername',
