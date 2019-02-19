@@ -199,7 +199,11 @@
           api.comment.deleteVote(
             this.$store.getters.userId,
             this.commentId
-          ).catch(() => {
+          ).then(res => {
+            var cIndex = this.comment.votes.findIndex(c => c.id === this.commentId)
+            this.comment.votes.splice(cIndex, 1)
+            this.voteValue = 1
+          }).catch(() => {
             this.reload()
           })
         } else {
@@ -211,6 +215,10 @@
             val
           }
           api.comment.postVote(vote)
+            .then(res => {
+              this.comment.votes.push(res.data[0])
+              this.voteValue = 0
+            })
             .catch((err) => {
               if (err.request != null && err.request.status === 409) {
                 // User has already voted

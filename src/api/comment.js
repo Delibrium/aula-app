@@ -38,7 +38,13 @@ function remove (commentId) {
 }
 
 function postVote (vote) {
-  return service.post('/comment_vote', vote)
+  const config = {
+    headers: {
+      PREFER: 'return=representation'
+    }
+  }
+
+  return service.post('/comment_vote', vote, config)
 }
 
 function patchVote (vote) {
