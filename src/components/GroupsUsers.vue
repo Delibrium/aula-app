@@ -213,7 +213,6 @@ export default {
             // Remove outer parantheses and split into
             // group_name, space_id, space_name
             let rv = val.slice(1, -1).split(',')
-            console.log(rv.filter(r => r !== ''))
             return rv.filter(r => r !== '')
           })
       })
