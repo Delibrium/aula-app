@@ -337,11 +337,23 @@ export default {
       const firstName = first || this.firstName
       const lastName = last || this.lastName
 
-      // Try prepending characters from the first name to the last name
-      // until a unique username is generated
-      for (let i = (firstName.length >= 3) ? 3 : 0; i < firstName.length; i++) {
-        candidate = (firstName.slice(0, i) + lastName).toLowerCase()
-        if (!this.allUsernames.includes(candidate)) return candidate
+      var stopSearchingUsername = false
+      var sliceSize = 3
+      var shortFirstname = firstName.slice(0, sliceSize)
+      var shortLastname = lastName.slice(0, sliceSize)
+      var letterVariant = 97
+      var lettersIndex = 0
+      while (!stopSearchingUsername) {
+        candidate = (shortFirstname + shortLastname).toLowerCase()
+        if (!this.allUsernames.includes(candidate)) {
+          return candidate
+        } else {
+          shortLastname = shortLastname.slice(0, shortLastname.length - 1) + String.fromCharCode(letterVariant + lettersIndex++)
+        }
+
+        if (lettersIndex >= 26) {
+          stopSearchingUsername = true
+        }
       }
 
       // Fallback if no unique username can be generated
