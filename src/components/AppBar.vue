@@ -1,7 +1,7 @@
 <template>
   <v-toolbar md10 fixed app class="white">
       <router-link to="/">
-        <img class="header_logo" src="/static/img/Aula_Logo.svg"/>
+        <v-img class="header_logo" src="./static/img/Aula_Logo.svg" height="40" :contain="true"/>
       </router-link>
       <v-spacer></v-spacer>
       <Menu v-if="$auth.ready()"></Menu>
