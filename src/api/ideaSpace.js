@@ -11,7 +11,7 @@ export function getIdeas (schoolId, ideaSpaceId = null, topic) {
       'category(id,name,image),' +
       'created_by(id,first_name,last_name),' +
       'comment(count),' +
-      'idea_vote(created_by)'
+        ((topic) ? 'idea_vote(created_by)' : 'idea_vote:idea_like(created_by)')
   }
   if (ideaSpaceId !== null) {
     queryParams['idea_space'] = `eq.${ideaSpaceId}`
