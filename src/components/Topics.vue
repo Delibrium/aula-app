@@ -121,7 +121,7 @@ export default {
 
   computed: {
     userMayCreateTopics: function () {
-      return isUserMemberOf(['admin', 'school_admin', 'principal'])
+      return isUserMemberOf(['admin', 'school_admin', 'principal', 'moderator'])
     }
   },
 
