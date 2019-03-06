@@ -47,25 +47,30 @@
         </v-card-title>
 
         <v-card-text>
-          <v-list dense>
-            <v-list-tile class="suggestions">
-              <v-icon>comment</v-icon>
-              <span
-                v-if="getSuggestionCount(idea) === 0"
-                class="no-suggestions"
-              >{{ $vuetify.t('$vuetify.IdeaListing.noComments') }}</span>
-              <span v-else>
-                {{ $vuetify.t(
-                '$vuetify.IdeaListing.numComments',
-                getSuggestionCount(idea))
-                }}
-              </span>
-            </v-list-tile>
+          <v-layout column>
+            <v-flex xs12 class="text-xs-left suggestions">
+              <v-container pl-0 pr-0 pt-2 pb-2 fill-height>
+                <v-layout row>
+                  <v-flex pl-2 pr-2>
+                    <v-icon>comment</v-icon>
+                    <span
+                      v-if="getSuggestionCount(idea) === 0"
+                      class="no-suggestions"
+                    >{{ $vuetify.t('$vuetify.IdeaListing.noComments') }}</span>
+                    <span v-else>
+                      {{ $vuetify.t(
+                      '$vuetify.IdeaListing.numComments',
+                      getSuggestionCount(idea))
+                      }}
+                    </span>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-flex>
 
-            <v-divider v-if="topic == null || topic.phase != 'edit_topics'"></v-divider>
-
-            <v-list-tile v-if="topic == null" class="suppporters">
-              <span v-if="getSupporterCount(idea) === 0" class="no-supporters">
+            <v-flex pl-2 pr-2 v-if="topic == null" class="suppporters">
+              <VotesBar :wildIdea="true" :proVotes="getSupporterCount(idea)" :quorumTotalVoters="quorum.totalVoters" :quorumRequiredVoters="quorum.requiredVoteCount"/>
+              <!-- <span v-if="getSupporterCount(idea) === 0" class="no-supporters">
                 <v-icon>thumb_up</v-icon>
                 {{ $vuetify.t('$vuetify.IdeaListing.noSupporters') }}
               </span>
@@ -75,10 +80,10 @@
                 '$vuetify.IdeaListing.numSupporters',
                 getSupporterCount(idea))
                 }}
-              </span>
-            </v-list-tile>
+              </span> -->
+            </v-flex>
 
-            <v-list-tile v-else-if="topic.phase === 'feasibility'">
+            <v-flex pl-2 pr-2 pb-2 v-else-if="topic.phase === 'feasibility'">
               <span v-if="isIdeaFeasible(idea) === true" class="feasible">
                 <v-icon>check</v-icon>
                 {{ $vuetify.t('$vuetify.IdeaListing.isFeasible') }}
@@ -91,25 +96,14 @@
                 <v-icon>access_time</v-icon>
                 {{ $vuetify.t('$vuetify.IdeaListing.waitingForFeasibility') }}
               </span>
-            </v-list-tile>
+            </v-flex>
 
-            <v-list-tile v-else-if="topic.phase === 'vote'" class="showing-votes">
-              <v-icon>thumb_up</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.votesFor', getVotesPro(idea)) }}
-              <v-icon>thumb_down</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.votesAgainst', getVotesAgainst(idea)) }}
-            </v-list-tile>
+            <v-flex pl-2 pr-2 pb-2 v-else-if="topic.phase === 'vote' || topic.phase === 'finished'" class="showing-votes">
+              <VotesBar :proVotes="getVotesPro(idea)" :againstVotes="getVotesAgainst(idea)" :quorumTotalVoters="quorum.totalVoters" :quorumRequiredVoters="quorum.requiredVoteCount"/>
+            </v-flex>
 
-            <v-list-tile v-else-if="topic.phase === 'finished'" class="showing-votes">
-              <v-icon>thumb_up</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.votesFor', getVotesPro(idea)) }}
-              <v-icon>thumb_down</v-icon>
-              {{ $vuetify.t('$vuetify.IdeaListing.votesAgainst', getVotesAgainst(idea)) }}
-            </v-list-tile>
-          </v-list>
+          </v-layout>
 
-          <v-flex text-xs-right pr-4 class="categories">
-          </v-flex>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -138,8 +132,12 @@
 </template>
 
 <script>
+
+import VotesBar from '@/components/VotesBar'
+
 export default {
   name: 'IdeaListing',
+  components: { VotesBar },
   computed: {
     userId: function () {
       return this.$store.getters.userId
@@ -201,14 +199,16 @@ export default {
     }
   },
 
-  data: () => ({
-    orderBy: 0,
-    query: ''
-  }),
+  data: function () {
+    return {
+      orderBy: 0,
+      query: ''
+    }
+  },
 
   // Ideas list should have created_by(first_name, last_name), comment(count),
   // idea_vote(created_by) and feasible(val) embedded
-  props: ['ideas', 'topic'],
+  props: ['ideas', 'topic', 'quorum'],
 
   methods: {
     isPossible: function (idea) {

@@ -98,7 +98,7 @@
                 {{ $vuetify.t('$vuetify.Topic.delegates') }}
               </v-tab>
               <v-tab-item key="0">
-                <IdeaListing :ideas="ideas" :topic="topic"/>
+                <IdeaListing :quorum="quorum" :ideas="ideas" :topic="topic"/>
               </v-tab-item>
               <v-tab-item key="1">
                 <DelegateListing :delegates="delegates" :topic="topic" :spaceSlug="spaceSlug" :spaceId="spaceId"/>
@@ -188,6 +188,7 @@ export default {
       tab: 0,
       topic: null,
       delegates: {},
+      quorum: {},
       ideas: [],
       showDeleteTopic: false
     }
@@ -230,6 +231,13 @@ export default {
             this.topic.idea_space = {'title': this.$store.getters.schoolConfig.mainSpaceName}
           }
           this.topic.meta = { editTopicsStarted: new Date() }
+
+          apiIdea.getQuorumInfo(
+            this.$store.getters.selected_school,
+            this.topic.idea_space.id
+          ).then(resp => {
+            this.quorum = resp.data
+          })
 
           api.topic.getDelegates(this.topic.id).then(res => {
             var dtemp = {}

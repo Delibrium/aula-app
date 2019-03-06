@@ -36,7 +36,7 @@
           </v-layout>
 
           <v-flex xs12>
-            <IdeaListing :ideas="ideas"/>
+            <IdeaListing :ideas="ideas" :quorum="quorum"/>
           </v-flex>
 
           <v-dialog v-model="info" width="500">
@@ -55,6 +55,7 @@
 
 <script>
 
+import ideaApi from '@/api/idea'
 import * as api from '@/api/ideaSpace'
 import IdeaListing from '@/components/IdeaListing'
 import NavTabs from '@/components/NavTabs'
@@ -69,7 +70,8 @@ export default {
       ideas: [],
       spaceId: this.$route.params['spaceId'],
       spaceName: '',
-      info: false
+      info: false,
+      quorum: {}
     }
   },
 
@@ -85,10 +87,22 @@ export default {
           this.spaceId = res.data[0].id
           this.spaceName = res.data[0].title
           this.getIdeas(this.$store.getters.selected_school, this.spaceId)
+          ideaApi.getQuorumInfo(
+            this.$store.getters.selected_school,
+            this.spaceId
+          ).then(resp => {
+            this.$set(this, 'quorum', resp.data)
+          })
         })
     } else {
       this.spaceName = this.$store.getters.schoolConfig.mainSpaceName
       this.getIdeas(this.$store.getters.selected_school)
+      ideaApi.getQuorumInfo(
+        this.$store.getters.selected_school,
+        this.spaceId
+      ).then(resp => {
+        this.$set(this, 'quorum', resp.data)
+      })
     }
   },
 
