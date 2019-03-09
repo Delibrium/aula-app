@@ -48,7 +48,8 @@
     "vuetify": "1.2.3",
     "vuetify-upload-button": "^1.2.2",
     "vuex": "3.0.1",
-    "vuex-persist": "^2.0.0"
+    "vuex-persist": "^2.0.0",
+    "cordova-ios": "^4.5.5"
   },
   "devDependencies": {
     "autoprefixer": "8.5.0",
@@ -142,7 +143,8 @@
     },
     "platforms": [
       "android",
-      "browser"
+      "browser",
+      "ios"
     ]
   }
 }
