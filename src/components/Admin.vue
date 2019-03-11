@@ -10,7 +10,7 @@
 
                   <v-expansion-panel v-model="openPanel">
 
-                    <v-expansion-panel-content v-if="$auth.user().role.indexOf('admin') >= 0">
+                    <v-expansion-panel-content>
                       <div slot="header">{{ $vuetify.t('$vuetify.AdminCommunity.community') }}<span v-if="hasSelectedSchool">: {{ $store.getters.schoolName }}</span></div>
                       <School></School>
                     </v-expansion-panel-content>

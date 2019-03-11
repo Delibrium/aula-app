@@ -121,7 +121,7 @@ export default {
       return this.$route.params.topicId
     },
     userMayCreateIdeas: function () {
-      return !isUserMemberOf(['school_admin', 'principal'])
+      return !isUserMemberOf(['principal'])
     },
     topicMayReceiveIdeas: function () {
       return this.topicId == null || (this.topic && this.topic.phase === 'edit_topics')

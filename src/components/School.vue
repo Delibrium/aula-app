@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-slide-y-transition mode="out-in">
       <v-layout column wrap>
-        <v-flex d-flex xs12 sm4 pa-2>
+        <v-flex v-if="$auth.user().role.indexOf('admin') >= 0" d-flex xs12 sm4 pa-2>
           <v-data-table
             :headers="headers"
             :items="schools"
@@ -142,7 +142,7 @@ export default {
     },
 
     updateSchool: function () {
-      api.school.updateConfig(this.$store.getters.school_id, 'mainSpaceName', this.schoolConfig.mainSpaceName).then(
+      api.school.updateConfig(this.$store.getters.selected_school, 'mainSpaceName', this.schoolConfig.mainSpaceName).then(
         res => {
           var data = {
             image: this.schoolImage,
