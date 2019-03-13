@@ -23,6 +23,9 @@
               <!-- Add a bold button -->
               <button class="ql-bold">Bold</button>
               <button class="ql-italic">Italic</button>
+              <button class="ql-link">Link</button>
+              <button class="ql-list" value="ordered">Ordered List</button>
+              <button class="ql-list" value="bullet">Bullet List</button>
               <!-- Add font size dropdown -->
               <select class="ql-size">
                 <option value="small"></option>
@@ -77,7 +80,6 @@ export default {
 
   methods: {
     updatePage: function () {
-      console.log(this.pageName)
       api.school.updatePage(this.$store.getters.school_id, this.pageName, this.pageContent).then(res => {
         this.$emit('close-page-editor')
       })
