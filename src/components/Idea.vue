@@ -79,7 +79,7 @@
                             </div>
                           </div>
                           <div v-if="quorum != null && votes != null && (idea.topic && (idea.topic.phase === 'vote' || idea.topic.phase === 'finished'))" class="quorum-info">
-                            <div class="text" v-html="$vuetify.t('$vuetify.Idea.supporterCount', proVotes.length,
+                            <div class="text" v-html="$vuetify.t('$vuetify.Idea.votesCount', proVotes.length, againstVotes.length,
                             quorum.requiredVoteCount
                             )">
                             </div>
@@ -598,6 +598,9 @@ export default {
      .text {
        .supportNum {
          color: var(--v-primary-base);
+       }
+       .againstNum {
+         color: var(--v-secondary-base);
        }
        .neededNum {
          color: #777;

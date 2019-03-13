@@ -230,6 +230,7 @@ export default {
     'votes.pro': '{0} Quorum-Stimmen',
     'suggestion': 'Verbesserungsvorschlag',
     'supporterCount': '<span class="supportNum">{0}</span> von <span class="neededNum">{1}</span> Unterstützern',
+    'votesCount': '<span class="supportNum">{0} dafür</span>, <span class="againstNum">{1} dagegen</span>, <span class="notVotedNum">{2} noch nicht abgestimmt</span>',
     'create.topic': 'Thema anlegen',
     'isPossible': 'Durchführbar',
     'notPossible': 'Nicht durchführbar',

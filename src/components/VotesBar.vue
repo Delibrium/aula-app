@@ -10,7 +10,7 @@
        </div>
      </div>
      <div v-else>
-      <div class="text" v-html="$vuetify.t('$vuetify.Idea.supporterCount', proVotes,
+      <div class="text" v-html="$vuetify.t('$vuetify.Idea.votesCount', proVotes, againstVotes,
       quorumRequiredVoters
       )">
       </div>
@@ -86,12 +86,15 @@ export default {
 
      .text {
        .supportNum {
-         color: #00c853;
+         color:  var(--v-primary-base);
+       }
+       .againstNum {
+         color: var(--v-secondary-base);
        }
        .neededNum {
          color: #777;
        }
-       margin-bottom: 7px;
+       margin-bottom: 13px;
      }
 
      .bar {
@@ -102,10 +105,11 @@ export default {
 
         .quorumMin {
           position: absolute;
-          top: -20px;
+          top: -15px;
 
           i {
             margin-left: -50%;
+            font-size: 15px;
           }
         }
 
