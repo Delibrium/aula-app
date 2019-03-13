@@ -22,7 +22,7 @@
        <router-link  tag="v-list-tile" :to="`/user/settings`">
          {{ $vuetify.t('$vuetify.Menu.settings') }}
        </router-link>
-        <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">Prozessverwaltung</router-link>
+        <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">{{ $vuetify.t('$vuetify.Menu.administration') }}</router-link>
         <router-link v-if="($auth.user().role)" tag="v-list-tile" v-for="(link,index) of menuLinks" :key="index" :to="link.url">{{ link.name }}</router-link>
         <v-list-tile @click="logout">
           Logout

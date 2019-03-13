@@ -19,9 +19,9 @@
     <v-flex md10 xs12>
       <v-layout align-center justify-center>
         <v-flex class="add-comment" md2 text-md-center text-xs-center>
-          <v-btn v-if="!disabled" @click="editingComment = true" class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+          <v-btn v-if="!disabled" @click="editingComment = true" class="white--text" color="primary"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
           <v-tooltip v-if="disabled" bottom>
-            <v-btn slot="activator" disabled class="white--text" color="#00c853"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
+            <v-btn slot="activator" disabled class="white--text" color="primary"> {{ $vuetify.t('$vuetify.Comment.add') }} </v-btn>
             <span>{{ $vuetify.t('$vuetify.Comment.disabled') }}</span>
           </v-tooltip>
         </v-flex>
@@ -46,7 +46,7 @@
             <p v-if="parentCommentId != null">
               {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentComment.created_by.first_name) }}
             </p>
-            <v-text-field
+            <v-textarea
               name='text'
               v-model='text'
               v-validate="'required'"
@@ -54,7 +54,7 @@
               :label="this.$vuetify.t('$vuetify.Comment.formLabelTitle')"
               required
               >
-            </v-text-field>
+            </v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-btn flat @click="this.submit">

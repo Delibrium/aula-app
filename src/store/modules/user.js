@@ -1,11 +1,15 @@
 const user = {
   state: {
-    profile: {}
+    profile: {},
+    locale: 'de'
   },
 
   mutations: {
     SET_USER: (state, user) => {
       state.profile = user
+    },
+    SET_LOCALE: (state, locale) => {
+      state.locale = locale
     }
   },
 

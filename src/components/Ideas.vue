@@ -108,7 +108,7 @@ export default {
 
   computed: {
     userMayCreateIdeas: function () {
-      return (isUserMemberOf(['school_admin', 'principal', 'admin']) || isUserMemberOf([(this.spaceId) ? ['student', this.spaceId] : 'student']))
+      return (isUserMemberOf(['school_admin', 'principal', 'admin']) || isUserMemberOf([(this.spaceId) ? ['moderator', this.spaceId] : 'moderator']) || isUserMemberOf([(this.spaceId) ? ['student', this.spaceId] : 'student']))
     }
   },
 

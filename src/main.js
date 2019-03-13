@@ -27,7 +27,7 @@ Vue.use(VueQuillEditor)
 Vue.use(Vuetify, {
   lang: {
     locales: { de, en },
-    current: 'de'
+    current: store.getters.locale
   },
   options: {
     customProperties: true

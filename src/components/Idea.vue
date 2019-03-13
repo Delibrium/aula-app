@@ -1,5 +1,22 @@
 <template>
     <v-container  pa-0>
+      <v-dialog
+        v-model="confirmDeleteIdea"
+        persistent
+        max-width="280"
+        >
+        <v-card>
+          <v-card-title class="headline">{{ $vuetify.t('$vuetify.Idea.delete') }}?</v-card-title>
+          <v-card-text>
+
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click="confirmDeleteIdea = false">{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
+            <v-btn color="red darken-1" flat @click="deleteIdea()">{{ $vuetify.t('$vuetify.Form.delete') }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-layout row wrap justify-center align-center>
         <v-flex md10 xs12>
            <Breadcrumbs :items="breadcrumbs"/>
@@ -29,7 +46,8 @@
                           </div>
                         </v-flex>
                         <v-flex class="text-md-right text-xs-right">
-                          <router-link tag="v-icon" :to="{ name: 'IdeaEdit', params: { ideaId: this.idea.id }}">edit</router-link>
+                           <v-icon v-if="canDelete" @click="confirmDeleteIdea = true">delete</v-icon>
+                           <router-link v-if="canEdit" tag="v-icon" :to="{ name: 'IdeaEdit', params: { ideaId: this.idea.id }}">edit</router-link>
                         </v-flex>
                       </v-layout>
                     </v-card-title>
@@ -106,7 +124,7 @@
 
                           <v-flex md4 align-center text-xs-center text-md-center v-if="!idea.topic">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
-                              <v-btn primary class="support-idea white--text" color="#00c853">
+                            <v-btn primary class="support-idea white--text" color="primary">
                                 <v-icon left>thumb_up</v-icon>
                                 <span v-if="!voteValue && voteValue !== 0">{{$vuetify.t('$vuetify.Idea.support')}}</span>
                                 <span v-else>{{$vuetify.t('$vuetify.Idea.noSupport')}}</span>
@@ -236,6 +254,7 @@ export default {
       voteValue: null,
       breadcrumbs: [],
       dialogFeasible: false,
+      confirmDeleteIdea: false,
       feasibility: { val: null, reason: '' },
       feasibleOptions: [
         {text: this.$vuetify.t('$vuetify.Idea.isPossible'), value: true},
@@ -259,6 +278,14 @@ export default {
       } else {
         return isUserMemberOf(['admin', 'school_admin', 'principal', 'moderator'])
       }
+    },
+
+    canDelete: function () {
+      return isUserMemberOf(['admin', 'school_admin', 'principal'])
+    },
+
+    canEdit: function () {
+      return isUserMemberOf(['admin', 'school_admin', 'principal', 'moderator']) || (this.idea.created_by && this.idea.created_by.id === this.$store.getters.user.profile.id)
     },
 
     phase: function () {
@@ -325,6 +352,13 @@ export default {
   },
 
   methods: {
+    deleteIdea: function () {
+      ideaApi.deleteIdea(this.$store.getters.school_id, this.idea.id).then(res => {
+        console.log(res, this.$route.params['spaceSlug'])
+        this.$router.push({ name: 'Ideas', params: { spaceSlug: this.$route.params['spaceSlug'] } })
+      })
+    },
+
     markWinner: function () {
       const selected = !this.idea.selected
       ideaApi.updateIdeas([this.idea.id], { 'selected': selected }).then(res => {
@@ -506,7 +540,7 @@ export default {
     padding-right: 10px;
 
     &.wild-idea-phase {
-      background-color: #00c853;
+      background-color: var(--v-primary-base);
     }
 
     &.edit-topic {
@@ -563,7 +597,7 @@ export default {
 
      .text {
        .supportNum {
-         color: #00c853;
+         color: var(--v-primary-base);
        }
        .neededNum {
          color: #777;

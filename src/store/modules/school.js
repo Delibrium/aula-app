@@ -2,6 +2,7 @@ const school = {
   state: {
     selectedSchool: -1,
     schoolConfig: {},
+    phases: ['edit_topics', 'feasibility', 'vote', 'finished'],
     name: ''
   },
 

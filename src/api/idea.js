@@ -12,6 +12,14 @@ function getIdea (ideaId, getIdeaSpace = false) {
   return service.get('/idea', { params })
 }
 
+function deleteIdea (schoolId, ideaId) {
+  const data = {
+    school_id: schoolId,
+    idea_id: ideaId
+  }
+  return service.post('/rpc/delete_idea', data)
+}
+
 function getFeasibility (ideaId) {
   const params = {
     idea: 'eq.' + ideaId
@@ -132,6 +140,7 @@ function getQuorumInfo (schoolId, ideaSpaceId) {
 
 export default {
   getIdea,
+  deleteIdea,
   updateIdeas,
   getVotes,
   postVote,

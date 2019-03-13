@@ -48,10 +48,12 @@ export default {
       }))
     }
   },
-  data: () => ({
-    isLoading: false,
-    phases: ['edit_topics', 'feasibility', 'vote', 'finished']
-  }),
+  data: function () {
+    return {
+      isLoading: false,
+      phases: this.$store.getters.schoolConfig['phases']
+    }
+  },
   methods: {
     update: function (delta) {
       const newIndex = (this.phases.indexOf(this.phase) + delta) % this.phases.length

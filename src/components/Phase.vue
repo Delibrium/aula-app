@@ -21,6 +21,15 @@
           ></v-text-field>
         </v-flex>
         <v-flex d-flex xs12 sm12 pa-2>
+          <v-switch
+              v-for="(p, index) in phases"
+              :key="index"
+              v-model="phasesSelected"
+              @change="updatePhases"
+              :label="$vuetify.t('$vuetify.TopicPhase.' + p)"
+              :value="[p, index]"></v-switch>
+        </v-flex>
+        <v-flex d-flex xs12 sm12 pa-2>
           <v-btn
             @click="submit"
           >
@@ -40,6 +49,14 @@ export default {
   name: 'Phase',
   data: function () {
     return {
+      phases: ['edit_topics', 'feasibility', 'vote', 'finished'],
+      phasesSelected: []
+    }
+  },
+
+  beforeMount: function () {
+    if (Object.keys(this.$store.getters.schoolConfig).indexOf('phases') >= 0) {
+      this.phasesSelected = this.$store.getters.schoolConfig['phases'].map(p => [p, this.phases.indexOf(p)])
     }
   },
 
@@ -58,11 +75,17 @@ export default {
   },
 
   methods: {
+    updatePhases: function () {
+      this.phasesSelected.sort((p1, p2) => p1[1] >= p2[1])
+      this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: 'phases', value: this.phasesSelected.map(p => p[0])})
+    },
+
     submit: function () {
       // this.$store.commit('UPDATE_SCHOOL_CONFIG_KEY', {key: phase})
       api.school.updateConfig(this.$store.getters.selected_school, 'phaseWorking', this.phaseWorking)
         .then(() => {
           api.school.updateConfig(this.$store.getters.selected_school, 'phaseVoting', this.phaseVoting)
+          api.school.updateConfig(this.$store.getters.selected_school, 'phases', this.phasesSelected.map(p => p[0]))
         })
     }
   }

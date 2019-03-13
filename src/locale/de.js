@@ -192,12 +192,14 @@ export default {
     'edit': 'Bearbeiten'
   },
   IdeaCategories: {
-    'rules': 'Regeln',
-    'material': 'Ausstatung',
-    'activities': 'Aktivitatem',
-    'lesson': 'Unterricht',
-    'time': 'Zeit',
-    'environment': 'Umgebung'
+    'Regeln': 'Regeln',
+    'Ausstattung': 'Ausstattung',
+    'Aktivitäten': 'Aktivitäten',
+    'Unterricht': 'Unterricht',
+    'Meetings': 'Treffen',
+    'Zeit': 'Zeit',
+    'Umgebung': 'Umgebung',
+    'Sonstiges': 'Sonstiges'
   },
   Comment: {
     'title': '{0} Verbesserungsvorschläge, sortiert nach',
@@ -252,7 +254,8 @@ export default {
     'notWinner': 'nicht gewonnen',
     'proVotes': 'Dafür',
     'againstVotes': 'Dagegen',
-    'quorum': 'Quorum'
+    'quorum': 'Quorum',
+    'delete': 'Idee Löschen'
   },
   IdeaMove: {
     'move.idea.title': 'Idee verschieben',
