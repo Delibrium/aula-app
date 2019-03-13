@@ -79,7 +79,7 @@ export default {
 
   .quorum-info {
      background-color: #eee;
-     padding: 15px 20px;
+     padding: 7px 10px;
      border-radius: 4px;
      margin-bottom: 10px;
      width: 100%;
@@ -91,11 +91,11 @@ export default {
        .neededNum {
          color: #777;
        }
-       margin-bottom: 15px;
+       margin-bottom: 7px;
      }
 
      .bar {
-        min-height: 20px;
+        min-height: 10px;
         background-color: #bdbdbd;
         border-radius: 10px;
         position: relative;
@@ -113,7 +113,7 @@ export default {
           float: left;
            background-color: var(--v-primary-base);
            border-radius: 10px 0 0 10px;
-           min-height: 20px;
+           min-height: 10px;
            width: 50%;
            transition: width 0.5s;
         }
@@ -122,7 +122,7 @@ export default {
           float: left;
            background-color:  var(--v-secondary-base);
            border-radius: 0 10px 10px 0;
-           min-height: 20px;
+           min-height: 10px;
            width: 50%;
            transition: width 0.5s;
         }
