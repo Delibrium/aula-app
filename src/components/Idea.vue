@@ -107,10 +107,10 @@
                           <v-flex md4 align-center text-xs-center text-md-center v-if="idea.topic && idea.topic.phase !== 'feasibility' && idea.topic.phase !== 'edit_topics' && idea.topic.phase !== 'finished'">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                               <v-btn primary>
-                                <v-icon left>thumb_up</v-icon>Dafür
+                                <v-icon left>thumb_up</v-icon>{{ $vuetify.t('$vuetify.Idea.voteInFavor') }}
                               </v-btn>
                               <v-btn primary>
-                                <v-icon left>thumb_down</v-icon>Dagegen
+                                <v-icon left>thumb_down</v-icon>{{ $vuetify.t('$vuetify.Idea.voteAgainst') }}
                               </v-btn>
                             </v-btn-toggle>
                           </v-flex>

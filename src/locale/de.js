@@ -254,6 +254,8 @@ export default {
     'unmarkWinner': '"gewonnen" zurücknehmen',
     'notWinner': 'nicht gewonnen',
     'proVotes': 'Dafür',
+    'voteInFavor': 'Dafür',
+    'voteAgainst': 'Dagegen',
     'againstVotes': 'Dagegen',
     'quorum': 'Quorum',
     'delete': 'Idee Löschen'
