@@ -169,7 +169,7 @@ export default {
           )
 
       const sortFn = {
-        Age: (a, b) => a.created_at < b.created_at ? -1 : 1, // eslint-disable-line
+        Age: (a, b) => a.created_at > b.created_at ? -1 : 1, // eslint-disable-line
         Supporters: (a, b) => // eslint-disable-line
           this.getSupporterCount(a) > this.getSupporterCount(b) ? -1 : 1,
         Name: (a, b) => a.title === b.title ? 0 : a.title > b.title ? 1 : -1, // eslint-disable-line,
