@@ -23,9 +23,9 @@
               </v-flex>
               <v-flex>
               <v-layout wrap align-center justify-center>
-                <v-flex row d-flex xs12 lg3 pa-2 align-content-center justify-center>
+                <!-- <v-flex row d-flex xs12 lg3 pa-2 align-content-center justify-center>
                  <v-btn round color="primary" dark>{{ $vuetify.t('$vuetify.UserProfile.delegates') }}</v-btn>
-                </v-flex>
+                 </v-flex> -->
                 <v-flex row d-flex xs12 lg3 pa-2 align-content-center justify-center>
                   <v-btn :to="{ name: 'ProfileEdit', params: { userId: $store.getters.userId } }" round color="primary" dark>{{ $vuetify.t('$vuetify.UserProfile.edit') }}</v-btn>
                 </v-flex>
