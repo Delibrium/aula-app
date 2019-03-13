@@ -78,7 +78,7 @@
                                 <div slot="activator" class="proVotes" :style="{width: `${proVotesPercent}%`}"></div>
                             </div>
                           </div>
-                          <div v-if="quorum != null && votes != null && (idea.topic && (idea.topic.phase === 'vote' || idea.topic.phase === 'results'))" class="quorum-info">
+                          <div v-if="quorum != null && votes != null && (idea.topic && (idea.topic.phase === 'vote' || idea.topic.phase === 'finished'))" class="quorum-info">
                             <div class="text" v-html="$vuetify.t('$vuetify.Idea.supporterCount', proVotes.length,
                             quorum.requiredVoteCount
                             )">
