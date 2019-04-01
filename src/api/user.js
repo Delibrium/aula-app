@@ -72,6 +72,14 @@ function update (user) {
   return service.post('/rpc/update_user', user, config)
 }
 
+function updateUsername (userId, username) {
+  const data = {
+    user_id: userId,
+    username: username
+  }
+  return service.post('/rpc/update_userlogin', data)
+}
+
 function updatePassword (userId, oldPassword, newPassword) {
   const data = {
     user_id: userId,
@@ -118,6 +126,7 @@ export default {
   getGroups,
   create,
   update,
+  updateUsername,
   remove,
   getListing,
   updateProfilePicture,

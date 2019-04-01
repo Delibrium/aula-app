@@ -169,6 +169,11 @@
         v-if="editingId == null"
       >{{ $vuetify.t('$vuetify.AdminUsers.formCreate') }}</v-btn>
       <v-btn
+        color="primary"
+        @click="updateUser"
+        v-if="editingId !== null"
+      >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+      <v-btn
         flat
         color="primary"
         @click="dialogResetPassword = true"
@@ -310,6 +315,7 @@ export default {
       this.firstName = next.first_name
       this.lastName = next.last_name
       this.username = next.login
+      this.origUsername = next.login
       this.email = next.email
       this.usergroup = next.group_id
       this.editingId = next.id
@@ -326,6 +332,30 @@ export default {
   },
 
   methods: {
+    updateUser: function () {
+      let userData = {
+        id: this.editingId,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        email: this.email
+      }
+      api.user.update(userData).then(res => {
+        if (this.origUsername !== this.username) {
+          api.user.updateUsername(this.editingId, this.username).then(res => {
+            this.origUsername = this.username
+            this.handleSuccess()
+          }).catch(err => {
+            console.log(err)
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t(
+              '$vuetify.AdminUsers.usernameExists')
+          })
+        } else {
+          this.handleSuccess()
+        }
+      })
+    },
+
     resetPassword: function () {
       api.user.resetPassword(this.$store.getters.selected_school, this.editingId).then(res => {
         this.newPassword = res.data['new_password']

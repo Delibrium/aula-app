@@ -395,7 +395,8 @@ export default {
     'csvClose': 'Close',
     'resetPassword': 'Reset password',
     'confirmResetPassword': 'Reset password for user "{0}"?',
-    'newPassword': 'New password'
+    'newPassword': 'New password',
+    'usernameExists': 'Username already exists'
   },
   AdminPages: {
     pageName: 'Page name',
