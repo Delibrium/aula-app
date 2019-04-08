@@ -4,7 +4,7 @@ export function get (topicId) {
   const params = {
     id: `eq.${topicId}`,
     select: '*,' +
-     'created_by(id,first_name,last_name),idea_space(id,title)'
+     'created_by(id,username),idea_space(id,title)'
   }
   return service.get('/topic', { params })
 }
@@ -13,9 +13,9 @@ export function getIdeas (topicId) {
   const params = {
     topic: `eq.${topicId}`,
     select: '*,' +
-      'created_by(id,first_name,last_name),' +
+      'created_by(id,username),' +
       'category(name, image),' +
-      'comment(count),' +
+      'comment(created_at),' +
       'idea_vote(created_by,val),' +
       'idea_like(created_by),' +
       'feasible(val)'
@@ -26,7 +26,7 @@ export function getIdeas (topicId) {
 export function getDelegates (topicId) {
   const params = {
     context_topic: `eq.${topicId}`,
-    select: 'id, to_user(id, picture, first_name, last_name), from_user(id, first_name, last_name)'
+    select: 'id, to_user(id, picture, username), from_user(id, username)'
   }
   return service.get('/delegation', { params })
 }

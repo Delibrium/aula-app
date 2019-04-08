@@ -12,7 +12,7 @@
                 <v-card :class="{selected: selectedDelegate && user.id === selectedDelegate.id}">
                   <v-card-text @click="selectDelegate(user)" class="text-xs-center text-md-center">
                     <v-img :src="user.picture?user.picture:'/static/img/svg/Aula_Logo_Kopf.svg'" width="100" height="100"/>
-                    <h2>{{user.login}}</h2>
+                    <h2>{{user.username}}</h2>
                   </v-card-text>
                 </v-card>
               </v-flex>

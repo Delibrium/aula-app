@@ -206,7 +206,7 @@ export default {
     }
   },
 
-  // Ideas list should have created_by(first_name, last_name), comment(count),
+  // Ideas list should have created_by(username), comment(count),
   // idea_vote(created_by) and feasible(val) embedded
   props: ['ideas', 'topic', 'quorum'],
 
@@ -229,7 +229,7 @@ export default {
     },
     getAuthorName (idea) {
       if (typeof idea.created_by === 'object') {
-        return `${idea.created_by.first_name} ${idea.created_by.last_name}`
+        return `${idea.created_by.username}`
       } else {
         return `Author #${idea.created_by}`
       }

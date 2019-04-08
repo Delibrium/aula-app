@@ -7,9 +7,16 @@ function getIdea (ideaId, getIdeaSpace = false) {
   }
   const params = {
     id: 'eq.' + ideaId,
-    select: `id,title,description,${ideaSpaceQuery},created_by(id,first_name,picture),created_at,category(id,name,image),topic(id,title,phase),selected`
+    select: `id,title,description,${ideaSpaceQuery},created_by(id,username,picture),created_at,category(id,name,image),topic(id,title,phase),selected`
   }
   return service.get('/idea', { params })
+}
+
+function getFeasibility (ideaId) {
+  const params = {
+    idea: 'eq.' + ideaId
+  }
+  return service.get('/feasible', { params })
 }
 
 function deleteIdea (schoolId, ideaId) {
@@ -18,13 +25,6 @@ function deleteIdea (schoolId, ideaId) {
     idea_id: ideaId
   }
   return service.post('/rpc/delete_idea', data)
-}
-
-function getFeasibility (ideaId) {
-  const params = {
-    idea: 'eq.' + ideaId
-  }
-  return service.get('/feasible', { params })
 }
 
 function updateOrCreateFeasibility (feasibility) {
@@ -123,7 +123,7 @@ function postLike (like) {
 function getComments (ideaId) {
   const params = {
     parent_idea: 'eq.' + ideaId,
-    select: 'id,created_by(id,first_name),created_at,text,parent_comment(id)'
+    select: 'id,created_by(id,username),created_at,text,parent_comment(id)'
   }
   return service.get('/comment', { params })
 }
@@ -140,7 +140,6 @@ function getQuorumInfo (schoolId, ideaSpaceId) {
 
 export default {
   getIdea,
-  deleteIdea,
   updateIdeas,
   getVotes,
   postVote,
@@ -152,5 +151,6 @@ export default {
   getComments,
   getQuorumInfo,
   getFeasibility,
-  updateOrCreateFeasibility
+  updateOrCreateFeasibility,
+  deleteIdea
 }

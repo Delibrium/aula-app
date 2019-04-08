@@ -8,7 +8,7 @@
           </v-avatar>
           <span class="author" v-html="
                 $vuetify.t('$vuetify.Comment.authorCreated',
-                  comment.created_by.first_name,
+                  comment.created_by.username,
                   created.toLocaleString())
                   ">
             </span>
@@ -39,7 +39,7 @@
 
             <em v-if="comment.changed_by != null && isEdited">
               {{ $vuetify.t('$vuetify.Comment.editedBy',
-                this.comment.changed_by.first_name) }}
+                this.comment.changed_by.username) }}
             </em>
 
           </div>

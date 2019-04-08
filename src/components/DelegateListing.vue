@@ -21,9 +21,9 @@
             <v-card-text>
               <v-img v-if="delegate['picture']" :src="delegate['picture']" width="60" height="60"/>
               <v-img v-else src="./static/img/svg/Aula_Logo_Kopf.svg" width="60"/>
-                <h3>{{ delegate.login }}</h3>
+                <h3>{{ delegate.username }}</h3>
                 (<span v-for="(user, index) in delegate['users']" :key="index">
-                  {{user.login}}{{(Object.keys(delegates).length - 1 > index) ? ',' : ''}}
+                  {{user.username}}{{(Object.keys(delegates).length - 1 > index) ? ',' : ''}}
                  </span>)
             </v-card-text>
           </v-card>

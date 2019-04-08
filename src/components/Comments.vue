@@ -44,7 +44,7 @@
 
           <v-card-text>
             <p v-if="parentCommentId != null">
-              {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentComment.created_by.first_name) }}
+              {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentComment.created_by.username) }}
             </p>
             <v-textarea
               name='text'

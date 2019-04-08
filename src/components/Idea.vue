@@ -38,7 +38,7 @@
                             <v-img v-else src="./static/img/svg/Aula_Logo_Kopf.svg" width="40" height="40"/>
                           </v-avatar>
                           <div class="author-info">
-                          <p v-if="idea.created_by != null" v-html="$vuetify.t('$vuetify.Idea.authorCreated', idea.created_by.first_name)">
+                          <p v-if="idea.created_by != null" v-html="$vuetify.t('$vuetify.Idea.authorCreated', idea.created_by.username)">
                           </p>
                           <p>
                           {{ created.toLocaleString() }}
@@ -59,7 +59,7 @@
                           <!-- <p v-if="idea.created_by != null">
                             {{
                             $vuetify.t('$vuetify.Idea.authorCreated',
-                            idea.created_by.first_name,
+                            idea.created_by.username,
                             created.toLocaleString()
                             )
                             }}
@@ -125,7 +125,7 @@
                           <v-flex md4 align-center text-xs-center text-md-center v-if="!idea.topic">
                             <v-btn-toggle v-model="voteValue" @change="voteChanged">
                             <v-btn primary class="support-idea white--text" color="primary">
-                                <v-icon left>thumb_up</v-icon>
+                                <v-icon left>{{ (!voteValue && voteValue !== 0)?'thumb_up':'thumb_down' }}</v-icon>
                                 <span v-if="!voteValue && voteValue !== 0">{{$vuetify.t('$vuetify.Idea.support')}}</span>
                                 <span v-else>{{$vuetify.t('$vuetify.Idea.noSupport')}}</span>
                               </v-btn>
@@ -200,7 +200,7 @@
             <ul>
               <li v-for="comment in comments">
                 <p>
-                  <strong>{{ comment.created_by.first_name }}</strong>
+                  <strong>{{ comment.created_by.username }}</strong>
                   {{ comment.text }}
                 </p>
               </li>
@@ -534,6 +534,11 @@ export default {
 </script>
 
 <style lang="scss">
+
+  .v-btn-toggle .v-btn {
+    opacity: 1;
+  }
+
   .idea-banner {
     padding-bottom: 25px;
     padding-left: 10px;

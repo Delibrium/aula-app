@@ -9,7 +9,7 @@ export function getIdeas (schoolId, ideaSpaceId = null, topic) {
     school_id: `eq.${schoolId}`,
     select: '*,' +
       'category(id,name,image),' +
-      'created_by(id,first_name,last_name),' +
+      'created_by(id,username),' +
       'comment(count),' +
         ((topic) ? 'idea_vote(created_by)' : 'idea_vote:idea_like(created_by)')
   }

@@ -244,13 +244,12 @@ export default {
             for (var d of res.data) {
               if (Object.keys(dtemp).indexOf(String(d['to_user']['id'])) < 0) {
                 dtemp[d['to_user']['id']] = {
-                  'first_name': d['to_user']['first_name'],
-                  'last_name': d['to_user']['last_name'],
+                  'username': d['to_user']['username'],
                   'picture': d['to_user']['picture'],
-                  'users': [{'first_name': d['from_user']['fist_name'], 'last_name': d['from_user']['last_name']}]
+                  'users': [{'username': d['from_user']['username']}]
                 }
               } else {
-                dtemp[Number(d['to_user']['id'])]['users'].push({'first_name': d['from_user']['fist_name'], 'last_name': d['from_user']['last_name']})
+                dtemp[Number(d['to_user']['id'])]['users'].push({'username': d['from_user']['username']})
               }
             }
             this.delegates = dtemp
