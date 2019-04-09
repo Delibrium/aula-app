@@ -26,7 +26,7 @@
             class="elevation-1"
           >
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.login }}</td>
+              <td>{{ props.item.username }}</td>
               <td>{{ props.item.first_name }}</td>
               <td>{{ props.item.last_name }}</td>
               <td>
@@ -72,7 +72,7 @@
                   {{
                   $vuetify.t(
                   '$vuetify.AdminUsers.deleteText',
-                  getUserById(this.toDelete).login
+                  getUserById(this.toDelete).username
                   )
                   }}
                 </p>

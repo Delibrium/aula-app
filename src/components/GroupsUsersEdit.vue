@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title class="editor-title">
       <h2 v-if="editingId == null">{{ $vuetify.t('$vuetify.AdminUsers.titleAdd') }}</h2>
-      <h3 v-else>{{ $vuetify.t('$vuetify.AdminUsers.titleEdit', user.login) }}</h3>
+      <h3 v-else>{{ $vuetify.t('$vuetify.AdminUsers.titleEdit', user.username) }}</h3>
       <v-dialog v-model="csvDialog" max-width="750px">
         <v-btn slot="activator">
           <v-icon left>cloud_upload</v-icon>
@@ -301,7 +301,7 @@ export default {
 
   computed: {
     allUsernames: function () {
-      const existing = this.users == null ? [] : this.users.map(u => u.login)
+      const existing = this.users == null ? [] : this.users.map(u => u.username)
       const fromCsv = this.csvUsers == null ? [] : this.csvUsers.map(u => u.username)
       return existing.concat(fromCsv)
     }
@@ -314,8 +314,8 @@ export default {
       if (next == null) next = {}
       this.firstName = next.first_name
       this.lastName = next.last_name
-      this.username = next.login
-      this.origUsername = next.login
+      this.username = next.username
+      this.origUsername = next.username
       this.email = next.email
       this.usergroup = next.group_id
       this.editingId = next.id
