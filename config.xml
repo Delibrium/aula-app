@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1" id="de.aula" ios-CFBundleVersion="1" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="2" id="de.aula" ios-CFBundleVersion="2" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>aula</name>
     <description>aula - Schule gemeinsam gestalten</description>
     <author email="e@vaz.io" href="http://aula.de">
@@ -15,6 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/icon/android/aula-ldpi.png" />
@@ -22,6 +23,14 @@
         <icon density="hdpi" src="res/icon/android/aula-hdpi.png" />
         <icon density="xhdpi" src="res/icon/android/aula-xhdpi.png" />
         <icon density="xxhdpi" src="res/icon/android/aula-xxhdpi.png" />
+        <splash density="land-hdpi" height="480" src="res/screen/android/screen-hdpi-landscape.png" width="800" />
+        <splash density="port-hdpi" height="800" src="res/screen/android/screen-hdpi-portrait.png" width="480" />
+        <splash density="land-ldpi" height="200" src="res/screen/android/screen-ldpi-landscape.png" width="320" />
+        <splash density="port-ldpi" height="320" src="res/screen/android/screen-ldpi-portrait.png" width="200" />
+        <splash density="land-mdpi" height="320" src="res/screen/android/screen-mdpi-landscape.png" width="480" />
+        <splash density="port-mdpi" height="480" src="res/screen/android/screen-mdpi-portrait.png" width="320" />
+        <splash density="land-xhdpi" height="720" src="res/screen/android/screen-xhdpi-landscape.png" width="1280" />
+        <splash density="port-xhdpi" height="1280" src="res/screen/android/screen-xhdpi-portrait.png" width="720" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
