@@ -8,7 +8,6 @@ import VueAuth from '@websanova/vue-auth'
 import VeeValidate from 'vee-validate'
 import 'vuetify/dist/vuetify.css'
 import VueQuillEditor from 'vue-quill-editor'
-import VueCordova from 'vue-cordova'
 import VueHead from 'vue-head'
 import en from './locale/en'
 import de from './locale/de'
@@ -44,17 +43,7 @@ Vue.use(Vuetify, {
 })
 Vue.use(VueAxios, api.service)
 Vue.config.productionTip = false
-Vue.use(VueCordova)
 Vue.use(VueHead)
-
-// add cordova.js only if serving the app through file://
-if (window.location.protocol === 'file:' || window.location.port === '3000') {
-  var cordovaScript = document.createElement('script')
-  cordovaScript.setAttribute('type', 'text/javascript')
-  cordovaScript.setAttribute('src', 'cordova.js')
-  document.body.appendChild(cordovaScript)
-}
-
 Vue.router = router
 
 Vue.use(VueAuth, {
