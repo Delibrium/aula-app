@@ -344,6 +344,9 @@ export default {
     'add': 'Add room'
   },
   AdminCommunity: {
+    'add': 'Add Community',
+    'save': 'Save Community',
+    'newCommunityName': 'New school name',
     'community': 'Platform',
     'tableHeaderName': 'Name',
     'mainSpaceName': 'Main Ideas space name',

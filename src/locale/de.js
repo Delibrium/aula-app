@@ -344,6 +344,9 @@ export default {
     'add': 'Raum hinzufügen'
   },
   AdminCommunity: {
+    'add': 'Schule hinzufügen',
+    'save': 'Schule speichern',
+    'newCommunityName': 'Neue Schule Name',
     'community': 'Schule',
     'tableHeaderName': 'Name',
     'mainSpaceName': 'Main Ideas space name',

@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+/* eslint-disable no-undef */
 const service = axios.create({
-  baseURL: process.env.BASE_API,
+  baseURL: baseUrl,
   timeout: 15000 // request timeout
 })
 

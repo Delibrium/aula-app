@@ -46,19 +46,20 @@ Vue.config.productionTip = false
 Vue.use(VueHead)
 Vue.router = router
 
+/* eslint-disable no-undef */
 Vue.use(VueAuth, {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
   tokenDefaultName: 'auth_token',
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
   loginData: {
-    url: process.env.BASE_API + 'rpc/login',
+    url: baseUrl + 'rpc/login',
     method: 'POST',
     redirect: '/',
     fetchUser: true
   },
   refreshData: { url: 'refresh', method: 'GET', enabled: false, interval: 0 },
-  fetchData: { url: process.env.BASE_API + 'rpc/me', enabled: true },
+  fetchData: { url: baseUrl + 'rpc/me', enabled: true },
   parseUserData: function (data) {
     store.commit('SET_USER', data)
     return data

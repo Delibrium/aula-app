@@ -1,73 +1,118 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-slide-y-transition mode="out-in">
-      <v-layout column wrap>
-        <v-flex v-if="$auth.user().role.indexOf('admin') >= 0" d-flex xs12 sm4 pa-2>
-          <v-data-table
-            :headers="headers"
-            :items="schools"
-            class="elevation-1"
-          >
-          <template slot="items" slot-scope="props">
-            <td  :class="{'green lighten-3': $store.getters.selected_school === props.item.id}" @click="selectSchool(props.item)">{{ props.item.name }}</td>
-          </template>
-          </v-data-table>
-        </v-flex>
+    <v-layout column wrap>
+      <v-flex>
+        <v-btn
+          @click="addCommunity"
+        >{{ $vuetify.t('$vuetify.AdminCommunity.add') }}</v-btn>
+      </v-flex>
+      <v-flex v-if="$auth.user().role.indexOf('admin') >= 0" d-flex xs12 sm4 pa-2>
+        <v-data-table
+          :headers="headers"
+          :items="schools"
+          class="elevation-1"
+        >
+        <template slot="items" slot-scope="props">
+          <td  :class="{'green lighten-3': $store.getters.selected_school === props.item.id}" @click="selectSchool(props.item)">{{ props.item.name }}</td>
+        </template>
+        </v-data-table>
+      </v-flex>
 
-        <v-flex d-flex xs12 sm4 pa-2>
-          <v-card class="elevation-1">
-            <v-card-text>
-              <v-layout column>
-                <v-flex>
-                  <v-text-field
-                    name="description"
-                    v-model="schoolConfig.mainSpaceName"
-                    v-validate="'required'"
-                    :label="this.$vuetify.t('$vuetify.AdminCommunity.mainSpaceName')"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex>
-                <v-img :class="{ selectedImage: schoolImage === defaultImage }"
-                       src="./static/img/svg/Schule.svg"
-                       width="280" height="162"
-                       @click="setDefaultImage"
-                />
-                <v-img v-if="!isDefaultImage && selectedSchool.image !== ''"
-                       :class="{ selectedImage: schoolImage !== defaultImage }"
-                       :src="selectedSchool.image"
-                       :contain="true"
-                       width="280" height="162"
-                />
+      <v-flex d-flex xs12 sm4 pa-2>
+        <v-card class="elevation-1">
+          <v-card-text>
+            <v-layout column>
+              <v-flex>
+                <v-text-field
+                  name="description"
+                  v-model="schoolConfig.mainSpaceName"
+                  v-validate="'required'"
+                  :label="this.$vuetify.t('$vuetify.AdminCommunity.mainSpaceName')"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+              <v-img :class="{ selectedImage: schoolImage === defaultImage }"
+                     src="./static/img/svg/Schule.svg"
+                     width="280" height="162"
+                     @click="setDefaultImage"
+              />
+              <v-img v-if="!isDefaultImage && selectedSchool.image !== ''"
+                     :class="{ selectedImage: schoolImage !== defaultImage }"
+                     :src="selectedSchool.image"
+                     :contain="true"
+                     width="280" height="162"
+              />
 
-                <vue-base64-file-upload
-                  accept="image/png,image/jpeg,image/svg"
-                  image-class="upload-image-preview"
-                  input-class="upload-image-input"
-                  @load="onLoad" />
-                </v-flex>
-                <v-flex>
-                  <v-btn
-                    @click="openEditPage('terms')"
-                  >{{ $vuetify.t('$vuetify.AdminCommunity.termsEdit') }}</v-btn>
+              <vue-base64-file-upload
+                accept="image/png,image/jpeg,image/svg"
+                image-class="upload-image-preview"
+                input-class="upload-image-input"
+                @load="onLoad" />
+              </v-flex>
+              <v-flex>
+                <v-btn
+                  @click="openEditPage('terms')"
+                >{{ $vuetify.t('$vuetify.AdminCommunity.termsEdit') }}</v-btn>
 
-                  <v-btn
-                    @click="openEditPage('impressum')"
-                  >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
+                <v-btn
+                  @click="openEditPage('impressum')"
+                >{{ $vuetify.t('$vuetify.AdminCommunity.impressumEdit') }}</v-btn>
 
-                  <v-btn
-                    @click="updateSchool"
-                  >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
-                </v-flex>
-              </v-layout>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-        <v-dialog v-model="editPage" v-if="canEditMainPages && pageName !== ''">
-          <PageEditor :pageName="pageName" @close-page-editor="editPage = false"/>
-        </v-dialog>
-      </v-layout>
-    </v-slide-y-transition>
+                <v-btn
+                  @click="updateSchool"
+                >{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-dialog width="400" v-model="createCommunityDialog">
+        <v-card>
+          <v-card-text>
+            <v-flex>
+              <v-text-field
+                name="new_community_name"
+                v-model="newCommunityName"
+                :label="this.$vuetify.t('$vuetify.AdminCommunity.newCommunityName')"
+                v-validate="'required'"
+                required
+              ></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-alert
+                type="success"
+                :value="communityAdded">
+                Password for the new school's admin: <h1>{{ newCommunityAdminPassword }}</h1>
+              </v-alert>
+              <v-btn color="primary"
+                @click="saveCommunity"
+                v-if="!communityAdded"
+              >{{ $vuetify.t('$vuetify.AdminCommunity.save') }}</v-btn>
+              <v-btn
+                @click="createCommunityDialog = false"
+                v-if="!communityAdded"
+              >{{ $vuetify.t('$vuetify.Form.cancel') }}</v-btn>
+              <v-btn
+                @click="createCommunityDialog = false"
+                v-if="communityAdded"
+              >{{ $vuetify.t('$vuetify.Form.close') }}</v-btn>
+            </v-flex>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="editPage" v-if="canEditMainPages && pageName !== ''">
+        <PageEditor :pageName="pageName" @close-page-editor="editPage = false"/>
+      </v-dialog>
+    </v-layout>
+    <v-snackbar v-model="showSnackbar" :bottom="true">
+      {{ snackbarMsg }}
+      <v-btn
+        color="pink"
+        flat
+        @click="showSnackbar = false"
+      >{{ $vuetify.t('$vuetify.Snackbar.close') }}</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -88,9 +133,15 @@ export default {
       defaultImage: './static/img/svg/Schule.svg',
       schoolImage: this.defaultImage,
       imagecontain: false,
+      newCommunityName: '',
+      newCommunityAdminPassword: '',
+      createCommunityDialog: false,
+      communityAdded: false,
       schoolConfig: this.$store.getters.schoolConfig,
       editPage: false,
       pageName: '',
+      showSnackbar: false,
+      snackbarMsg: '',
       headers: [
         {
           text: this.$vuetify.t('$vuetify.AdminCommunity.tableHeaderName'),
@@ -115,6 +166,33 @@ export default {
 
   methods: {
     submit: function () {
+    },
+
+    addCommunity: function () {
+      this.createCommunityDialog = true
+      this.newCommunityName = ''
+      this.newCommunityAdminPassword = ''
+      this.communityAdded = false
+    },
+
+    saveCommunity: function () {
+      this.$validator.validate()
+        .then(isFormValid => {
+          // Do nothing if validation fails -  errors are displayed in UI
+          if (!isFormValid) {
+            this.showSnackbar = true
+            this.snackbarMsg = this.$vuetify.t('$vuetify.Snackbar.formError')
+            return
+          }
+
+          api.school.createCommunity(this.newCommunityName).then(res => {
+            // TODO: Check when user tried an already existing community name (http status 409 )
+            if (res.status === 200) {
+              this.communityAdded = true
+              this.newCommunityAdminPassword = res.data.password
+            }
+          })
+        })
     },
 
     setDefaultImage: function () {

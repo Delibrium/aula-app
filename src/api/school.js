@@ -20,6 +20,10 @@ function getImage (schoolId) {
   return service.get('/school', { params })
 }
 
+function createCommunity (communityName) {
+  return service.post('/rpc/add_school', {'school_name': communityName})
+}
+
 function getPublic () {
   return service.get('/rpc/school_listing')
 }
@@ -84,6 +88,7 @@ export default {
   getImage,
   getPublic,
   getConfig,
+  createCommunity,
   updateConfig,
   getPage,
   addPage,
