@@ -21,7 +21,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap class="print">
-      <v-flex v-for="(user, i) in filteredUsers" :key="user.login" class="user-card">
+      <v-flex v-for="(user, i) in filteredUsers" :key="user.username" class="user-card">
         <v-card tile flat>
           <v-card-text>
             <table>
@@ -31,7 +31,7 @@
                   <ul>
                     <li>
                       <strong>{{ $vuetify.t('$vuetify.AdminPassList.labelUsername') }}:</strong>
-                      <span class="monospace">{{ user.login }}</span>
+                      <span class="monospace">{{ user.username }}</span>
                     </li>
                     <li v-if="user.config.temp_password == null">
                       <em>{{ $vuetify.t('$vuetify.AdminPassList.labelNoPassword') }}</em>

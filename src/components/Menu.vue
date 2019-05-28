@@ -23,7 +23,10 @@
          {{ $vuetify.t('$vuetify.Menu.settings') }}
        </router-link>
         <router-link v-if="($auth.user().role) && ($auth.user().role.indexOf('admin') >= 0 || $auth.user().role.indexOf('school_admin') >= 0)" tag="v-list-tile" to="/admin">{{ $vuetify.t('$vuetify.Menu.administration') }}</router-link>
-        <router-link v-if="($auth.user().role)" tag="v-list-tile" v-for="(link,index) of menuLinks" :key="index" :to="link.url">{{ link.name }}</router-link>
+        <router-link v-if="($auth.user().role) && (!link.url.startsWith('http'))" tag="v-list-tile" v-for="(link,index) of menuLinks" :key="index" :to="link.url">{{ link.name }}</router-link>
+        <div v-else>
+        <a class="v-list__tile v-list__tile--link theme--light" :href="link.url" target="_blank">{{link.name}}</a>
+        </div>
         <v-list-tile @click="logout">
           Logout
        </v-list-tile>

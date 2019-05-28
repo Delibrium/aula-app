@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md fill-height>
       <v-layout row wrap justify-center align-center>
-        <v-flex md10 v-html="page" pa-5 class="page">
+        <v-flex md10 v-html="page" pa-5 class="page ql-editor">
         </v-flex>
       </v-layout>
   </v-container>
@@ -15,16 +15,19 @@ export default {
   name: 'Page',
   data: function () {
     return {
-      page: '',
-      communityId: 1
+      page: ''
     }
   },
 
   props: {
-    pageName: String
+    pageName: String,
+    communityId: Number
   },
 
   beforeMount: function () {
+    if (!this.communityId) {
+      this.communityId = this.$store.getters.selected_school
+    }
     api.school.getPage(this.communityId, this.pageName).then((res) => {
       this.page = res.data[0]['content']
     })

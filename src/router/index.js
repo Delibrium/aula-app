@@ -117,20 +117,20 @@ const router = new Router({
       path: '/user/:userId/edit',
       name: 'ProfileEdit',
       component: ProfileEdit,
-      meta: { auth: true }
+      meta: { communityId: 1, auth: true }
     },
     {
       path: '/impressum',
       name: 'Impressum',
       component: Page,
-      props: { pageName: 'impressum' },
+      props: { communityId: 1, pageName: 'impressum' },
       meta: {}
     },
     {
       path: '/terms',
       name: 'terms',
       component: Page,
-      props: { pageName: 'terms' },
+      props: { communityId: 1, pageName: 'terms' },
       meta: {}
     },
     {

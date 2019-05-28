@@ -24,6 +24,8 @@
               <button class="ql-bold">Bold</button>
               <button class="ql-italic">Italic</button>
               <button class="ql-link">Link</button>
+              <button class="ql-image">Image</button>
+              <button class="ql-align" value="center">Align Center</button>
               <button class="ql-list" value="ordered">Ordered List</button>
               <button class="ql-list" value="bullet">Bullet List</button>
               <!-- Add font size dropdown -->
