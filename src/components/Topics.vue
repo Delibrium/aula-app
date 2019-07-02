@@ -27,8 +27,8 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 text-xs-center pa-3 v-if="userMayCreateTopics">
-                <v-btn large color="white"  :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
+              <v-flex xs12 text-xs-center pa-3 v-if="userMayCreateTopics" class="page-header-topics">
+                <v-btn large color="white" :to="{ name: 'TopicCreate', params: {spaceSlug:$route.params['spaceSlug'], spaceId: spaceId}}">{{ $vuetify.t('$vuetify.Topic.newTopic') }}</v-btn>
               </v-flex>
             </v-layout>
 

@@ -76,6 +76,7 @@ export default {
         return this.users
       } else {
         const selectedGroupNumber = parseInt(this.selectedGroup, 10)
+        console.log(this.users.map(i => i.groups))
         return this.users
           .filter(user => user.groups
             .filter(
@@ -114,19 +115,13 @@ export default {
       // Groups are returned from Postgrest as a composite value, which means
       // they're strings that need to be unpacked
       const parseGroups = entry => Object.assign({}, entry, {
-        groups: entry.groups[0] === '(,,)' // Postgres return value for 'no groups'
-          ? []
-          : entry.groups.map(val => {
-            // Remove outer parantheses and split into
-            // group_name, space_id, space_name
-            let rv = val.slice(1, -1).split(',')
+        groups: entry.groups.map(val => {
+          // Remove outer parantheses and split into
+          // group_name, space_id, space_name
+          let rv = [val['f1'], val['f2'], val['f3']]
 
-            // If space name exists, remove quotes
-            if (rv.length === 3) {
-              rv[2] = rv[2].slice(1, -1)
-            }
-            return rv
-          })
+          return rv
+        })
       })
 
       // Insert a boolean field that indicates whether the config field

@@ -212,8 +212,7 @@ export default {
           : entry.groups.map(val => {
             // Remove outer parantheses and split into
             // group_name, space_id, space_name
-            let rv = val.slice(1, -1).split(',')
-            return rv.filter(r => r !== '')
+            return [val['f1'], val['f2'], val['f3']]
           })
       })
 
