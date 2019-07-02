@@ -16,6 +16,7 @@
                   accept="image/png,image/jpeg,image/svg"
                   image-class="imagePreview"
                   input-class="imageInput"
+                  :placeholder="$vuetify.t('$vuetify.Form.picture')"
                   :value="user.picture?user.picture:'/static/img/profile_default.png'"
                   @file="onFile"
                   @load="onLoad" />
@@ -31,7 +32,7 @@
                 </v-layout>
               </v-flex>
               <v-flex d-flex text-xs-center pa-3 xs12 md2>
-                <v-btn @click="saveNewProfilePicture" color="primary">Save</v-btn>
+                <v-btn @click="saveNewProfilePicture" color="primary">{{ $vuetify.t('$vuetify.Form.save') }}</v-btn>
               </v-flex>
             </v-layout>
           </v-card-text>

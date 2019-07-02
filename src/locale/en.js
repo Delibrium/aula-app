@@ -189,7 +189,8 @@ export default {
     'delete': 'Delete',
     'cancel': 'Cancel',
     'close': 'Close',
-    'edit': 'Edit'
+    'edit': 'Edit',
+    'picture': 'Choose a picture'
   },
   IdeaCategories: {
     'Regeln': 'Rules',

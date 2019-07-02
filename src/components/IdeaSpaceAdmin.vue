@@ -54,6 +54,7 @@
                   accept="image/png,image/jpeg,image/svg"
                   image-class="upload-image-preview"
                   input-class="upload-image-input"
+                  :placeholder="$vuetify.t('$vuetify.Form.picture')"
                   @load="onLoad" />
                 </v-flex>
               </v-flex>

@@ -34,7 +34,7 @@ export default {
   },
   Login: {
     'button': 'Login',
-    'welcome': 'Willkommen bei Aula',
+    'welcome': 'Willkommen bei aula',
     'login': 'Benutzername',
     'password': 'Passwort',
     'password.reminder': 'Wenn Du eine email-Adresse eingegeben hast, kannst du dein Passwort hier neu setzen.',
@@ -189,7 +189,8 @@ export default {
     'delete': 'Löschen',
     'cancel': 'Abbrechen',
     'close': 'Schließen',
-    'edit': 'Bearbeiten'
+    'edit': 'Bearbeiten',
+    'picture': 'Bild auswählen'
   },
   IdeaCategories: {
     'Regeln': 'Regeln',
