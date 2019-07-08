@@ -38,9 +38,11 @@
     },
     created () {
       var self = this
-      this.cordova.on('deviceready', () => {
-        self.onDeviceReady()
-      })
+      if (this.cordova) {
+        this.cordova.on('deviceready', () => {
+          self.onDeviceReady()
+        })
+      }
     },
     methods: {
       onDeviceReady: function () {

@@ -49,7 +49,8 @@
                           <h3 class="headline mb-0">{{topic.title}}</h3>
                       </v-card-title>
                       <v-card-text>
-                        <p>{{ topic.description }}</p>
+                        <div  v-dompurify-html="topic.description" pa-5 class="page ql-editor"/>
+
                         <div>
                           <v-icon>chat_bubble</v-icon>
                           {{ topic.count }} Ideen

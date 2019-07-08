@@ -65,8 +65,7 @@
                             }}
                           </p> -->
 
-
-                          <p>{{ idea.description }}</p>
+                          <div  v-dompurify-html="idea.description" pa-5 class="page ql-editor"/>
 
                           <div>
                           <div v-if="quorum != null && votes != null && !idea.topic " class="quorum-info">

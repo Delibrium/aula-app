@@ -8,6 +8,7 @@ import VueAuth from '@websanova/vue-auth'
 import VeeValidate from 'vee-validate'
 import 'vuetify/dist/vuetify.css'
 import VueQuillEditor from 'vue-quill-editor'
+import VueDOMPurifyHTML from 'vue-dompurify-html'
 import VueHead from 'vue-head'
 import en from './locale/en'
 import de from './locale/de'
@@ -22,6 +23,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 Vue.use(VueQuillEditor)
+Vue.use(VueDOMPurifyHTML)
 
 Vue.use(Vuetify, {
   lang: {

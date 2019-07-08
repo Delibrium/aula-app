@@ -26,12 +26,44 @@
                       ></v-text-field>
                     </v-flex>
                     <v-flex md10 xs12>
-                      <v-textarea
+                      <h3> {{ $vuetify.t('$vuetify.IdeaCreation.suggestionDescription') }}</h3>
+                      <quill-editor class="editor-example bubble"
+                             ref="myTextEditor"
+                             :content="idea.description"
+                             :options="editorOptions"
+                             @change="onEditorChange($event)"
+                             >
+                         <div id="toolbar" slot="toolbar">
+                           <!-- Add a bold button -->
+                           <button class="ql-bold">Bold</button>
+                           <button class="ql-italic">Italic</button>
+                           <button class="ql-link">Link</button>
+                           <button class="ql-image">Image</button>
+                           <button class="ql-align" value="center">Align Center</button>
+                           <button class="ql-list" value="ordered">Ordered List</button>
+                           <button class="ql-list" value="bullet">Bullet List</button>
+                           <!-- Add font size dropdown -->
+                           <select class="ql-size">
+                             <option value="small"></option>
+                             <!-- Note a missing, thus falsy value, is used to reset to default -->
+                             <option selected></option>
+                             <option value="large"></option>
+                             <option value="huge"></option>
+                           </select>
+                           <select class="ql-font">
+                             <option selected="selected"></option>
+                             <option value="serif"></option>
+                             <option value="monospace"></option>
+                           </select>
+                         </div>
+                       </quill-editor>
+
+                      <!-- <v-textarea
                         name="suggestion"
                         :label="$vuetify.t('$vuetify.IdeaCreation.suggestion')"
                         :hint="$vuetify.t('$vuetify.IdeaCreation.suggestionDescription')"
                         v-model="idea.description"
-                      ></v-textarea>
+                        ></v-textarea> -->
                     </v-flex>
                     <v-flex md10 xs12>
                       <CategorySelect :selectedCategory="categoryId" :cats="categories" @select-category="selectCategory"/>
@@ -102,6 +134,12 @@ export default {
       topic: null,
       breadcrumbs: [],
       spaceName: this.$store.getters.schoolConfig.mainSpaceName,
+      editorOptions: {
+        placeholder: '...',
+        modules: {
+          toolbar: '#toolbar'
+        }
+      },
       dictionary: {
         custom: {
           title: {
@@ -174,6 +212,9 @@ export default {
   },
 
   methods: {
+    onEditorChange: function ({ quill, html, text }) {
+      this.idea.description = html
+    },
     selectCategory: function (categoryId) {
       this.idea.category = categoryId
     },

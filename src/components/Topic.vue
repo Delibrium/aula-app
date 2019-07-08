@@ -56,7 +56,8 @@
                     <v-icon @click="showDeleteTopic = true">delete</v-icon>
                   </span>
                   <h1>{{ topic.title }}</h1>
-                  <p>{{ topic.description }}</p>
+                  <div  v-dompurify-html="topic.description" pa-5 class="page ql-editor"/>
+
                   <v-btn small
                     v-if="mayEditTopic"
                     :to="{
