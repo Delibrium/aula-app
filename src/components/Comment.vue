@@ -32,7 +32,7 @@
             {{ $vuetify.t('$vuetify.Comment.isDeleted') }}
           </span>
           <span v-else>
-            {{ comment.text }}
+            <div  v-dompurify-html="comment.text" pa-5 class="page ql-editor"/>
           </span>
 
           <div>

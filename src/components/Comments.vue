@@ -46,6 +46,38 @@
             <p v-if="parentCommentId != null">
               {{ $vuetify.t('$vuetify.Comment.formReplyTo', this.parentComment.created_by.username) }}
             </p>
+            <quill-editor class="editor-example bubble"
+                   ref="commentEditor"
+                   :content="text"
+                   :options="editorOptions"
+                   @change="onEditorChange($event)"
+                   >
+               <div id="toolbar" slot="toolbar">
+                 <!-- Add a bold button -->
+                 <button class="ql-bold">Bold</button>
+                 <button class="ql-italic">Italic</button>
+                 <button class="ql-link">Link</button>
+                 <button class="ql-image">Image</button>
+                 <button class="ql-align" value="center">Align Center</button>
+                 <button class="ql-list" value="ordered">Ordered List</button>
+                 <button class="ql-list" value="bullet">Bullet List</button>
+                 <!-- Add font size dropdown -->
+                 <select class="ql-size">
+                   <option value="small"></option>
+                   <!-- Note a missing, thus falsy value, is used to reset to default -->
+                   <option selected></option>
+                   <option value="large"></option>
+                   <option value="huge"></option>
+                 </select>
+                 <select class="ql-font">
+                   <option selected="selected"></option>
+                   <option value="serif"></option>
+                   <option value="monospace"></option>
+                 </select>
+               </div>
+            </quill-editor>
+
+            <!--
             <v-textarea
               name='text'
               v-model='text'
@@ -54,7 +86,7 @@
               :label="this.$vuetify.t('$vuetify.Comment.formLabelTitle')"
               required
               >
-            </v-textarea>
+              </v-textarea> -->
           </v-card-text>
           <v-card-actions>
             <v-btn flat @click="this.submit">
@@ -131,7 +163,13 @@ export default {
       parentComment: null,
       showSnackbar: null,
       snackbarMsg: null,
-      sortBy: 1
+      sortBy: 1,
+      editorOptions: {
+        placeholder: '...',
+        modules: {
+          toolbar: '#toolbar'
+        }
+      }
     }
   },
 
@@ -171,6 +209,10 @@ export default {
   },
 
   methods: {
+    onEditorChange: function ({ quill, html, text }) {
+      this.text = html
+    },
+
     cancel: function () {
       this.editingId = null
       this.text = ''
