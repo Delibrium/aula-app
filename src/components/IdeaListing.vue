@@ -189,14 +189,23 @@ export default {
           this.getSupporterCount(a) > this.getSupporterCount(b) ? -1 : 1,
         Name: (a, b) => a.title === b.title ? 0 : a.title > b.title ? 1 : -1, // eslint-disable-line,
         Random: (a, b) => 0.5 - Math.random(),
-        Result: (a, b) => null,
+        Result: (a, b) => {
+          if (a.selected) {
+            if (!b.selected) {
+              return -1
+            } else {
+              return 0
+            }
+          }
+          if (b.selected) return 1
+        },
         Feasibility: (a, b) => {
           if (a.feasible == null) {
             if (b.feasible == null) return 0
             return 1
           }
           if (b.feasible == null) return -1
-          return a.feasible.val < b.feasible.val ? 1 : -1
+          return a.feasible.val < b.feasible.val ? -1 : 1
         },
         RecentComments: (a, b) => {
           if (this.getSuggestionCount(a) === 0) {
@@ -223,7 +232,6 @@ export default {
       }
     },
     isPossible: function (idea) {
-      console.log('WINNER', idea.selected)
       if (idea.feasible && idea.feasible[0] && idea.feasible[0].val) {
         return true
       } else {
