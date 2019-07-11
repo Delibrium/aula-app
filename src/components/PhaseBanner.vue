@@ -8,6 +8,7 @@
         :key="phaseName"
       >
         <h2 v-if="phaseName === phase">
+          SSDS
           <span v-if="mayChangePhase && small == null">
             <v-btn icon small dark
               v-if="phase !== phases[0]"

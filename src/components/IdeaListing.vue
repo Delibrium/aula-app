@@ -29,6 +29,10 @@
         <v-card-title @click="openIdea(idea)">
           <v-layout row>
             <v-flex md10>
+              <v-tooltip class="winner" bottom>
+                <v-img slot="activator" src="/static/img/icons/idea-winner.png" width="44" height="44" v-if="isWinner(idea)"/>
+                  <span> {{ $vuetify.t('$vuetify.Topic.winnerIdea') }}</span>
+              </v-tooltip>
               <v-icon class="possible" color="primary" v-if="isPossible(idea)">check</v-icon>
               <h3>{{ idea.title }}</h3>
               <div class="card-meta">
@@ -138,6 +142,17 @@ import VotesBar from '@/components/VotesBar'
 export default {
   name: 'IdeaListing',
   components: { VotesBar },
+  // Ideas list should have created_by(username), comment(count),
+  // idea_vote(created_by) and feasible(val) embedded
+  props: ['ideas', 'topic', 'quorum'],
+
+  data: function () {
+    return {
+      orderBy: 0,
+      query: ''
+    }
+  },
+
   computed: {
     userId: function () {
       return this.$store.getters.userId
@@ -199,19 +214,16 @@ export default {
     }
   },
 
-  data: function () {
-    return {
-      orderBy: 0,
-      query: ''
-    }
-  },
-
-  // Ideas list should have created_by(username), comment(count),
-  // idea_vote(created_by) and feasible(val) embedded
-  props: ['ideas', 'topic', 'quorum'],
-
   methods: {
+    isWinner: function (idea) {
+      if (idea.selected) {
+        return true
+      } else {
+        return false
+      }
+    },
     isPossible: function (idea) {
+      console.log('WINNER', idea.selected)
       if (idea.feasible && idea.feasible[0] && idea.feasible[0].val) {
         return true
       } else {
@@ -279,6 +291,10 @@ export default {
 
 .idea-category {
   float: right;
+}
+
+.winner {
+  float: left;
 }
 
 .possible {
