@@ -30,17 +30,21 @@
             </v-flex>
 
             <v-flex d-flex xs12 sm4 pa-2 v-for="space in idea_space" :key="space.id" class="idea-space">
-              <router-link :to="{ name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }">
               <v-card >
-                  <v-img
-                    :src="space.image ? space.image : '/static/img/svg/door3.svg'"
-                    :contain="space.imagecontain"
-                    height="162"
-                    ></v-img>
+                  <router-link :to="getSpaceStartingPage(space)">
+                    <v-img
+                      :src="space.image ? space.image : '/static/img/svg/door3.svg'"
+                      :contain="space.imagecontain"
+                      height="162"
+                      ></v-img>
+                  </router-link>
                 <v-card-title primary-title>
                   <v-layout>
+                      <v-icon class="idea-space-settings" @click="changeSpaceConfig(space)">settings</v-icon>
                     <v-flex>
+                    <router-link :to="getSpaceStartingPage(space)">
                     <h3 class="headline mb-0 space-name">{{ space.title }}</h3>
+                    </router-link>
                     </v-flex>
                     <v-flex text-align-right>
                     <v-icon color="primary" class="arrow">
@@ -50,8 +54,35 @@
                   </v-layout>
                 </v-card-title>
               </v-card>
-              </router-link>
             </v-flex>
+
+          <v-dialog v-model="spaceSettingsDialog" width="500">
+            <v-card>
+              <v-card-text>
+                <v-radio-group v-model="spaceConfig.config.startPage">
+                  <v-radio
+                    default
+                    value="ideas"
+                    label="Ideas"/>
+                  <v-radio
+                    value="topics"
+                    label="Topics"/>
+                </v-radio-group>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  @click="saveSpaceConfig"
+                >
+                {{ $vuetify.t('$vuetify.Form.save') }}
+                </v-btn>
+                <v-btn
+                  @click="spaceSettingsDialog = false"
+                >
+                {{ $vuetify.t('$vuetify.Form.cancel') }}
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
           </v-layout>
         </v-flex>
@@ -66,17 +97,25 @@ import apiSchool from '@/api/school'
 
 export default {
   name: 'IdeaSpaces',
-  data: () => ({
-    idea_space: [],
-    schoolImage: './static/img/svg/Schule.svg',
-    imagecontain: false,
-    user: {}
-  }),
+  data: function () {
+    return {
+      idea_space: [],
+      spaceSettingsDialog: false,
+      schoolImage: './static/img/svg/Schule.svg',
+      imagecontain: false,
+      user: {},
+      defaultSpaceConfig: {
+        startPage: 'ideas'
+      },
+      spaceConfig: {}
+    }
+  },
 
   props: {
   },
 
   beforeMount: function () {
+    this.spaceConfig.config = this.defaultSpaceConfig
     apiSchool.getImage(this.$store.getters.selected_school).then(res => {
       if (res.data[0]['image'] !== '') {
         this.schoolImage = res.data[0]['image']
@@ -95,6 +134,27 @@ export default {
   },
 
   methods: {
+    getSpaceStartingPage: function (space) {
+      if (space.config && space.config.startPage === 'topics') {
+        return { name: 'Topics', params: { spaceSlug: space.slug, spaceId: space.id } }
+      }
+
+      return { name: 'Ideas', params: { spaceSlug: space.slug, spaceId: space.id } }
+    },
+    changeSpaceConfig: function (space) {
+      this.spaceConfig = {
+        id: space.id,
+        config: { ...this.defaultSpaceConfig, ...space.config }
+      }
+      this.spaceSettingsDialog = true
+    },
+    saveSpaceConfig: function () {
+      api.updateIdeaSpace(this.spaceConfig).then(res => {
+        this.spaceSettingsDialog = false
+        var updatedSpace = this.idea_space.find(s => s.id === this.spaceConfig.id)
+        updatedSpace.config = this.spaceConfig.config
+      })
+    }
   }
 }
 </script>
@@ -117,6 +177,9 @@ export default {
 
 .arrow {
    float: right;
+}
+
+.idea-space-settings {
 }
 
 .idea-space {

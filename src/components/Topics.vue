@@ -103,20 +103,16 @@ export default {
   },
 
   beforeMount: function () {
-    if (!this.spaceId) {
-      if (this.$route.params['spaceSlug'] !== 'school') {
-        api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
-          .then((res) => {
-            this.spaceId = res.data[0].id
-            this.spaceName = res.data[0].title
-            this.getTopics(this.$store.getters.selected_school, this.spaceId)
-          })
-      } else {
-        this.spaceName = this.$store.getters.schoolConfig.mainSpaceName
-        this.getTopics(this.$store.getters.selected_school)
-      }
+    if (this.$route.params['spaceSlug'] !== 'school') {
+      api.getSpace(this.$store.getters.selected_school, this.$route.params['spaceSlug'])
+        .then((res) => {
+          this.spaceId = res.data[0].id
+          this.spaceName = res.data[0].title
+          this.getTopics(this.$store.getters.selected_school, this.spaceId)
+        })
     } else {
-      this.getTopics(this.$store.getters.selected_school, this.spaceId)
+      this.spaceName = this.$store.getters.schoolConfig.mainSpaceName
+      this.getTopics(this.$store.getters.selected_school)
     }
   },
 
