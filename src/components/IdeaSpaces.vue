@@ -40,7 +40,7 @@
                   </router-link>
                 <v-card-title primary-title>
                   <v-layout>
-                      <v-icon class="idea-space-settings" @click="changeSpaceConfig(space)">settings</v-icon>
+                    <v-icon v-if="canEditSettings" class="idea-space-settings" @click="changeSpaceConfig(space)">settings</v-icon>
                     <v-flex>
                     <router-link :to="getSpaceStartingPage(space)">
                     <h3 class="headline mb-0 space-name">{{ space.title }}</h3>
@@ -94,6 +94,8 @@
 
 import * as api from '@/api/ideaSpace'
 import apiSchool from '@/api/school'
+/* eslint-disable no-unused-vars */
+import { isUserMemberOf } from '../utils/permissions'
 
 export default {
   name: 'IdeaSpaces',
@@ -131,6 +133,12 @@ export default {
         }
       })
     })
+  },
+
+  computed: {
+    canEditSettings: function () {
+      return isUserMemberOf(['admin', 'school_admin'])
+    }
   },
 
   methods: {
